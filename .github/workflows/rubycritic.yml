@@ -10,23 +10,48 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.2.2' # Specify your Ruby version here
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2.2' # Specify your Ruby version here
 
-    - name: Install dependencies
-      run: bundle install
+      - name: Install dependencies
+        run: bundle install
 
-    - name: Run RubyCritic
-      run: bundle exec rubycritic
+      - name: Run RubyCritic
+        run: |
+          bundle exec rubycritic > rubycritic_output.txt
+          # You might need to extract the score from rubycritic_output.txt
+          # and echo it for the next step
 
-    # Archive RubyCritic report
-    - name: Archive RubyCritic report
-      uses: actions/upload-artifact@v2
-      with:
-        name: rubycritic-report
-        path: tmp/rubycritic/
+      - name: Capture RubyCritic Score
+        run: |
+          score=$(cat rubycritic_output.txt | grep 'Your Score' | awk '{print $NF}') # Update this line based on your output format
+          echo "RUBYCRITIC_SCORE=$score" >> $GITHUB_ENV
+
+      # Archive RubyCritic report
+      - name: Archive RubyCritic report
+        id: upload-artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: rubycritic-report
+          path: tmp/rubycritic/
+
+      # Comment on PR with RubyCritic report link and score
+      - name: Comment PR with RubyCritic report and score
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const artifactUrl = `${{ github.server_url }}/${{ github.repository }}/suites/${{ github.run_id }}/artifacts/${{ steps.upload-artifact.outputs.artifact-name }}`;
+            const score = process.env.RUBYCRITIC_SCORE;
+            const prComment = `RubyCritic Report: [View Report](${artifactUrl})\n\nRubyCritic Score: ${score}`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: prComment
+            });
