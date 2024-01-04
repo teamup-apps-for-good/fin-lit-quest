@@ -51,7 +51,6 @@ group :development, :test do
   gem 'debug', platforms: %i[mri windows]
 
   gem 'rubocop', require: false
-  gem 'code-scanning-rubocop', require: false
 end
 
 group :development do

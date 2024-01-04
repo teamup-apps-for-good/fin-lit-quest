@@ -35,17 +35,4 @@ jobs:
     - name: Rubocop run
       id: rubocop
       run: |
-        bundle exec rubocop --require code_scanning --format CodeScanning::SarifFormatter -o rubocop.sarif
-        rubocop_exit_code=$?
-    
-    - name: Upload Sarif output
-      if: always()
-      uses: github/codeql-action/upload-sarif@v2
-      with:
-        sarif_file: rubocop.sarif
-        wait-for-processing: true
-    
-    - name: Fail build if Rubocop found issues
-      if: ${{ steps.rubocop.outputs.rubocop_exit_code != '0' }}
-      run: exit 1
-    
+        bundle exec rubocop 
