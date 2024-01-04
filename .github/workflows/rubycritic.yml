@@ -75,7 +75,7 @@ jobs:
           script: |
             const artifactUrl = `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`;
             const score = process.env.RUBYCRITIC_SCORE;
-            const prComment = `RubyCritic Score: ${score}\n\nView the full report in this run's artifacts [here](${artifactUrl}).`;
+            const prComment = `RubyCritic Score: ${score}\n\nDownload the full report in this run's artifacts [here](${artifactUrl}).`;
             
             github.rest.issues.createComment({
               issue_number: context.issue.number,
