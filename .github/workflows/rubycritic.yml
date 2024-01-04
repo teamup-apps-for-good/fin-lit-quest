@@ -24,16 +24,9 @@ jobs:
     - name: Run RubyCritic
       run: bundle exec rubycritic
 
-    # Output RubyCritic score
-    - name: Output RubyCritic score
-      run: |
-        score=$(cat rubycritic/overview.html | grep "score:" | sed 's/.*score: \([0-9.]*\).*/\1/')
-        echo "RubyCritic score: $score"
-        echo "Review detailed report in the RubyCritic artifact."
-
     # Archive RubyCritic report
     - name: Archive RubyCritic report
       uses: actions/upload-artifact@v2
       with:
         name: rubycritic-report
-        path: rubycritic/
+        path: tmp/rubycritic/
