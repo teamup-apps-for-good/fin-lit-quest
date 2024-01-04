@@ -51,6 +51,8 @@ group :development, :test do
   gem 'debug', platforms: %i[mri windows]
 
   gem 'rubocop', require: false
+
+  gem 'rubocop-discourse', '~> 1.0', require: false
 end
 
 group :development do
