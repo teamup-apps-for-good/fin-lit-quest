@@ -1,0 +1,36 @@
+name: RubyCritic
+
+on: [push]
+
+jobs:
+  rubycritic:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.2.2' # Specify your Ruby version here
+
+    - name: Install dependencies
+      run: bundle install
+
+    - name: Run RubyCritic
+      run: bundle exec rubycritic
+
+    # Output RubyCritic score
+    - name: Output RubyCritic score
+      run: |
+        score=$(cat rubycritic/overview.html | grep "score:" | sed 's/.*score: \([0-9.]*\).*/\1/')
+        echo "RubyCritic score: $score"
+        echo "Review detailed report in the RubyCritic artifact."
+
+    # Archive RubyCritic report
+    - name: Archive RubyCritic report
+      uses: actions/upload-artifact@v2
+      with:
+        name: rubycritic-report
+        path: rubycritic/

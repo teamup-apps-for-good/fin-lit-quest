@@ -52,7 +52,7 @@ group :development, :test do
 
   gem 'rubocop', require: false
 
-  gem 'rubocop-discourse', '~> 1.0', require: false
+  gem 'rubycritic', require: false
 end
 
 group :development do
