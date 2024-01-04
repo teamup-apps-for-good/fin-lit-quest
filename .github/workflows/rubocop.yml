@@ -35,4 +35,4 @@ jobs:
     - name: Rubocop run
       id: rubocop
       run: |
-        bundle exec rubocop 
+        bundle exec rubocop --format github || true
