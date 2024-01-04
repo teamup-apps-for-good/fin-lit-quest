@@ -294,6 +294,7 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 7.1.2)
   redis (>= 4.0.1)
+  rubocop
   selenium-webdriver
   sprockets-rails
   sqlite3 (~> 1.4)
