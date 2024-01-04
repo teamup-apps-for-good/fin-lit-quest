@@ -1,0 +1,85 @@
+name: RubyCritic
+
+permissions:
+  issues: write
+  pull-requests: write
+
+on:
+  pull_request:
+    branches:
+      - "**"
+
+jobs:
+  rubycritic:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2.2' # Specify your Ruby version here
+
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Run RubyCritic
+        run: |
+          bundle exec rubycritic > rubycritic_output.txt
+
+      - name: Capture RubyCritic Score
+        run: |
+          score=$(cat rubycritic_output.txt | grep 'Score: ' | awk '{print $NF}')
+          echo "RUBYCRITIC_SCORE=$score" >> $GITHUB_ENV
+
+      # Archive RubyCritic report
+      - name: Archive RubyCritic report
+        id: upload-artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: rubycritic-report
+          path: tmp/rubycritic/
+
+      # Delete previous comments
+      - name: Delete previous comments
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue_number = context.issue.number;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const comments = await github.rest.issues.listComments({
+                owner,
+                repo,
+                issue_number,
+            });
+
+            const botName = 'github-actions[bot]';
+
+            for (const comment of comments.data) {
+                if (comment.user.login === botName) {
+                    await github.rest.issues.deleteComment({
+                        owner,
+                        repo,
+                        comment_id: comment.id,
+                    });
+                }
+            }
+
+      # Comment on PR with RubyCritic report link and score
+      - name: Comment PR with RubyCritic report and score
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const artifactUrl = `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`;
+            const score = process.env.RUBYCRITIC_SCORE;
+            const prComment = `RubyCritic Score: ${score}\n\nDownload the full report in this run's artifacts [here](${artifactUrl}).`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: prComment
+            });
