@@ -13,9 +13,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Deploy to Heroku
+      - name: Setup .netrc
+        run: |
+          cat << EOF > $HOME/.netrc
+          machine git.heroku.com
+            login ${{ secrets.HEROKU_EMAIL }}
+            password ${{ secrets.HEROKU_API_KEY }}
+          EOF
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+
+      - name: Deploy to Heroku
         run: |
           heroku git:remote --app fin-lit-quest
-          git push heroku
+          git push heroku ${GITHUB_REF#refs/heads/}:main
