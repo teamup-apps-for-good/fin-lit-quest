@@ -247,6 +247,7 @@ GEM
       ast (~> 2.4.1)
       racc
     path_expander (1.1.1)
+    pg (1.5.4)
     psych (5.1.2)
       stringio
     public_suffix (5.0.4)
@@ -425,6 +426,7 @@ DEPENDENCIES
   debug
   importmap-rails
   jbuilder
+  pg
   puma (>= 5.0)
   rails (~> 7.1.2)
   redis (>= 4.0.1)
