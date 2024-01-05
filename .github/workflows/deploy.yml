@@ -35,4 +35,4 @@ jobs:
 
       - name: Health check
         run: |
-          curl --fail https://fin-lit-quest.herokuapp.com/health || exit 1
+          curl --fail https://fin-lit-quest-65cfa09cddc8.herokuapp.com/up || exit 1
