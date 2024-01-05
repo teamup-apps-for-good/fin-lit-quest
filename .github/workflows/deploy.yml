@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - jacksors/create-heroku-deployment
 
 jobs:
   build:
@@ -31,3 +32,7 @@ jobs:
           git push heroku +${GITHUB_REF#refs/heads/}:main
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+
+      - name: Health check
+        run: |
+          curl --fail https://fin-lit-quest.herokuapp.com/health || exit 1
