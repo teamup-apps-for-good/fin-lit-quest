@@ -27,4 +27,4 @@ jobs:
       - name: Deploy to Heroku
         run: |
           heroku git:remote --app fin-lit-quest
-          git push heroku ${GITHUB_REF#refs/heads/}:main
+          git push heroku
