@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - jacksors/create-heroku-deployment
 
 jobs:
   build:
