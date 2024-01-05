@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - "**"
+    paths-ignore:
+      - "documentation/**"
+      - "README.md"
 
 jobs:
   all_tests:
