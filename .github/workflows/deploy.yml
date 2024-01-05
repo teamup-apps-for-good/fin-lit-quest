@@ -27,6 +27,6 @@ jobs:
       - name: Deploy to Heroku
         run: |
           heroku git:remote --app fin-lit-quest
-          git push heroku --force
+          git push heroku +${GITHUB_REF#refs/heads/}:main
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
