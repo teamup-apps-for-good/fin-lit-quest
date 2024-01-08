@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @nonplayer %>
+
+<div>
+  <%= link_to "Edit this nonplayer", edit_nonplayer_path(@nonplayer) %> |
+  <%= link_to "Back to nonplayers", nonplayers_path %>
+
+  <%= button_to "Destroy this nonplayer", @nonplayer, method: :delete %>
+</div>

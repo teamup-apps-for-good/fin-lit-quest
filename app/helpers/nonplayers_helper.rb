@@ -1,0 +1,2 @@
+module NonplayersHelper
+end
