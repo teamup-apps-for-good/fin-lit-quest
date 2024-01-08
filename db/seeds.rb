@@ -42,3 +42,33 @@ npcs = [{ name: "Ritchey", occupation: :merchant, inventory_slots: 5, balance: 0
 
 players.each { |player| Player.find_or_create_by!(player) }
 npcs.each { |npc| Nonplayer.find_or_create_by!(npc) }
+
+inventories = [{ item: 'fish', owner_id: 'Ritchey', quantity: 13 },
+               { item: 'wheat', owner_id: 'Stella', quantity: 12 },
+               { item: 'apple', owner_id: 'Stella', quantity: 5 },
+               { item: 'orange', owner_id: 'Ritchey', quantity: 10 },
+               { item: 'potato', owner_id: 'Ritchey', quantity: 9 },
+               { item: 'grapes', owner_id: 'Lightfoot', quantity: 8 },
+               { item: 'bread', owner_id: 'Lightfoot', quantity: 7 },
+               { item: 'honey', owner_id: 'Lightfoot', quantity: 5 },
+               { item: 'bandages', owner_id: 'Stella', quantity: 6 },
+               { item: 'book', owner_id: 'Stella', quantity: 5 },
+               { item: 'coat', owner_id: 'Lightfoot', quantity: 2 },
+               { item: 'boots', owner_id: 'Ritchey', quantity: 2 },
+               { item: 'map', owner_id: 'Ritchey', quantity: 3 },
+               { item: 'compass', owner_id: 'Lightfoot', quantity: 2 },
+               { item: 'canteen', owner_id: 'Stella', quantity: 4 },
+               { item: 'bed roll', owner_id: 'Ritchey', quantity: 1 },
+               { item: 'rocket ticket', owner_id: 'Stella', quantity: 1 }]
+
+inventories.each do |inventory|
+    character = Character.find_by(name: inventory[:owner_id])
+    character_id = char_name.id
+    inventory[:owner_id] = char_name_id
+
+    item = Item.find_by(name: inventory[:item])
+    item_id = item.id
+    inventory[:item_id] = item_id
+
+    Inventory.create!(inventory)
+end
