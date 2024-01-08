@@ -57,18 +57,28 @@ inventories = [{ item: 'fish', owner_id: 'Ritchey', quantity: 13 },
                { item: 'boots', owner_id: 'Ritchey', quantity: 2 },
                { item: 'map', owner_id: 'Ritchey', quantity: 3 },
                { item: 'compass', owner_id: 'Lightfoot', quantity: 2 },
-               { item: 'canteen', owner_id: 'Stella', quantity: 4 },
-               { item: 'bed roll', owner_id: 'Ritchey', quantity: 1 },
-               { item: 'rocket ticket', owner_id: 'Stella', quantity: 1 }]
+               { item: 'canteen', owner_id: 'Stella', quantity: 4 }]
 
 inventories.each do |inventory|
     character = Character.find_by(name: inventory[:owner_id])
-    character_id = char_name.id
-    inventory[:owner_id] = char_name_id
+    if character
+        character_id = character.id
+        inventory[:owner_id] = character_id
+    else
+        return # TODO: error logic
+    end
 
     item = Item.find_by(name: inventory[:item])
-    item_id = item.id
-    inventory[:item_id] = item_id
+    if item
+        item_id = item.id
+        inventory[:item_id] = item_id
+    else
+        return # TODO: error logic
+    end
 
-    Inventory.create!(inventory)
+    if character && item
+        Inventory.create!(inventory)
+    else
+        return # TODO: error logic
+    end
 end
