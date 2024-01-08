@@ -6,7 +6,7 @@ class CreateNonplayers < ActiveRecord::Migration[7.1]
     create_table :nonplayers do |t|
       t.references :character, null: false, foreign_key: true
       t.string :personality
-      t.references :dialogue, null: false, foreign_key: true
+      #t.references :dialogue, null: false, foreign_key: false
 
       t.timestamps
     end

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_08_011754) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_08_014833) do
   create_table "characters", force: :cascade do |t|
     t.string "name"
     t.string "occupation"
@@ -22,4 +20,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_08_011754) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "nonplayers", force: :cascade do |t|
+    t.integer "character_id", null: false
+    t.string "personality"
+    t.integer "dialogue_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_nonplayers_on_character_id"
+    t.index ["dialogue_id"], name: "index_nonplayers_on_dialogue_id"
+  end
+
+  add_foreign_key "nonplayers", "characters"
+  add_foreign_key "nonplayers", "dialogues"
 end
