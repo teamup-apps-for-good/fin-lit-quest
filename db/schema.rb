@@ -24,13 +24,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_08_014833) do
   create_table "nonplayers", force: :cascade do |t|
     t.integer "character_id", null: false
     t.string "personality"
-    t.integer "dialogue_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["character_id"], name: "index_nonplayers_on_character_id"
-    t.index ["dialogue_id"], name: "index_nonplayers_on_dialogue_id"
   end
 
   add_foreign_key "nonplayers", "characters"
-  add_foreign_key "nonplayers", "dialogues"
 end
