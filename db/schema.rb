@@ -21,4 +21,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_08_032906) do
   end
 
   add_foreign_key "inventories", "characters", column: "owner_id"
+  
+ActiveRecord::Schema[7.1].define(version: 2024_01_08_011754) do
+  create_table "characters", force: :cascade do |t|
+    t.string "name"
+    t.string "occupation"
+    t.integer "inventory_slots"
+    t.integer "balance"
+    t.boolean "is_player"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
 end
