@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Make nonplayers table with foreign key references
 class CreateNonplayers < ActiveRecord::Migration[7.1]
   def change
     create_table :nonplayers do |t|

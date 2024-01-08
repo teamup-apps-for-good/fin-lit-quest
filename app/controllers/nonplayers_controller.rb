@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Nonplayer controller
 class NonplayersController < ApplicationController
   before_action :set_nonplayer, only: %i[show edit update destroy]
 
