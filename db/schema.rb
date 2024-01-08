@@ -16,6 +16,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_08_011754) do
     t.string "occupation"
     t.integer "inventory_slots"
     t.integer "balance"
+    t.boolean "is_player"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

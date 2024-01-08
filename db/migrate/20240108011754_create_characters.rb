@@ -5,6 +5,7 @@ class CreateCharacters < ActiveRecord::Migration[7.1]
       t.string :occupation
       t.integer :inventory_slots
       t.integer :balance
+      t.boolean :is_player
 
       t.timestamps
     end
