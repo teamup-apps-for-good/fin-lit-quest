@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_08_014833) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_08_032906) do
   create_table "characters", force: :cascade do |t|
     t.string "name"
     t.string "occupation"
@@ -21,6 +21,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_08_014833) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "inventories", force: :cascade do |t|
+    t.integer "item"
+    t.integer "owner_id", null: false
+    t.integer "quantity", limit: 64
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_inventories_on_owner_id"
+  end
+
   create_table "nonplayers", force: :cascade do |t|
     t.integer "character_id", null: false
     t.string "personality"
@@ -29,5 +38,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_08_014833) do
     t.index ["character_id"], name: "index_nonplayers_on_character_id"
   end
 
+  add_foreign_key "inventories", "characters", column: "owner_id"
   add_foreign_key "nonplayers", "characters"
 end
