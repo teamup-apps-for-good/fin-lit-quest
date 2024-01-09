@@ -71,7 +71,7 @@ inventories.each do |inventory|
     item = Item.find_by(name: inventory[:item])
     if item
         item_id = item.id
-        inventory[:item_id] = item_id
+        inventory[:item] = item_id
     else
         return # TODO: error logic
     end
