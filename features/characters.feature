@@ -5,7 +5,7 @@ Feature: View Character Information
 
   Background:
     Given the following characters exist:
-      | type       | name      | occupation  | inventory_slots | balance |    level   | personality   | dialogue   |
+      | type       | name      | occupation  | inventory_slots | balance |    current_level   | personality   | dialogue_content   |
       | Player     | Stella    | farmer      |        5        | 0       |     1      |     -         |     -      |
       | Nonplayer  | Ritchey   | merchant    |        10       | 0       |     -      | enthusiastic  |   hello    |
       | Nonplayer  | Lightfoot | comedian    |        15       | 0       |     -      |    dad        |   goodbye  |

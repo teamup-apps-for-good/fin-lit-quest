@@ -6,7 +6,7 @@ Given('the following characters exist:') do |characters_table|
 end
 
 Given('I am on the character page') do
-  visit(:characters_path)
+  visit(:characters)
 end
 
 Then('I should see {string}') do |string|
