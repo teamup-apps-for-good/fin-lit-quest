@@ -5,10 +5,10 @@ Feature: View Character Information
 
   Background:
     Given the following characters exist:
-      | is_player    | name      | occupation  | inventory_slots | balance |    level   | personality   | dialogue   |
-      | true         | Stella    | farmer      |        5        | 0       |     1      |     -         |     -      |
-      | false        | Ritchey   | merchant    |        10       | 0       |     -      | enthusiastic  |   hello    |
-      | false        | Lightfoot | comedian    |        15       | 0       |     -      |    dad        |   goodbye  |
+      | type       | name      | occupation  | inventory_slots | balance |    level   | personality   | dialogue   |
+      | Player     | Stella    | farmer      |        5        | 0       |     1      |     -         |     -      |
+      | Nonplayer  | Ritchey   | merchant    |        10       | 0       |     -      | enthusiastic  |   hello    |
+      | Nonplayer  | Lightfoot | comedian    |        15       | 0       |     -      |    dad        |   goodbye  |
  
   Scenario: Verify characters exist
     Given I am on the character page 
@@ -34,12 +34,11 @@ Feature: View Character Information
 
   Scenario: Verify a character has inventory_slots
     Given I am on the "Non-player" page for "Ritchey"
-    Then "Ritchey"'s inventory slots should be visible
+    Then "Ritchey"'s inventory slots should be "10"
   
   Scenario: Verify a balance is displayed for a non-player character
     Given I am on the "Non-player" page for "Lightfoot"
-    Then I should see that a balance is displayed
-    And the balance should be a valid number
+    Then I should see a balance of "0"
   
   Scenario: Verify a non-player has personality
     Given I am on the "Non-player" page for "Lightfoot"
@@ -47,4 +46,4 @@ Feature: View Character Information
 
   Scenario: Verify a non-player character has dialogue available
     Given I am on the "Non-player" page for "Ritchey"
-    Then I should see dialogue text
+    Then I should see "hello"
