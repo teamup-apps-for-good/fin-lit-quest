@@ -36,3 +36,5 @@
 
 # Rubocop sarif output
 rubocop.sarif
+
+.idea

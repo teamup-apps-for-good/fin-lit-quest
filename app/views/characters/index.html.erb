@@ -1,0 +1,32 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Characters</h1>
+
+<%= link_to 'Players', players_path, class: 'button' %>
+<%= link_to 'Non-players', nonplayers_path, class: 'button' %>
+
+<h2>Players</h2>
+<div id="players">
+  <% @characters.each do |character| %>
+    <% if character.is_a?(Player) %>
+      <%= render character %>
+      <p>
+        <%= link_to "Show this player", character %>
+      </p>
+    <% end %>
+  <% end %>
+</div>
+
+<h2>Non-players</h2>
+<div id="non_players">
+  <% @characters.each do |character| %>
+    <% if character.is_a?(Nonplayer) %>
+      <%= render character %>
+      <p>
+        <%= link_to "Show this non-player", character %>
+      </p>
+    <% end %>
+  <% end %>
+</div>
+
+<%= link_to "New character", new_character_path %>

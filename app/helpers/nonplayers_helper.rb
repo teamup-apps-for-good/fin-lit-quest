@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-# Nonplayers Helper
+# NonplayersHelper
 module NonplayersHelper
 end

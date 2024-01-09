@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-class Nonplayer < Character
+class Player < Character
 end

@@ -20,8 +20,10 @@ class NonplayersControllerTest < ActionDispatch::IntegrationTest
   test 'should create nonplayer' do
     assert_difference('Nonplayer.count') do
       post nonplayers_url,
-           params: { nonplayer: { character_id: @nonplayer.character_id, dialogue_id: @nonplayer.dialogue_id,
-                                  personality: @nonplayer.personality } }
+           # rubocop:disable Layout/LineLength
+           params: { nonplayer: { dialogue_content: @nonplayer.dialogue_content, item_to_accept: @nonplayer.item_to_accept,
+                                  item_to_offer: @nonplayer.item_to_offer, personality: @nonplayer.personality, quantity_to_accept: @nonplayer.quantity_to_accept } }
+      # rubocop:enable Layout/LineLength
     end
 
     assert_redirected_to nonplayer_url(Nonplayer.last)
@@ -39,8 +41,10 @@ class NonplayersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should update nonplayer' do
     patch nonplayer_url(@nonplayer),
-          params: { nonplayer: { character_id: @nonplayer.character_id, dialogue_id: @nonplayer.dialogue_id,
-                                 personality: @nonplayer.personality } }
+          # rubocop:disable Layout/LineLength
+          params: { nonplayer: { dialogue_content: @nonplayer.dialogue_content, item_to_accept: @nonplayer.item_to_accept,
+                                 item_to_offer: @nonplayer.item_to_offer, personality: @nonplayer.personality, quantity_to_accept: @nonplayer.quantity_to_accept } }
+    # rubocop:enable Layout/LineLength
     assert_redirected_to nonplayer_url(@nonplayer)
   end
 

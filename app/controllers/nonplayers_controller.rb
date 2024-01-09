@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Nonplayer controller
+# NonplayersController
 class NonplayersController < ApplicationController
   before_action :set_nonplayer, only: %i[show edit update destroy]
 
@@ -67,6 +67,9 @@ class NonplayersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def nonplayer_params
-    params.require(:nonplayer).permit(:character_id, :personality, :dialogue_id)
+    # rubocop:disable Layout/LineLength
+    params.require(:nonplayer).permit(:personality, :dialogue_content, :item_to_accept, :quantity_to_accept,
+                                      :item_to_offer, :quantity_to_accept, :name, :occupation, :inventory_slots, :balance)
+    # rubocop:enable Layout/LineLength
   end
 end

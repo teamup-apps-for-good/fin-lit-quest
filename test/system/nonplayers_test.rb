@@ -16,9 +16,11 @@ class NonplayersTest < ApplicationSystemTestCase
     visit nonplayers_url
     click_on 'New nonplayer'
 
-    fill_in 'Character', with: @nonplayer.character_id
-    fill_in 'Dialogue', with: @nonplayer.dialogue_id
+    fill_in 'Dialogue content', with: @nonplayer.dialogue_content
+    fill_in 'Item to accept', with: @nonplayer.item_to_accept
+    fill_in 'Item to offer', with: @nonplayer.item_to_offer
     fill_in 'Personality', with: @nonplayer.personality
+    fill_in 'Quantity to accept', with: @nonplayer.quantity_to_accept
     click_on 'Create Nonplayer'
 
     assert_text 'Nonplayer was successfully created'
@@ -29,9 +31,11 @@ class NonplayersTest < ApplicationSystemTestCase
     visit nonplayer_url(@nonplayer)
     click_on 'Edit this nonplayer', match: :first
 
-    fill_in 'Character', with: @nonplayer.character_id
-    fill_in 'Dialogue', with: @nonplayer.dialogue_id
+    fill_in 'Dialogue content', with: @nonplayer.dialogue_content
+    fill_in 'Item to accept', with: @nonplayer.item_to_accept
+    fill_in 'Item to offer', with: @nonplayer.item_to_offer
     fill_in 'Personality', with: @nonplayer.personality
+    fill_in 'Quantity to accept', with: @nonplayer.quantity_to_accept
     click_on 'Update Nonplayer'
 
     assert_text 'Nonplayer was successfully updated'
