@@ -6,29 +6,37 @@ Given('the following characters exist:') do |characters_table|
 end
 
 Given('I am on the character page') do
-  visit(:characters)
+  visit characters_path
 end
 
 Then('I should see {string}') do |string|
-  page.should have_content(string)
+  expect(page).to have_content(string)
 end
 
 When('I click on {string}') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
+  click_on(string)
 end
 
 Then('I should be on the {string} page') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
+  case string
+  when 'Non-players'
+    expect(current_path).to eq(nonplayers_path)
+  end
 end
 
 Given('I am on the {string} page for {string}') do |string, string2|
-  pending # Write code here that turns the phrase above into concrete actions
+  case string
+  when 'Player'
+    visit player_path(Player.find_by(name: string2))
+  when 'Non-player'
+    visit nonplayer_path(Nonplayer.find_by(name: string2))
+  end
 end
 
 Then('{string}\'s inventory slots should be {string}') do |string, string2|
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page).to have_content(string2)
 end
 
 Then('I should see a balance of {string}') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page).to have_content(string)
 end

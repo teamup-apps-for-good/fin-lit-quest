@@ -2,6 +2,9 @@
 
 <h1>Characters</h1>
 
+<%= link_to 'Players', players_path, class: 'button' %>
+<%= link_to 'Non-players', nonplayers_path, class: 'button' %>
+
 <h2>Players</h2>
 <div id="players">
   <% @characters.each do |character| %>
