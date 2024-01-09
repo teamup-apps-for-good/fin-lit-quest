@@ -2,12 +2,27 @@
 
 <h1>Characters</h1>
 
-<div id="characters">
+<h2>Players</h2>
+<div id="players">
   <% @characters.each do |character| %>
-    <%= render character %>
-    <p>
-      <%= link_to "Show this character", character %>
-    </p>
+    <% if character.is_a?(Player) %>
+      <%= render character %>
+      <p>
+        <%= link_to "Show this player", character %>
+      </p>
+    <% end %>
+  <% end %>
+</div>
+
+<h2>Non-players</h2>
+<div id="non_players">
+  <% @characters.each do |character| %>
+    <% if character.is_a?(Nonplayer) %>
+      <%= render character %>
+      <p>
+        <%= link_to "Show this non-player", character %>
+      </p>
+    <% end %>
   <% end %>
 </div>
 
