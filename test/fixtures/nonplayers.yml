@@ -6,7 +6,7 @@ one:
   item_to_accept: 1
   quantity_to_accept: 1
   item_to_offer: 1
-  quantity_to_offer: 1
+  quantity_to_accept: 1
 
 two:
   personality: MyString
@@ -14,4 +14,4 @@ two:
   item_to_accept: 1
   quantity_to_accept: 1
   item_to_offer: 1
-  quantity_to_offer: 1
+  quantity_to_accept: 1

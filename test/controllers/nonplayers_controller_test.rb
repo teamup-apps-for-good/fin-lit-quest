@@ -17,7 +17,7 @@ class NonplayersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create nonplayer" do
     assert_difference("Nonplayer.count") do
-      post nonplayers_url, params: { nonplayer: { dialogue_content: @nonplayer.dialogue_content, item_to_accept: @nonplayer.item_to_accept, item_to_offer: @nonplayer.item_to_offer, personality: @nonplayer.personality, quantity_to_accept: @nonplayer.quantity_to_accept, quantity_to_offer: @nonplayer.quantity_to_offer } }
+      post nonplayers_url, params: { nonplayer: { dialogue_content: @nonplayer.dialogue_content, item_to_accept: @nonplayer.item_to_accept, item_to_offer: @nonplayer.item_to_offer, personality: @nonplayer.personality, quantity_to_accept: @nonplayer.quantity_to_accept } }
     end
 
     assert_redirected_to nonplayer_url(Nonplayer.last)
@@ -34,7 +34,7 @@ class NonplayersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update nonplayer" do
-    patch nonplayer_url(@nonplayer), params: { nonplayer: { dialogue_content: @nonplayer.dialogue_content, item_to_accept: @nonplayer.item_to_accept, item_to_offer: @nonplayer.item_to_offer, personality: @nonplayer.personality, quantity_to_accept: @nonplayer.quantity_to_accept, quantity_to_offer: @nonplayer.quantity_to_offer } }
+    patch nonplayer_url(@nonplayer), params: { nonplayer: { dialogue_content: @nonplayer.dialogue_content, item_to_accept: @nonplayer.item_to_accept, item_to_offer: @nonplayer.item_to_offer, personality: @nonplayer.personality, quantity_to_accept: @nonplayer.quantity_to_accept } }
     assert_redirected_to nonplayer_url(@nonplayer)
   end
 

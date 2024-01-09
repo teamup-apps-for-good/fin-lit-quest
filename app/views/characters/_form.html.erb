@@ -12,6 +12,31 @@
   <% end %>
 
   <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :occupation, style: "display: block" %>
+    <%= form.text_field :occupation %>
+  </div>
+
+  <div>
+    <%= form.label :inventory_slots, style: "display: block" %>
+    <%= form.number_field :inventory_slots %>
+  </div>
+
+  <div>
+    <%= form.label :balance, style: "display: block" %>
+    <%= form.number_field :balance %>
+  </div>
+
+  <div>
+    <%= form.label :type, style: "display: block" %>
+    <%= form.text_field :type %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

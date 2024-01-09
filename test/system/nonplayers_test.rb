@@ -19,7 +19,6 @@ class NonplayersTest < ApplicationSystemTestCase
     fill_in "Item to offer", with: @nonplayer.item_to_offer
     fill_in "Personality", with: @nonplayer.personality
     fill_in "Quantity to accept", with: @nonplayer.quantity_to_accept
-    fill_in "Quantity to offer", with: @nonplayer.quantity_to_offer
     click_on "Create Nonplayer"
 
     assert_text "Nonplayer was successfully created"
@@ -35,7 +34,6 @@ class NonplayersTest < ApplicationSystemTestCase
     fill_in "Item to offer", with: @nonplayer.item_to_offer
     fill_in "Personality", with: @nonplayer.personality
     fill_in "Quantity to accept", with: @nonplayer.quantity_to_accept
-    fill_in "Quantity to offer", with: @nonplayer.quantity_to_offer
     click_on "Update Nonplayer"
 
     assert_text "Nonplayer was successfully updated"

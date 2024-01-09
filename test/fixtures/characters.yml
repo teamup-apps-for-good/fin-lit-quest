@@ -5,9 +5,11 @@ one:
   occupation: MyString
   inventory_slots: 1
   balance: 1
+  type: 
 
 two:
   name: MyString
   occupation: MyString
   inventory_slots: 1
   balance: 1
+  type: 

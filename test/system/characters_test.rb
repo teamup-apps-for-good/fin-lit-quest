@@ -14,6 +14,11 @@ class CharactersTest < ApplicationSystemTestCase
     visit characters_url
     click_on "New character"
 
+    fill_in "Balance", with: @character.balance
+    fill_in "Inventory slots", with: @character.inventory_slots
+    fill_in "Name", with: @character.name
+    fill_in "Occupation", with: @character.occupation
+    fill_in "Type", with: @character.type
     click_on "Create Character"
 
     assert_text "Character was successfully created"
@@ -24,6 +29,11 @@ class CharactersTest < ApplicationSystemTestCase
     visit character_url(@character)
     click_on "Edit this character", match: :first
 
+    fill_in "Balance", with: @character.balance
+    fill_in "Inventory slots", with: @character.inventory_slots
+    fill_in "Name", with: @character.name
+    fill_in "Occupation", with: @character.occupation
+    fill_in "Type", with: @character.type
     click_on "Update Character"
 
     assert_text "Character was successfully updated"

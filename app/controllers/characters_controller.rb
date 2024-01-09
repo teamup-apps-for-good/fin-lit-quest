@@ -65,6 +65,6 @@ class CharactersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def character_params
-      params.fetch(:character, {})
+      params.require(:character).permit(:name, :occupation, :inventory_slots, :balance, :type)
     end
 end

@@ -1,4 +1,4 @@
-class AddDetailsToCharacters < ActiveRecord::Migration[7.1]
+class AddNonplayersSubclass < ActiveRecord::Migration[7.1]
   def change
     add_column :characters, :personality, :string
     add_column :characters, :dialogue_content, :text

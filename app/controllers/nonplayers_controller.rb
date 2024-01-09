@@ -65,6 +65,6 @@ class NonplayersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def nonplayer_params
-      params.require(:nonplayer).permit(:personality, :dialogue_content, :item_to_accept, :quantity_to_accept, :item_to_offer, :quantity_to_offer)
+      params.require(:nonplayer).permit(:personality, :dialogue_content, :item_to_accept, :quantity_to_accept, :item_to_offer, :quantity_to_accept, :name, :occupation, :inventory_slots, :balance)
     end
 end
