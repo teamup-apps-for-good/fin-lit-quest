@@ -1,0 +1,32 @@
+<%= form_with(model: nonplayer) do |form| %>
+  <% if nonplayer.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(nonplayer.errors.count, "error") %> prohibited this nonplayer from being saved:</h2>
+
+      <ul>
+        <% nonplayer.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :character_id, style: "display: block" %>
+    <%= form.text_field :character_id %>
+  </div>
+
+  <div>
+    <%= form.label :personality, style: "display: block" %>
+    <%= form.text_field :personality %>
+  </div>
+
+  <div>
+    <%= form.label :dialogue_id, style: "display: block" %>
+    <%= form.text_field :dialogue_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

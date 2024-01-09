@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Nonplayers</h1>
+
+<div id="nonplayers">
+  <% @nonplayers.each do |nonplayer| %>
+    <%= render nonplayer %>
+    <p>
+      <%= link_to "Show this nonplayer", nonplayer %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New nonplayer", new_nonplayer_path %>
