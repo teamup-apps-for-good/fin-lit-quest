@@ -12,18 +12,33 @@
   <% end %>
 
   <div>
-    <%= form.label :character_id, style: "display: block" %>
-    <%= form.text_field :character_id %>
-  </div>
-
-  <div>
     <%= form.label :personality, style: "display: block" %>
     <%= form.text_field :personality %>
   </div>
 
   <div>
-    <%= form.label :dialogue_id, style: "display: block" %>
-    <%= form.text_field :dialogue_id %>
+    <%= form.label :dialogue_content, style: "display: block" %>
+    <%= form.text_area :dialogue_content %>
+  </div>
+
+  <div>
+    <%= form.label :item_to_accept, style: "display: block" %>
+    <%= form.number_field :item_to_accept %>
+  </div>
+
+  <div>
+    <%= form.label :quantity_to_accept, style: "display: block" %>
+    <%= form.number_field :quantity_to_accept %>
+  </div>
+
+  <div>
+    <%= form.label :item_to_offer, style: "display: block" %>
+    <%= form.number_field :item_to_offer %>
+  </div>
+
+  <div>
+    <%= form.label :quantity_to_offer, style: "display: block" %>
+    <%= form.number_field :quantity_to_offer %>
   </div>
 
   <div>

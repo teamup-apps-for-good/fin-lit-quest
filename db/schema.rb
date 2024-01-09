@@ -10,24 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_08_014833) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_09_004113) do
   create_table "characters", force: :cascade do |t|
     t.string "name"
     t.string "occupation"
     t.integer "inventory_slots"
     t.integer "balance"
-    t.boolean "is_player"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "nonplayers", force: :cascade do |t|
-    t.integer "character_id", null: false
+    t.integer "current_level"
+    t.string "type"
     t.string "personality"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["character_id"], name: "index_nonplayers_on_character_id"
+    t.text "dialogue_content"
+    t.integer "item_to_accept"
+    t.integer "quantity_to_accept"
+    t.integer "item_to_offer"
+    t.integer "quantity_to_offer"
   end
 
-  add_foreign_key "nonplayers", "characters"
 end
