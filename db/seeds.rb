@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This file should ensure the existence of records required to run the application in every environment (production,
 # development, test). The code here should be idempotent so that it can be executed at any point in every environment.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
@@ -26,11 +27,18 @@ items = [{ name: 'fish', description: 'still floppin\' around, fresh from the oc
          { name: 'canteen', description: 'for carrying water or other beverages, fresh from the craftsman', value: 8 },
          { name: 'bed roll', description: 'comfy and portable, fresh from the craftsman', value: 20 },
          { name: 'rocket ticket', description: 'one way trip to a bigger and better planet, fresh from the printer',
-           value: 1000
-         }
-        ]
-
+           value: 1000 }]
 
 items.each do |item|
   Item.find_or_create_by!(item)
 end
+
+players = [{ name: "Stella", occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1 }]
+
+npcs = [{ name: "Ritchey", occupation: :merchant, inventory_slots: 5, balance: 0, personality: :enthusiastic,
+          dialogue_content: "hello" },
+        { name: "Lightfoot", occupation: :comedian, inventory_slots: 5, balance: 0, personality: :dad,
+          dialogue_content: "goodbye" }]
+
+players.each { |player| Player.find_or_create_by!(player) }
+npcs.each { |npc| Nonplayer.find_or_create_by!(npc) }

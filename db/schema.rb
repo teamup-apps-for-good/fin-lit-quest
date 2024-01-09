@@ -27,4 +27,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_09_012904) do
     t.integer "item_to_offer"
     t.integer "quantity_to_offer"
   end
+
+  create_table "inventories", force: :cascade do |t|
+    t.integer "item"
+    t.integer "owner_id", null: false
+    t.integer "quantity", limit: 64
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_inventories_on_owner_id"
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_items_on_name"
+  end
+
+  add_foreign_key "inventories", "characters", column: "owner_id"
 end
