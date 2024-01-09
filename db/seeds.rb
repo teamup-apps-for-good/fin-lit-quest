@@ -77,7 +77,7 @@ inventories.each do |inventory|
     end
 
     if character && item
-        Inventory.create!(inventory)
+        Inventory.find_or_create_by!(inventory) # Currently prevents duplicate items in inventory
     else
         return # TODO: error logic
     end
