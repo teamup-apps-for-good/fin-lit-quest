@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  character: one
+  personality: MyString
+  dialogue: one
+
+two:
+  character: two
+  personality: MyString
+  dialogue: two
