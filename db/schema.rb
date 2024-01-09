@@ -24,6 +24,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_08_014833) do
   create_table "nonplayers", force: :cascade do |t|
     t.integer "character_id", null: false
     t.string "personality"
+    t.string "dialogue_content"
+    t.string "item_to_accept"
+    t.integer "quantity_to_accept"
+    t.string "item_to_offer"
+    t.integer "quantity_to_offer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["character_id"], name: "index_nonplayers_on_character_id"
