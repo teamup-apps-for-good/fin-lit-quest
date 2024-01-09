@@ -27,5 +27,4 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_09_012904) do
     t.integer "item_to_offer"
     t.integer "quantity_to_offer"
   end
-
 end
