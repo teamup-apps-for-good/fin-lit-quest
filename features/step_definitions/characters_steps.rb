@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Given('the following characters exist:') do |characters_table|
   # table is a Cucumber::MultilineArgument::DataTable
   characters_table.hashes.each do |character|
@@ -33,7 +35,7 @@ Given('I am on the {string} page for {string}') do |string, string2|
   end
 end
 
-Then('{string}\'s inventory slots should be {string}') do |string, string2|
+Then('{string}\'s inventory slots should be {string}') do |_string, string2|
   expect(page).to have_content(string2)
 end
 
