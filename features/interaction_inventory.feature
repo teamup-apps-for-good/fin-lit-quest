@@ -12,25 +12,25 @@ Feature: Interact with inventory
 
     Given the following inventory table exists:
       | item  | owner_id     | quantity |
-      | apple | 1    | 5        | 
+      | apple | Stella    | 5        | 
 
   Scenario: View Item Information
     Given I am on the "Inventory" page
     When I click on "apple"
-    Then I should be on the "Item" page for apple
-    And I should see "apple"'s information
+    Then I should be on the "Item" page for "apple"
+    And I should see "apple" information
 
   Scenario: View Player Owner Information
     Given I am on the "Inventory" page
     When I click on "Stella"
-    Then I should be on the "Player" page for Stella
-    And I should see "Stella"'s information
+    Then I should be on the "Player" page for "Stella"
+    And I should see "Stella" information
 
   Scenario: View Non-Player Owner Information
     Given I am on the "Inventory" page
     When I click on "Ritchey"
-    Then I should be on the "Non-Player" page for Ritchey
-    And I should see "Ritchey"'s information
+    Then I should be on the "Non-Player" page for "Ritchey"
+    And I should see "Ritchey" information
 
   Scenario: View Item quantity
     Given I am on the "Inventory" page

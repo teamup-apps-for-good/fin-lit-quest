@@ -12,8 +12,8 @@ Feature: Interact with item
 
     And the following inventory table exists:
       | item  | owner_id     | quantity |
-      | fish  | 2   | 3        |
-      | apple | 1    | 5        |
+      | fish  | Ritchey   | 3        |
+      | apple | Stella    | 5        |
 
     And the following items table exist:
       |  name  |                 description                  |  value  |

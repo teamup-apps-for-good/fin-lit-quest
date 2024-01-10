@@ -16,19 +16,7 @@ Given('I am on the {string} page') do |string|
   visit inventories_path
 end
 
-Then('I should be on the {string} page for apple') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 Then('I should see {string} information') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should be on the {string} page for Stella') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should be on the {string} page for Ritchey') do |string|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
