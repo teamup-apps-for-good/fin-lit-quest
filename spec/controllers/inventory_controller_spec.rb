@@ -71,6 +71,11 @@ RSpec.describe InventoriesController, type: :controller do
       expect(flash[:notice]).to match(/Inventory was successfully created./)
       Inventory.last.destroy
     end
+
+    it 'renders the new page if the inventory item is invalid' do
+      get :create, params: { inventory: { item: nil, owner_id: nil, quantity: -1 } }
+      expect(response).to render_template(:new)
+    end
   end
 
   describe 'update' do
@@ -98,6 +103,15 @@ RSpec.describe InventoriesController, type: :controller do
                                         quantity: 5)
       get :update, params: { id: inventory_item.id, inventory: { quantity: 1 } }
       expect(flash[:notice]).to match(/Inventory was successfully updated./)
+      inventory_item.destroy
+    end
+
+    it 'renders the edit page if the inventory item is invalid' do
+      inventory_item = Inventory.create(item: Item.find_by(name: 'fish').id,
+                                        owner_id: Character.find_by(name: 'Stella').id,
+                                        quantity: 5)
+      get :update, params: { id: inventory_item.id, inventory: { item: nil, owner_id: nil, quantity: -1 } }
+      expect(response).to render_template(:edit)
       inventory_item.destroy
     end
   end
