@@ -34,7 +34,8 @@ jobs:
     
     - name: Capture Coverage Score
       run: |
-        score=$(cat rspec-output.txt | grep 'Coverage report generated for RSpec: ' | awk 'match($0, /LOC \(([0-9]+\.[0-9]+%)\) covered/, arr) { print(arr[1]) }')
+        score=$(cat rspec-output.txt | grep 'Coverage report generated for RSpec ' | awk 'match($0, /LOC \(([0-9]+\.[0-9]+%)\) covered/, arr) { print(arr[1]) }')
+        [[ $score > 90 ]]
         echo "COVERAGE_SCORE=$score" >> $GITHUB_ENV
 
     - name: Delete previous comments
@@ -66,9 +67,8 @@ jobs:
       uses: actions/github-script@v7
       with:
         script: |
-          const artifactUrl = `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`;
           const score = process.env.COVERAGE_SCORE;
-          const prComment = `Coverage: ${score}`;
+          const prComment = `Coverage: ${score}% (Passing)`;
           
           github.rest.issues.createComment({
             issue_number: context.issue.number,
