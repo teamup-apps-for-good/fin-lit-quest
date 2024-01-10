@@ -26,7 +26,7 @@ class NonplayersController < ApplicationController
 
     respond_to do |format|
       if @nonplayer.save
-        format.html { redirect_to nonplayer_url(@nonplayer), notice: 'Nonplayer was successfully created.' }
+        format.html { redirect_to nonplayer_url(@nonplayer), notice: "#{@nonplayer.name} was successfully created." }
         format.json { render :show, status: :created, location: @nonplayer }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ class NonplayersController < ApplicationController
   def update
     respond_to do |format|
       if @nonplayer.update(nonplayer_params)
-        format.html { redirect_to nonplayer_url(@nonplayer), notice: 'Nonplayer was successfully updated.' }
+        format.html { redirect_to nonplayer_url(@nonplayer), notice: "#{@nonplayer.name} was successfully updated." }
         format.json { render :show, status: :ok, location: @nonplayer }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class NonplayersController < ApplicationController
     @nonplayer.destroy!
 
     respond_to do |format|
-      format.html { redirect_to nonplayers_url, notice: 'Nonplayer was successfully destroyed.' }
+      format.html { redirect_to nonplayers_url, notice: "#{@nonplayer.name} was successfully deleted." }
       format.json { head :no_content }
     end
   end
