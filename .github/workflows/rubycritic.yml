@@ -23,14 +23,12 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.2.2' # Specify your Ruby version here
-
-      - name: Install dependencies
-        run: bundle install
+          ruby-version: '3.2.2'
+          bundler-cache: true
 
       - name: Run RubyCritic
         run: |
-          bundle exec rubycritic > rubycritic_output.txt
+          bundle exec rubycritic app lib > rubycritic_output.txt
 
       - name: Capture RubyCritic Score
         run: |
@@ -62,7 +60,7 @@ jobs:
             const botName = 'github-actions[bot]';
 
             for (const comment of comments.data) {
-                if (comment.user.login === botName) {
+                if (comment.user.login === botName && comment.body.startsWith('RubyCritic')) {
                     await github.rest.issues.deleteComment({
                         owner,
                         repo,

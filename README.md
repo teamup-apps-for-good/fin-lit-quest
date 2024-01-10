@@ -1,24 +1,24 @@
 # Fin*Lit* Quest
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Setup
 
-Things you may want to cover:
+```bash
+# make sure you have ruby 3.2.2 installed
+rbenv install 3.2.2
+# install dependencies
+bundle install
+# set up database
+rails db:create db:reset
+```
 
-* Ruby version
+## Testing
 
-* System dependencies
+Make sure to run the following before creating a pull request; this ensures that it will pass the automated Actions tests.
 
-* Configuration
+```bash
+bundle exec rspec -fd --fail-fast \
+    && bundle exec rails cucumber \
+    && bundle exec rubocop --format github \
+    && bundle exec rubycritic app lib
+```
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
