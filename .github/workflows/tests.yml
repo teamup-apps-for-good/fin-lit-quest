@@ -26,7 +26,7 @@ jobs:
 
     - name: Run Rspec
       run: |
-        bundle exec rspec -fd > rspec-output.txt
+        bundle exec rspec -fd | tee rspec-output.txt
 
     - name: Run Cucumber
       run: |
@@ -39,44 +39,7 @@ jobs:
           echo "Coverage of $score passes"
         else
           echo "Coverage of '$score' did not pass"
+          exit 1
         fi
         echo "COVERAGE_SCORE=$score" >> $GITHUB_ENV
 
-    - name: Delete previous comments
-      uses: actions/github-script@v7
-      with:
-        script: |
-          const issue_number = context.issue.number;
-          const owner = context.repo.owner;
-          const repo = context.repo.repo;
-          const comments = await github.rest.issues.listComments({
-              owner,
-              repo,
-              issue_number,
-          });
-
-          const botName = 'github-actions[bot]';
-
-          for (const comment of comments.data) {
-            if (comment.user.login === botName && comment.body.startsWith('Coverage')) {
-                  await github.rest.issues.deleteComment({
-                      owner,
-                      repo,
-                      comment_id: comment.id,
-                  });
-              }
-          }
-
-    - name: Comment PR with Coverage report and score
-      uses: actions/github-script@v7
-      with:
-        script: |
-          const score = process.env.COVERAGE_SCORE;
-          const prComment = `Coverage: ${score}% (Passing)`;
-          
-          github.rest.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: prComment
-          });
