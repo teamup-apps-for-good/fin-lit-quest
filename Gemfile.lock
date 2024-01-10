@@ -443,6 +443,7 @@ DEPENDENCIES
   rubocop
   rubycritic
   selenium-webdriver
+  simplecov
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails

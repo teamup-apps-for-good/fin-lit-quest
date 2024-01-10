@@ -37,4 +37,10 @@
 # Rubocop sarif output
 rubocop.sarif
 
+# editor config
 .idea
+.vscode
+
+# coverage reports
+/coverage
+

@@ -53,6 +53,7 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubycritic', require: false
   gem 'sqlite3', '~> 1.4'
+  gem 'simplecov', require: false, group: :test
 end
 
 group :development do
