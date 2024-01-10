@@ -28,7 +28,7 @@ jobs:
 
       - name: Run RubyCritic
         run: |
-          bundle exec rubycritic > rubycritic_output.txt
+          bundle exec rubycritic app lib > rubycritic_output.txt
 
       - name: Capture RubyCritic Score
         run: |

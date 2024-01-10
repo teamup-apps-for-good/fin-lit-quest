@@ -44,3 +44,6 @@ rubocop.sarif
 # coverage reports
 /coverage
 
+# vendoring
+/vendor
+

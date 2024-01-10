@@ -4,6 +4,7 @@ AllCops:
     - 'config/**/*'
     - 'bin/**/*'
     - 'db/**/*'
+    - 'vendor/**/*'
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*.rb'
