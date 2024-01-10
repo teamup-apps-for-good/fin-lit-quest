@@ -26,9 +26,6 @@ jobs:
           ruby-version: '3.2.2'
           bundler-cache: true
 
-      - name: Install dependencies
-        run: bundle install
-
       - name: Run RubyCritic
         run: |
           bundle exec rubycritic > rubycritic_output.txt
@@ -63,7 +60,7 @@ jobs:
             const botName = 'github-actions[bot]';
 
             for (const comment of comments.data) {
-                if (comment.user.login === botName) {
+                if (comment.user.login === botName && comment.body.startsWith('RubyCritic')) {
                     await github.rest.issues.deleteComment({
                         owner,
                         repo,

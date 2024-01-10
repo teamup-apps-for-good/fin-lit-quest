@@ -53,7 +53,7 @@ jobs:
           const botName = 'github-actions[bot]';
 
           for (const comment of comments.data) {
-              if (comment.user.login === botName) {
+            if (comment.user.login === botName && comment.body.startsWith('Coverage')) {
                   await github.rest.issues.deleteComment({
                       owner,
                       repo,
