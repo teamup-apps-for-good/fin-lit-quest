@@ -3,10 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe CharactersController, type: :controller do
-<<<<<<< HEAD
-  describe 'admin actions' do
-    # TODO
-=======
   describe 'Admin access' do
     let(:valid_attributes) do
       # Define valid attributes for your character model
@@ -28,6 +24,5 @@ RSpec.describe CharactersController, type: :controller do
         expect(response).to be_successful
       end
     end
->>>>>>> cff42dbd8cdea96213192f1dc5e6e5ecc872f71d
   end
 end

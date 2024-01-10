@@ -3,9 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe NonplayersController, type: :controller do
-<<<<<<< HEAD
-  # TODO
-=======
   before do
     Nonplayer.destroy_all
 
@@ -107,5 +104,4 @@ RSpec.describe NonplayersController, type: :controller do
       expect(flash[:notice]).to match(/Jeremy was successfully created./)
     end
   end
->>>>>>> cff42dbd8cdea96213192f1dc5e6e5ecc872f71d
 end
