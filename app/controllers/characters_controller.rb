@@ -64,7 +64,7 @@ class CharactersController < ApplicationController
 
   def inventory
     @character = Character.find(params[:id])
-    # TODO @inventory = @character.something
+    @inventory = @character.items
   end
 
   private
