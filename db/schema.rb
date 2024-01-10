@@ -31,7 +31,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_09_012904) do
   create_table "inventories", force: :cascade do |t|
     t.integer "item"
     t.integer "owner_id", null: false
-    t.integer "quantity", limit: 64
+    t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner_id"], name: "index_inventories_on_owner_id"
