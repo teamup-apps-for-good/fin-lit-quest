@@ -35,7 +35,11 @@ jobs:
     - name: Capture Coverage Score
       run: |
         score=$(cat rspec-output.txt | grep 'Coverage report generated for RSpec ' | awk 'match($0, /LOC \(([0-9]+\.[0-9]+%)\) covered/, arr) { print(arr[1]) }')
-        [[ $score > 90 ]]
+        if [[ $score > 90 ]]; then
+          echo "Coverage of $score passes"
+        else
+          echo "Coverage of '$score' did not pass"
+        fi
         echo "COVERAGE_SCORE=$score" >> $GITHUB_ENV
 
     - name: Delete previous comments
