@@ -58,6 +58,15 @@ class CharactersController < ApplicationController
     end
   end
 
+  def profile
+    @character = Character.find(params[:id])
+  end
+
+  def inventory
+    @character = Character.find(params[:id])
+    # TODO @inventory = @character.something
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

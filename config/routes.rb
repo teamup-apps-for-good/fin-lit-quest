@@ -14,4 +14,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  root 'gameplays#index'
+  get '/town' => 'gameplays#town', as: 'town'
+  get '/characters/:id/profile' => 'characters#profile', as: 'character_profile'
+  get '/characters/:id/inventory' => 'characters#inventory', as: 'character_inventory'
 end
