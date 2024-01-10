@@ -18,9 +18,4 @@ class CharactersController < ApplicationController
   def set_character
     @character = Character.find(params[:id])
   end
-
-  # Only allow a list of trusted parameters through.
-  def character_params
-    params.require(:character).permit(:name, :occupation, :inventory_slots, :balance, :type)
-  end
 end

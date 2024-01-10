@@ -12,11 +12,6 @@ class PlayersController < ApplicationController
   # GET /players/1 or /players/1.json
   def show; end
 
-  # GET /players/new
-  def new
-    @player = Player.new
-  end
-
   # GET /players/1/edit
   def edit; end
 

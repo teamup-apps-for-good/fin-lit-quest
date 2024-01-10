@@ -12,11 +12,6 @@ class NonplayersController < ApplicationController
   # GET /nonplayers/1 or /nonplayers/1.json
   def show; end
 
-  # GET /nonplayers/new
-  def new
-    @nonplayer = Nonplayer.new
-  end
-
   # GET /nonplayers/1/edit
   def edit; end
 
