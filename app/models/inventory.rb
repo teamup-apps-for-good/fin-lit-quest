@@ -4,4 +4,7 @@
 class Inventory < ApplicationRecord
   belongs_to :character
   belongs_to :item
+  validates :item, presence: true
+  validates :character, presence: true
+  validates :quantity, presence: true
 end
