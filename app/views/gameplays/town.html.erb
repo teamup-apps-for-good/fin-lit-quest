@@ -4,7 +4,7 @@
   <% @characters.each do |character| %>
     <% if character.is_a?(Nonplayer) %>
       <p>
-        <%= link_to character.name, characters_path %>
+        <%= link_to character.name, character_profile_path(character) %>
       </p>
     <% end %>
   <% end %>

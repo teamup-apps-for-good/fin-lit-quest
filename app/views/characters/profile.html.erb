@@ -1,5 +1,5 @@
 <h1> <%= @character.name %> </h1>
-<%= link_to "Inventory", characters_path %>
+<%= link_to "Inventory", character_inventory_path(@character) %>
 <%= link_to "Trade", characters_path %>
 <div>
   <p>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_10_014127) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_09_002953) do
   create_table "characters", force: :cascade do |t|
     t.string "name"
     t.string "occupation"
@@ -26,11 +26,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_10_014127) do
     t.integer "quantity_to_accept"
     t.integer "item_to_offer"
     t.integer "quantity_to_offer"
-  end
-
-  create_table "gameplays", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "inventories", force: :cascade do |t|
