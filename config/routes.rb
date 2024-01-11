@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :nonplayers
   resources :players
   resources :characters
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -14,4 +15,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  root 'gameplays#index'
+  get '/town' => 'gameplays#town', as: 'town'
+  get '/characters/:id/profile' => 'characters#profile', as: 'character_profile'
+  get '/characters/:id/inventory' => 'characters#inventory', as: 'character_inventory'
+  get '/characters/:id/trade' => 'characters#trade', as: 'character_trade'
 end

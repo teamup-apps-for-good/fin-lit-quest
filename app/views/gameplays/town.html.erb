@@ -1,0 +1,12 @@
+<h1>Welcome to town!</h1>
+
+<div id="non_players">
+  <% @characters.each do |character| %>
+    <% if character.is_a?(Nonplayer) %>
+      <p>
+        <%= link_to character.name, character_profile_path(character) %>
+      </p>
+    <% end %>
+  <% end %>
+</div>
+<%= link_to "Back", root_path %>

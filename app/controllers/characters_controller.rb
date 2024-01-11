@@ -12,6 +12,23 @@ class CharactersController < ApplicationController
   # GET /characters/1 or /characters/1.json
   def show; end
 
+  def profile
+    @character = Character.find(params[:id])
+  end
+
+  def inventory
+    @character = Character.find(params[:id])
+    @inventory = @character.items
+  end
+
+  def trade
+    @character = Nonplayer.find(params[:id])
+    @item_to_offer = @character.item_to_offer.name
+    @quantity_to_offer = @character.quantity_to_offer
+    @item_to_accept = @character.item_to_accept.name
+    @quantity_to_accept = @character.quantity_to_accept
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

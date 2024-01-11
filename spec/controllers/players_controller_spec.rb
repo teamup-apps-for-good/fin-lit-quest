@@ -10,27 +10,24 @@ RSpec.describe PlayersController, type: :controller do
   end
 
   describe 'create' do
-    it 'should create a new character' do
+    before(:each) do
       get :create,
           params: { player: { name: 'Jeremy', occupation: :merchant, inventory_slots: 5, balance: 10,
                               current_level: 1 } }
+    end
+
+    it 'should create a new character' do
       player = Player.find_by(name: 'Jeremy')
       expect(player).not_to be_nil
     end
 
     it 'should redirect to the player profile' do
-      get :create,
-          params: { player: { name: 'Jeremy', occupation: :merchant, inventory_slots: 5, balance: 10,
-                              current_level: 1 } }
       player = Player.find_by(name: 'Jeremy')
       expect(response).to redirect_to player_path(player)
     end
 
     it 'should show a flash message' do
-      get :create,
-          params: { player: { name: 'Jeremy', occupation: :merchant, inventory_slots: 5, balance: 10,
-                              current_level: 1 } }
-
+      Player.find_by(name: 'Jeremy')
       expect(flash[:notice]).to match(/Your profile was successfully created. Welcome!/)
     end
   end

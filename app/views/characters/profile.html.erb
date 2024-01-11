@@ -1,0 +1,27 @@
+<h1> <%= @character.name %> </h1>
+<%= link_to "Inventory", character_inventory_path(@character) %>
+<%= link_to "Trade", character_trade_path(@character) %>
+<div>
+  <p>
+    <strong>Name:</strong>
+    <%= @character.name %>
+  </p>
+
+  <p>
+    <strong>Occupation:</strong>
+    <%= @character.occupation %>
+  </p>
+
+  <p>
+    <strong>Balance:</strong>
+    <%= @character.balance %>
+  </p>
+
+  <p>
+    <strong>Personality:</strong>
+    <%= @character.personality %>
+  </p>
+</div>
+
+
+<%= link_to "Back", town_path %>

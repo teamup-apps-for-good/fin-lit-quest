@@ -1,0 +1,12 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Inventories</h1>
+
+<div id="inventories">
+  <% @inventory.each do |inventory| %>
+    <%= render inventory %>
+    <br>
+  <% end %>
+</div>
+
+<%= link_to "Back", character_profile_path(@character) %>

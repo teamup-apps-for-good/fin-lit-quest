@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Hello player!</h1>
+
+<div>
+  <%= link_to "Home", root_path %>
+  <%= link_to "Town", town_path %>
+  <%= link_to "Inventory", character_inventory_path(Player.first) %>
+  <%= link_to "Shopping list", characters_path %>
+  <%= link_to "Budget", characters_path %>
+</div>
+
+
+<%= link_to "Start", characters_path %>

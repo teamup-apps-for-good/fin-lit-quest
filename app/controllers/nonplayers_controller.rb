@@ -15,9 +15,22 @@ class NonplayersController < ApplicationController
   # GET /nonplayers/1/edit
   def edit; end
 
+  # GET /nonplayers/new
+  def new
+    @nonplayer = Nonplayer.new
+  end
+
   # POST /nonplayers or /nonplayers.json
   def create
-    @nonplayer = Nonplayer.new(nonplayer_params)
+    begin
+      new_params = nonplayer_params
+      new_params[:item_to_offer] = Item.find(Integer(nonplayer_params['item_to_offer']))
+      new_params[:item_to_accept] = Item.find(Integer(nonplayer_params['item_to_accept']))
+      @nonplayer = Nonplayer.create(new_params)
+    rescue StandardError
+      redirect_to new_nonplayer_path
+      return
+    end
 
     respond_to do |format|
       if @nonplayer.save
@@ -43,7 +56,7 @@ class NonplayersController < ApplicationController
     end
   end
 
-  # DELETE /nonplayers/1 or /nonplayers/1.json
+  # DELETE /nonplayers/1 or /nonplayers/1.jsonc
   def destroy
     @nonplayer.destroy!
 
@@ -64,7 +77,7 @@ class NonplayersController < ApplicationController
   def nonplayer_params
     # rubocop:disable Layout/LineLength
     params.require(:nonplayer).permit(:personality, :dialogue_content, :item_to_accept, :quantity_to_accept,
-                                      :item_to_offer, :quantity_to_accept, :name, :occupation, :inventory_slots, :balance)
+                                      :item_to_offer, :quantity_to_offer, :name, :occupation, :inventory_slots, :balance, :current_level)
     # rubocop:enable Layout/LineLength
   end
 end

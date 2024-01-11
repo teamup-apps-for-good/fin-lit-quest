@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_09_002953) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_09_002954) do
   create_table "characters", force: :cascade do |t|
     t.string "name"
     t.string "occupation"
@@ -22,19 +22,22 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_09_002953) do
     t.integer "current_level"
     t.string "personality"
     t.text "dialogue_content"
-    t.integer "item_to_accept"
     t.integer "quantity_to_accept"
-    t.integer "item_to_offer"
     t.integer "quantity_to_offer"
+    t.integer "item_to_accept_id"
+    t.integer "item_to_offer_id"
+    t.index ["item_to_accept_id"], name: "index_characters_on_item_to_accept_id"
+    t.index ["item_to_offer_id"], name: "index_characters_on_item_to_offer_id"
   end
 
   create_table "inventories", force: :cascade do |t|
-    t.integer "item"
-    t.integer "owner_id", null: false
+    t.integer "item_id", null: false
+    t.integer "character_id", null: false
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["owner_id"], name: "index_inventories_on_owner_id"
+    t.index ["character_id"], name: "index_inventories_on_character_id"
+    t.index ["item_id"], name: "index_inventories_on_item_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -46,5 +49,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_09_002953) do
     t.index ["name"], name: "index_items_on_name"
   end
 
-  add_foreign_key "inventories", "characters", column: "owner_id"
+  add_foreign_key "characters", "items", column: "item_to_accept_id"
+  add_foreign_key "characters", "items", column: "item_to_offer_id"
+  add_foreign_key "inventories", "characters"
+  add_foreign_key "inventories", "items"
 end

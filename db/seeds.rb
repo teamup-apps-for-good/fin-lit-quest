@@ -36,49 +36,44 @@ end
 players = [{ name: "Stella", occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1 }]
 
 npcs = [{ name: "Ritchey", occupation: :merchant, inventory_slots: 5, balance: 0, personality: :enthusiastic,
-          dialogue_content: "hello" },
+          dialogue_content: "hello",
+          item_to_offer: "fish",  quantity_to_offer: 2, item_to_accept: "wheat", quantity_to_accept: 5,},
         { name: "Lightfoot", occupation: :comedian, inventory_slots: 5, balance: 0, personality: :dad,
-          dialogue_content: "goodbye" }]
+          dialogue_content: "goodbye",
+          item_to_offer: "apple", quantity_to_offer: 2, item_to_accept: "orange", quantity_to_accept: 2
+        }]
 
 players.each { |player| Player.find_or_create_by!(player) }
-npcs.each { |npc| Nonplayer.find_or_create_by!(npc) }
+npcs.each do |t|
+    item_to_offer = Item.find_by name: t[:item_to_offer]
+    item_to_accept = Item.find_by name: t[:item_to_accept]
+    t[:item_to_offer] = item_to_offer
+    t[:item_to_accept] = item_to_accept
+    Nonplayer.create_or_find_by!(t)
+end
 
-inventories = [{ item: 'fish', owner_id: 'Ritchey', quantity: 13 },
-               { item: 'wheat', owner_id: 'Stella', quantity: 12 },
-               { item: 'apple', owner_id: 'Stella', quantity: 5 },
-               { item: 'orange', owner_id: 'Ritchey', quantity: 10 },
-               { item: 'potato', owner_id: 'Ritchey', quantity: 9 },
-               { item: 'grapes', owner_id: 'Lightfoot', quantity: 8 },
-               { item: 'bread', owner_id: 'Lightfoot', quantity: 7 },
-               { item: 'honey', owner_id: 'Lightfoot', quantity: 5 },
-               { item: 'bandages', owner_id: 'Stella', quantity: 6 },
-               { item: 'book', owner_id: 'Stella', quantity: 5 },
-               { item: 'coat', owner_id: 'Lightfoot', quantity: 2 },
-               { item: 'boots', owner_id: 'Ritchey', quantity: 2 },
-               { item: 'map', owner_id: 'Ritchey', quantity: 3 },
-               { item: 'compass', owner_id: 'Lightfoot', quantity: 2 },
-               { item: 'canteen', owner_id: 'Stella', quantity: 4 }]
+inventories = [{ item: 'fish', character_id: 'Ritchey', quantity: 13 },
+               { item: 'wheat', character_id: 'Stella', quantity: 12 },
+               { item: 'apple', character_id: 'Stella', quantity: 5 },
+               { item: 'orange', character_id: 'Ritchey', quantity: 10 },
+               { item: 'potato', character_id: 'Ritchey', quantity: 9 },
+               { item: 'grapes', character_id: 'Lightfoot', quantity: 8 },
+               { item: 'bread', character_id: 'Lightfoot', quantity: 7 },
+               { item: 'honey', character_id: 'Lightfoot', quantity: 5 },
+               { item: 'bandages', character_id: 'Stella', quantity: 6 },
+               { item: 'book', character_id: 'Stella', quantity: 5 },
+               { item: 'coat', character_id: 'Lightfoot', quantity: 2 },
+               { item: 'boots', character_id: 'Ritchey', quantity: 2 },
+               { item: 'map', character_id: 'Ritchey', quantity: 3 },
+               { item: 'compass', character_id: 'Lightfoot', quantity: 2 },
+               { item: 'canteen', character_id: 'Stella', quantity: 4 }]
 
 inventories.each do |inventory|
-    character = Character.find_by(name: inventory[:owner_id])
-    if character
-        character_id = character.id
-        inventory[:owner_id] = character_id
-    else
-        return # TODO: error logic
-    end
+    character = Character.find_by(name: inventory[:character_id])
+    inventory[:character] = character
 
     item = Item.find_by(name: inventory[:item])
-    if item
-        item_id = item.id
-        inventory[:item] = item_id
-    else
-        return # TODO: error logic
-    end
+    inventory[:item] = item
 
-    if character && item
-        Inventory.find_or_create_by!(inventory) # Currently prevents duplicate items in inventory
-    else
-        return # TODO: error logic
-    end
+    Inventory.find_or_create_by!(inventory) # Currently prevents duplicate items in inventory
 end
