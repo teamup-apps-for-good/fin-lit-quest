@@ -49,7 +49,8 @@ RSpec.describe InventoriesController, type: :controller do
 
   describe 'create' do
     it 'creates a new inventory item' do
-      inventory = { item: Item.find_by(name: 'apple').id, character: Character.find_by(name: 'Lightfoot').id,
+      inventory = { item: Item.find_by(name: 'apple').id,
+                    character: Character.find_by(name: 'Lightfoot').id,
                     quantity: 5 }
       post :create, params: { inventory: }
       expect(assigns(:inventory)).to eq(Inventory.last)
@@ -111,7 +112,7 @@ RSpec.describe InventoriesController, type: :controller do
                                         character: Character.find_by(name: 'Stella'),
                                         quantity: 5)
       put :update, params: { id: inventory_item.id, inventory: { item: nil, character: nil, quantity: -1 } }
-      expect(response).to render_template(:edit)
+      expect(response).to redirect_to edit_inventory_path(inventory_item)
       inventory_item.destroy
     end
   end

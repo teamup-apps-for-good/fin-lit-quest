@@ -28,15 +28,11 @@ class InventoriesController < ApplicationController
         character: Character.find(Integer(inventory_params['character'])),
         quantity: inventory_params['quantity']
       }
-    rescue
+      @inventory = Inventory.new(new_params)
+    rescue StandardError
       redirect_to new_inventory_path
       return
     end
-    if new_params[:item].nil? || new_params[:character].nil? || new_params[:quantity].nil?
-      redirect_to new_inventory_path
-      return
-    end
-    @inventory = Inventory.new(new_params)
 
     respond_to do |format|
       if @inventory.save
@@ -52,11 +48,12 @@ class InventoriesController < ApplicationController
   # PATCH/PUT /inventories/1 or /inventories/1.json
   def update
     respond_to do |format|
-      if @inventory.update({
-                             item: !inventory_params['item'].nil? && !(inventory_params['item'] == '') && Item.find(Integer(inventory_params['item'])),
-                             character: !inventory_params['character'].nil? && !(inventory_params['character'] == '') && Character.find(Integer(inventory_params['character'])),
-                             quantity: inventory_params['quantity']
-                           })
+      updates = create_updates(inventory_params)
+      if updates.nil?
+        redirect_to edit_inventory_path(@inventory)
+        return
+      end
+      if @inventory.update(updates)
         format.html { redirect_to inventory_url(@inventory), notice: 'Inventory was successfully updated.' }
         format.json { render :show, status: :ok, location: @inventory }
       else
@@ -81,6 +78,23 @@ class InventoriesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_inventory
     @inventory = Inventory.find(params[:id])
+  end
+
+  def create_updates(inventory_params)
+    updates = {}
+    if inventory_params['item'].to_s != ''
+      updates[:item] = Item.find(Integer(inventory_params['item']))
+      return if updates[:item].nil?
+    end
+    if inventory_params['character'].to_s != ''
+      updates[:character] =
+        Character.find(Integer(inventory_params['character']))
+      return if updates[:character].nil?
+    end
+    updates[:quantity] ||= inventory_params['quantity']
+    return unless updates[:quantity] && Integer(updates[:quantity]).positive?
+
+    updates
   end
 
   # Only allow a list of trusted parameters through.

@@ -5,11 +5,33 @@ require 'rails_helper'
 RSpec.describe NonplayersController, type: :controller do
   before do
     Nonplayer.destroy_all
+    Item.destroy_all
+
+    Item.create(name: 'apple',
+                description: 'crunchy, fresh from the tree',
+                value: 2)
+
+    Item.create(name: 'fish',
+                description: 'still floppin\' around, fresh from the ocean',
+                value: 3)
+    Item.create(name: 'orange',
+                description: 'test description',
+                value: 5)
 
     npcs = [{ name: 'Ritchey', occupation: :merchant, inventory_slots: 5, balance: 0, personality: :enthusiastic,
-              dialogue_content: 'hello' },
+              dialogue_content: 'hello',
+              current_level: 1,
+              item_to_accept: Item.find_by(name: 'apple'),
+              item_to_offer: Item.find_by(name: 'orange'),
+              quantity_to_accept: 2,
+              quantity_to_offer: 5 },
             { name: 'Lightfoot', occupation: :comedian, inventory_slots: 5, balance: 0, personality: :dad,
-              dialogue_content: 'goodbye' }]
+              dialogue_content: 'goodbye',
+              current_level: 1,
+              item_to_accept: Item.find_by(name: 'apple'),
+              item_to_offer: Item.find_by(name: 'orange'),
+              quantity_to_accept: 2,
+              quantity_to_offer: 5 }]
 
     npcs.each { |npc| Nonplayer.create!(npc) }
   end
@@ -35,21 +57,21 @@ RSpec.describe NonplayersController, type: :controller do
   describe 'update' do
     it 'should change a nonplayer' do
       nonplayer = Nonplayer.find_by(name: 'Ritchey')
-      get :update, params: { id: nonplayer.id, nonplayer: { occupation: :merchant } }
+      put :update, params: { id: nonplayer.id, nonplayer: { occupation: :merchant } }
 
       expect(assigns(:nonplayer).occupation).to eq('merchant')
     end
 
     it 'redirects to the nonplayer details page' do
       nonplayer = Nonplayer.find_by(name: 'Ritchey')
-      get :update, params: { id: nonplayer.id, nonplayer: { occupation: :merchant } }
+      put :update, params: { id: nonplayer.id, nonplayer: { occupation: :merchant } }
 
       expect(response).to redirect_to nonplayer_path(nonplayer)
     end
 
     it 'flashes a notice' do
       nonplayer = Nonplayer.find_by(name: 'Ritchey')
-      get :update, params: { id: nonplayer.id, nonplayer: { occupation: :merchant } }
+      put :update, params: { id: nonplayer.id, nonplayer: { occupation: :merchant } }
 
       expect(flash[:notice]).to match(/Ritchey was successfully updated./)
     end
@@ -58,7 +80,7 @@ RSpec.describe NonplayersController, type: :controller do
   describe 'destroy' do
     it 'should remove the nonplayer' do
       nonplayer = Nonplayer.find_by(name: 'Ritchey')
-      get :destroy, params: { id: nonplayer.id }
+      delete :destroy, params: { id: nonplayer.id }
 
       new_nonplayer = Nonplayer.find_by(id: nonplayer)
       expect(new_nonplayer).to be_nil
@@ -66,41 +88,46 @@ RSpec.describe NonplayersController, type: :controller do
 
     it 'redirects to the home page' do
       nonplayer = Nonplayer.find_by(name: 'Ritchey')
-      get :destroy, params: { id: nonplayer.id }
+      delete :destroy, params: { id: nonplayer.id }
 
       expect(response).to redirect_to nonplayers_path
     end
 
     it 'flashes a notice' do
       nonplayer = Nonplayer.find_by(name: 'Ritchey')
-      get :destroy, params: { id: nonplayer.id }
+      delete :destroy, params: { id: nonplayer.id }
 
       expect(flash[:notice]).to match(/Ritchey was successfully deleted./)
     end
   end
 
   describe 'create' do
+    before(:each) do
+      post :create,
+           params: { nonplayer: { name: 'Jeremy',
+                                  occupation: 'merchant',
+                                  inventory_slots: 5,
+                                  balance: 10,
+                                  personality: 'enthusiastic',
+                                  item_to_accept: Item.find_by(name: 'apple'),
+                                  item_to_offer: Item.find_by(name: 'orange'),
+                                  quantity_to_accept: 2,
+                                  quantity_to_offer: 5,
+                                  dialogue_content: 'Jeremy',
+                                  current_level: 1 } }
+    end
+
     it 'should create a new nonplayer' do
-      get :create,
-          params: { nonplayer: { name: 'Jeremy', occupation: :merchant, inventory_slots: 5, balance: 10,
-                                 personality: :enthusiastic } }
       nonplayer = Nonplayer.find_by(name: 'Jeremy')
       expect(nonplayer).not_to be_nil
     end
 
     it 'should redirect to the nonplayer profile' do
-      get :create,
-          params: { nonplayer: { name: 'Jeremy', occupation: :merchant, inventory_slots: 5, balance: 10,
-                                 personality: :enthusiastic } }
       nonplayer = Nonplayer.find_by(name: 'Jeremy')
       expect(response).to redirect_to nonplayer_path(nonplayer)
     end
 
     it 'should show a flash message' do
-      get :create,
-          params: { nonplayer: { name: 'Jeremy', occupation: :merchant, inventory_slots: 5, balance: 10,
-                                 personality: :enthusiastic } }
-
       expect(flash[:notice]).to match(/Jeremy was successfully created./)
     end
   end
