@@ -2,7 +2,7 @@ Given('the following inventory table exists:') do |inventory_table|
   inventory_table.hashes.each do |inventory|
     item = Item.find_by(name: inventory[:item])
     character = Character.find_by(name: inventory[:owner])
-    Inventory.create({item: item.id, owner_id: character.id, quantity: inventory[:quantity]})
+    Inventory.create({item: item, character: character, quantity: inventory[:quantity]})
   end
 end
 
