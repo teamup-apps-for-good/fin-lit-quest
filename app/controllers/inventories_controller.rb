@@ -22,7 +22,12 @@ class InventoriesController < ApplicationController
 
   # POST /inventories or /inventories.json
   def create
-    @inventory = Inventory.new(inventory_params)
+    new_params = {
+      item: Item.find(Integer(inventory_params['item'])),
+      character: Character.find(Integer(inventory_params['character'])),
+      quantity: inventory_params['quantity']
+    }
+    @inventory = Inventory.new(new_params)
 
     respond_to do |format|
       if @inventory.save
@@ -38,7 +43,11 @@ class InventoriesController < ApplicationController
   # PATCH/PUT /inventories/1 or /inventories/1.json
   def update
     respond_to do |format|
-      if @inventory.update(inventory_params)
+      if @inventory.update({
+                             item: inventory_params['item'] && Item.find(Integer(inventory_params['item'])),
+                             character: inventory_params['character'] && Character.find(Integer(inventory_params['character'])),
+                             quantity: inventory_params['quantity']
+                           })
         format.html { redirect_to inventory_url(@inventory), notice: 'Inventory was successfully updated.' }
         format.json { render :show, status: :ok, location: @inventory }
       else
