@@ -37,10 +37,10 @@ players = [{ name: "Stella", occupation: :farmer, inventory_slots: 5, balance: 0
 
 npcs = [{ name: "Ritchey", occupation: :merchant, inventory_slots: 5, balance: 0, personality: :enthusiastic,
           dialogue_content: "hello",
-          item_to_offer: "fish",  quantity_to_offer: 2, item_to_accept: "wheat", quantity_to_accept: 5,},
+          item_to_offer: "fish",  quantity_to_offer: 2, item_to_accept: "wheat", quantity_to_accept: 5, current_level: 1},
         { name: "Lightfoot", occupation: :comedian, inventory_slots: 5, balance: 0, personality: :dad,
           dialogue_content: "goodbye",
-          item_to_offer: "apple", quantity_to_offer: 2, item_to_accept: "orange", quantity_to_accept: 2
+          item_to_offer: "apple", quantity_to_offer: 2, item_to_accept: "orange", quantity_to_accept: 2, current_level: 1
         }]
 
 players.each { |player| Player.find_or_create_by!(player) }
