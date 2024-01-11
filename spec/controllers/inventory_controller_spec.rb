@@ -74,7 +74,7 @@ RSpec.describe InventoriesController, type: :controller do
 
     it 'renders the new page if the inventory item is invalid' do
       post :create, params: { inventory: { item: nil, character: nil, quantity: -1 } }
-      expect(response).to render_template(:new)
+      expect(response).to redirect_to new_inventory_path
     end
   end
 
