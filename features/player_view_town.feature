@@ -18,11 +18,11 @@ Feature: Interact with NPCs
       | Ritchey   | client     | 10              | 0       | 1             | enthusiastic | Howdy                | 2                  | 3                 | apple          | orange        |
       | Lightfoot | comedian   | 15              | 0       | 1             | dad          | insert dad joke here | 1                  | 5                 | orange         | apple         |
 
-    And the following inventory table exists:
-      | item   | owner     | quantity |
-      | apple  | Stella    | 5        |
-      | orange | Ritchey   | 3        |
-      | apple  | Lightfoot | 5        |
+    Given the following inventory exist:
+      | item   | character     | quantity |
+      | apple  | Stella        | 5        |
+      | orange | Ritchey       | 3        |
+      | apple  | Lightfoot     | 5        |
 
   Scenario: Non-players exist in town
     Given I am on the town page
@@ -34,7 +34,7 @@ Feature: Interact with NPCs
     When I click on "Ritchey"
     Then I should be on the profile page for "Ritchey"
 
-  Scenario: View a Non-Player Character's Occupation
+  Scenario: View a Non-Player Character's occupation
     Given I am on the profile page for "Ritchey"
     Then I should see the "Occupation" is "client"
 
