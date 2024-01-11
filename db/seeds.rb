@@ -70,22 +70,10 @@ inventories = [{ item: 'fish', character_id: 'Ritchey', quantity: 13 },
 
 inventories.each do |inventory|
     character = Character.find_by(name: inventory[:character_id])
-    if character
-        inventory[:character] = character
-    else
-        return # TODO: error logic
-    end
+    inventory[:character] = character
 
     item = Item.find_by(name: inventory[:item])
-    if item
-        inventory[:item] = item
-    else
-        return # TODO: error logic
-    end
+    inventory[:item] = item
 
-    if character && item
-        Inventory.find_or_create_by!(inventory) # Currently prevents duplicate items in inventory
-    else
-        return # TODO: error logic
-    end
+    Inventory.find_or_create_by!(inventory) # Currently prevents duplicate items in inventory
 end
