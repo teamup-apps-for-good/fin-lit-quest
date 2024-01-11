@@ -3,10 +3,26 @@
 <h1>Inventories</h1>
 
 <div id="inventories">
-  <% @inventory.each do |inventory| %>
-    <%= render inventory %>
+  <% @inventories.each do |inventory_entry| %>
+    <div>
+      <p>
+        <strong>Name:</strong>
+        <%= inventory_entry.item.name %>
+      </p>
+
+      <p>
+        <strong>Description:</strong>
+        <%= inventory_entry.item.description %>
+      </p>
+
+      <p>
+        <strong>Quantity:</strong>
+        <%= inventory_entry.quantity %>
+      </p>
+    </div>
+
     <br>
   <% end %>
 </div>
 
-<%= link_to "Back", character_profile_path(@character) %>
+<%= button_to "Back", character_profile_path(@character), class: "button-b", method: :get %>

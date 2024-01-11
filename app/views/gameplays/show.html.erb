@@ -3,8 +3,8 @@
 <%= render @gameplay %>
 
 <div>
-  <%= link_to "Edit this gameplay", edit_gameplay_path(@gameplay) %> |
-  <%= link_to "Back to gameplays", gameplays_path %>
+  <%= button_to "Edit this gameplay", edit_gameplay_path(@gameplay), method: :put %> |
+  <%= button_to "Back to gameplays", gameplays_path, method: :get %>
 
   <%= button_to "Destroy this gameplay", @gameplay, method: :delete %>
 </div>
