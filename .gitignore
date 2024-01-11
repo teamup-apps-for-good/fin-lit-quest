@@ -47,3 +47,6 @@ rubocop.sarif
 # vendoring
 /vendor
 
+# node modules
+/node_modules
+
