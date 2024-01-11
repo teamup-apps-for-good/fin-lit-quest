@@ -51,7 +51,7 @@ RSpec.describe InventoriesController, type: :controller do
     it 'creates a new inventory item' do
       inventory = { item: Item.find_by(name: 'apple').id, character: Character.find_by(name: 'Lightfoot').id,
                     quantity: 5 }
-      post :create, params: { inventory: inventory }
+      post :create, params: { inventory: }
       expect(assigns(:inventory)).to eq(Inventory.last)
       Inventory.last.destroy
     end
