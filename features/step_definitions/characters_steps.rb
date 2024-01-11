@@ -7,10 +7,6 @@ Given('the following characters exist:') do |characters_table|
   end
 end
 
-Given('I am on the character page') do
-  visit characters_path
-end
-
 Then('I should see {string}') do |string|
   expect(page).to have_content(string)
 end
@@ -20,18 +16,26 @@ When('I click on {string}') do |string|
 end
 
 Then('I should be on the {string} page') do |string|
-  case string
-  when 'Non-players'
+  case string.downcase
+  when 'character'
+    expect(current_path).to eq(character_page)
+  when 'non-players'
     expect(current_path).to eq(nonplayers_path)
+  else
+    raise "failed to find page"
   end
 end
 
 Given('I am on the {string} page for {string}') do |string, string2|
-  case string
-  when 'Player'
+  case string.downcase
+  when 'player'
     visit player_path(Player.find_by(name: string2))
-  when 'Non-player'
+  when 'non-player'
     visit nonplayer_path(Nonplayer.find_by(name: string2))
+  when 'inventory'
+    visit player_inventories_path(Player.find_by(name: string2))
+  else
+    raise "failed to find page"
   end
 end
 
