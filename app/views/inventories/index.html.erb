@@ -6,7 +6,7 @@
   <% @inventories.each do |inventory| %>
     <%= render inventory %>
     <p>
-      <%= link_to "Show this inventory", inventory %>
+      <%= link_to "Show #{inventory.item.name} in #{inventory.character.name}\'s inventory", inventory %>
     </p>
   <% end %>
 </div>
