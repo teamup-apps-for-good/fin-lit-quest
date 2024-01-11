@@ -1,4 +1,4 @@
-Feature: Interact with inventory
+  Feature: Interact with inventory
   As a player
   I want to click on inventory fields
   So that I can interact with them
@@ -27,11 +27,11 @@ Feature: Interact with inventory
   Scenario: View Item Information
     Given I am on the inventory page
     Then I should see "apple"
-    And I should see the "Amount" is "5"
+    And I should see the "Quantity" is "5"
     And I should see the "Description" is "crunchy, fresh from a tree"
 
   Scenario: View Non-Player Owner Information
     Given I am on the inventory page for "Ritchey"
     Then I should see "orange"
-    And I should see the "Amount" is "3"
+    And I should see the "Quantity" is "3"
     And I should see the "Description" is "tangy, fresh from a tree as well"

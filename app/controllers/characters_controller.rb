@@ -18,7 +18,8 @@ class CharactersController < ApplicationController
 
   def inventory
     @character = Character.find(params[:id])
-    @inventory = @character.items
+    @items = @character.items
+    @inventories = @character.inventories
   end
 
   def trade
