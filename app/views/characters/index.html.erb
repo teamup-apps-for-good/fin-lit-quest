@@ -2,8 +2,8 @@
 
 <h1>Characters</h1>
 
-<%= link_to 'Players', players_path, class: 'button' %>
-<%= link_to 'Non-players', nonplayers_path, class: 'button' %>
+<%= button_to 'Players', players_path, class: 'button', method: :get %>
+<%= button_to 'Non-players', nonplayers_path, class: 'button', method: :get %>
 
 <h2>Players</h2>
 <div id="players">
@@ -11,7 +11,7 @@
     <% if character.is_a?(Player) %>
       <%= render character %>
       <p>
-        <%= link_to "Show this player", character %>
+        <%= button_to "Show this player", character, method: :get %>
       </p>
     <% end %>
   <% end %>
@@ -23,10 +23,10 @@
     <% if character.is_a?(Nonplayer) %>
       <%= render character %>
       <p>
-        <%= link_to "Show this non-player", character %>
+        <%= button_to "Show this non-player", character, method: :get %>
       </p>
     <% end %>
   <% end %>
 </div>
 
-<%= link_to "New character", new_character_path %>
+<%= button_to "New character", new_character_path, method: :put %>
