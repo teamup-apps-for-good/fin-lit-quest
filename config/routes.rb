@@ -18,4 +18,5 @@ Rails.application.routes.draw do
   get '/town' => 'gameplays#town', as: 'town'
   get '/characters/:id/profile' => 'characters#profile', as: 'character_profile'
   get '/characters/:id/inventory' => 'characters#inventory', as: 'character_inventory'
+  get '/characters/:id/trade' => 'characters#trade', as: 'character_trade'
 end

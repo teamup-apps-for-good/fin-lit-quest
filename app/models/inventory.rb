@@ -2,6 +2,6 @@
 
 # Model for the Inventory table.
 class Inventory < ApplicationRecord
-  belongs_to :owner, class_name: 'Character', foreign_key: 'owner_id'
-  has_many :items
+  belongs_to :character
+  belongs_to :item
 end

@@ -1,8 +1,8 @@
 class CreateInventories < ActiveRecord::Migration[7.1]
   def change
     create_table :inventories do |t|
-      t.integer :item
-      t.references :owner, null: false, foreign_key: { to_table: :characters }
+      t.references :item, null: false, foreign_key: { to_table: :items }
+      t.references :character, null: false, foreign_key: { to_table: :characters }
       t.integer :quantity
 
       t.timestamps
