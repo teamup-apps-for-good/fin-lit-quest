@@ -1,12 +1,12 @@
-<h1>Welcome to town!</h1>
+<h1 class = "center-text nicefont">Welcome to town!</h1>
 
 <div id="non_players">
   <% @characters.each do |character| %>
     <% if character.is_a?(Nonplayer) %>
       <p>
-        <%= link_to character.name, character_profile_path(character) %>
+        <%= button_to character.name, character_profile_path(character), class: "button-b", method: :get %>
       </p>
     <% end %>
   <% end %>
 </div>
-<%= link_to "Back", root_path %>
+<%= button_to "Back", root_path, class: "button-b", method: :get %>

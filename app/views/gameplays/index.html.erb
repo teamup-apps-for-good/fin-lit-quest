@@ -1,14 +1,17 @@
+<%= stylesheet_link_tag "application" %>
+
+
 <p style="color: green"><%= notice %></p>
 
-<h1>Hello player!</h1>
+<h1 class="center-text nicefont">Hello player!</h1>
 
 <div>
-  <%= link_to "Home", root_path %>
-  <%= link_to "Town", town_path %>
-  <%= link_to "Inventory", character_inventory_path(Player.first) %>
-  <%= link_to "Shopping list", characters_path %>
-  <%= link_to "Budget", characters_path %>
+  <%= button_to "Home", root_path, class: "button-b", method: :get %>
+  <%= button_to "Town", town_path, class: "button-b", method: :get %>
+  <%= button_to "Inventory", character_inventory_path(Player.first), class: "button-b", method: :get %>
+  <%= button_to "Shopping list", characters_path, class: "button-b", method: :get %>
+  <%= button_to "Budget", characters_path, class: "button-b", method: :get %>
 </div>
 
 
-<%= link_to "Start", characters_path %>
+<%= button_to "Start", town_path, class: "button-b", method: :get %>

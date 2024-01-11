@@ -1,6 +1,7 @@
+<div class="center-text nicefont">
 <h1> <%= @character.name %> </h1>
-<%= link_to "Inventory", character_inventory_path(@character) %>
-<%= link_to "Trade", character_trade_path(@character) %>
+<%= button_to "Inventory", character_inventory_path(@character), class: "button-b", method: :get%>
+<%= button_to "Trade", character_trade_path(@character), class: "button-b", method: :get%>
 <div>
   <p>
     <strong>Name:</strong>
@@ -23,5 +24,5 @@
   </p>
 </div>
 
-
-<%= link_to "Back", town_path %>
+</div>
+<%= button_to "Back", town_path, class: "button-b", method: :get %>

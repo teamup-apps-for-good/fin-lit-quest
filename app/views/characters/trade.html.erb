@@ -1,3 +1,4 @@
+<div class = "nicefont">
 <h1> Trade with <%= @character.name %> </h1>
 
 <h2><%= @character.dialogue_content %></h2>
@@ -18,5 +19,6 @@
   </p>
 </div>
 
-<%= link_to "Yes", character_profile_path(@character) %>
-<%= link_to "No", character_profile_path(@character) %>
+<%= button_to "Yes", character_profile_path(@character), class: "button-g", method: :get %>
+<%= button_to "No", character_profile_path(@character), class: "button-r", method: :get %>
+</div>
