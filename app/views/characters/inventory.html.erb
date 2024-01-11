@@ -5,10 +5,8 @@
 <div id="inventories">
   <% @inventory.each do |inventory| %>
     <%= render inventory %>
-    <p>
-      <%= link_to "Show this inventory", inventory %>
-    </p>
+    <br>
   <% end %>
 </div>
 
-<%= link_to "New inventory", new_inventory_path %>
+<%= link_to "Back", character_profile_path(@character) %>

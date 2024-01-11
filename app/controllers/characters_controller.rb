@@ -68,11 +68,11 @@ class CharactersController < ApplicationController
   end
 
   def trade
-    character = Character.find(params[:id])
-    @item_to_offer = character.item_to_offer
-    @quantity_to_offer = character.quantity_to_offer
-    @item_to_accept = character.item_to_accept
-    @quantity_to_accept = character.quantity_to_accept
+    @character = Nonplayer.find(params[:id])
+    @item_to_offer = @character.item_to_offer.name
+    @quantity_to_offer = @character.quantity_to_offer
+    @item_to_accept = @character.item_to_accept.name
+    @quantity_to_accept = @character.quantity_to_accept
   end
 
   private
