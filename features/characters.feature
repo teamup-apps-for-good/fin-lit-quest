@@ -4,12 +4,20 @@ Feature: View Character Information
   So that I can know more about a character
 
   Background:
-    Given the following characters exist:
-      | type       | name      | occupation  | inventory_slots | balance |    current_level   | personality   | dialogue_content   |
-      | Player     | Stella    | farmer      |        5        | 0       |     1      |     -         |     -      |
-      | Nonplayer  | Ritchey   | merchant    |        10       | 0       |     -      | enthusiastic  |   hello    |
-      | Nonplayer  | Lightfoot | comedian    |        15       | 0       |     -      |    dad        |   goodbye  |
- 
+  Given the following items exist:
+    | name   | description                      | value |
+    | apple  | crunchy, fresh from a tree       | 2     |
+    | orange | tangy, fresh from a tree as well | 3     |
+
+  Given the following players exist:
+    | name      | occupation  | inventory_slots | balance |  current_level  |
+    | Stella    | programmer  |        5        | 0       |       1         |
+
+  Given the following non-players exist:
+    | name      | occupation | inventory_slots | balance | current_level | personality  | dialogue_content     | quantity_to_accept | quantity_to_offer | item_to_accept | item_to_offer |
+    | Ritchey   | client     | 10              | 0       | 1             | enthusiastic | Howdy                | 2                  | 3                 | apple          | orange        |
+    | Lightfoot | comedian   | 15              | 0       | 1             | dad          | insert dad joke here | 1                  | 5                 | orange         | apple         |
+
   Scenario: Verify characters exist
     Given I am on the character page 
     Then I should see "Players"
@@ -30,7 +38,7 @@ Feature: View Character Information
 
   Scenario: Verify a character has an occupation
     Given I am on the "Player" page for "Stella"
-    Then I should see "farmer"
+    Then I should see "programmer"
 
   Scenario: Verify a character has inventory_slots
     Given I am on the "Non-player" page for "Ritchey"
@@ -46,4 +54,4 @@ Feature: View Character Information
 
   Scenario: Verify a non-player character has dialogue available
     Given I am on the "Non-player" page for "Ritchey"
-    Then I should see "hello"
+    Then I should see "Howdy"
