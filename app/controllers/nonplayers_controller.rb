@@ -46,7 +46,10 @@ class NonplayersController < ApplicationController
   # PATCH/PUT /nonplayers/1 or /nonplayers/1.json
   def update
     respond_to do |format|
-      if @nonplayer.update(nonplayer_params)
+      new_params = nonplayer_params
+      new_params[:item_to_offer] = Item.find(Integer(nonplayer_params['item_to_offer']))
+      new_params[:item_to_accept] = Item.find(Integer(nonplayer_params['item_to_accept']))
+      if @nonplayer.update(new_params)
         format.html { redirect_to nonplayer_url(@nonplayer), notice: "#{@nonplayer.name} was successfully updated." }
         format.json { render :show, status: :ok, location: @nonplayer }
       else
