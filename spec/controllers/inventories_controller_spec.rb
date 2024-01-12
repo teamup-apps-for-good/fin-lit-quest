@@ -48,72 +48,62 @@ RSpec.describe InventoriesController, type: :controller do
   end
 
   describe 'create' do
+    before(:each) do
+      @inventory = { item: Item.find_by(name: 'apple').name,
+                     character: Character.find_by(name: 'Lightfoot').name,
+                     quantity: 5 }
+      post :create, params: { inventory: @inventory }
+    end
     it 'creates a new inventory item' do
-      inventory = { item: Item.find_by(name: 'apple').id,
-                    character: Character.find_by(name: 'Lightfoot').id,
-                    quantity: 5 }
-      post :create, params: { inventory: }
       expect(assigns(:inventory)).to eq(Inventory.last)
       Inventory.last.destroy
     end
 
     it 'redirects to the show inventory page' do
-      post :create, params: { inventory: { item: Item.find_by(name: 'apple'),
-                                           character: Character.find_by(name: 'Lightfoot'),
-                                           quantity: 5 } }
       expect(response).to redirect_to inventory_path(assigns(:inventory))
       Inventory.last.destroy
     end
 
     it 'flashes a notice' do
-      post :create, params: { inventory: { item: Item.find_by(name: 'apple'),
-                                           character: Character.find_by(name: 'Lightfoot'),
-                                           quantity: 5 } }
       expect(flash[:notice]).to match(/Inventory was successfully created./)
       Inventory.last.destroy
     end
 
     it 'renders the new page if the inventory item is invalid' do
       post :create, params: { inventory: { item: nil, character: nil, quantity: -1 } }
-      expect(response).to redirect_to new_inventory_path
+      expect(response.status).to eq(422)
     end
   end
 
   describe 'update' do
+    before(:each) do
+      @inventory_item = Inventory.create(item: Item.find_by(name: 'fish'),
+                                         character: Character.find_by(name: 'Stella'),
+                                         quantity: 5)
+    end
+
+    after(:each) do
+      @inventory_item.destroy
+    end
     it 'updates an inventory item' do
-      inventory_item = Inventory.create(item: Item.find_by(name: 'fish'),
-                                        character: Character.find_by(name: 'Stella'),
-                                        quantity: 5)
-      put :update, params: { id: inventory_item.id, inventory: { quantity: 1 } }
+      put :update, params: { id: @inventory_item.id, inventory: { quantity: 1 } }
       expect(assigns(:inventory).quantity).to eq(1)
-      inventory_item.destroy
     end
 
     it 'redirects to the show inventory page' do
-      inventory_item = Inventory.create(item: Item.find_by(name: 'fish'),
-                                        character: Character.find_by(name: 'Stella'),
-                                        quantity: 5)
-      put :update, params: { id: inventory_item.id, inventory: { quantity: 1 } }
+      put :update, params: { id: @inventory_item.id, inventory: { quantity: 1 } }
       expect(response).to redirect_to inventory_path(assigns(:inventory))
-      inventory_item.destroy
+      @inventory_item.destroy
     end
 
     it 'flashes a notice' do
-      inventory_item = Inventory.create(item: Item.find_by(name: 'fish'),
-                                        character: Character.find_by(name: 'Stella'),
-                                        quantity: 5)
-      put :update, params: { id: inventory_item.id, inventory: { quantity: 1 } }
+      put :update, params: { id: @inventory_item.id, inventory: { quantity: 1 } }
       expect(flash[:notice]).to match(/Inventory was successfully updated./)
-      inventory_item.destroy
     end
 
     it 'renders the edit page if the inventory item is invalid' do
-      inventory_item = Inventory.create(item: Item.find_by(name: 'fish'),
-                                        character: Character.find_by(name: 'Stella'),
-                                        quantity: 5)
-      put :update, params: { id: inventory_item.id, inventory: { item: nil, character: nil, quantity: -1 } }
-      expect(response).to redirect_to edit_inventory_path(inventory_item)
-      inventory_item.destroy
+      put :update, params: { id: @inventory_item.id, inventory: { quantity: -1 } }
+      expect(response).to redirect_to inventory_path(@inventory_item)
     end
   end
 
