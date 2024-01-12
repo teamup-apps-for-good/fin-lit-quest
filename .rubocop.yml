@@ -5,13 +5,14 @@ AllCops:
     - 'bin/**/*'
     - 'db/**/*'
     - 'vendor/**/*'
+    - '**/*.rake'
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*.rb'
-  Max: 50
+  Max: 20
 Metrics/MethodLength:
-  Max: 40
+  Max: 20
 Metrics/AbcSize:
-  Max: 40
+  Max: 25
 Metrics/CyclomaticComplexity:
   Max: 10

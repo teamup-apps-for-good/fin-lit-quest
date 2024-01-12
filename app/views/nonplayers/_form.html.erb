@@ -48,7 +48,7 @@
 
   <div>
     <%= form.label :item_to_accept, style: "display: block" %>
-    <%= form.number_field :item_to_accept %>
+    <%= form.collection_select :item_to_accept, Item.all, :id, :name, prompt: true %>
   </div>
 
   <div>
@@ -58,7 +58,7 @@
 
   <div>
     <%= form.label :item_to_offer, style: "display: block" %>
-    <%= form.number_field :item_to_offer %>
+    <%= form.collection_select :item_to_offer, Item.all, :id, :name, prompt: true %>
   </div>
 
   <div>

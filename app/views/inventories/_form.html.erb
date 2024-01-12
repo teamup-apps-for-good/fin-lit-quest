@@ -13,12 +13,12 @@
 
   <div>
     <%= form.label :item, style: "display: block" %>
-    <%= form.text_field :item %>
+    <%= form.collection_select :item, Item.all, :id, :name, prompt: true %>
   </div>
 
   <div>
     <%= form.label :character, style: "display: block" %>
-    <%= form.text_field :character %>
+    <%= form.collection_select :character, Character.all, :id, :name, prompt: true %>
   </div>
 
   <div>

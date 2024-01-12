@@ -49,8 +49,8 @@ RSpec.describe InventoriesController, type: :controller do
 
   describe 'create' do
     before(:each) do
-      @inventory = { item: Item.find_by(name: 'apple').name,
-                     character: Character.find_by(name: 'Lightfoot').name,
+      @inventory = { item: Item.find_by(name: 'apple'),
+                     character: Character.find_by(name: 'Lightfoot'),
                      quantity: 5 }
       post :create, params: { inventory: @inventory }
     end
