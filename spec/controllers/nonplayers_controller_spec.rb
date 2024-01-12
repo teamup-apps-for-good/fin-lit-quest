@@ -57,21 +57,30 @@ RSpec.describe NonplayersController, type: :controller do
   describe 'update' do
     it 'should change a nonplayer' do
       nonplayer = Nonplayer.find_by(name: 'Ritchey')
-      put :update, params: { id: nonplayer.id, nonplayer: { occupation: :merchant } }
+      put :update, params: { id: nonplayer.id,
+                             nonplayer: { occupation: :merchant,
+                                          item_to_offer: nonplayer.item_to_offer,
+                                          item_to_accept: nonplayer.item_to_accept } }
 
       expect(assigns(:nonplayer).occupation).to eq('merchant')
     end
 
     it 'redirects to the nonplayer details page' do
       nonplayer = Nonplayer.find_by(name: 'Ritchey')
-      put :update, params: { id: nonplayer.id, nonplayer: { occupation: :merchant } }
+      put :update, params: { id: nonplayer.id,
+                             nonplayer: { occupation: :merchant,
+                                          item_to_offer: nonplayer.item_to_offer,
+                                          item_to_accept: nonplayer.item_to_accept } }
 
       expect(response).to redirect_to nonplayer_path(nonplayer)
     end
 
     it 'flashes a notice' do
       nonplayer = Nonplayer.find_by(name: 'Ritchey')
-      put :update, params: { id: nonplayer.id, nonplayer: { occupation: :merchant } }
+      put :update, params: { id: nonplayer.id,
+                             nonplayer: { occupation: :merchant,
+                                          item_to_offer: nonplayer.item_to_offer,
+                                          item_to_accept: nonplayer.item_to_accept } }
 
       expect(flash[:notice]).to match(/Ritchey was successfully updated./)
     end

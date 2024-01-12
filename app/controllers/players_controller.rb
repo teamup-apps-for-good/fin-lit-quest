@@ -53,6 +53,10 @@ class PlayersController < ApplicationController
     end
   end
 
+  def new
+    @player = Player.new
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
