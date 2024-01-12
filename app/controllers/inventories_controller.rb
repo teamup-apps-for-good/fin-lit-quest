@@ -22,17 +22,18 @@ class InventoriesController < ApplicationController
 
   # POST /inventories or /inventories.json
   def create
-    begin
-      new_params = {
-        item: Item.find(Integer(inventory_params['item'])),
-        character: Character.find(Integer(inventory_params['character'])),
-        quantity: inventory_params['quantity']
-      }
-      @inventory = Inventory.new(new_params)
-    rescue StandardError
-      redirect_to new_inventory_path
-      return
-    end
+    new_params = {
+      item: Item.find_by(name: inventory_params['item']),
+      character: Character.find_by(name: inventory_params['character']),
+      quantity: inventory_params['quantity']
+    }
+    @inventory = Inventory.new(new_params)
+    # begin
+    #
+    # rescue StandardError
+    #   redirect_to new_inventory_path
+    #   return
+    # end
 
     respond_to do |format|
       if @inventory.save
