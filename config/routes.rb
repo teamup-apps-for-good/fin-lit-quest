@@ -20,4 +20,5 @@ Rails.application.routes.draw do
   get '/characters/:id/profile' => 'characters#profile', as: 'character_profile'
   get '/characters/:id/inventory' => 'characters#inventory', as: 'character_inventory'
   get '/characters/:id/trade' => 'characters#trade', as: 'character_trade'
+  get '/underconstruction' => 'gameplays#underconstruction', as: 'underconstruction'
 end
