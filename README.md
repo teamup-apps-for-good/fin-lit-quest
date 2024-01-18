@@ -74,5 +74,5 @@ If you need to do this on Heroku, you still probably shouldn't. ***This will des
 
 ## Contact
 
-If you have any issues with running this application, or want to report a bug, please [create an issue](https://github.com/teamup-apps-for-good/fin-lit-quest/issues/new).
+If you have any issues with running this application, or want to provide any feedback, please [create an issue](https://github.com/teamup-apps-for-good/fin-lit-quest/issues/new).
 
