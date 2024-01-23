@@ -53,7 +53,7 @@ git push heroku main
 heroku run rake db:seed
 ```
 
-## Resetting the Databse
+## Resetting the Database
 
 If the migration history is changed or breaking database changes are committed, you may need to completely reset the database. You will need the heroku CLI installed.
 Warning, this will **erase all data**
