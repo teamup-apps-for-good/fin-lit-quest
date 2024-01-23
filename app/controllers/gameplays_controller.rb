@@ -3,6 +3,7 @@
 # GameplaysController
 class GameplaysController < ApplicationController
   def town
-    @characters = Character.all
+    @player_level = Player.first.current_level
+    @characters = Character.where(current_level: @player_level)
   end
 end
