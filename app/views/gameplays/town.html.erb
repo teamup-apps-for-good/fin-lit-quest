@@ -1,72 +1,6 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-        body, html {
-              margin: 0;
-              padding: 0;
-              height: 100%;
-              overflow-x: hidden;
-              background: url('<%= asset_path('town.png') %>') no-repeat center center fixed;
-              background-size: 1200px;
-              position: relative;
-              image-rendering: pixelated;
-        }
-
-        .character-container {
-              text-align: center;
-              margin: 20px;
-              display: inline-block;
-              position: absolute;
-        }
-
-        .character-container img {
-              width: 100px;
-              height: auto;
-              display: block;
-              margin: 0 auto;
-              image-rendering: pixelated;
-              cursor: pointer;
-        }
-
-        .character-container h3 {
-              margin-bottom: 5px;
-        }
-
-        .content {
-              position: relative;
-              z-index: 1;
-        }
-
-        .non_players {
-              position: relative;
-              width: 100%;
-              height: 100%;
-        }
-
-        #ritchey_image_container {
-              position: relative;
-              bottom: 0;
-              left: 48%;
-              transform: translate(-50%);
-        }
-
-        #lightfoot_image_container {
-              position: relative;
-              top: 50%;
-              left: 48%;
-              transform: translate(-45%, 250%);
-        }
-
-
-        .welcome-banner h1 {
-              color: black;
-              background: white;
-              margin: 0;
-              text-align: center;
-        }
-
-  </style>
 </head>
 <body>
 
@@ -74,39 +8,15 @@
   <h1 class = "center-text nicefont">Welcome to Town <%=@player_level%>!</h1>
 </div>
 
-<div id="non_players" class="content">
+<div id="non_players">
   <% @characters.each do |character| %>
     <% if character.is_a?(Nonplayer) %>
-      <% container_id = "#{character.name.downcase}_image_container" %>
-      <div id="<%= container_id %>" class="character-container">
-        <%= link_to character_profile_path(character), class: "character-link" do %>
-          <!-- Ensure this ID matches what's in your JavaScript -->
-          <img id="<%= "#{character.name.downcase}_image" %>" src="<%= asset_path("#{character.name.downcase}.png") %>" alt="<%= character.name %>">
-          <h3><%= character.name %></h3>
-        <% end %>
-      </div>
+      <p>
+        <%= button_to character.name, character_profile_path(character), class: "button-b", method: :get %>
+      </p>
     <% end %>
   <% end %>
 </div>
 
-
 </body>
-<script type="text/javascript">
-      document.addEventListener("DOMContentLoaded", function() {
-            const ritcheyImages = ["<%= asset_path('ritchey.png') %>", "<%= asset_path('ritchey2.png') %>"];
-            const lightfootImages = ["<%= asset_path('lightfoot.png') %>", "<%= asset_path('lightfoot2.png') %>"];
-
-            let ritcheyCurrent = 0;
-            let lightfootCurrent = 0;
-
-            setInterval(() => {
-                  ritcheyCurrent = (ritcheyCurrent + 1) % ritcheyImages.length;
-                  lightfootCurrent = (lightfootCurrent + 1) % lightfootImages.length;
-
-                  document.getElementById('ritchey_image').src = ritcheyImages[ritcheyCurrent];
-                  document.getElementById('lightfoot_image').src = lightfootImages[lightfootCurrent];
-            }, 500);
-      });
-</script>
-
 <%= button_to "Back", root_path, class: "button-b", method: :get %>
