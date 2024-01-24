@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
-Given('the following shopping list table exists:') do |_table|
+Given('the following shopping list table exists:') do |shoppinglists|
   # table is a Cucumber::MultilineArgument::DataTable
-  pending # Write code here that turns the phrase above into concrete actions
+  shoppinglists.hashes.each do |shoppinglist_entry|
+    item = Item.find_by(name: shoppinglist_entry['item'])
+    shoppinglist_entry['item'] = item
+    ShoppingList.create(shoppinglist_entry)
+  end
 end
 
 Given('I am on the shopping list page') do
