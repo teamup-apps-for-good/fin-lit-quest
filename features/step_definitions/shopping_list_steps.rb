@@ -10,12 +10,17 @@ Given('the following shopping list table exists:') do |shoppinglists|
 end
 
 Given('I am on the shopping list page') do
-  pending # Write code here that turns the phrase above into concrete actions
+  visit shopping_lists_path
 end
 
-Then('I should see {int} apple:') do |_int|
+Then('I should see {int} apple:') do |num|
   # Then('I should see {float} apple:') do |float|
-  pending # Write code here that turns the phrase above into concrete actions
+  shopping_list = ShoppingList.find_by(item: Item.find_by(name: 'apple'), level: 1)
+  within "#shopping_list_#{shopping_list.id}" do
+    expect(page).to have_content('Item: apple')
+    expect(page).to have_content('Level: 1')
+    expect(page).to have_content('Quantity: ' + num.to_s)
+  end
 end
 
 Then('I should see {int} orange:') do |_int|

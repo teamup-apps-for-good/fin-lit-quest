@@ -22,6 +22,8 @@ class ShoppingListsController < ApplicationController
 
   # POST /shopping_lists or /shopping_lists.json
   def create
+    shopping_list_params['item'] = Item.find_by(name: shopping_list_params['item'])
+
     @shopping_list = ShoppingList.new(shopping_list_params)
 
     respond_to do |format|
