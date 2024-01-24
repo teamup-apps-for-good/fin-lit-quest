@@ -32,9 +32,9 @@ Given('I am on the new inventory entry page') do
 end
 
 When('I select {string} from the {string} dropdown') do |option_name, element_name|
-  select option_name, :from => element_name
+  select option_name, from: element_name
 end
 
 When('I fill in {string} with {string}') do |element_name, value|
-  fill_in element_name, :with => value
+  fill_in element_name, with: value
 end
