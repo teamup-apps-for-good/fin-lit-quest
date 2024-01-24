@@ -23,24 +23,44 @@ Then('I should see {int} apple:') do |num|
   end
 end
 
-Then('I should see {int} orange:') do |_int|
+Then('I should see {int} orange:') do |num|
   # Then('I should see {float} orange:') do |float|
-  pending # Write code here that turns the phrase above into concrete actions
+  shopping_list = ShoppingList.find_by(item: Item.find_by(name: 'orange'), level: 1)
+  within "#shopping_list_#{shopping_list.id}" do
+    expect(page).to have_content('Item: orange')
+    expect(page).to have_content('Level: 1')
+    expect(page).to have_content('Quantity: ' + num.to_s)
+  end
 end
 
-Then('I should see {int} wheat:') do |_int|
+Then('I should see {int} wheat:') do |num|
   # Then('I should see {float} wheat:') do |float|
-  pending # Write code here that turns the phrase above into concrete actions
+  shopping_list = ShoppingList.find_by(item: Item.find_by(name: 'wheat'), level: 1)
+  within "#shopping_list_#{shopping_list.id}" do
+    expect(page).to have_content('Item: wheat')
+    expect(page).to have_content('Level: 1')
+    expect(page).to have_content('Quantity: ' + num.to_s)
+  end
 end
 
-Then('I should see {int} fish:') do |_int|
+Then('I should see {int} fish:') do |num|
   # Then('I should see {float} fish:') do |float|
-  pending # Write code here that turns the phrase above into concrete actions
+  shopping_list = ShoppingList.find_by(item: Item.find_by(name: 'fish'), level: 1)
+  within "#shopping_list_#{shopping_list.id}" do
+    expect(page).to have_content('Item: fish')
+    expect(page).to have_content('Level: 1')
+    expect(page).to have_content('Quantity: ' + num.to_s)
+  end
 end
 
-Then('I should see {int} bread:') do |_int|
+Then('I should see {int} bread:') do |num|
   # Then('I should see {float} bread:') do |float|
-  pending # Write code here that turns the phrase above into concrete actions
+  shopping_list = ShoppingList.find_by(item: Item.find_by(name: 'bread'), level: 1)
+  within "#shopping_list_#{shopping_list.id}" do
+    expect(page).to have_content('Item: bread')
+    expect(page).to have_content('Level: 1')
+    expect(page).to have_content('Quantity: ' + num.to_s)
+  end
 end
 
 Then('I should see orange marked as complete') do
