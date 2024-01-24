@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Shopping lists</h1>
+
+<div id="shopping_lists">
+  <% @shopping_lists.each do |shopping_list| %>
+    <%= render shopping_list %>
+    <p>
+      <%= link_to "Show this shopping list", shopping_list %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New shopping list", new_shopping_list_path %>

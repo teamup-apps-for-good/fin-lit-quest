@@ -1,0 +1,10 @@
+<h1>Editing shopping list</h1>
+
+<%= render "form", shopping_list: @shopping_list %>
+
+<br>
+
+<div>
+  <%= link_to "Show this shopping list", @shopping_list %> |
+  <%= link_to "Back to shopping lists", shopping_lists_path %>
+</div>
