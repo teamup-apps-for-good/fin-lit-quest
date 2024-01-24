@@ -36,12 +36,18 @@ end
 players = [{ name: "Stella", occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1 }]
 
 npcs = [{ name: "Ritchey", occupation: :merchant, inventory_slots: 5, balance: 0, personality: :enthusiastic,
-          dialogue_content: "hello",
+          dialogue_content: "try harder",
           item_to_offer: "fish",  quantity_to_offer: 2, item_to_accept: "wheat", quantity_to_accept: 5, current_level: 1},
         { name: "Lightfoot", occupation: :comedian, inventory_slots: 5, balance: 0, personality: :dad,
           dialogue_content: "goodbye",
-          item_to_offer: "apple", quantity_to_offer: 2, item_to_accept: "orange", quantity_to_accept: 2, current_level: 1
-        }]
+          item_to_offer: "apple", quantity_to_offer: 2, item_to_accept: "orange", quantity_to_accept: 2, current_level: 1 },
+        { name: "Harry", occupation: :wizzard, inventory_slots: 5, balance: 50, personality: :skilled,
+          dialogue_content: "sssssss",
+          item_to_offer: "bandages", quantity_to_offer: 1, item_to_accept: "apple", quantity_to_accept: 2, current_level: 2 },
+        { name: "Hermione", occupation: :witch, inventory_slots: 5, balance: 30, personality: :knowledgeable,
+          dialogue_content: "hello",
+          item_to_offer: "coat", quantity_to_offer: 2, item_to_accept: "book", quantity_to_accept: 3, current_level: 2 }
+        ]
 
 players.each { |player| Player.find_or_create_by!(player) }
 npcs.each do |t|
@@ -66,7 +72,17 @@ inventories = [{ item: 'fish', character_id: 'Ritchey', quantity: 13 },
                { item: 'boots', character_id: 'Ritchey', quantity: 2 },
                { item: 'map', character_id: 'Ritchey', quantity: 3 },
                { item: 'compass', character_id: 'Lightfoot', quantity: 2 },
-               { item: 'canteen', character_id: 'Stella', quantity: 4 }]
+               { item: 'canteen', character_id: 'Stella', quantity: 4 },
+               { item: 'potato', character_id: 'Harry', quantity: 9 },
+               { item: 'grapes', character_id: 'Harry', quantity: 8 },
+               { item: 'bread', character_id: 'Harry', quantity: 7 },
+               { item: 'honey', character_id: 'Harry', quantity: 5 },
+               { item: 'bandages', character_id: 'Harry', quantity: 6 },
+               { item: 'book', character_id: 'Hermione', quantity: 5 },
+               { item: 'coat', character_id: 'Hermione', quantity: 2 },
+               { item: 'boots', character_id: 'Hermione', quantity: 2 },
+               { item: 'map', character_id: 'Hermione', quantity: 3 },
+               { item: 'compass', character_id: 'Hermione', quantity: 2 }]
 
 inventories.each do |inventory|
     character = Character.find_by(name: inventory[:character_id])
