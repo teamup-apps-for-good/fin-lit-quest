@@ -109,6 +109,6 @@ shoppinglists.each do |shoppinglist|
     item = Item.find_by(name: shoppinglist[:item])
     shoppinglist[:item] = item
 
-    Shoppinglist.find_or_create_by!(shoppinglist)
+    ShoppingList.find_or_create_by!(shoppinglist)
 end
 
