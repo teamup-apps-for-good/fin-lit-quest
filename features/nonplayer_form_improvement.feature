@@ -16,7 +16,6 @@ Feature: In the new and edit form for nonplayers, select items to accept and off
   Scenario: Item is available to select from dropdown in new nonplayer form
     Given I am on the new nonplayer character page
     When I fill in "Name" with "Carl"
-    And I fill in "Name" with "farmer"
     And I fill in "Occupation" with "farmer"
     And I fill in "Inventory slots" with "3"
     And I fill in "Balance" with "1"
@@ -27,7 +26,7 @@ Feature: In the new and edit form for nonplayers, select items to accept and off
     And I fill in "Quantity to accept" with "2"
     And I select "apple" from the "Item to offer" dropdown
     And I fill in "Quantity to offer" with "1"
-    And I press "Create Nonplayer"
+    And I click on "Create Nonplayer"
     Then I should see "Carl was successfully created."
 
   Scenario: Item is available to select from dropdown in edit nonplayer form
@@ -35,5 +34,5 @@ Feature: In the new and edit form for nonplayers, select items to accept and off
     And I click on "Edit this nonplayer"
     When I select "orange" from the "Item to accept" dropdown
     And I select "apple" from the "Item to offer" dropdown
-    And I press "Update Nonplayer"
+    And I click on "Update Nonplayer"
     Then I should see "Ritchey was successfully updated."
