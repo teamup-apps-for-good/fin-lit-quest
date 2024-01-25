@@ -30,7 +30,7 @@ Feature: In new inventory entry creation, select item and character from list
     And I click on "Create Inventory"
     Then I should see "Inventory was successfully created."
 
-  Scenario: Player is available to select from drop down
+  Scenario: Quantity is rejected if negative
     Given I am on the new inventory entry page
     When I select "apple" from the "Item" dropdown
     And I select "Stella" from the "Character" dropdown
@@ -54,7 +54,7 @@ Feature: In new inventory entry creation, select item and character from list
     And I click on "Update Inventory"
     Then I should see "Inventory was successfully updated."
 
-  Scenario: Player is available to select from drop down on edit page
+  Scenario: Quantity is rejected if negative on edit page
     Given I am on the inventory edit page for "apple" that is owned by "Stella"
     When I select "apple" from the "Item" dropdown
     And I select "Stella" from the "Character" dropdown
