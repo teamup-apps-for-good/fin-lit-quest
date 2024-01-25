@@ -22,13 +22,13 @@ Feature: In world 2 onwards, the item values field should be available in player
     Given the following inventory table exists:
       | item  | character | quantity |
       | apple | Stella    | 5        |
-      | boots | Stella    | 0        |
+      | boots | Stella    | 1        |
       | wheat | Ritchey   | 3        |
       | boots | Ritchey   | 2        |
       | map   | Ritchey   | 1        |
 
   Scenario Outline: Player can see the value of items in their own inventory
-    Given I am on the inventory page
+    Given I am on the inventory page for "Stella"
     Then for "<item>" I should see the "Value" is "<value>"
 
     Examples:

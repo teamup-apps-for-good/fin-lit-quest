@@ -17,6 +17,13 @@ RSpec.describe Inventory, type: :model do
         quantity: 1
       }
     end
+
+    it 'allows valid objects' do
+      data = @inventory_data
+      inventory = Inventory.new(data)
+      expect(inventory.valid?).to be true
+    end
+
     %i[item character quantity].each do |tag|
       it "makes sure #{tag} exists" do
         data = @inventory_data
@@ -24,6 +31,13 @@ RSpec.describe Inventory, type: :model do
         inventory = Inventory.new(data)
         expect(inventory.valid?).to be false
       end
+    end
+
+    it 'ensures quantity is positive' do
+      data = @inventory_data
+      data[:quantity] = -1
+      inventory = Inventory.new(data)
+      expect(inventory.valid?).to be false
     end
   end
 end

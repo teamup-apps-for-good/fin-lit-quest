@@ -22,19 +22,7 @@ class InventoriesController < ApplicationController
 
   # POST /inventories or /inventories.json
   def create
-    new_params = {
-      item: Item.find_by(name: inventory_params['item']),
-      character: Character.find_by(name: inventory_params['character']),
-      quantity: inventory_params['quantity']
-    }
-    @inventory = Inventory.new(new_params)
-    # begin
-    #
-    # rescue StandardError
-    #   redirect_to new_inventory_path
-    #   return
-    # end
-
+    @inventory = Inventory.new(inventory_params)
     respond_to do |format|
       if @inventory.save
         format.html { redirect_to inventory_url(@inventory), notice: 'Inventory was successfully created.' }
@@ -49,10 +37,6 @@ class InventoriesController < ApplicationController
   # PATCH/PUT /inventories/1 or /inventories/1.json
   def update
     respond_to do |format|
-      if inventory_params['quantity'].nil?
-        redirect_to edit_inventory_path(@inventory)
-        return
-      end
       if @inventory.update(inventory_params)
         format.html { redirect_to inventory_url(@inventory), notice: 'Inventory was successfully updated.' }
         format.json { render :show, status: :ok, location: @inventory }
@@ -82,6 +66,13 @@ class InventoriesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def inventory_params
-    params.require(:inventory).permit(:item, :character, :quantity)
+    new_params = params.require(:inventory).permit(:item, :character, :quantity)
+    begin
+      new_params[:item] &&= Item.find(new_params[:item])
+      new_params[:character] &&= Character.find(new_params[:character])
+    rescue ActiveRecord::RecordNotFound
+      return {}
+    end
+    new_params
   end
 end
