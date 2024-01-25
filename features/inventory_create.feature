@@ -17,6 +17,11 @@ Feature: In new inventory entry creation, select item and character from list
     | name      | occupation | inventory_slots | balance | current_level | personality  | dialogue_content     | quantity_to_accept | quantity_to_offer | item_to_accept | item_to_offer |
     | Ritchey   | client     | 10              | 0       | 1             | enthusiastic | Howdy                | 2                  | 3                 | apple          | orange        |
 
+    And the following inventory table exists:
+      | item  | character        | quantity |
+      | apple | Stella           | 5        |
+      | fish  | Ritchey          | 4        |
+
   Scenario: Player is available to select from drop down
     Given I am on the new inventory entry page
     When I select "apple" from the "Item" dropdown
@@ -40,3 +45,27 @@ Feature: In new inventory entry creation, select item and character from list
     And I fill in "Quantity" with "1"
     And I click on "Create Inventory"
     Then I should see "Inventory was successfully created."
+    
+  Scenario: Player is available to select from drop down on edit page
+    Given I am on the inventory edit page for "apple" that is owned by "Stella"
+    When I select "apple" from the "Item" dropdown
+    And I select "Stella" from the "Character" dropdown
+    And I fill in "Quantity" with "1"
+    And I click on "Update Inventory"
+    Then I should see "Inventory was successfully updated."
+
+  Scenario: Player is available to select from drop down on edit page
+    Given I am on the inventory edit page for "apple" that is owned by "Stella"
+    When I select "apple" from the "Item" dropdown
+    And I select "Stella" from the "Character" dropdown
+    And I fill in "Quantity" with "-1"
+    And I click on "Update Inventory"
+    Then I should see "Quantity must be greater than 0"
+
+  Scenario: Non-player is available to select from drop down on edit page
+    Given I am on the inventory edit page for "apple" that is owned by "Stella"
+    When I select "apple" from the "Item" dropdown
+    And I select "Ritchey" from the "Character" dropdown
+    And I fill in "Quantity" with "1"
+    And I click on "Update Inventory"
+    Then I should see "Inventory was successfully updated."
