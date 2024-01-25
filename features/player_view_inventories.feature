@@ -25,7 +25,7 @@
       | apple  | Lightfoot     | 5        |
 
   Scenario: View Item Information
-    Given I am on the inventory page
+    Given I am on the inventory page for "Stella"
     Then I should see "apple"
     And I should see the "Quantity" is "5"
     And I should see the "Description" is "crunchy, fresh from a tree"
