@@ -37,10 +37,6 @@ class InventoriesController < ApplicationController
   # PATCH/PUT /inventories/1 or /inventories/1.json
   def update
     respond_to do |format|
-      if inventory_params['quantity'].nil?
-        redirect_to edit_inventory_path(@inventory)
-        return
-      end
       if @inventory.update(inventory_params)
         format.html { redirect_to inventory_url(@inventory), notice: 'Inventory was successfully updated.' }
         format.json { render :show, status: :ok, location: @inventory }

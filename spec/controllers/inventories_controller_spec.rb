@@ -103,7 +103,7 @@ RSpec.describe InventoriesController, type: :controller do
 
     it 'renders the edit page if the inventory item is invalid' do
       put :update, params: { id: @inventory_item.id, inventory: { quantity: -1 } }
-      expect(response).to redirect_to inventory_path(@inventory_item)
+      expect(response.status).to be(422)
     end
   end
 

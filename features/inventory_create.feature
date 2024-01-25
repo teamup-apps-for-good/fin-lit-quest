@@ -25,6 +25,14 @@ Feature: In new inventory entry creation, select item and character from list
     And I click on "Create Inventory"
     Then I should see "Inventory was successfully created."
 
+  Scenario: Player is available to select from drop down
+    Given I am on the new inventory entry page
+    When I select "apple" from the "Item" dropdown
+    And I select "Stella" from the "Character" dropdown
+    And I fill in "Quantity" with "-1"
+    And I click on "Create Inventory"
+    Then I should see "Quantity must be greater than 0"
+
   Scenario: Non-player is available to select from drop down
     Given I am on the new inventory entry page
     When I select "apple" from the "Item" dropdown
