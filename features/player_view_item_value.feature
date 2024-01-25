@@ -45,3 +45,4 @@ Feature: In world 2 onwards, the item values field should be available in player
       | wheat | 1     |
       | boots | 25    |
       | map   | 15    |
+      
