@@ -19,6 +19,14 @@
         <strong>Quantity:</strong>
         <%= inventory_entry.quantity %>
       </p>
+      
+      <% if @level > 1 %>
+        <p>
+          <strong>Value:</strong>
+          <%= inventory_entry.item.value %>
+        </p>
+      <% end %>
+
     </div>
 
     <br>
