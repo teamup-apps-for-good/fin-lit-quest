@@ -29,7 +29,7 @@ Feature: In world 2 onwards, the item values field should be available in player
 
   Scenario Outline: Player can see the value of items in their own inventory
     Given I am on the inventory page
-    Then for "<item>" I should see the "Quantity" is "<value>"
+    Then for "<item>" I should see the "Value" is "<value>"
 
     Examples:
       | item  | value |
@@ -38,7 +38,7 @@ Feature: In world 2 onwards, the item values field should be available in player
 
   Scenario Outline: Player can see the value of items in non-player's inventory
     Given I am on the inventory page for "Ritchey"
-    Then for "<item>" I should see the "Quantity" is "<value>"
+    Then for "<item>" I should see the "Value" is "<value>"
 
     Examples:
       | item  | value |
