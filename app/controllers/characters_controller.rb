@@ -20,6 +20,7 @@ class CharactersController < ApplicationController
     @character = Character.find(params[:id])
     @items = @character.items
     @inventories = @character.inventories
+    @level = @character.current_level
   end
 
   def trade
