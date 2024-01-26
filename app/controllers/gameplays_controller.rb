@@ -4,6 +4,6 @@
 class GameplaysController < ApplicationController
   def town
     @player_level = Player.first.current_level
-    @characters = Character.where(current_level: @player_level)
+    @nonplayers = Nonplayer.where(current_level: @player_level)
   end
 end

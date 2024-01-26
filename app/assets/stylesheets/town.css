@@ -1,0 +1,11 @@
+.nonplayer-container {
+    text-align: center;
+}
+
+.nonplayer-container img {
+    display: block;
+    margin: 0 auto;
+    width: 120px; 
+    height: auto;  
+    image-rendering: pixelated;
+}
