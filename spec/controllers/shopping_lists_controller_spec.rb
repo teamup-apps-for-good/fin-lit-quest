@@ -132,7 +132,7 @@ RSpec.describe ShoppingListsController, type: :controller do
 
   describe 'create' do
     before(:each) do
-      @shopping_list = { item: Item.find_by(name: 'fish').name,
+      @shopping_list = { item: Item.find_by(name: 'fish'),
                          level: 1,
                          quantity: 3 }
       post :create, params: { shopping_list: @shopping_list }
@@ -164,7 +164,7 @@ RSpec.describe ShoppingListsController, type: :controller do
     end
     it 'should change a shopping list' do
       put :update, params: { id: @shopping_list.id,
-                             shopping_list: { item: Item.find_by(name: 'fish').name,
+                             shopping_list: { item: Item.find_by(name: 'fish'),
                                               level: 2,
                                               quantity: 3 } }
 
@@ -173,7 +173,7 @@ RSpec.describe ShoppingListsController, type: :controller do
 
     it 'redirects to the shopping list details page' do
       put :update, params: { id: @shopping_list.id,
-                             shopping_list: { item: Item.find_by(name: 'fish').name,
+                             shopping_list: { item: Item.find_by(name: 'fish'),
                                               level: 2,
                                               quantity: 3 } }
 
@@ -182,7 +182,7 @@ RSpec.describe ShoppingListsController, type: :controller do
 
     it 'flashes a notice' do
       put :update, params: { id: @shopping_list.id,
-                             shopping_list: { item: Item.find_by(name: 'fish').name,
+                             shopping_list: { item: Item.find_by(name: 'fish'),
                                               level: 2,
                                               quantity: 3 } }
 

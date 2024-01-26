@@ -27,12 +27,7 @@ class ShoppingListsController < ApplicationController
 
   # POST /shopping_lists or /shopping_lists.json
   def create
-    new_params = {
-      item: Item.find_by(name: shopping_list_params['item']),
-      level: shopping_list_params['level'],
-      quantity: shopping_list_params['quantity']
-    }
-    @shopping_list = ShoppingList.new(new_params)
+    @shopping_list = ShoppingList.new(shopping_list_params)
 
     respond_to do |format|
       if @shopping_list.save
@@ -47,14 +42,8 @@ class ShoppingListsController < ApplicationController
 
   # PATCH/PUT /shopping_lists/1 or /shopping_lists/1.json
   def update
-    new_params = {
-      item: Item.find_by(name: shopping_list_params['item']),
-      level: shopping_list_params['level'],
-      quantity: shopping_list_params['quantity']
-    }
-
     respond_to do |format|
-      if @shopping_list.update(new_params)
+      if @shopping_list.update(shopping_list_params)
         format.html { redirect_to shopping_list_url(@shopping_list), notice: 'Shopping list was successfully updated.' }
         format.json { render :show, status: :ok, location: @shopping_list }
       else
@@ -83,6 +72,12 @@ class ShoppingListsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def shopping_list_params
-    params.require(:shopping_list).permit(:item, :level, :quantity)
+    new_params = params.require(:shopping_list).permit(:item, :level, :quantity)
+    begin
+      new_params[:item] &&= Item.find(new_params[:item])
+    rescue ActiveRecord::RecordNotFound
+      return {}
+    end
+    new_params
   end
 end
