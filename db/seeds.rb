@@ -93,3 +93,22 @@ inventories.each do |inventory|
 
     Inventory.find_or_create_by!(inventory) # Currently prevents duplicate items in inventory
 end
+
+shoppinglists = [{ item: 'apple', level: 1, quantity: 2 },
+                 { item: 'orange', level: 1, quantity: 2 },
+                 { item: 'wheat', level: 1, quantity: 1 },
+                 { item: 'fish', level: 1, quantity: 2 },
+                 { item: 'bread', level: 1, quantity: 1 },
+                 { item: 'apple', level: 2, quantity: 5 },
+                 { item: 'orange', level: 2, quantity: 3 },
+                 { item: 'bread', level: 2, quantity: 6 },
+                 { item: 'boots', level: 2, quantity: 1 },
+                 { item: 'map', level: 2, quantity: 1 }]
+
+shoppinglists.each do |shoppinglist|
+    item = Item.find_by(name: shoppinglist[:item])
+    shoppinglist[:item] = item
+
+    ShoppingList.find_or_create_by!(shoppinglist)
+end
+

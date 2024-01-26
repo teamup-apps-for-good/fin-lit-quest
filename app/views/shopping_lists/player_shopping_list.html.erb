@@ -1,0 +1,19 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Shopping lists</h1>
+
+<div id="shopping_lists">
+  <% @level_shopping_lists.each do |shopping_list| %>
+    <div id="<%= dom_id shopping_list %>">
+        <p>
+            <%= check_box_tag "checked_shopping_list_#{shopping_list.id}", 
+            '1',
+            shopping_list.item_obtained(Player.first), 
+            disabled: true %> 
+            <%= shopping_list.quantity %> x <%= shopping_list.item.name %>
+        </p>
+    </div>
+  <% end %>
+</div>
+
+<%= button_to "Back", :back, class: "button-b", method: :get %>

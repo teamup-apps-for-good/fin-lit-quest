@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :shopping_lists
   resources :items
   resources :inventories
   resources :nonplayers
@@ -21,4 +22,5 @@ Rails.application.routes.draw do
   get '/characters/:id/inventory' => 'characters#inventory', as: 'character_inventory'
   get '/characters/:id/trade' => 'characters#trade', as: 'character_trade'
   get '/underconstruction' => 'gameplays#underconstruction', as: 'underconstruction'
+  get '/shopping+list' => 'shopping_lists#player_shopping_list', as: 'player_shopping_list'
 end
