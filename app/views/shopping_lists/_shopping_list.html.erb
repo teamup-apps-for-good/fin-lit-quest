@@ -14,4 +14,12 @@
     <%= shopping_list.quantity %>
   </p>
 
+  <p>
+    <strong>Status: </strong>
+    <%= check_box_tag "checked_shopping_list_#{shopping_list.id}", 
+                      '1',
+                      shopping_list.item_obtained(Player.first), 
+                      disabled: true %> 
+  </p>
+
 </div>

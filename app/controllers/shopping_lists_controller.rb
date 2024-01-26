@@ -9,6 +9,11 @@ class ShoppingListsController < ApplicationController
     @shopping_lists = ShoppingList.all
   end
 
+  def player_shopping_list
+    @player_level = Player.first.current_level
+    @shopping_lists = ShoppingList.where(level: @player_level)
+  end
+
   # GET /shopping_lists/1 or /shopping_lists/1.json
   def show; end
 

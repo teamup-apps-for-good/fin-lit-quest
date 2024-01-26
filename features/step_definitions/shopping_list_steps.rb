@@ -10,75 +10,31 @@ Given('the following shopping list table exists:') do |shoppinglists|
 end
 
 Given('I am on the shopping list page') do
-  visit shopping_lists_path
+  visit player_shopping_list_path
 end
 
-Then('I should see {int} apple:') do |num|
-  # Then('I should see {float} apple:') do |float|
-  shopping_list = ShoppingList.find_by(item: Item.find_by(name: 'apple'), level: 1)
-  within "#shopping_list_#{shopping_list.id}" do
-    expect(page).to have_content('Item: apple')
-    expect(page).to have_content('Level: 1')
-    expect(page).to have_content('Quantity: ' + num.to_s)
+Then('I should see {string} {string} from world {string}:') do |quantity, item, world|
+  shopping_list = ShoppingList.find_by(item: Item.find_by(name: item), level: world.to_i)
+  within "##{dom_id(shopping_list)}" do
+    expect(page).to have_content("#{quantity} x #{item}")
   end
 end
 
-Then('I should see {int} orange:') do |num|
-  # Then('I should see {float} orange:') do |float|
-  shopping_list = ShoppingList.find_by(item: Item.find_by(name: 'orange'), level: 1)
-  within "#shopping_list_#{shopping_list.id}" do
-    expect(page).to have_content('Item: orange')
-    expect(page).to have_content('Level: 1')
-    expect(page).to have_content('Quantity: ' + num.to_s)
+Then('I should not see {string} {string} from world {string}:') do |_quantity, item, world|
+  shopping_list = ShoppingList.find_by(item: Item.find_by(name: item), level: world.to_i)
+  expect(page).to have_no_selector("##{dom_id(shopping_list)}")
+end
+
+Then('I should see {string} marked as complete from world {string}') do |item, world|
+  shopping_list = ShoppingList.find_by(item: Item.find_by(name: item), level: world.to_i)
+  within "##{dom_id(shopping_list)}" do
+    expect(page).to have_field("checked_shopping_list_#{shopping_list.id}", checked: true, disabled: true)
   end
 end
 
-Then('I should see {int} wheat:') do |num|
-  # Then('I should see {float} wheat:') do |float|
-  shopping_list = ShoppingList.find_by(item: Item.find_by(name: 'wheat'), level: 1)
-  within "#shopping_list_#{shopping_list.id}" do
-    expect(page).to have_content('Item: wheat')
-    expect(page).to have_content('Level: 1')
-    expect(page).to have_content('Quantity: ' + num.to_s)
+Then('I should see {string} marked as incomplete from world {string}') do |item, world|
+  shopping_list = ShoppingList.find_by(item: Item.find_by(name: item), level: world.to_i)
+  within "##{dom_id(shopping_list)}" do
+    expect(page).to have_field("checked_shopping_list_#{shopping_list.id}", checked: false, disabled: true)
   end
-end
-
-Then('I should see {int} fish:') do |num|
-  # Then('I should see {float} fish:') do |float|
-  shopping_list = ShoppingList.find_by(item: Item.find_by(name: 'fish'), level: 1)
-  within "#shopping_list_#{shopping_list.id}" do
-    expect(page).to have_content('Item: fish')
-    expect(page).to have_content('Level: 1')
-    expect(page).to have_content('Quantity: ' + num.to_s)
-  end
-end
-
-Then('I should see {int} bread:') do |num|
-  # Then('I should see {float} bread:') do |float|
-  shopping_list = ShoppingList.find_by(item: Item.find_by(name: 'bread'), level: 1)
-  within "#shopping_list_#{shopping_list.id}" do
-    expect(page).to have_content('Item: bread')
-    expect(page).to have_content('Level: 1')
-    expect(page).to have_content('Quantity: ' + num.to_s)
-  end
-end
-
-Then('I should see orange marked as complete') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should see apple marked as complete') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should see fish marked as complete') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should see bread marked as incomplete') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then('I should see wheat marked as incomplete') do
-  pending # Write code here that turns the phrase above into concrete actions
 end

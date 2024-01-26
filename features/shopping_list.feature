@@ -40,29 +40,39 @@ Feature: Shopping list
     And I am on the shopping list page
 
   Scenario Outline: The list should be visible to a player of the current level
-    Then I should see <quantity> <item>:
+    Then I should see "<quantity>" "<item>" from world "<world>":
 
     Examples:
-      | item     | quantity   |
-      | apple    | 2          |
-      | orange   | 2          |
-      | wheat    | 1          |
-      | fish     | 2          |
-      | bread    | 1          |
+      | item     | quantity   | world   |
+      | apple    | 2          | 1       |
+      | orange   | 2          | 1       |
+      | wheat    | 1          | 1       |
+      | fish     | 2          | 1       |
+      | bread    | 1          | 1       |
 
+  Scenario Outline: The list of the next level should not be visible to a player of the current level
+    Then I should not see "<quantity>" "<item>" from world "<world>":
+
+    Examples:
+      | item     | world   | quantity   |
+      | apple    | 2       | 5          |
+      | orange   | 2       | 3          |
+      | bread    | 2       | 6          |
+      | boots    | 2       | 1          |
+      | map      | 2       | 1          |  
 
   Scenario Outline: When a player owns an item, it should be marked as complete
-    Then I should see <item> marked as complete
+    Then I should see "<item>" marked as complete from world "<world>"
 
     Examples:
-      | item    |
-      | orange  |
-      | apple   |
-      | fish    |
+      | item    | world   |
+      | orange  | 1       |
+      | apple   | 1       |
 
-  Scenario Outline: When a player owns an item, it should be marked as incomplete
-    Then I should see <item> marked as incomplete
+  Scenario Outline: When a player does not own an item, it should be marked as incomplete
+    Then I should see "<item>" marked as incomplete from world "<world>"
     Examples:
-      | item    |
-      | bread   |
-      | wheat   |
+      | item    | world   |
+      | bread   | 1       |
+      | wheat   | 1       |
+      | fish    | 1       |
