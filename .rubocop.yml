@@ -8,10 +8,4 @@ AllCops:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*.rb'
-  Max: 50
-Metrics/MethodLength:
-  Max: 40
-Metrics/AbcSize:
-  Max: 40
-Metrics/CyclomaticComplexity:
-  Max: 10
+

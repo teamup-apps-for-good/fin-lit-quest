@@ -22,12 +22,7 @@ class NonplayersController < ApplicationController
 
   # POST /nonplayers or /nonplayers.json
   def create
-    begin
-      @nonplayer = Nonplayer.create(nonplayer_params)
-    rescue StandardError
-      redirect_to new_nonplayer_path
-      return
-    end
+    @nonplayer = Nonplayer.create(nonplayer_params)
 
     respond_to do |format|
       if @nonplayer.save
