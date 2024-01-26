@@ -76,3 +76,4 @@ Feature: Shopping list
       | bread   | 1       |
       | wheat   | 1       |
       | fish    | 1       |
+      
