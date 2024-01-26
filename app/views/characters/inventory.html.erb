@@ -19,10 +19,18 @@
         <strong>Quantity:</strong>
         <%= inventory_entry.quantity %>
       </p>
+      
+      <% if @level > 1 %>
+        <p>
+          <strong>Value:</strong>
+          <%= inventory_entry.item.value %>
+        </p>
+      <% end %>
+
     </div>
 
     <br>
   <% end %>
 </div>
 
-<%= button_to "Back", character_profile_path(@character), class: "button-b", method: :get %>
+<%= button_to "Back", :back, class: "button-b", method: :get %>

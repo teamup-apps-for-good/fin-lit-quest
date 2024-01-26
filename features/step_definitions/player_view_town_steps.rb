@@ -30,10 +30,6 @@ Given('I am on the trade page for {string}') do |nonplayer|
   visit character_trade_path(Nonplayer.find_by(name: nonplayer))
 end
 
-Given('I am on the inventory page for {string}') do |nonplayer|
-  visit character_inventory_path(Nonplayer.find_by(name: nonplayer))
-end
-
-Given('I am on the inventory page') do
-  visit character_inventory_path(Player.first)
+Given('I am on the inventory page for {string}') do |character|
+  visit character_inventory_path(Character.find_by(name: character))
 end

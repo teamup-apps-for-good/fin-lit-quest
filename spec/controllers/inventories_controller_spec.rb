@@ -49,8 +49,8 @@ RSpec.describe InventoriesController, type: :controller do
 
   describe 'create' do
     before(:each) do
-      @inventory = { item: Item.find_by(name: 'apple').name,
-                     character: Character.find_by(name: 'Lightfoot').name,
+      @inventory = { item: Item.find_by(name: 'apple'),
+                     character: Character.find_by(name: 'Lightfoot'),
                      quantity: 5 }
       post :create, params: { inventory: @inventory }
     end
@@ -103,7 +103,7 @@ RSpec.describe InventoriesController, type: :controller do
 
     it 'renders the edit page if the inventory item is invalid' do
       put :update, params: { id: @inventory_item.id, inventory: { quantity: -1 } }
-      expect(response).to redirect_to inventory_path(@inventory_item)
+      expect(response.status).to be(422)
     end
   end
 

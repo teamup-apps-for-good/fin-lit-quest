@@ -23,10 +23,7 @@ class NonplayersController < ApplicationController
   # POST /nonplayers or /nonplayers.json
   def create
     begin
-      new_params = nonplayer_params
-      new_params[:item_to_offer] = Item.find(Integer(nonplayer_params['item_to_offer']))
-      new_params[:item_to_accept] = Item.find(Integer(nonplayer_params['item_to_accept']))
-      @nonplayer = Nonplayer.create(new_params)
+      @nonplayer = Nonplayer.create(nonplayer_params)
     rescue StandardError
       redirect_to new_nonplayer_path
       return
@@ -46,10 +43,7 @@ class NonplayersController < ApplicationController
   # PATCH/PUT /nonplayers/1 or /nonplayers/1.json
   def update
     respond_to do |format|
-      new_params = nonplayer_params
-      new_params[:item_to_offer] = Item.find(Integer(nonplayer_params['item_to_offer']))
-      new_params[:item_to_accept] = Item.find(Integer(nonplayer_params['item_to_accept']))
-      if @nonplayer.update(new_params)
+      if @nonplayer.update(nonplayer_params)
         format.html { redirect_to nonplayer_url(@nonplayer), notice: "#{@nonplayer.name} was successfully updated." }
         format.json { render :show, status: :ok, location: @nonplayer }
       else
@@ -79,8 +73,15 @@ class NonplayersController < ApplicationController
   # Only allow a list of trusted parameters through.
   def nonplayer_params
     # rubocop:disable Layout/LineLength
-    params.require(:nonplayer).permit(:personality, :dialogue_content, :item_to_accept, :quantity_to_accept,
-                                      :item_to_offer, :quantity_to_offer, :name, :occupation, :inventory_slots, :balance, :current_level)
+    new_params = params.require(:nonplayer).permit(:personality, :dialogue_content, :item_to_accept, :quantity_to_accept,
+                                                   :item_to_offer, :quantity_to_offer, :name, :occupation, :inventory_slots, :balance, :current_level)
     # rubocop:enable Layout/LineLength
+    begin
+      new_params[:item_to_offer] = Item.find(new_params[:item_to_offer])
+      new_params[:item_to_accept] = Item.find(new_params[:item_to_accept])
+    rescue ActiveRecord::RecordNotFound
+      return {}
+    end
+    new_params
   end
 end
