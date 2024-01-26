@@ -3,7 +3,7 @@
 <h1>Shopping lists</h1>
 
 <div id="shopping_lists">
-  <% @shopping_lists.each do |shopping_list| %>
+  <% @level_shopping_lists.each do |shopping_list| %>
     <div id="<%= dom_id shopping_list %>">
         <p>
             <%= check_box_tag "checked_shopping_list_#{shopping_list.id}", 

@@ -11,7 +11,7 @@ class ShoppingListsController < ApplicationController
 
   def player_shopping_list
     @player_level = Player.first.current_level
-    @shopping_lists = ShoppingList.where(level: @player_level)
+    @level_shopping_lists = ShoppingList.where(level: @player_level)
   end
 
   # GET /shopping_lists/1 or /shopping_lists/1.json
@@ -27,9 +27,12 @@ class ShoppingListsController < ApplicationController
 
   # POST /shopping_lists or /shopping_lists.json
   def create
-    shopping_list_params['item'] = Item.find_by(name: shopping_list_params['item'])
-
-    @shopping_list = ShoppingList.new(shopping_list_params)
+    new_params = {
+      item: Item.find_by(name: shopping_list_params['item']),
+      level: shopping_list_params['level'],
+      quantity: shopping_list_params['quantity']
+    }
+    @shopping_list = ShoppingList.new(new_params)
 
     respond_to do |format|
       if @shopping_list.save
@@ -44,8 +47,14 @@ class ShoppingListsController < ApplicationController
 
   # PATCH/PUT /shopping_lists/1 or /shopping_lists/1.json
   def update
+    new_params = {
+      item: Item.find_by(name: shopping_list_params['item']),
+      level: shopping_list_params['level'],
+      quantity: shopping_list_params['quantity']
+    }
+
     respond_to do |format|
-      if @shopping_list.update(shopping_list_params)
+      if @shopping_list.update(new_params)
         format.html { redirect_to shopping_list_url(@shopping_list), notice: 'Shopping list was successfully updated.' }
         format.json { render :show, status: :ok, location: @shopping_list }
       else
@@ -74,6 +83,6 @@ class ShoppingListsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def shopping_list_params
-    params.require(:shopping_list).permit(:item_id, :level, :quantity)
+    params.require(:shopping_list).permit(:item, :level, :quantity)
   end
 end

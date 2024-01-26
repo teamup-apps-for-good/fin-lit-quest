@@ -12,8 +12,8 @@
   <% end %>
 
   <div>
-    <%= form.label :item_id, style: "display: block" %>
-    <%= form.collection_select :item, Item.all, :id, :name, prompt: true, selected: @shopping_list.item.id %>
+    <%= form.label :item, style: "display: block" %>
+    <%= form.collection_select :item, Item.all, :id, :name, prompt: true, selected: @shopping_list.new_record? ? nil : @shopping_list.item.id %>
   </div>
 
   <div>
