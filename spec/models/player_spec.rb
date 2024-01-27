@@ -22,5 +22,18 @@ RSpec.describe Player, type: :model do
         expect(player.valid?).to be false
       end
     end
+
+    it 'allows valid objects' do
+      data = @player_data
+      player = Player.new(data)
+      expect(player.valid?).to be true
+    end
+
+    it 'ensures level is positive' do
+      data = @player_data
+      data[:current_level] = -1
+      player = Player.new(data)
+      expect(player.valid?).to be false
+    end
   end
 end

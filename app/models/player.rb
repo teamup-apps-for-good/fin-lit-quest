@@ -2,5 +2,6 @@
 
 # player character model
 class Player < Character
-  validates :name, :occupation, :inventory_slots, :balance, :current_level, presence: true
+  validates :name, :occupation, :inventory_slots, :balance, presence: true
+  validates :current_level, presence: true, numericality: { greater_than: 0 }
 end
