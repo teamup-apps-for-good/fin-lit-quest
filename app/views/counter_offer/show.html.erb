@@ -1,0 +1,45 @@
+<!-- app/views/counter_offer/show.html.erb -->
+<h1>Counter Offer for <%= @name %></h1>
+
+<% if @character %>
+<%= form_with(model: @counter_offer, url: create_counter_offer_path(name: @name), local: true) do |form| %>
+
+
+
+    <div>
+      <%= form.label :item_i_give, 'I give' %>
+      <%= form.collection_select :item_i_give, Item.all, :id, :name, include_blank: true %>
+    </div>
+
+    <div>
+        <%= form.label :quantity_i_give, 'Quantity I give' %>
+        <%= form.number_field :quantity_i_give %>
+    </div>
+
+    <div>
+      <%= form.label :item_i_want, 'I want' %>
+      <%= form.collection_select :item_i_want, Item.all, :id, :name, include_blank: true %>
+    </div>
+
+    <div>
+        <%= form.label :quantity_i_want, 'Quantity I want' %>
+        <%= form.number_field :quantity_i_want %>
+    </div>
+
+    <div>
+      <%= form.submit 'Offer' %>
+    </div>
+  <% end %>
+
+  <% if flash[:notice] %> <!-- Check if a flash notice message exists -->
+    <div class="success-notice">
+      <%= flash[:notice] %> <!-- Display the flash notice -->
+    </div>
+  <% end %>
+
+<% else %>
+  <p>Character not found.</p>
+<% end %>
+
+
+

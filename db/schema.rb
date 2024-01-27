@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_26_194633) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_27_052406) do
   create_table "characters", force: :cascade do |t|
     t.string "name"
     t.string "occupation"
@@ -29,6 +29,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_26_194633) do
     t.string "gif_url"
     t.index ["item_to_accept_id"], name: "index_characters_on_item_to_accept_id"
     t.index ["item_to_offer_id"], name: "index_characters_on_item_to_offer_id"
+  end
+
+  create_table "counter_offers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "inventories", force: :cascade do |t|

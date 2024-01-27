@@ -10,7 +10,13 @@ class CharactersController < ApplicationController
   end
 
   # GET /characters/1 or /characters/1.json
-  def show; end
+  def show
+    @characters = Character.find_by(name: params[:name]) || default_character
+  end
+
+  def default_character
+    Character.new(name: 'Default', gif_url: './images/generic_nonplayer')
+  end
 
   def profile
     @character = Character.find(params[:id])

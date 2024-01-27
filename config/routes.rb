@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'counter_offer/show'
   resources :shopping_lists
   resources :items
   resources :inventories
@@ -23,4 +24,8 @@ Rails.application.routes.draw do
   get '/characters/:id/trade' => 'characters#trade', as: 'character_trade'
   get '/underconstruction' => 'gameplays#underconstruction', as: 'underconstruction'
   get '/shopping+list' => 'shopping_lists#player_shopping_list', as: 'player_shopping_list'
+  get '/counter_offer/:name', to: 'counter_offer#show', as: 'counter_offer'
+
+  post '/counter_offer/:name', to: 'counter_offer#create', as: 'create_counter_offer'
+
 end
