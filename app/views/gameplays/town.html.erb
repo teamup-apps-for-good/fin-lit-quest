@@ -1,6 +1,6 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <%= stylesheet_link_tag 'town', media: 'all', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
 
@@ -9,12 +9,14 @@
 </div>
 
 <div id="non_players">
-  <% @characters.each do |character| %>
-    <% if character.is_a?(Nonplayer) %>
-      <p>
-        <%= button_to character.name, character_profile_path(character), class: "button-b", method: :get %>
-      </p>
-    <% end %>
+  <% @nonplayers.each do |nonplayer| %>
+    <% container_id = "#{nonplayer.name.downcase}_image_container" %>
+      <div id="<%= container_id %>" class="nonplayer-container">
+        <%= link_to character_profile_path(nonplayer), class: "nonplayer-link" do %>
+          <img id="<%= nonplayer_img_tag(nonplayer) %>" src="<%= asset_path(nonplayer_gif_file(nonplayer)) %>" alt="<%= nonplayer.name %>">
+          <h3 class = "nicefont"><%= nonplayer.name %></h3>
+        <% end %>
+      </div>
   <% end %>
 </div>
 
