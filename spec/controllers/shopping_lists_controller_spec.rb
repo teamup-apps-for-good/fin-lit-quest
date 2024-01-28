@@ -232,14 +232,12 @@ RSpec.describe ShoppingListsController, type: :controller do
     end
 
     it 'should not level up if shopping list not met' do
-      player = Player.find_by(name: "Victor")
-      post :launch, params: { id: player.id }
-      expect(player.current_level).to eq(2)
+      post :launch, params: { id: Player.find_by(name: "Victor").id }
+      expect(Player.find_by(name: "Victor").current_level).to eq(2)
     end
     it 'should level up if player meets shopping list' do
-      player = Player.find_by(name: "Stella")
-      post :launch, params: { id: player.id }
-      expect(player.current_level).to eq(2)
+      post :launch, params: { id: Player.find_by(name: "Stella").id }
+      expect(Player.find_by(name: "Stella").current_level).to eq(2)
     end
   end
 end
