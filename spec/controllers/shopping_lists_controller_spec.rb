@@ -213,4 +213,32 @@ RSpec.describe ShoppingListsController, type: :controller do
       expect(flash[:notice]).to match(/Shopping list was successfully destroyed./)
     end
   end
+
+  describe 'launch' do
+    before do
+      Inventory.find(item: Item.find_by(name: 'orange'), 
+                     character: Player.find_by(name: "Stella")).update(quantity: 2)
+      
+      Inventory.create(item: Item.find_by(name: 'wheat'),
+                       character: Player.find_by(name: 'Stella'),
+                       quantity: 5)
+    end
+
+    after do
+      Inventory.find(item: Item.find_by(name: 'orange'), 
+                     character: Player.find_by(name: "Stella")).update(quantity: 1)
+      Inventory.find(item: Item.find_by(name: 'wheat'),
+                     character: Player.find_by(name: "Stella")).destroy
+    end
+
+    it should 'not level up if not shopping list not met' do
+      player = Player.where(name: "Victor")
+      post :launch, params: { player: player }
+      expect(player.current_level).to eq(2)
+    end
+    it should 'level up if player meets shopping list' do
+      player = Player.where(name: "Stella")
+      post :launch, params: { player: player }
+      expect(player.current_level).to eq(1)
+    end
 end
