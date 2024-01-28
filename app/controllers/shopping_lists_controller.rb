@@ -63,6 +63,17 @@ class ShoppingListsController < ApplicationController
     end
   end
 
+  # POST /launch/1
+  def launch
+    player = Player.find(params[:id])
+    if ShoppingList.contains_all(player)
+      player.update(current_level: player.current_level + 1)
+      redirect_to town_path, notice: 'You leveled up!'
+    else
+      redirect_to root_path, alert: "You have not completed the shopping list!"
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

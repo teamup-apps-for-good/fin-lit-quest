@@ -23,4 +23,6 @@ Rails.application.routes.draw do
   get '/characters/:id/trade' => 'characters#trade', as: 'character_trade'
   get '/underconstruction' => 'gameplays#underconstruction', as: 'underconstruction'
   get '/shopping+list' => 'shopping_lists#player_shopping_list', as: 'player_shopping_list'
+
+  post '/launch/:id', to: 'shopping_lists#launch', as: 'launch'
 end
