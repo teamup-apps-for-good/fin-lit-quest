@@ -88,6 +88,8 @@ RSpec.describe ShoppingListsController, type: :controller do
     Inventory.create(item: Item.find_by(name: 'boots'),
                      character: Player.find_by(name: 'Victor'),
                      quantity: 1)
+
+    @apple_shopping_list = ShoppingList.find_by(item: Item.find_by(name: 'apple'))
   end
 
   describe 'index' do
@@ -109,9 +111,8 @@ RSpec.describe ShoppingListsController, type: :controller do
 
   describe 'show' do
     it 'should show a given shopping list' do
-      shopping_list = ShoppingList.find_by(item: Item.find_by(name: 'apple'))
-      get :show, params: { id: shopping_list.id }
-      expect(assigns(:shopping_list)).to eq(shopping_list)
+      get :show, params: { id: @apple_shopping_list.id }
+      expect(assigns(:shopping_list)).to eq(@apple_shopping_list)
     end
   end
 
@@ -124,9 +125,8 @@ RSpec.describe ShoppingListsController, type: :controller do
 
   describe 'edit' do
     it 'should edit a given shopping list' do
-      shopping_list = ShoppingList.find_by(item: Item.find_by(name: 'apple'))
-      get :edit, params: { id: shopping_list.id }
-      expect(assigns(:shopping_list)).to eq(shopping_list)
+      get :edit, params: { id: @apple_shopping_list.id }
+      expect(assigns(:shopping_list)).to eq(@apple_shopping_list)
     end
   end
 
@@ -158,57 +158,49 @@ RSpec.describe ShoppingListsController, type: :controller do
       @shopping_list = ShoppingList.create(item: Item.find_by(name: 'apple'),
                                            level: 1,
                                            quantity: 8)
-    end
-    after(:each) do
-      @shopping_list.destroy
-    end
-    it 'should change a shopping list' do
       put :update, params: { id: @shopping_list.id,
                              shopping_list: { item: Item.find_by(name: 'fish'),
                                               level: 2,
                                               quantity: 3 } }
+    end
 
+    after(:each) do
+      @shopping_list.destroy
+    end
+
+    it 'should change a shopping list' do
       expect(assigns(:shopping_list).item).to eq(Item.find_by(name: 'fish'))
     end
 
     it 'redirects to the shopping list details page' do
-      put :update, params: { id: @shopping_list.id,
-                             shopping_list: { item: Item.find_by(name: 'fish'),
-                                              level: 2,
-                                              quantity: 3 } }
-
       expect(response).to redirect_to shopping_list_path(@shopping_list)
     end
 
     it 'flashes a notice' do
-      put :update, params: { id: @shopping_list.id,
-                             shopping_list: { item: Item.find_by(name: 'fish'),
-                                              level: 2,
-                                              quantity: 3 } }
-
       expect(flash[:notice]).to match(/Shopping list was successfully updated./)
     end
   end
 
   describe 'destroy' do
-    it 'should remove the shopping list' do
-      shopping_list = ShoppingList.find_by(item: Item.find_by(name: 'apple'))
-      delete :destroy, params: { id: shopping_list.id }
+    before do
+      @shopping_list = ShoppingList.find_by(item: Item.find_by(name: 'apple'))
+    end
 
-      new_shopping_list = ShoppingList.find_by(id: shopping_list)
+    it 'should remove the shopping list' do
+      delete :destroy, params: { id: @shopping_list.id }
+
+      new_shopping_list = ShoppingList.find_by(id: @shopping_list)
       expect(new_shopping_list).to be_nil
     end
 
     it 'redirects to the shopping list index page' do
-      shopping_list = ShoppingList.find_by(item: Item.find_by(name: 'apple'))
-      delete :destroy, params: { id: shopping_list.id }
+      delete :destroy, params: { id: @shopping_list.id }
 
       expect(response).to redirect_to shopping_lists_path
     end
 
     it 'flashes a notice' do
-      shopping_list = ShoppingList.find_by(item: Item.find_by(name: 'apple'))
-      delete :destroy, params: { id: shopping_list.id }
+      delete :destroy, params: { id: @shopping_list.id }
 
       expect(flash[:notice]).to match(/Shopping list was successfully destroyed./)
     end
@@ -216,27 +208,22 @@ RSpec.describe ShoppingListsController, type: :controller do
 
   describe 'launch' do
     before do
-      Inventory.find_by(item: Item.find_by(name: 'orange'),
-                        character: Player.find_by(name: 'Stella')).update(quantity: 2)
-
-      Inventory.create(item: Item.find_by(name: 'wheat'),
-                       character: Player.find_by(name: 'Stella'),
-                       quantity: 5)
-    end
-
-    after do
-      Inventory.find_by(item: Item.find_by(name: 'orange'),
-                        character: Player.find_by(name: 'Stella')).update(quantity: 1)
-      Inventory.find_by(item: Item.find_by(name: 'wheat'),
-                        character: Player.find_by(name: 'Stella')).destroy
+      @stella = Player.find_by(name: 'Stella')
+      @victor = Player.find_by(name: 'Victor')
+      @orange_item = Item.find_by(name: 'orange')
+      @wheat_item = Item.find_by(name: 'wheat')
     end
 
     it 'should not level up if shopping list not met' do
-      post :launch, params: { id: Player.find_by(name: 'Victor').id }
+      post :launch, params: { id: @victor.id }
       expect(Player.find_by(name: 'Victor').current_level).to eq(2)
     end
+
     it 'should level up if player meets shopping list' do
-      post :launch, params: { id: Player.find_by(name: 'Stella').id }
+      Inventory.find_by(item: @orange_item, character: @stella).update(quantity: 2)
+      Inventory.create(item: @wheat_item, character: @stella, quantity: 5)
+
+      post :launch, params: { id: @stella.id }
       expect(Player.find_by(name: 'Stella').current_level).to eq(2)
     end
   end
