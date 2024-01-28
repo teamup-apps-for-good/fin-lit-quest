@@ -37,25 +37,21 @@ players = [{ name: "Stella", occupation: :farmer, inventory_slots: 5, balance: 0
 
 npcs = [{ name: "Ritchey", occupation: :merchant, inventory_slots: 5, balance: 0, personality: :enthusiastic,
           dialogue_content: "try harder",
-          item_to_offer: "fish",  quantity_to_offer: 2, item_to_accept: "wheat", quantity_to_accept: 5, current_level: 1},
+          item_to_offer: Item.find_by(name: 'fish'),  quantity_to_offer: 2, item_to_accept: Item.find_by(name: 'wheat'), quantity_to_accept: 5, current_level: 1},
         { name: "Lightfoot", occupation: :comedian, inventory_slots: 5, balance: 0, personality: :dad,
           dialogue_content: "goodbye",
-          item_to_offer: "apple", quantity_to_offer: 2, item_to_accept: "orange", quantity_to_accept: 2, current_level: 1 },
+          item_to_offer: Item.find_by(name: 'apple'), quantity_to_offer: 2, item_to_accept: Item.find_by(name: 'orange'), quantity_to_accept: 2, current_level: 1 },
         { name: "Harry", occupation: :wizzard, inventory_slots: 5, balance: 50, personality: :skilled,
           dialogue_content: "sssssss",
-          item_to_offer: "bandages", quantity_to_offer: 1, item_to_accept: "apple", quantity_to_accept: 2, current_level: 2 },
+          item_to_offer: Item.find_by(name: 'bandages'), quantity_to_offer: 1, item_to_accept: Item.find_by(name: 'apple'), quantity_to_accept: 2, current_level: 2 },
         { name: "Hermione", occupation: :witch, inventory_slots: 5, balance: 30, personality: :knowledgeable,
           dialogue_content: "hello",
-          item_to_offer: "coat", quantity_to_offer: 2, item_to_accept: "book", quantity_to_accept: 3, current_level: 2 }
+          item_to_offer: Item.find_by(name: 'coat'), quantity_to_offer: 2, item_to_accept: Item.find_by(name: 'book'), quantity_to_accept: 3, current_level: 2 }
         ]
 
 players.each { |player| Player.find_or_create_by!(player) }
-npcs.each do |t|
-    item_to_offer = Item.find_by name: t[:item_to_offer]
-    item_to_accept = Item.find_by name: t[:item_to_accept]
-    t[:item_to_offer] = item_to_offer
-    t[:item_to_accept] = item_to_accept
-    Nonplayer.create_or_find_by!(t)
+npcs.each do |npc_data|
+  Nonplayer.create_or_find_by!(npc_data)
 end
 
 inventories = [{ item: 'fish', character_id: 'Ritchey', quantity: 13 },

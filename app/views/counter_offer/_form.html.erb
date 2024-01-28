@@ -1,18 +1,18 @@
 <%= form_with(model: counter_offer) do |form| %>
-    <!-- other form fields -->
+  <!-- other form fields -->
   
-    <div>
-      <%= form.label :item_i_give, 'I give' %>
-      <%= form.collection_select :item_i_give, Item.all, :id, :name, prompt: true %>
-    </div>
-  
-    <div>
-      <%= form.label :item_i_want, 'I want' %>
-      <%= form.collection_select :item_i_want, Item.all, :id, :name, prompt: true %>
-    </div>
-  
-    <!-- other form fields -->
-    <%= form.submit %>
+  <div>
+    <%= form.label :item_i_give_id, 'I give' %>
+    <%= form.collection_select :item_i_give_id, Item.all, :id, :name, prompt: true %>
   </div>
-  <% end %>
+
+  <div>
+    <%= form.label :item_i_want_id, 'I want' %>
+    <%= form.collection_select :item_i_want_id, Item.all, :id, :name, prompt: true %>
+  </div>
+  
+  <!-- other form fields -->
+  <%= form.submit %>
+  </div>
+<% end %>
   

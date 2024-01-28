@@ -1,14 +1,29 @@
 <!-- app/views/counter_offer/show.html.erb -->
+
 <h1>Counter Offer for <%= @name %></h1>
 
 <% if @character %>
 <%= form_with(model: @counter_offer, url: create_counter_offer_path(name: @name), local: true) do |form| %>
-
-
+    
+    
+    <!-- Player's Inventory -->
+    <div id="player_inventory">
+      <h2 style="font-weight: bold;">Player's Inventory</h2>
+      <% @player_inventory.each do |item_name, quantity| %>
+        <div id="player_inventory_<%= item_name %>"><%= item_name.capitalize %>: <%= quantity %></div>
+      <% end %>
+    </div>
+    
+    <div id="npc_inventory">
+    <h2 style="font-weight: bold;">NPC's Inventory</h2>
+    <% @npc_inventory.each do |item_name, quantity| %>
+      <div id="npc_inventory_<%= item_name %>"><%= item_name.capitalize %>: <%= quantity %></div>
+    <% end %>
+  </div>
 
     <div>
       <%= form.label :item_i_give, 'I give' %>
-      <%= form.collection_select :item_i_give, Item.all, :id, :name, include_blank: true %>
+      <%= form.collection_select :item_i_give_id, Item.all, :id, :name, include_blank: true %>
     </div>
 
     <div>
@@ -18,7 +33,7 @@
 
     <div>
       <%= form.label :item_i_want, 'I want' %>
-      <%= form.collection_select :item_i_want, Item.all, :id, :name, include_blank: true %>
+      <%= form.collection_select :item_i_want_id, Item.all, :id, :name, include_blank: true %>
     </div>
 
     <div>
@@ -36,6 +51,13 @@
       <%= flash[:notice] %> <!-- Display the flash notice -->
     </div>
   <% end %>
+
+  <% if flash[:alert] %>
+    <div class="error-notice">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
 
 <% else %>
   <p>Character not found.</p>
