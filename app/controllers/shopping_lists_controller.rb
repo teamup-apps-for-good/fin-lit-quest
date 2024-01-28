@@ -70,7 +70,7 @@ class ShoppingListsController < ApplicationController
       player.update(current_level: player.current_level + 1)
       redirect_to town_path, notice: 'You leveled up!'
     else
-      redirect_to root_path, alert: "You have not completed the shopping list!"
+      redirect_to root_path, alert: 'You have not completed the shopping list!'
     end
   end
 

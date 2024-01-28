@@ -216,28 +216,28 @@ RSpec.describe ShoppingListsController, type: :controller do
 
   describe 'launch' do
     before do
-      Inventory.find_by(item: Item.find_by(name: 'orange'), 
-                     character: Player.find_by(name: "Stella")).update(quantity: 2)
-      
+      Inventory.find_by(item: Item.find_by(name: 'orange'),
+                        character: Player.find_by(name: 'Stella')).update(quantity: 2)
+
       Inventory.create(item: Item.find_by(name: 'wheat'),
                        character: Player.find_by(name: 'Stella'),
                        quantity: 5)
     end
 
     after do
-      Inventory.find_by(item: Item.find_by(name: 'orange'), 
-                     character: Player.find_by(name: "Stella")).update(quantity: 1)
+      Inventory.find_by(item: Item.find_by(name: 'orange'),
+                        character: Player.find_by(name: 'Stella')).update(quantity: 1)
       Inventory.find_by(item: Item.find_by(name: 'wheat'),
-                     character: Player.find_by(name: "Stella")).destroy
+                        character: Player.find_by(name: 'Stella')).destroy
     end
 
     it 'should not level up if shopping list not met' do
-      post :launch, params: { id: Player.find_by(name: "Victor").id }
-      expect(Player.find_by(name: "Victor").current_level).to eq(2)
+      post :launch, params: { id: Player.find_by(name: 'Victor').id }
+      expect(Player.find_by(name: 'Victor').current_level).to eq(2)
     end
     it 'should level up if player meets shopping list' do
-      post :launch, params: { id: Player.find_by(name: "Stella").id }
-      expect(Player.find_by(name: "Stella").current_level).to eq(2)
+      post :launch, params: { id: Player.find_by(name: 'Stella').id }
+      expect(Player.find_by(name: 'Stella').current_level).to eq(2)
     end
   end
 end
