@@ -7,20 +7,21 @@ RSpec.describe GameplaysHelper, type: :helper do
   let(:nonplayer_with_no_gif) { double('Nonplayer', name: 'NonexistentNonplayer') }
 
   describe '#nonplayer_gif_exists?' do
-    context 'when Rails.application.assets is available' do
-      before do
-        allow(Rails.application).to receive(:assets).and_return(double)
-      end
+    let(:mock_environment) { double('Environment') }
 
-      it 'returns true if the nonplayer gif exists in assets' do
-        allow(Rails.application.assets).to receive(:find_asset).with('testnonplayer.gif').and_return(double)
-        expect(helper.nonplayer_gif_exists?(nonplayer)).to be true
-      end
+    before do
+      allow(Rails.application).to receive(:assets).and_return(nil)
+      allow(Sprockets::Railtie).to receive(:build_environment).with(Rails.application).and_return(mock_environment)
+      allow(mock_environment).to receive(:find_asset).with('testnonplayer.gif').and_return(double)
+      allow(mock_environment).to receive(:find_asset).with('nonexistentnonplayer.gif').and_return(nil)
+    end
 
-      it 'returns false if the nonplayer gif does not exist in assets' do
-        allow(Rails.application.assets).to receive(:find_asset).with('nonexistentnonplayer.gif').and_return(nil)
-        expect(helper.nonplayer_gif_exists?(nonplayer_with_no_gif)).to be false
-      end
+    it 'returns true if the nonplayer gif exists in assets_manifest' do
+      expect(helper.nonplayer_gif_exists?(nonplayer)).to be true
+    end
+
+    it 'returns false if the nonplayer gif does not exist in assets_manifest' do
+      expect(helper.nonplayer_gif_exists?(nonplayer_with_no_gif)).to be false
     end
 
     context 'when Rails.application.assets is not available' do
