@@ -1,5 +1,8 @@
 # Fin*Lit* Quest
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/64e9303e74f63d75ecf9/maintainability)](https://codeclimate.com/github/teamup-apps-for-good/fin-lit-quest/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/64e9303e74f63d75ecf9/test_coverage)](https://codeclimate.com/github/teamup-apps-for-good/fin-lit-quest/test_coverage)
+
 ## Getting Started with Development
 
 ### Setup

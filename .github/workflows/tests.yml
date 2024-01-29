@@ -38,15 +38,9 @@ jobs:
       with:
         name: rspec-coverage
         path: coverage/
-    
-    - name: Capture Coverage Score
-      run: |
-        score=$(cat rspec-output.txt | grep 'Coverage report generated for RSpec ' | awk 'match($0, /LOC \(([0-9]+\.[0-9]+%)\) covered/, arr) { print(arr[1]) }')
-        if [[ $score > 90 ]]; then
-          echo "Coverage of $score passes"
-        else
-          echo "Coverage of '$score' did not pass"
-          exit 1
-        fi
-        echo "COVERAGE_SCORE=$score" >> $GITHUB_ENV
+  
+    - name: Test & publish code coverage
+      uses: paambaati/codeclimate-action@v5.0.0
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_REPORTER_ID }}
 
