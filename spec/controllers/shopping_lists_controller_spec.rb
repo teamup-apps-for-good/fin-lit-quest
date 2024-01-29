@@ -65,34 +65,39 @@ RSpec.describe ShoppingListsController, type: :controller do
                   balance: 0,
                   current_level: 2)
 
+    @stella = Player.find_by(name: 'Stella')
+    @victor = Player.find_by(name: 'Victor')
+
     Inventory.create(item: Item.find_by(name: 'apple'),
-                     character: Player.find_by(name: 'Stella'),
+                     character: @stella,
                      quantity: 2)
 
     Inventory.create(item: Item.find_by(name: 'orange'),
-                     character: Player.find_by(name: 'Stella'),
+                     character: @stella,
                      quantity: 1)
 
     Inventory.create(item: Item.find_by(name: 'boots'),
-                     character: Player.find_by(name: 'Stella'),
+                     character: @stella,
                      quantity: 2)
 
     Inventory.create(item: Item.find_by(name: 'map'),
-                     character: Player.find_by(name: 'Victor'),
+                     character: @victor,
                      quantity: 1)
 
     Inventory.create(item: Item.find_by(name: 'orange'),
-                     character: Player.find_by(name: 'Victor'),
+                     character: @victor,
                      quantity: 2)
 
     Inventory.create(item: Item.find_by(name: 'boots'),
-                     character: Player.find_by(name: 'Victor'),
+                     character: @victor,
                      quantity: 1)
 
     @apple_shopping_list = ShoppingList.find_by(item: Item.find_by(name: 'apple'))
   end
 
   describe 'index' do
+    # rubycritic dislikes this, but we disagree because we need this test
+    # it is human-readable and easy to maintain
     it 'shows all shopping lists' do
       shopping_lists = ShoppingList.all
       get :index
@@ -110,6 +115,8 @@ RSpec.describe ShoppingListsController, type: :controller do
   end
 
   describe 'show' do
+    # rubycritic dislikes this, but we disagree because we need this test
+    # it is human-readable and easy to maintain
     it 'should show a given shopping list' do
       get :show, params: { id: @apple_shopping_list.id }
       expect(assigns(:shopping_list)).to eq(@apple_shopping_list)
@@ -124,6 +131,8 @@ RSpec.describe ShoppingListsController, type: :controller do
   end
 
   describe 'edit' do
+    # rubycritic dislikes this, but we disagree because we need this test
+    # it is human-readable and easy to maintain
     it 'should edit a given shopping list' do
       get :edit, params: { id: @apple_shopping_list.id }
       expect(assigns(:shopping_list)).to eq(@apple_shopping_list)
@@ -208,8 +217,6 @@ RSpec.describe ShoppingListsController, type: :controller do
 
   describe 'launch' do
     before do
-      @stella = Player.find_by(name: 'Stella')
-      @victor = Player.find_by(name: 'Victor')
       @orange_item = Item.find_by(name: 'orange')
       @wheat_item = Item.find_by(name: 'wheat')
     end

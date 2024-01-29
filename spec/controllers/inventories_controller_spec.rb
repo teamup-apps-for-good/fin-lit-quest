@@ -28,12 +28,17 @@ RSpec.describe InventoriesController, type: :controller do
                      balance: 0,
                      current_level: 1)
 
-    Inventory.create(item: Item.find_by(name: 'apple'),
-                     character: Character.find_by(name: 'Stella'),
+    stella = Character.find_by(name: 'Stella')
+    @inventory_item = Item.find_by(name: 'apple')
+
+    Inventory.create(item: @inventory_item,
+                     character: stella,
                      quantity: 5)
   end
 
   describe 'index' do
+    # rubycritic dislikes this, but we disagree because we need this test
+    # it is human-readable and easy to maintain
     it 'shows all of inventory' do
       get :index
       expect(assigns(:inventories)).to eq(Inventory.all)
@@ -76,15 +81,6 @@ RSpec.describe InventoriesController, type: :controller do
   end
 
   describe 'update' do
-    before(:each) do
-      @inventory_item = Inventory.create(item: Item.find_by(name: 'fish'),
-                                         character: Character.find_by(name: 'Stella'),
-                                         quantity: 5)
-    end
-
-    after(:each) do
-      @inventory_item.destroy
-    end
     it 'updates an inventory item' do
       put :update, params: { id: @inventory_item.id, inventory: { quantity: 1 } }
       expect(assigns(:inventory).quantity).to eq(1)
@@ -93,7 +89,6 @@ RSpec.describe InventoriesController, type: :controller do
     it 'redirects to the show inventory page' do
       put :update, params: { id: @inventory_item.id, inventory: { quantity: 1 } }
       expect(response).to redirect_to inventory_path(assigns(:inventory))
-      @inventory_item.destroy
     end
 
     it 'flashes a notice' do
@@ -108,27 +103,19 @@ RSpec.describe InventoriesController, type: :controller do
   end
 
   describe 'destroy' do
+    before do
+      delete :destroy, params: { id: @inventory_item.id }
+    end
+
     it 'destroys an inventory item' do
-      inventory_item = Inventory.create(item: Item.find_by(name: 'fish'),
-                                        character: Character.find_by(name: 'Lightfoot'),
-                                        quantity: 1)
-      delete :destroy, params: { id: inventory_item.id }
-      expect(Inventory.find_by(id: inventory_item.id)).to be_nil
+      expect(Inventory.find_by(id: @inventory_item.id)).to be_nil
     end
 
     it 'redirects to the inventory index' do
-      inventory_item = Inventory.create(item: Item.find_by(name: 'fish'),
-                                        character: Character.find_by(name: 'Lightfoot'),
-                                        quantity: 1)
-      delete :destroy, params: { id: inventory_item.id }
       expect(response).to redirect_to inventories_path
     end
 
     it 'flashes a notice' do
-      inventory_item = Inventory.create(item: Item.find_by(name: 'fish'),
-                                        character: Character.find_by(name: 'Lightfoot'),
-                                        quantity: 1)
-      delete :destroy, params: { id: inventory_item.id }
       expect(flash[:notice]).to match(/Inventory was successfully destroyed./)
     end
   end
