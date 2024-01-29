@@ -13,12 +13,12 @@
 
   <div>
     <%= form.label :item, style: "display: block" %>
-    <%= form.collection_select :item, Item.all, :id, :name, prompt: true %>
+    <%= form.collection_select :item, Item.all, :id, :name, prompt: true, selected: @inventory.new_record? ? nil : @inventory.item.id %>
   </div>
 
   <div>
     <%= form.label :character, style: "display: block" %>
-    <%= form.collection_select :character, Character.all, :id, :name, prompt: true %>
+    <%= form.collection_select :character, Character.all, :id, :name, prompt: true, selected: @inventory.new_record? ? nil : @inventory.character.id %>
   </div>
 
   <div>
