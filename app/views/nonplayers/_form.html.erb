@@ -48,7 +48,7 @@
 
   <div>
     <%= form.label :item_to_accept, style: "display: block" %>
-    <%= form.collection_select :item_to_accept, Item.all, :id, :name, prompt: true %>
+    <%= form.collection_select :item_to_accept, Item.all, :id, :name, prompt: true, selected: @nonplayer.new_record? ? nil : @nonplayer.item_to_accept.id %>
   </div>
 
   <div>
@@ -58,7 +58,7 @@
 
   <div>
     <%= form.label :item_to_offer, style: "display: block" %>
-    <%= form.collection_select :item_to_offer, Item.all, :id, :name, prompt: true %>
+    <%= form.collection_select :item_to_offer, Item.all, :id, :name, prompt: true, selected: @nonplayer.new_record? ? nil : @nonplayer.item_to_offer.id %>
   </div>
 
   <div>
