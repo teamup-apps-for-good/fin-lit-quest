@@ -24,9 +24,12 @@ jobs:
         ruby-version: '3.2.2'
         bundler-cache: true
 
-    - name: Run Rspec
-      run: |
-        bundle exec rspec -fd --fail-fast | tee rspec-output.txt
+    - name: Run Rspec & publish code coverage
+      uses: paambaati/codeclimate-action@v5.0.0
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_REPORTER_ID }}
+      with:
+        coverageCommand: bundle exec rspec -fd --fail-fast 
 
     - name: Run Cucumber
       run: |
@@ -39,8 +42,3 @@ jobs:
         name: rspec-coverage
         path: coverage/
   
-    - name: Test & publish code coverage
-      uses: paambaati/codeclimate-action@v5.0.0
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_REPORTER_ID }}
-
