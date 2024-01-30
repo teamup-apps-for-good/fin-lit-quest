@@ -9,6 +9,7 @@ Feature: View Item Information
       |  apple  |   crunchy, fresh from the tree               |    2    | 
       |  fish   |   still floppin around, fresh from the ocean |    1    |
       |  orange |   juicy, fresh from the tree                 |    3    | 
+      |  wheat  |   grainy, fresh from the field               |    1    |
 
     And the following players exist:
       | name      | occupation  | inventory_slots | balance |  current_level  |
@@ -53,3 +54,9 @@ Feature: View Item Information
     Then I should be on the items page
     And I should not see "apple"
     And I should see "fish"
+
+  Scenario: Verify you can delete an item
+    Given I am on the item page for "wheat"
+    And I click on "Destroy this item"
+    Then I should be on the items page
+    And I should not see "wheat"
