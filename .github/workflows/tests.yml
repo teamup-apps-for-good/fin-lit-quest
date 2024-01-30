@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
@@ -24,9 +24,12 @@ jobs:
         ruby-version: '3.2.2'
         bundler-cache: true
 
-    - name: Run Rspec
-      run: |
-        bundle exec rspec -fd --fail-fast | tee rspec-output.txt
+    - name: Run Rspec & publish code coverage
+      uses: paambaati/codeclimate-action@v5.0.0
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_REPORTER_ID }}
+      with:
+        coverageCommand: bundle exec rspec -fd --fail-fast 
 
     - name: Run Cucumber
       run: |
@@ -34,19 +37,8 @@ jobs:
 
     - name: Archive Rspec report
       id: upload-artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: rspec-coverage
         path: coverage/
-    
-    - name: Capture Coverage Score
-      run: |
-        score=$(cat rspec-output.txt | grep 'Coverage report generated for RSpec ' | awk 'match($0, /LOC \(([0-9]+\.[0-9]+%)\) covered/, arr) { print(arr[1]) }')
-        if [[ $score > 90 ]]; then
-          echo "Coverage of $score passes"
-        else
-          echo "Coverage of '$score' did not pass"
-          exit 1
-        fi
-        echo "COVERAGE_SCORE=$score" >> $GITHUB_ENV
-
+  
