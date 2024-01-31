@@ -7,6 +7,7 @@ RSpec.describe PlayersController, type: :controller do
     Player.destroy_all
 
     Player.create(name: 'Stella', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1)
+    @stella = Player.find_by(name: 'Stella')
   end
 
   describe 'create' do
@@ -64,26 +65,16 @@ RSpec.describe PlayersController, type: :controller do
   end
 
   describe 'destroy' do
-    it 'should remove the player' do
-      player = Player.find_by(name: 'Stella')
-      get :destroy, params: { id: player.id }
+    before do
+      get :destroy, params: { id: @stella.id }
+    end
 
-      new_player = Player.find_by(id: player)
+    it 'should remove the player' do
+      new_player = Player.find_by(id: @stella)
       expect(new_player).to be_nil
     end
 
-    # TODO: enable
-    # it 'redirects to the home page' do
-    #   player = Player.find_by(name: 'Stella')
-    #   get :destroy, params: { id: player.id }
-    #
-    #   expect(response).to redirect_to root_path
-    # end
-
     it 'flashes a notice' do
-      player = Player.find_by(name: 'Stella')
-      get :destroy, params: { id: player.id }
-
       expect(flash[:notice]).to match(/Your profile has been deleted./)
     end
   end
@@ -91,10 +82,11 @@ RSpec.describe PlayersController, type: :controller do
   # admin actions
 
   describe 'index' do
+    # rubycritic dislikes this, but we disagree because we need this test
+    # it is human-readable and easy to maintain
     it 'shows all players' do
-      players = Player.all
       get :index
-      expect(assigns(:players)).to eq(players)
+      expect(assigns(:players)).to eq(Player.all)
     end
   end
 end

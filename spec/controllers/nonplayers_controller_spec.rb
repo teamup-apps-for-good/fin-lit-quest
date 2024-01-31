@@ -17,95 +17,80 @@ RSpec.describe NonplayersController, type: :controller do
     Item.create(name: 'orange',
                 description: 'test description',
                 value: 5)
+    Item.create(name: 'wheat',
+                description: 'test description',
+                value: 3)
 
-    npcs = [{ name: 'Ritchey', occupation: :merchant, inventory_slots: 5, balance: 0, personality: :enthusiastic,
-              dialogue_content: 'hello',
-              current_level: 1,
-              item_to_accept: Item.find_by(name: 'apple'),
-              item_to_offer: Item.find_by(name: 'orange'),
-              quantity_to_accept: 2,
-              quantity_to_offer: 5 },
-            { name: 'Lightfoot', occupation: :comedian, inventory_slots: 5, balance: 0, personality: :dad,
-              dialogue_content: 'goodbye',
-              current_level: 1,
-              item_to_accept: Item.find_by(name: 'apple'),
-              item_to_offer: Item.find_by(name: 'orange'),
-              quantity_to_accept: 2,
-              quantity_to_offer: 5 }]
+    Nonplayer.create!({ name: 'Ritchey',
+                        occupation: 'merchant',
+                        inventory_slots: 5,
+                        balance: 0,
+                        personality: :enthusiastic,
+                        dialogue_content: 'howdy all',
+                        current_level: 1,
+                        item_to_accept: Item.find_by(name: 'apple'),
+                        item_to_offer: Item.find_by(name: 'orange'),
+                        quantity_to_accept: 2,
+                        quantity_to_offer: 5 })
 
-    npcs.each { |npc| Nonplayer.create!(npc) }
+    @ritchey = Nonplayer.find_by(name: 'Ritchey')
   end
 
   describe 'index' do
-    it 'shows all non nonplayers' do
-      nonplayers = Nonplayer.all
+    # rubycritic dislikes this, but we disagree because we need this test
+    # it is human-readable and easy to maintain
+    it 'all non players should be visible' do
       get :index
-      expect(assigns(:nonplayers)).to eq(nonplayers)
+      expect(assigns(:nonplayers)).to eq(Nonplayer.all)
     end
   end
 
   describe 'show' do
+    # rubycritic dislikes this, but we disagree because we need this test
+    # it is human-readable and easy to maintain
     it 'should show a given nonplayer' do
-      nonplayer = Nonplayer.find_by(name: 'Ritchey')
-      get :show, params: { id: nonplayer.id }
-      expect(assigns(:nonplayer)).to eq(nonplayer)
+      get :show, params: { id: @ritchey.id }
+      expect(assigns(:nonplayer)).to eq(@ritchey)
     end
   end
 
   # admin actions
 
   describe 'update' do
-    it 'should change a nonplayer' do
-      nonplayer = Nonplayer.find_by(name: 'Ritchey')
-      put :update, params: { id: nonplayer.id,
+    before do
+      put :update, params: { id: @ritchey.id,
                              nonplayer: { occupation: :merchant,
-                                          item_to_offer: nonplayer.item_to_offer,
-                                          item_to_accept: nonplayer.item_to_accept } }
+                                          item_to_offer: @ritchey.item_to_offer,
+                                          item_to_accept: @ritchey.item_to_accept } }
+    end
 
+    it 'should change a nonplayer' do
       expect(assigns(:nonplayer).occupation).to eq('merchant')
     end
 
     it 'redirects to the nonplayer details page' do
-      nonplayer = Nonplayer.find_by(name: 'Ritchey')
-      put :update, params: { id: nonplayer.id,
-                             nonplayer: { occupation: :merchant,
-                                          item_to_offer: nonplayer.item_to_offer,
-                                          item_to_accept: nonplayer.item_to_accept } }
-
-      expect(response).to redirect_to nonplayer_path(nonplayer)
+      expect(response).to redirect_to nonplayer_path(@ritchey)
     end
 
     it 'flashes a notice' do
-      nonplayer = Nonplayer.find_by(name: 'Ritchey')
-      put :update, params: { id: nonplayer.id,
-                             nonplayer: { occupation: :merchant,
-                                          item_to_offer: nonplayer.item_to_offer,
-                                          item_to_accept: nonplayer.item_to_accept } }
-
       expect(flash[:notice]).to match(/Ritchey was successfully updated./)
     end
   end
 
   describe 'destroy' do
+    before do
+      delete :destroy, params: { id: @ritchey.id }
+    end
     it 'should remove the nonplayer' do
-      nonplayer = Nonplayer.find_by(name: 'Ritchey')
-      delete :destroy, params: { id: nonplayer.id }
-
-      new_nonplayer = Nonplayer.find_by(id: nonplayer)
+      new_nonplayer = Nonplayer.find_by(id: @ritchey)
       expect(new_nonplayer).to be_nil
     end
 
     it 'redirects to the home page' do
-      nonplayer = Nonplayer.find_by(name: 'Ritchey')
-      delete :destroy, params: { id: nonplayer.id }
-
       expect(response).to redirect_to nonplayers_path
     end
 
     it 'flashes a notice' do
-      nonplayer = Nonplayer.find_by(name: 'Ritchey')
-      delete :destroy, params: { id: nonplayer.id }
-
       expect(flash[:notice]).to match(/Ritchey was successfully deleted./)
     end
   end
@@ -124,16 +109,16 @@ RSpec.describe NonplayersController, type: :controller do
                                   quantity_to_offer: 5,
                                   dialogue_content: 'Jeremy',
                                   current_level: 1 } }
+
+      @jeremy = Nonplayer.find_by(name: 'Jeremy')
     end
 
     it 'should create a new nonplayer' do
-      nonplayer = Nonplayer.find_by(name: 'Jeremy')
-      expect(nonplayer).not_to be_nil
+      expect(@jeremy).not_to be_nil
     end
 
     it 'should redirect to the nonplayer profile' do
-      nonplayer = Nonplayer.find_by(name: 'Jeremy')
-      expect(response).to redirect_to nonplayer_path(nonplayer)
+      expect(response).to redirect_to nonplayer_path(@jeremy)
     end
 
     it 'should show a flash message' do
