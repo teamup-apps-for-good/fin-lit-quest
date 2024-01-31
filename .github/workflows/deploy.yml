@@ -15,6 +15,19 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2.2'
+          bundler-cache: true
+
+      - name: Run Rspec & publish code coverage
+        uses: paambaati/codeclimate-action@v5.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_REPORTER_ID }}
+        with:
+          coverageCommand: bundle exec rspec -fd --fail-fast 
+
       - name: Setup .netrc
         run: |
           cat << EOF > $HOME/.netrc
