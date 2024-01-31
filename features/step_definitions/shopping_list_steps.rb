@@ -5,7 +5,7 @@ Given('the following shopping list table exists:') do |shoppinglists|
   shoppinglists.hashes.each do |shoppinglist_entry|
     item = Item.find_by(name: shoppinglist_entry['item'])
     shoppinglist_entry['item'] = item
-    ShoppingList.create(shoppinglist_entry)
+    ShoppingList.create!(shoppinglist_entry)
   end
 end
 
