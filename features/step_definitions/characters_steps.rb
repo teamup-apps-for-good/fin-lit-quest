@@ -32,6 +32,7 @@ Then('I should see {string}') do |string|
 end
 
 When('I click on {string}') do |string|
+  puts page.html
   click_on(string)
 end
 

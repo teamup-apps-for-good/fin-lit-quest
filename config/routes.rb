@@ -25,4 +25,5 @@ Rails.application.routes.draw do
   get '/shopping+list' => 'shopping_lists#player_shopping_list', as: 'player_shopping_list'
 
   post '/launch/:id', to: 'shopping_lists#launch', as: 'launch'
+  post '/characters/:id/trade/trade_accept' => 'characters#trade_accept', as: 'character_trade_accept'
 end

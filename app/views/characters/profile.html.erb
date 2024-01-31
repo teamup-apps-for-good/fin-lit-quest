@@ -1,4 +1,6 @@
 <div class="center-text nicefont">
+<p style="color: green"><%= notice %></p>
+<p style="color: red"><%= alert %></p>
 <h1> <%= @character.name %> </h1>
 <%= button_to "Inventory", character_inventory_path(@character), class: "button-b", method: :get%>
 <%= button_to "Trade", character_trade_path(@character), class: "button-b", method: :get%>

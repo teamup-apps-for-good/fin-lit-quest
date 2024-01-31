@@ -19,6 +19,15 @@
   </p>
 </div>
 
-<%= button_to "Yes", character_profile_path(@character), class: "button-g", method: :get %>
+<%= form_with url: character_trade_accept_path(@character), method: :post do |form| %>
+  <%= form.hidden_field :character_id, value: Player.first.id %>
+  <%= form.hidden_field :npc_id, value: @character.id %>
+  
+  <% if @player_has_item_to_trade %> 
+      <%= form.submit 'Yes', class: 'button-g' %>
+    <% else %>
+      <p>You don't have the required item to trade.</p>
+  <% end %>
+<% end %>
 <%= button_to "No", character_profile_path(@character), class: "button-r", method: :get %>
 </div>
