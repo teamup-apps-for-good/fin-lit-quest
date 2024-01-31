@@ -104,7 +104,7 @@ Feature: Make a counter offer to Non-players
     * I fill in the number of items that I give with "5"
     * I fill in the number of items that I want with "1"
     And I press the "Offer" button
-    Then I should see "Stella" owns "1" of "wheat"
+    Then I should see the player owns "1" of "wheat"
 
   Scenario: Non-player's inventory quantities change when trade goes through
     Given I am on the counter offer page for "Ritchey"
@@ -113,8 +113,8 @@ Feature: Make a counter offer to Non-players
     * I fill in the number of items that I give with "5"
     * I fill in the number of items that I want with "1"
     And I press the "Offer" button
-    Then I should see "Ritchey" owns "2" of "wheat"
-    And I should see "Ritchey" owns "5" of "apple"
+    Then I should see the NPC "Ritchey" owns "2" of "wheat"
+    And I should see the NPC "Ritchey" owns "5" of "apple"
 
   Scenario: Player can see inventory quantities does not change when trade does not go through
     Given I am on the counter offer page for "Ritchey"
@@ -123,7 +123,7 @@ Feature: Make a counter offer to Non-players
     * I fill in the number of items that I give with "1"
     * I fill in the number of items that I want with "5"
     And I press the "Offer" button
-    Then I should see "Stella" owns "5" of "apple"
+    Then I should see the player owns "5" of "apple"
 
   Scenario: Non-player's inventory quantities does not change when the trade does not go through
     Given I am on the counter offer page for "Ritchey"
@@ -132,4 +132,4 @@ Feature: Make a counter offer to Non-players
     * I fill in the number of items that I give with "1"
     * I fill in the number of items that I want with "5"
     And I press the "Offer" button
-    Then I should see "Ritchey" owns "3" of "wheat"
+    Then I should see the NPC "Ritchey" owns "3" of "wheat"

@@ -41,22 +41,28 @@ Then(/^I should be on the counter offer page for "(.+)"$/) do |name|
 end
 
 Then(/^I should see a notice of "(.*?)"$/) do |message|
-  # Just for debugging purposes, let's print out what the page has.
-  puts "Page content: #{page.text}"
-
   expect(page).to have_content(message)
 end
 
 Then('I should see the player owns {string} of {string}') do |quantity, item|
   # Replace 'css_selector' with the actual selector that identifies where this information is displayed
-  within 'css_selector' do
-    expect(page).to have_content("#{item}: #{quantity}")
-  end
+  item_id = "player_inventory_#{item.downcase}"
+  inventory_item = find("##{item_id}")
+  expect(inventory_item).to have_content("#{item.capitalize}: #{quantity}")
 end
+  
+  Then('I should see the NPC {string} owns {string} of {string}') do |npc_name, quantity, item|
+    # Construct the ID for the inventory item element based on the NPC's item name
+    item_id = "npc_inventory_#{item.downcase}"
+    puts "NPC Name: #{npc_name}"
+    puts "Item: #{item}"
+    puts "Quantity: #{quantity}"
+    # Find the div element by ID and check its content
+    # within("##{item_id}") do
+      expect(page).to have_content("#{item.capitalize}: #{quantity}")
+    # end
+  end
 
-Then('I should see {string} owns {string} of {string}') do |player_name, quantity, item|
-  # Similar to above, use the appropriate selector for the non-player's inventory display
-  within 'css_selector' do
-    expect(page).to have_content("#{player_name} owns #{quantity} of #{item}")
-  end
-end
+ 
+  
+  

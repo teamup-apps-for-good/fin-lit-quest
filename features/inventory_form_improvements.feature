@@ -36,7 +36,7 @@ Feature: In new inventory entry creation, select item and character from list
     And I select "Stella" from the "Character" dropdown
     And I fill in "Quantity" with "-1"
     And I click on "Create Inventory"
-    Then I should see "Quantity must be greater than 0"
+    Then I should see "Quantity must be greater than or equal to 0"
 
   Scenario: Non-player is available to select from drop down
     Given I am on the new inventory entry page
@@ -60,7 +60,7 @@ Feature: In new inventory entry creation, select item and character from list
     And I select "Stella" from the "Character" dropdown
     And I fill in "Quantity" with "-1"
     And I click on "Update Inventory"
-    Then I should see "Quantity must be greater than 0"
+    Then I should see "Quantity must be greater than or equal to 0"
 
   Scenario: Non-player is available to select from drop down on edit page
     Given I am on the inventory edit page for "apple" that is owned by "Stella"

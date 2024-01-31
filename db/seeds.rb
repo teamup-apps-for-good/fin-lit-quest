@@ -35,30 +35,60 @@ end
 
 players = [{ name: "Stella", occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1 }]
 
+players.each { |player| Player.find_or_create_by!(player) }
+
 npcs = [{ name: "Ritchey", occupation: :merchant, inventory_slots: 5, balance: 0, personality: :enthusiastic,
           dialogue_content: "try harder",
-          item_to_offer: Item.find_by(name: 'fish'),  quantity_to_offer: 2, item_to_accept: Item.find_by(name: 'wheat'), quantity_to_accept: 5, current_level: 1},
+          item_to_offer: "fish",  quantity_to_offer: 2, item_to_accept: "wheat", quantity_to_accept: 5, current_level: 1},
         { name: "Lightfoot", occupation: :comedian, inventory_slots: 5, balance: 0, personality: :dad,
           dialogue_content: "goodbye",
-          item_to_offer: Item.find_by(name: 'apple'), quantity_to_offer: 2, item_to_accept: Item.find_by(name: 'orange'), quantity_to_accept: 2, current_level: 1 },
+          item_to_offer: "apple", quantity_to_offer: 2, item_to_accept: "orange", quantity_to_accept: 2, current_level: 1 },
         { name: "Harry", occupation: :wizzard, inventory_slots: 5, balance: 50, personality: :skilled,
           dialogue_content: "sssssss",
-          item_to_offer: Item.find_by(name: 'bandages'), quantity_to_offer: 1, item_to_accept: Item.find_by(name: 'apple'), quantity_to_accept: 2, current_level: 2 },
+          item_to_offer: "bandages", quantity_to_offer: 1, item_to_accept: "apple", quantity_to_accept: 2, current_level: 2 },
         { name: "Hermione", occupation: :witch, inventory_slots: 5, balance: 30, personality: :knowledgeable,
           dialogue_content: "hello",
-          item_to_offer: Item.find_by(name: 'coat'), quantity_to_offer: 2, item_to_accept: Item.find_by(name: 'book'), quantity_to_accept: 3, current_level: 2 }
+          item_to_offer: "coat", quantity_to_offer: 2, item_to_accept: "book", quantity_to_accept: 3, current_level: 2 }
         ]
 
-players.each { |player| Player.find_or_create_by!(player) }
+
+        # ... previous code ...
+
+# Create or find NPCs
 npcs.each do |npc_data|
-  Nonplayer.create_or_find_by!(npc_data)
+  item_to_offer = Item.find_by(name: npc_data[:item_to_offer])
+  item_to_accept = Item.find_by(name: npc_data[:item_to_accept])
+
+  unless item_to_offer && item_to_accept
+    puts "Item to offer or accept not found for NPC: #{npc_data[:name]}"
+    next
+  end
+
+  npc = Nonplayer.create_or_find_by!(
+    name: npc_data[:name],
+    occupation: npc_data[:occupation],
+    inventory_slots: npc_data[:inventory_slots],
+    balance: npc_data[:balance],
+    personality: npc_data[:personality],
+    dialogue_content: npc_data[:dialogue_content],
+    item_to_offer: item_to_offer,
+    item_to_accept: item_to_accept,
+    quantity_to_offer: npc_data[:quantity_to_offer],
+    quantity_to_accept: npc_data[:quantity_to_accept],
+    current_level: npc_data[:current_level]
+  )
 end
 
+# ... rest of the code ...
+
+
 inventories = [{ item: 'fish', character_id: 'Ritchey', quantity: 13 },
-               { item: 'wheat', character_id: 'Stella', quantity: 12 },
+               { item: 'wheat', character_id: 'Stella', quantity: 0 },
                { item: 'apple', character_id: 'Stella', quantity: 5 },
+               { item: 'apple', character_id: 'Ritchey', quantity: 0 },
                { item: 'orange', character_id: 'Ritchey', quantity: 10 },
                { item: 'potato', character_id: 'Ritchey', quantity: 9 },
+               { item: 'wheat', character_id: 'Ritchey', quantity: 3 },
                { item: 'grapes', character_id: 'Lightfoot', quantity: 8 },
                { item: 'bread', character_id: 'Lightfoot', quantity: 7 },
                { item: 'honey', character_id: 'Lightfoot', quantity: 5 },
@@ -80,16 +110,14 @@ inventories = [{ item: 'fish', character_id: 'Ritchey', quantity: 13 },
                { item: 'map', character_id: 'Hermione', quantity: 3 },
                { item: 'compass', character_id: 'Hermione', quantity: 2 }]
 
-inventories.each do |inventory|
-    character = Character.find_by(name: inventory[:character_id])
-    inventory[:character] = character
+  inventories.each do |inventory_data|
+  character = Character.find_by(name: inventory_data[:character_id])
+  item = Item.find_by(name: inventory_data[:item])
 
-    item = Item.find_by(name: inventory[:item])
-    inventory[:item] = item
-
-    Inventory.find_or_create_by!(inventory) # Currently prevents duplicate items in inventory
+  if character && item
+    Inventory.find_or_create_by!(character: character, item: item, quantity: inventory_data[:quantity])
+  end
 end
-
 shoppinglists = [{ item: 'apple', level: 1, quantity: 2 },
                  { item: 'orange', level: 1, quantity: 2 },
                  { item: 'wheat', level: 1, quantity: 1 },
@@ -101,10 +129,7 @@ shoppinglists = [{ item: 'apple', level: 1, quantity: 2 },
                  { item: 'boots', level: 2, quantity: 1 },
                  { item: 'map', level: 2, quantity: 1 }]
 
-shoppinglists.each do |shoppinglist|
-    item = Item.find_by(name: shoppinglist[:item])
-    shoppinglist[:item] = item
-
-    ShoppingList.find_or_create_by!(shoppinglist)
+  shoppinglists.each do |shoppinglist|
+  item = Item.find_by(name: shoppinglist[:item])
+  ShoppingList.find_or_create_by!(shoppinglist.merge(item: item))
 end
-
