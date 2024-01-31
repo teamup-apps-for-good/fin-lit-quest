@@ -2,7 +2,7 @@
 
 Given('the following players exist:') do |players|
   players.hashes.each do |player|
-    Player.create(player)
+    Player.create!(player)
   end
 end
 
@@ -13,13 +13,13 @@ Given('the following non-players exist:') do |nonplayers|
     nonplayer['item_to_accept'] = item
     item = Item.find_by(name: nonplayer['item_to_offer'])
     nonplayer['item_to_offer'] = item
-    Nonplayer.create(nonplayer)
+    Nonplayer.create!(nonplayer)
   end
 end
 
 Given('the following items exist:') do |items|
   items.hashes.each do |item|
-    Item.create(item)
+    Item.create!(item)
   end
 end
 
