@@ -2,15 +2,10 @@
 
 # Controller for handling counter offers in the game.
 class CounterOfferController < ApplicationController
-  before_action :set_characters
+  before_action :set_context
+  attr_reader :context
 
-  def show
-    @name = params[:name]
-    @character = Character.find_by(name: @name)
-    @player_character = Character.find_by(type: 'Player')
-    @player_inventory = InventoryService.inventory_for(@player_character)
-    @npc_inventory = InventoryService.inventory_for(@character)
-  end
+  def show; end
 
   def create
     if validate_counter_offer_params
@@ -23,10 +18,9 @@ class CounterOfferController < ApplicationController
 
   private
 
-  def set_characters
-    @name = params[:name]
-    @character = Character.find_by(name: @name)
-    @player_character = Character.find_by(type: 'Player')
+  def set_context
+    name_param = params[:name]
+    @context = CharacterInventoryService.build_context(name_param)
   end
 
   def validate_counter_offer_params
@@ -35,14 +29,14 @@ class CounterOfferController < ApplicationController
   end
 
   def execute_counter_offer
-    service = CounterOfferService.new(@player_character, @character, counter_offer_params)
+    service = CounterOfferService.new(@context.player_character, @context.character, counter_offer_params)
     success, message = service.execute_trade
     if success
       flash[:notice] = 'Success!'
     else
       flash[:alert] = message
     end
-    redirect_to counter_offer_path(name: @name)
+    redirect_to counter_offer_path(name: @context.name)
   end
 
   def counter_offer_params

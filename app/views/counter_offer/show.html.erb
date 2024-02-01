@@ -1,28 +1,28 @@
 <!-- app/views/counter_offer/show.html.erb -->
 
-<h1>Counter Offer for <%= @name %></h1>
+<h1>Counter Offer for <%= @context.name %></h1>
 
-<% if @character %>
+<% if @context.character %>
   <!-- Container for Player's Inventory -->
-    <div class="inventory-container-co">
-    <h2 style="font-weight: bold;"><%= @player_character.name %>'s Inventory</h2>
-      <% @player_inventory.each do |item_name, quantity| %>
+  <div class="inventory-container-co">
+    <h2 style="font-weight: bold;"><%= @context.player_character.name %>'s Inventory</h2>
+    <% @context.player_inventory.each do |item_name, quantity| %>
       <div id="player_inventory_<%= item_name %>"><%= item_name.capitalize %>: <%= quantity %></div>
-      <% end %>
-    </div>
+    <% end %>
+  </div>
 
   <!-- Container for NPC's Inventory -->
-    <div class="inventory-container-co">
-      <h2 style="font-weight: bold;"><%= @character.name %>'s Inventory</h2>
-      <% @npc_inventory.each do |item_name, quantity| %>
+  <div class="inventory-container-co">
+    <h2 style="font-weight: bold;"><%= @context.character.name %>'s Inventory</h2>
+    <% @context.npc_inventory.each do |item_name, quantity| %>
       <div id="npc_inventory_<%= item_name %>"><%= item_name.capitalize %>: <%= quantity %></div>
-      <% end %>
-    </div>
+    <% end %>
+  </div>
 
-    <div style="margin-top: 20px;">
-    <%= form_with(url: create_counter_offer_path(name: @name), method: :post, local: true) do %>
-      
-        <div style="margin-bottom: 10px;">
+  <div style="margin-top: 20px;">
+    <%= form_with(url: create_counter_offer_path(name: @context.name), method: :post, local: true) do %>
+      <!-- Form fields -->
+      <div style="margin-bottom: 10px;">
           <%= label_tag :item_i_give_id, 'I give' %>
           <%= select_tag :item_i_give_id, options_from_collection_for_select(Item.all, :id, :name), include_blank: true %>
         </div>
@@ -45,21 +45,21 @@
         <div style="margin-bottom: 10px;">
           <%= submit_tag 'Offer' %>
         </div>
-  
-      <% end %>
-
-    <% if flash[:notice] %> <!-- Check if a flash notice message exists -->
-      <div class="success-notice">
-      <%= flash[:notice] %> <!-- Display the flash notice -->
-      </div>
     <% end %>
+  </div>
 
-    <% if flash[:alert] %>
-      <div class="error-notice">
+  <%# Display flash messages %>
+  <% if flash[:notice] %>
+    <div class="success-notice">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <div class="error-notice">
       <%= flash[:alert] %>
-      </div>
-    <% end %>
-
+    </div>
+  <% end %>
 
 <% else %>
   <p>Character not found.</p>

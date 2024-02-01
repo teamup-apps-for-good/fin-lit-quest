@@ -1,6 +1,4 @@
-<%= form_with(url: create_counter_offer_path(name: @name), method: :post) do |form| %>
-  <!-- other form fields -->
-  
+<%= form_with(url: create_counter_offer_path(name: @context.name), method: :post) do |form| %>
   <div>
     <%= form.label :item_i_give_id, 'I give' %>
     <%= form.collection_select :item_i_give_id, Item.all, :id, :name, prompt: true %>
@@ -12,7 +10,8 @@
   </div>
   
   <!-- other form fields -->
-    <%= form.submit %>
-  </div>
-  <% end %>
+  <%= form.submit %>
+</div>
+<% end %>
+
   
