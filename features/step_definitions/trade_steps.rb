@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 Then('I should see a notice of {string}') do |string|
   expect(page).to have_content(string)
