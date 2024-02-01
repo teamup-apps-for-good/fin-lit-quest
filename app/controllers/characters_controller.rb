@@ -15,7 +15,7 @@ class CharactersController < ApplicationController
   end
 
   def default_character
-    Character.new(name: 'Default', gif_url: './images/generic_nonplayer')
+    Character.new(name: 'Default')
   end
 
   def profile

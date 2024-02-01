@@ -20,33 +20,33 @@
     </div>
 
     <div style="margin-top: 20px;">
-      <%= form_with(model: @counter_offer, url: create_counter_offer_path(name: @name), local: true) do |form| %>
-
-        <div style="margin-bottom: 15px;">
-          <%= form.label :item_i_give, 'I give' %>
-          <%= form.collection_select :item_i_give_id, Item.all, :id, :name, include_blank: true %>
+    <%= form_with(url: create_counter_offer_path(name: @name), method: :post, local: true) do %>
+      
+        <div style="margin-bottom: 10px;">
+          <%= label_tag :item_i_give_id, 'I give' %>
+          <%= select_tag :item_i_give_id, options_from_collection_for_select(Item.all, :id, :name), include_blank: true %>
         </div>
-
-        <div style="margin-bottom: 15px;">
-          <%= form.label :quantity_i_give, 'Quantity I give' %>
-          <%= form.number_field :quantity_i_give %>
+  
+        <div style="margin-bottom: 10px;">
+          <%= label_tag :quantity_i_give, 'Quantity I give' %>
+          <%= number_field_tag :quantity_i_give %>
         </div>
-
-        <div style="margin-bottom: 15px;">
-          <%= form.label :item_i_want, 'I want' %>
-          <%= form.collection_select :item_i_want_id, Item.all, :id, :name, include_blank: true %>
+  
+        <div style="margin-bottom: 10px;">
+          <%= label_tag :item_i_want_id, 'I want' %>
+          <%= select_tag :item_i_want_id, options_from_collection_for_select(Item.all, :id, :name), include_blank: true %>
         </div>
-
-        <div style="margin-bottom: 15px;">
-          <%= form.label :quantity_i_want, 'Quantity I want' %>
-          <%= form.number_field :quantity_i_want %>
+  
+        <div style="margin-bottom: 10px;">
+          <%= label_tag :quantity_i_want, 'Quantity I want' %>
+          <%= number_field_tag :quantity_i_want %>
         </div>
-
-        <div>
-         <%= form.submit 'Offer' %>
+  
+        <div style="margin-bottom: 10px;">
+          <%= submit_tag 'Offer' %>
         </div>
-
-    <% end %>
+  
+      <% end %>
 
     <% if flash[:notice] %> <!-- Check if a flash notice message exists -->
       <div class="success-notice">

@@ -83,12 +83,10 @@ end
 
 
 inventories = [{ item: 'fish', character_id: 'Ritchey', quantity: 13 },
-               { item: 'wheat', character_id: 'Stella', quantity: 0 },
+               { item: 'wheat', character_id: 'Stella', quantity: 12 },
                { item: 'apple', character_id: 'Stella', quantity: 5 },
-               { item: 'apple', character_id: 'Ritchey', quantity: 0 },
                { item: 'orange', character_id: 'Ritchey', quantity: 10 },
                { item: 'potato', character_id: 'Ritchey', quantity: 9 },
-               { item: 'wheat', character_id: 'Ritchey', quantity: 3 },
                { item: 'grapes', character_id: 'Lightfoot', quantity: 8 },
                { item: 'bread', character_id: 'Lightfoot', quantity: 7 },
                { item: 'honey', character_id: 'Lightfoot', quantity: 5 },

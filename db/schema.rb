@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_28_032530) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_01_040037) do
   create_table "characters", force: :cascade do |t|
     t.string "name"
     t.string "occupation"
@@ -26,18 +26,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_28_032530) do
     t.integer "quantity_to_offer"
     t.integer "item_to_accept_id"
     t.integer "item_to_offer_id"
-    t.string "gif_url"
     t.index ["item_to_accept_id"], name: "index_characters_on_item_to_accept_id"
     t.index ["item_to_offer_id"], name: "index_characters_on_item_to_offer_id"
-  end
-
-  create_table "counter_offers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "item_i_give_id"
-    t.integer "quantity_i_give"
-    t.integer "item_i_want_id"
-    t.integer "quantity_i_want"
   end
 
   create_table "inventories", force: :cascade do |t|
