@@ -18,11 +18,11 @@ class CharacterInventoryService
       fetch_character_and_inventory(name_param)
 
     Context.new(
-        name: name_param,
-        character: character,
-        player_character: player_character,
-        player_inventory: player_inventory,
-        npc_inventory: npc_inventory
+      name: name_param,
+      character:,
+      player_character:,
+      player_inventory:,
+      npc_inventory:
     )
   end
 end

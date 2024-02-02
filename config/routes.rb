@@ -26,6 +26,6 @@ Rails.application.routes.draw do
   get '/shopping+list' => 'shopping_lists#player_shopping_list', as: 'player_shopping_list'
   get '/counter_offer/:name', to: 'counter_offer#show', as: 'counter_offer'
 
-  post '/counter_offer/:name', to: 'counter_offer#create', as: 'create_counter_offer'
-
+  post '/counter_offer/create', to: 'counter_offer#create', as: 'create_counter_offer'
+  resources :counter_offers, only: [:create]
 end

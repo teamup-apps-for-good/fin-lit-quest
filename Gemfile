@@ -55,6 +55,7 @@ group :development, :test do
   gem 'rubycritic', require: false
   gem 'simplecov', require: false, group: :test
   gem 'sqlite3', '~> 1.4'
+  gem 'pry'
 end
 
 group :development do
