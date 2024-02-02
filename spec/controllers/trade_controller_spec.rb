@@ -53,6 +53,5 @@ RSpec.describe TradeController, type: :controller do
       get :trade, params: { id: @nonplayer.id }
       expect(assigns(:item_to_accept)).to eq('apple')
     end
-
   end
 end
