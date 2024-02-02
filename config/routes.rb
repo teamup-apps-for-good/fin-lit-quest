@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :nonplayers
   resources :players
   resources :characters
+  
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -20,10 +21,10 @@ Rails.application.routes.draw do
   get '/town' => 'gameplays#town', as: 'town'
   get '/characters/:id/profile' => 'characters#profile', as: 'character_profile'
   get '/characters/:id/inventory' => 'characters#inventory', as: 'character_inventory'
-  get '/characters/:id/trade' => 'trade#trade', as: 'character_trade'
+  get '/trade/:id/' => 'trade#trade', as: 'trade'
   get '/underconstruction' => 'gameplays#underconstruction', as: 'underconstruction'
   get '/shopping+list' => 'shopping_lists#player_shopping_list', as: 'player_shopping_list'
 
   post '/launch/:id', to: 'shopping_lists#launch', as: 'launch'
-  post '/characters/:id/trade/trade_accept' => 'trade#trade_accept', as: 'character_trade_accept'
+  post '/trade/:id/trade_accept' => 'trade#trade_accept', as: 'trade_accept'
 end

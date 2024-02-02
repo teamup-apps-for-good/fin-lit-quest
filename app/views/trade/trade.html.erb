@@ -19,7 +19,7 @@
   </p>
 </div>
 
-<%= form_with url: character_trade_accept_path(@character), method: :post do |form| %>
+<%= form_with url: trade_accept_path(@character), method: :post do |form| %>
   <%= form.hidden_field :character_id, value: Player.first.id %>
   <%= form.hidden_field :npc_id, value: @character.id %>
   
