@@ -37,7 +37,7 @@ RSpec.describe TradeController, type: :controller do
       Nonplayer.create!(name: 'Ritchey', occupation: :comedian, inventory_slots: 5, balance: 0, personality: :dad,
                         dialogue_content: '431', current_level: 1,
                         item_to_accept: Item.find_by(name: 'wheat'), item_to_offer: Item.find_by(name: 'orange'),
-                        quantity_to_accept: 3, quantity_to_offer: 5)                  
+                        quantity_to_accept: 3, quantity_to_offer: 5)
       Player.create!(name: 'Stella', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1)
       Player.create!(name: 'Justin', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1)
       @player = Player.find_by(name: 'Stella')
@@ -59,7 +59,7 @@ RSpec.describe TradeController, type: :controller do
       Inventory.create!(item: Item.find_by(name: 'orange'),
                         character: @nonplayer2,
                         quantity: 10)
-        
+
       Inventory.create!(item: Item.find_by(name: 'apple'),
                         character: @player2,
                         quantity: 10)
@@ -84,7 +84,7 @@ RSpec.describe TradeController, type: :controller do
       final_inventory_count = @player_inventory.count
       expect(final_inventory_count).to be > initial_inventory_count
     end
-    
+
     it 'should make changes to inventory if trade unsuccessful' do
       initial_inventory_count = @player_inventory.count
       post :trade_accept, params: { character_id: @player.id, npc_id: @nonplayer2.id, id: '' }
