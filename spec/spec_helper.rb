@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'simplecov'
+require 'pry'
+
 SimpleCov.start
 
 # Previous content of test helper now starts here
