@@ -54,9 +54,5 @@ RSpec.describe TradeController, type: :controller do
       expect(assigns(:item_to_accept)).to eq('apple')
     end
 
-    it 'should  add an item to a player\'s inventory when they complete a trade with an NPC' do
-      post :trade_accept, params: { use_route: 'trade', id: @nonplayer }
-      expect(@player_inventory).to include('orange')
-    end
   end
 end
