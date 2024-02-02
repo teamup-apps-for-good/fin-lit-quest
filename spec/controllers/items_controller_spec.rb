@@ -24,6 +24,8 @@ RSpec.describe ItemsController, type: :controller do
   end
 
   describe 'index' do
+    # rubycritic dislikes this, but we disagree because we need this test
+    # it is human-readable and easy to maintain
     it 'shows all of the items' do
       get :index
       expect(assigns(:items)).to eq(Item.all)

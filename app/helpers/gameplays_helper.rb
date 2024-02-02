@@ -4,11 +4,7 @@
 module GameplaysHelper
   def nonplayer_gif_exists?(nonplayer)
     path = "#{nonplayer.name.downcase}.gif"
-    if Rails.application.assets
-      !Rails.application.assets.find_asset(path).nil?
-    else
-      !Rails.application.assets_manifest.find_sources(path).nil?
-    end
+    !(Rails.application.assets || ::Sprockets::Railtie.build_environment(Rails.application)).find_asset(path).nil?
   end
 
   def nonplayer_gif_file(nonplayer)

@@ -54,6 +54,7 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubycritic', require: false
   gem 'simplecov', require: false, group: :test
+  gem 'simplecov_json_formatter', require: false, group: :test
   gem 'sqlite3', '~> 1.4'
   gem 'pry'
 end

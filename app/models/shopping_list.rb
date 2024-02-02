@@ -11,4 +11,10 @@ class ShoppingList < ApplicationRecord
       inventory.item == item && inventory.character == player && inventory.quantity >= quantity
     end
   end
+
+  def self.contains_all(player)
+    ShoppingList.where(level: player.current_level).all? do |requirement|
+      requirement.item_obtained(player)
+    end
+  end
 end

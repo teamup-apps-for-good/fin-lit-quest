@@ -48,7 +48,10 @@ npcs = [{ name: "Ritchey", occupation: :merchant, inventory_slots: 5, balance: 0
           item_to_offer: "bandages", quantity_to_offer: 1, item_to_accept: "apple", quantity_to_accept: 2, current_level: 2 },
         { name: "Hermione", occupation: :witch, inventory_slots: 5, balance: 30, personality: :knowledgeable,
           dialogue_content: "hello",
-          item_to_offer: "coat", quantity_to_offer: 2, item_to_accept: "book", quantity_to_accept: 3, current_level: 2 }
+          item_to_offer: "coat", quantity_to_offer: 2, item_to_accept: "book", quantity_to_accept: 3, current_level: 2 },
+        { name: "Ron", occupation: :wizzard, inventory_slots: 2, balance: 10, personality: :goofy,
+          dialogue_content: "I <3 Hermione",
+          item_to_offer: "bed roll", quantity_to_offer: 1, item_to_accept: "bread", quantity_to_accept: 3, current_level: 2 }
         ]
 
 
@@ -106,7 +109,9 @@ inventories = [{ item: 'fish', character_id: 'Ritchey', quantity: 13 },
                { item: 'coat', character_id: 'Hermione', quantity: 2 },
                { item: 'boots', character_id: 'Hermione', quantity: 2 },
                { item: 'map', character_id: 'Hermione', quantity: 3 },
-               { item: 'compass', character_id: 'Hermione', quantity: 2 }]
+               { item: 'compass', character_id: 'Hermione', quantity: 2 },
+               { item: 'bed roll', character_id: 'Ron', quantity: 4 },
+               { item: 'bread', character_id: 'Ron', quantity: 1 }]
 
   inventories.each do |inventory_data|
   character = Character.find_by(name: inventory_data[:character_id])

@@ -10,6 +10,7 @@ Feature: In new inventory entry creation, select item and character from list
 
     And the following items exist:
     |  name   |                 description                  |  value  |
+    |  fish   |   still floppin around, fresh from the ocean |    1    |
     |  apple  |   crunchy, fresh from the tree               |    2    |
     |  orange |   juicy, fresh from the tree                 |    3    |
 

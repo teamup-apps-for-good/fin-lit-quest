@@ -27,27 +27,26 @@ RSpec.describe CharactersController, type: :controller do
   end
 
   describe 'going up to talk to an npc in town' do
-    before(:each) do
+    before do
       Item.create!(name: 'apple', description: 'crunchy, fresh from the tree', value: 2)
       Item.create!(name: 'orange', description: 'test description', value: 5)
       Nonplayer.create!(name: 'Lightfoot', occupation: :comedian, inventory_slots: 5, balance: 0, personality: :dad,
                         dialogue_content: 'goodbye', current_level: 1,
                         item_to_accept: Item.find_by(name: 'apple'), item_to_offer: Item.find_by(name: 'orange'),
                         quantity_to_accept: 2, quantity_to_offer: 5)
+
+      @nonplayer = Nonplayer.find_by(name: 'Lightfoot')
     end
     it 'should show the profile with some attributes of the npc' do
-      nonplayer = Nonplayer.find_by(name: 'Lightfoot')
-      get :profile, params: { id: nonplayer.id }
-      expect(assigns(:character)).to eq(nonplayer)
+      get :profile, params: { id: @nonplayer.id }
+      expect(assigns(:character)).to eq(@nonplayer)
     end
     it 'should show the inventory of the npc' do
-      nonplayer = Nonplayer.find_by(name: 'Lightfoot')
-      get :inventory, params: { id: nonplayer.id }
-      expect(assigns(:inventories)).to eq(nonplayer.inventories)
+      get :inventory, params: { id: @nonplayer.id }
+      expect(assigns(:inventories)).to eq(@nonplayer.inventories)
     end
     it 'should show the correct items to trade' do
-      nonplayer = Nonplayer.find_by(name: 'Lightfoot')
-      get :trade, params: { id: nonplayer.id }
+      get :trade, params: { id: @nonplayer.id }
       expect(assigns(:item_to_accept)).to eq('apple')
     end
   end

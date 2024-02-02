@@ -28,4 +28,6 @@ Rails.application.routes.draw do
 
   post '/counter_offer/create', to: 'counter_offer#create', as: 'create_counter_offer'
   resources :counter_offers, only: [:create]
+
+  post '/launch/:id', to: 'shopping_lists#launch', as: 'launch'
 end
