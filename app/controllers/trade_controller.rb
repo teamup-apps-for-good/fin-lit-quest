@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # TradeController
 class TradeController < ApplicationController
   def trade
@@ -16,42 +18,43 @@ class TradeController < ApplicationController
 
     npc_inventory = Inventory.where(character: params[:npc_id])
     player_inventory = Inventory.where(character: params[:character_id])
-    #puts "Offerer Inventory: #{npc_inventory.inspect}"
-    #puts "Acceptor Inventory: #{player_inventory.inspect}"
-    
+    # puts "Offerer Inventory: #{npc_inventory.inspect}"
+    # puts "Acceptor Inventory: #{player_inventory.inspect}"
+
     if trade_possible?(npc_inventory, player_inventory, npc, player)
-      requiredItemNPC = npc.item_to_offer
-      requiredQuantityNPC = npc.quantity_to_offer
-  
-      requiredItemPlayer = npc.item_to_accept
-      requiredQuantityPlayer = npc.quantity_to_accept
+      required_item_npc = npc.item_to_offer
+      required_quantity_npc = npc.quantity_to_offer
 
-      offerer_item = npc_inventory.find_by(item: requiredItemNPC)
-      accepter_item = player_inventory.find_by(item: requiredItemPlayer)
+      required_item_player = npc.item_to_accept
+      required_quantity_player = npc.quantity_to_accept
 
-      offerer_item.update(quantity: offerer_item.quantity - requiredQuantityNPC)
-      accepter_item.update(quantity: accepter_item.quantity - requiredQuantityPlayer)
+      offerer_item = npc_inventory.find_by(item: required_item_npc)
+      accepter_item = player_inventory.find_by(item: required_item_player)
 
-      npc_accepted_item = npc_inventory.find_by(item: requiredItemPlayer)
-      player_accepted_item = player_inventory.find_by(item: requiredItemNPC)
+      offerer_item.update(quantity: offerer_item.quantity - required_quantity_npc)
+      accepter_item.update(quantity: accepter_item.quantity - required_quantity_player)
+
+      npc_accepted_item = npc_inventory.find_by(item: required_item_player)
+      player_accepted_item = player_inventory.find_by(item: required_item_npc)
 
       if npc_accepted_item
-        npc_accepted_item.update(quantity: npc_accepted_item.quantity + requiredQuantityPlayer)
+        npc_accepted_item.update(quantity: npc_accepted_item.quantity + required_quantity_player)
       else
-        npc_accepted_item = Inventory.create(item: requiredItemPlayer, character: npc, quantity: requiredQuantityPlayer)
-      end  
+        Inventory.create(item: required_item_player, character: npc,
+                         quantity: required_quantity_player)
+      end
 
       if player_accepted_item
-        player_accepted_item.update(quantity: player_accepted_item.quantity + requiredQuantityNPC)
+        player_accepted_item.update(quantity: player_accepted_item.quantity + required_quantity_npc)
       else
-        player_accepted_item = Inventory.create(item: requiredItemNPC, character: player, quantity: requiredQuantityNPC)
-      end  
+        Inventory.create(item: required_item_npc, character: player,
+                         quantity: required_quantity_npc)
+      end
 
       redirect_to character_profile_path, notice: 'Success!'
     else
       redirect_to character_profile_path, alert: 'Failed to trade, not enough items!'
     end
-
   end
 
   def player_has_item_to_trade?
@@ -67,23 +70,19 @@ class TradeController < ApplicationController
 
   private
 
-  def trade_possible?(npc_inventory, player_inventory, npc, player)
+  def trade_possible?(npc_inventory, player_inventory, npc, _player)
+    required_item_npc = npc.item_to_offer
+    required_quantity_npc = npc.quantity_to_offer
 
-    requiredItemNPC = npc.item_to_offer
-    requiredQuantityNPC = npc.quantity_to_offer
-    
+    required_item_player = npc.item_to_accept
+    required_quantity_player = npc.quantity_to_accept
 
-    requiredItemPlayer = npc.item_to_accept
-    requiredQuantityPlayer = npc.quantity_to_accept
-    
+    npc_item = npc_inventory.find_by(item: required_item_npc)
+    npc_can_trade = npc_item.present? && npc_item.quantity >= required_quantity_npc
 
-    npc_item = npc_inventory.find_by(item: requiredItemNPC)
-    npc_can_trade = npc_item.present? && npc_item.quantity >= requiredQuantityNPC
-    
-    player_item = player_inventory.find_by(item: requiredItemPlayer)
-    player_can_trade = player_item.present? && player_item.quantity >= requiredQuantityPlayer
+    player_item = player_inventory.find_by(item: required_item_player)
+    player_can_trade = player_item.present? && player_item.quantity >= required_quantity_player
 
-    
-    return npc_can_trade && player_can_trade
+    npc_can_trade && player_can_trade
   end
 end

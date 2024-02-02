@@ -45,7 +45,5 @@ RSpec.describe CharactersController, type: :controller do
       get :inventory, params: { id: @nonplayer.id }
       expect(assigns(:inventories)).to eq(@nonplayer.inventories)
     end
-    
   end
-
 end
