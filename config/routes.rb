@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'counter_offer/show'
   resources :shopping_lists
   resources :items
   resources :inventories
@@ -19,15 +18,16 @@ Rails.application.routes.draw do
   # root "posts#index"
   root 'gameplays#index'
   get '/town' => 'gameplays#town', as: 'town'
+  get '/underconstruction' => 'gameplays#underconstruction', as: 'underconstruction'
+
   get '/characters/:id/profile' => 'characters#profile', as: 'character_profile'
   get '/characters/:id/inventory' => 'characters#inventory', as: 'character_inventory'
   get '/characters/:id/trade' => 'characters#trade', as: 'character_trade'
-  get '/underconstruction' => 'gameplays#underconstruction', as: 'underconstruction'
+
   get '/shopping+list' => 'shopping_lists#player_shopping_list', as: 'player_shopping_list'
-  get '/counter_offer/:name', to: 'counter_offer#show', as: 'counter_offer'
-
-  post '/counter_offer/create', to: 'counter_offer#create', as: 'create_counter_offer'
-  resources :counter_offers, only: [:create]
-
   post '/launch/:id', to: 'shopping_lists#launch', as: 'launch'
+
+  get '/counter_offer/:name', to: 'counter_offer#show', as: 'counter_offer'
+  post '/counter_offer/create', to: 'counter_offer#create', as: 'create_counter_offer'
+
 end
