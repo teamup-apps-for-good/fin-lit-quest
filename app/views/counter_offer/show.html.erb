@@ -1,0 +1,69 @@
+<!-- app/views/counter_offer/show.html.erb -->
+
+<h1>Counter Offer for <%= @context.name %></h1>
+
+<% if @context.character %>
+  <!-- Container for Player's Inventory -->
+  <div class="inventory-container-co">
+    <h2 style="font-weight: bold;"><%= @context.player_character.name %>'s Inventory</h2>
+    <% @context.player_inventory.each do |item_name, quantity| %>
+      <div id="player_inventory_<%= item_name %>"><%= item_name.capitalize %>: <%= quantity %></div>
+    <% end %>
+  </div>
+
+  <!-- Container for NPC's Inventory -->
+  <div class="inventory-container-co">
+    <h2 style="font-weight: bold;"><%= @context.character.name %>'s Inventory</h2>
+    <% @context.npc_inventory.each do |item_name, quantity| %>
+      <div id="npc_inventory_<%= item_name %>"><%= item_name.capitalize %>: <%= quantity %></div>
+    <% end %>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <%= form_with(url: create_counter_offer_path(name: @context.name), method: :post, local: true) do %>
+      <!-- Form fields -->
+      <div style="margin-bottom: 10px;">
+          <%= label_tag :item_i_give_id, 'I give' %>
+          <%= select_tag :item_i_give_id, options_from_collection_for_select(Item.all, :id, :name), include_blank: true %>
+        </div>
+  
+        <div style="margin-bottom: 10px;">
+          <%= label_tag :quantity_i_give, 'Quantity I give' %>
+          <%= number_field_tag :quantity_i_give %>
+        </div>
+  
+        <div style="margin-bottom: 10px;">
+          <%= label_tag :item_i_want_id, 'I want' %>
+          <%= select_tag :item_i_want_id, options_from_collection_for_select(Item.all, :id, :name), include_blank: true %>
+        </div>
+  
+        <div style="margin-bottom: 10px;">
+          <%= label_tag :quantity_i_want, 'Quantity I want' %>
+          <%= number_field_tag :quantity_i_want %>
+        </div>
+  
+        <div style="margin-bottom: 10px;">
+          <%= submit_tag 'Offer' %>
+        </div>
+    <% end %>
+  </div>
+
+  <%# Display flash messages %>
+  <% if flash[:notice] %>
+    <div class="success-notice">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <div class="error-notice">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
+<% else %>
+  <p>Character not found.</p>
+<% end %>
+
+
+

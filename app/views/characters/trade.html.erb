@@ -19,6 +19,7 @@
   </p>
 </div>
 
+<%= button_to "Counter Offer", counter_offer_path(name: @character.name), class: "button-b", method: :get %>
 <%= button_to "Yes", character_profile_path(@character), class: "button-g", method: :get %>
 <%= button_to "No", character_profile_path(@character), class: "button-r", method: :get %>
 </div>
