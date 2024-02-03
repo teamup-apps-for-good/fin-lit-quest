@@ -50,15 +50,15 @@ npcs = [{ name: "Ritchey", occupation: :merchant, inventory_slots: 5, balance: 0
         { name: "Ron", occupation: :wizzard, inventory_slots: 2, balance: 10, personality: :goofy,
           dialogue_content: "I <3 Hermione",
           item_to_offer: "bed roll", quantity_to_offer: 1, item_to_accept: "bread", quantity_to_accept: 3, current_level: 2 }
-        ]
+]
 
 players.each { |player| Player.find_or_create_by!(player) }
 npcs.each do |t|
-    item_to_offer = Item.find_by name: t[:item_to_offer]
-    item_to_accept = Item.find_by name: t[:item_to_accept]
-    t[:item_to_offer] = item_to_offer
-    t[:item_to_accept] = item_to_accept
-    Nonplayer.create_or_find_by!(t)
+  item_to_offer = Item.find_by name: t[:item_to_offer]
+  item_to_accept = Item.find_by name: t[:item_to_accept]
+  t[:item_to_offer] = item_to_offer
+  t[:item_to_accept] = item_to_accept
+  Nonplayer.create_or_find_by!(t)
 end
 
 inventories = [{ item: 'fish', character_id: 'Ritchey', quantity: 13 },
@@ -90,13 +90,13 @@ inventories = [{ item: 'fish', character_id: 'Ritchey', quantity: 13 },
                { item: 'bread', character_id: 'Ron', quantity: 1 }]
 
 inventories.each do |inventory|
-    character = Character.find_by(name: inventory[:character_id])
-    inventory[:character] = character
+  character = Character.find_by(name: inventory[:character_id])
+  inventory[:character] = character
 
-    item = Item.find_by(name: inventory[:item])
-    inventory[:item] = item
+  item = Item.find_by(name: inventory[:item])
+  inventory[:item] = item
 
-    Inventory.find_or_create_by!(inventory) # Currently prevents duplicate items in inventory
+  Inventory.find_or_create_by!(inventory) # Currently prevents duplicate items in inventory
 end
 
 shoppinglists = [{ item: 'apple', level: 1, quantity: 2 },
@@ -111,9 +111,8 @@ shoppinglists = [{ item: 'apple', level: 1, quantity: 2 },
                  { item: 'map', level: 2, quantity: 1 }]
 
 shoppinglists.each do |shoppinglist|
-    item = Item.find_by(name: shoppinglist[:item])
-    shoppinglist[:item] = item
+  item = Item.find_by(name: shoppinglist[:item])
+  shoppinglist[:item] = item
 
-    ShoppingList.find_or_create_by!(shoppinglist)
+  ShoppingList.find_or_create_by!(shoppinglist)
 end
-

@@ -31,6 +31,9 @@
 
 /public/assets
 
+# Ignore all test files
+/test/*
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
@@ -49,4 +52,3 @@ rubocop.sarif
 
 # node modules
 /node_modules
-
