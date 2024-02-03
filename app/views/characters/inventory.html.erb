@@ -4,7 +4,7 @@
 
 <div id="inventories">
   <% @inventories.each do |inventory_entry| %>
-    <div>
+    <div id="<%= dom_id inventory_entry %>">
       <p>
         <strong>Name:</strong>
         <%= inventory_entry.item.name %>

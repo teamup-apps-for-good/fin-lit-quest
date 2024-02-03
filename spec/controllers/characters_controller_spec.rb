@@ -45,9 +45,5 @@ RSpec.describe CharactersController, type: :controller do
       get :inventory, params: { id: @nonplayer.id }
       expect(assigns(:inventories)).to eq(@nonplayer.inventories)
     end
-    it 'should show the correct items to trade' do
-      get :trade, params: { id: @nonplayer.id }
-      expect(assigns(:item_to_accept)).to eq('apple')
-    end
   end
 end

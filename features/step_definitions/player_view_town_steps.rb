@@ -27,7 +27,7 @@ Given('I am on the profile page for {string}') do |nonplayer|
 end
 
 Given('I am on the trade page for {string}') do |nonplayer|
-  visit character_trade_path(Nonplayer.find_by(name: nonplayer))
+  visit trade_path(Nonplayer.find_by(name: nonplayer))
 end
 
 Given('I am on the inventory page for {string}') do |character|
