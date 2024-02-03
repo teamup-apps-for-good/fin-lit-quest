@@ -33,10 +33,6 @@ Then(/^I should be on the counter offer page for "(.+)"$/) do |name|
   expect(current_path).to eq("/counter_offer/#{name}")
 end
 
-Then(/^I should see a notice of "(.*?)"$/) do |message|
-  expect(page).to have_content(message)
-end
-
 Then('I should see the player owns {string} of {string}') do |quantity, item|
   item_id = "player_inventory_#{item.downcase}"
   inventory_item = find("##{item_id}")

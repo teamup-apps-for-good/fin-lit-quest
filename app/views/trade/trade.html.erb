@@ -35,4 +35,5 @@
   <% end %>
 <% end %>
 <%= button_to "No", character_profile_path(@character), class: "button-r", method: :get %>
+<%= button_to "Counter Offer", counter_offer_path(name: @character.name), class: "button-b", method: :get %>
 </div>
