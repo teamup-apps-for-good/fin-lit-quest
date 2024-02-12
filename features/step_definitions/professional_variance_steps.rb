@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
-Given('the following preference table exists:') do |_preferences|
+Given('the following preference table exists:') do |preferences|
   # table is a Cucumber::MultilineArgument::DataTable
-  pending # Write code here that turns the phrase above into concrete actions
+  preferences.hashes.each do |preference|
+    item = Item.find_by(name: preference['item'])
+    preference['item'] = item
+  
+    Preference.create!(preference)
+  end
 end
