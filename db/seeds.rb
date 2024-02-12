@@ -122,5 +122,5 @@ preferences.each do |preference|
   item = Item.find_by(name: preference[:item])
   preference[:item] = item
 
-  Preference.find_or_create_by!(preferences)
+  Preference.find_or_create_by!(preference)
 end
