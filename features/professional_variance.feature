@@ -28,9 +28,9 @@ Feature: Profession price preference variance
       | fish   | Stella    | 7        |
 
     Given the following bias table exists:
-      | item   | occupation | bias     |
-      | bread  | merchant   | 3        |
-      | fish   | fisherman  | 0.75     |
+      | item   | occupation | multiplier  |
+      | bread  | merchant   | 3           |
+      | fish   | fisherman  | 0.75        |
 
   Scenario: The fisherman will value fish lower
     Given I am on the counter offer page for "Alice"
