@@ -13,17 +13,18 @@
 
   <div>
     <%= form.label :occupation, style: "display: block" %>
-    <%= form.collection_select :occupation, Character.pluck(:occupation).uniq.sort, :itself, :itself, prompt: true, selected: @preference.new_record? ? nil : @preference.occupation %>
+    <%= form.collection_select :occupation, Character.pluck(:occupation).uniq.sort, :itself, :itself, prompt: true, 
+        selected: @preference.new_record? ? nil : @preference.occupation %>
   </div>
 
   <div>
-    <%= form.label :item, style: "display: block" %>
-    <%= form.collection_select :item, Item.all, :id, :name, prompt: true, selected: @preference.new_record? ? nil : @preference.item.id %>
+    <%= form.label :item_id, style: "display: block" %>
+    <%= form.collection_select :item_id, Item.all, :id, :name, prompt: true, selected: @preference.new_record? ? nil : @preference.item.id %>
   </div>
 
   <div>
     <%= form.label :multiplier, style: "display: block" %>
-    <%= form.number_field :multiplier %>
+    <%= form.number_field :multiplier, step: 0.01 %>
   </div>
 
   <div>
