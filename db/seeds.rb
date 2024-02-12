@@ -41,13 +41,13 @@ npcs = [{ name: "Ritchey", occupation: :merchant, inventory_slots: 5, balance: 0
         { name: "Lightfoot", occupation: :comedian, inventory_slots: 5, balance: 0, personality: :dad,
           dialogue_content: "goodbye",
           item_to_offer: "apple", quantity_to_offer: 2, item_to_accept: "orange", quantity_to_accept: 2, current_level: 1 },
-        { name: "Harry", occupation: :wizzard, inventory_slots: 5, balance: 50, personality: :skilled,
+        { name: "Harry", occupation: :wizard, inventory_slots: 5, balance: 50, personality: :skilled,
           dialogue_content: "sssssss",
           item_to_offer: "bandages", quantity_to_offer: 1, item_to_accept: "apple", quantity_to_accept: 2, current_level: 2 },
         { name: "Hermione", occupation: :witch, inventory_slots: 5, balance: 30, personality: :knowledgeable,
           dialogue_content: "hello",
           item_to_offer: "coat", quantity_to_offer: 2, item_to_accept: "book", quantity_to_accept: 3, current_level: 2 },
-        { name: "Ron", occupation: :wizzard, inventory_slots: 2, balance: 10, personality: :goofy,
+        { name: "Ron", occupation: :wizard, inventory_slots: 2, balance: 10, personality: :goofy,
           dialogue_content: "I <3 Hermione",
           item_to_offer: "bed roll", quantity_to_offer: 1, item_to_accept: "bread", quantity_to_accept: 3, current_level: 2 }
 ]
@@ -115,4 +115,12 @@ shoppinglists.each do |shoppinglist|
   shoppinglist[:item] = item
 
   ShoppingList.find_or_create_by!(shoppinglist)
+end
+
+preferences = [{ occupation: 'merchant', item:'map', multiplier: 2}]
+preferences.each do |preference|
+  item = Item.find_by(name: preference[:item])
+  preference[:item] = item
+
+  Preference.find_or_create_by!(preferences)
 end
