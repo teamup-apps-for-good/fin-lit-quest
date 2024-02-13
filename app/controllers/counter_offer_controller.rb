@@ -19,8 +19,8 @@ class CounterOfferController < ApplicationController
   private
 
   def set_context
-    name_param = params[:name]
-    @context = CharacterInventoryService.build_context(name_param)
+    id_param = params[:id]
+    @context = CharacterInventoryService.build_context_by_id(id_param)
   end
 
   def validate_counter_offer_params
@@ -36,7 +36,7 @@ class CounterOfferController < ApplicationController
     else
       flash[:alert] = message
     end
-    redirect_to counter_offer_path(name: @context.name)
+    redirect_to counter_offer_path(id: @context.character.id)
   end
 
   def counter_offer_params

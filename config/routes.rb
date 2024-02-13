@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   get '/trade/:id/' => 'trade#trade', as: 'trade'
   post '/trade/:id/trade_accept/' => 'trade#trade_accept', as: 'trade_accept'
 
-  get '/counter_offer/:name', to: 'counter_offer#show', as: 'counter_offer'
+  get '/counter_offer/:id', to: 'counter_offer#show', as: 'counter_offer'
   post '/counter_offer/create', to: 'counter_offer#create', as: 'create_counter_offer'
 
 end
