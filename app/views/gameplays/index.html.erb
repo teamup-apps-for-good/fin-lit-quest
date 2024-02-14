@@ -5,6 +5,8 @@
 <p style="color: red"><%= alert %> </p>
 
 <h1 class="center-text nicefont">Hello player!</h1>
+<%= display_current_time_for_character(Player.first) %>
+
 
 <div>
   <%= button_to "Home", root_path, class: "button-b", method: :get %>
