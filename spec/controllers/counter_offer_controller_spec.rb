@@ -28,7 +28,7 @@ RSpec.describe CounterOfferController, type: :controller do
     before do
       create(:inventory, character: npc_character, item: item_to_offer, quantity: 5)
       create(:inventory, character: player_character, item: item_to_accept, quantity: 5)
-      allow(CharacterInventoryService).to receive(:build_context)
+      allow(CharacterInventoryService).to receive(:build_context_by_id)
         .and_return(double(player_character:, character: npc_character, name: npc_character.name))
     end
 
@@ -46,7 +46,7 @@ RSpec.describe CounterOfferController, type: :controller do
         allow_any_instance_of(CounterOfferService).to receive(:execute_trade).and_return([true, ''])
         post :create, params: valid_params
         expect(flash[:notice]).to eq('Success!')
-        expect(response).to redirect_to(counter_offer_path(name: npc_character.name))
+        expect(response).to redirect_to(counter_offer_path(id: npc_character.id))
       end
     end
 
@@ -56,7 +56,7 @@ RSpec.describe CounterOfferController, type: :controller do
           .and_return([false, 'Trade failed due to insufficient items'])
         post :create, params: valid_params
         expect(flash[:alert]).to eq('Trade failed due to insufficient items')
-        expect(response).to redirect_to(counter_offer_path(name: npc_character.name))
+        expect(response).to redirect_to(counter_offer_path(id: npc_character.id))
       end
     end
   end

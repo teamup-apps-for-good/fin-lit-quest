@@ -19,10 +19,10 @@ class CharacterInventoryService
 
     Context.new(
       id: id_param,
-      character: character,
-      player_character: player_character,
-      player_inventory: player_inventory,
-      npc_inventory: npc_inventory
+      character:,
+      player_character:,
+      player_inventory:,
+      npc_inventory:
     )
   end
 end
