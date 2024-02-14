@@ -9,11 +9,13 @@ module TimeAdvancementHelper
   }.freeze
 
   def self.increment_hour(character)
-    character.increment!(:hour)
-    return unless character.hour > 11
-
-    character.update(hour: 1)
-    increment_day(character)
+    new_hour = character.hour + 1
+    if new_hour > 10
+      character.update(hour: 1)
+      increment_day(character)
+    else
+      character.update(hour: new_hour)
+    end
   end
 
   def self.increment_day(character)

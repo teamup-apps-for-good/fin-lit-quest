@@ -59,5 +59,14 @@ RSpec.describe CounterOfferController, type: :controller do
         expect(response).to redirect_to(counter_offer_path(id: npc_character.id))
       end
     end
+
+    context 'when character.hour is 10' do
+      it 'redirects to root path with a notice' do
+        allow(Player).to receive(:first).and_return(double(hour: 10))
+        post :create, params: valid_params
+        expect(response).to redirect_to(root_path)
+        expect(flash[:notice]).to eq('It is too late! Move to the next day')
+      end
+    end
   end
 end
