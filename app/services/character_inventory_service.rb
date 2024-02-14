@@ -4,8 +4,8 @@
 
 # Service class to handle the logic for character inventory in the game.
 class CharacterInventoryService
-  def self.fetch_character_and_inventory(name_param)
-    character = Character.find_by(name: name_param)
+  def self.fetch_character_and_inventory_by_id(id_param)
+    character = Character.find(id_param)
     player_character = Character.find_by(type: 'Player')
     player_inventory = InventoryService.inventory_for(player_character)
     npc_inventory = InventoryService.inventory_for(character)
@@ -13,12 +13,12 @@ class CharacterInventoryService
     [character, player_character, player_inventory, npc_inventory]
   end
 
-  def self.build_context(name_param)
+  def self.build_context_by_id(id_param)
     character, player_character, player_inventory, npc_inventory =
-      fetch_character_and_inventory(name_param)
+      fetch_character_and_inventory_by_id(id_param)
 
     Context.new(
-      name: name_param,
+      id: id_param,
       character:,
       player_character:,
       player_inventory:,

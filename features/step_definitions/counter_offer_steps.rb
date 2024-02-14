@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
-Given('I am on the counter offer page for {string}') do |item_name|
-  visit counter_offer_path(item_name)
+Given(/^I am on the counter offer page for "(.+)"$/) do |name|
+  character = Character.find_by(name:)
+  expect(character).not_to be_nil, "Character #{name} not found"
+  visit("/counter_offer/#{character.id}")
+  expect(page).to have_content(name)
 end
 
 When('I choose {string} in {string} dropdown') do |option, dropdown_label|
@@ -30,7 +33,10 @@ When('I press the {string} button') do |button_name|
 end
 
 Then(/^I should be on the counter offer page for "(.+)"$/) do |name|
-  expect(current_path).to eq("/counter_offer/#{name}")
+  character = Character.find_by(name:)
+  expect(character).not_to be_nil, "Character #{name} not found"
+  expect(current_path).to eq("/counter_offer/#{character.id}")
+  expect(page).to have_content(name)
 end
 
 Then('I should see the player owns {string} of {string}') do |quantity, item|

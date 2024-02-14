@@ -1,6 +1,6 @@
 <!-- app/views/counter_offer/show.html.erb -->
 
-<h1>Counter Offer for <%= @context.name %></h1>
+<h1>Counter Offer for <%= @context.character.name %></h1>
 
 <% if @context.character %>
   <!-- Container for Player's Inventory -->
@@ -20,7 +20,7 @@
   </div>
 
   <div style="margin-top: 20px;">
-    <%= form_with(url: create_counter_offer_path(name: @context.name), method: :post, local: true) do %>
+  <%= form_with(url: create_counter_offer_path(id: @context.character.id), method: :post, local: true) do %>
       <!-- Form fields -->
       <div style="margin-bottom: 10px;">
           <%= label_tag :item_i_give_id, 'I give' %>
