@@ -8,7 +8,10 @@ class CounterOfferController < ApplicationController
   def show; end
 
   def create
-    if validate_counter_offer_params
+    character = Player.first # Assuming single-player for simplicity
+    if character.hour == 10
+      redirect_to root_path, notice: 'It is too late! Move to the next day'
+    elsif validate_counter_offer_params
       execute_counter_offer
     else
       flash[:alert] = 'Please fill in all required fields'
@@ -32,6 +35,7 @@ class CounterOfferController < ApplicationController
     service = CounterOfferService.new(@context.player_character, @context.character, counter_offer_params)
     success, message = service.execute_trade
     if success
+      TimeAdvancementHelper.increment_hour(Character.first)
       flash[:notice] = 'Success!'
     else
       flash[:alert] = message

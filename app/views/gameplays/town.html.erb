@@ -5,11 +5,10 @@
 <body>
 
 <p style="color: green"><%= notice %></p>
-
+<%= TimeAdvancementHelper.display_current_time_for_character(Player.first) %>
 <div class="welcome-banner">
   <h1 class = "center-text nicefont">Welcome to Town <%=@player_level%>!</h1>
 </div>
-
 <div id="non_players">
   <% @nonplayers.each do |nonplayer| %>
     <% container_id = "#{nonplayer.name.downcase}_image_container" %>

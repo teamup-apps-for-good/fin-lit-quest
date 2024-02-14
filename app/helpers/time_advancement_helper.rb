@@ -2,41 +2,34 @@
 
 # Time Advancement Helper
 module TimeAdvancementHelper
+  HOUR_MAPPINGS = {
+    1 => '08:00 AM', 2 => '09:00 AM', 3 => '10:00 AM', 4 => '11:00 AM',
+    5 => '12:00 PM', 6 => '01:00 PM', 7 => '02:00 PM', 8 => '03:00 PM',
+    9 => '04:00 PM', 10 => '05:00 PM', 11 => '06:00 PM'
+  }.freeze
+
   def self.increment_hour(character)
     character.increment!(:hour)
-    if character.hour >= 24
-      character.update(hour: 0)
-      increment_day(character)
-    end
+    return unless character.hour > 11
+
+    character.update(hour: 1)
+    increment_day(character)
   end
 
   def self.increment_day(character)
     character.increment!(:day)
+    character.update(hour: 1)
   end
-end
 
-def display_current_time_for_character(character)
-  if character.present?
-    # Adjusting the hour to a 12-hour format with AM/PM
-    formatted_hour = if character.hour < 8
-                       format('%02d:00 AM', character.hour)
-                     elsif character.hour < 12
-                       format('%02d:00 AM', character.hour)
-                     elsif character.hour < 20
-                       format('%02d:00 PM', character.hour - 12)
-                     else
-                       format('%02d:00 PM', character.hour - 12)
-                     end
+  def self.increment_era(character)
+    character.increment!(:era)
+    character.update(day: 1, hour: 1)
+  end
+
+  def self.display_current_time_for_character(character)
+    return 'Character details incomplete or not found.' unless character.present?
+
+    formatted_hour = HOUR_MAPPINGS[character.hour] || 'Invalid hour'
     "#{formatted_hour} on Day #{character.day}, Era #{character.era}"
-  else
-    "Character details incomplete or not found."
   end
 end
-
-  
-  
-  
-  
-
-
-  

@@ -32,5 +32,9 @@ Rails.application.routes.draw do
 
   get '/counter_offer/:id', to: 'counter_offer#show', as: 'counter_offer'
   post '/counter_offer/create', to: 'counter_offer#create', as: 'create_counter_offer'
+  
+  post 'advance_day', to: 'characters#advance_day', as: 'advance_day'
+  post 'launch_to_new_era', to: 'characters#launch_to_new_era', as: 'launch_to_new_era'
+
 
 end
