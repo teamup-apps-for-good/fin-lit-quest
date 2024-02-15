@@ -72,7 +72,8 @@ class CounterOfferService
   def value_of_given_items
     pref = Preference.find_by(occupation: @npc_character.occupation)
     # make sure preference exists, and the item matches up
-    if pref && (pref.item.id == @item_i_give_id)
+    if pref && (pref.item.id === @item_i_give_id.to_i)
+       puts "in found pref and item for wanted"
        calculate_total_value(@item_i_give_id, @quantity_i_give) * pref.multiplier
     else
         calculate_total_value(@item_i_give_id, @quantity_i_give)
@@ -81,7 +82,8 @@ class CounterOfferService
 
   def value_of_wanted_items
     pref = Preference.find_by(occupation: @npc_character.occupation)
-    if pref && (pref.item.id == @item_i_want_id)
+    if pref && (pref.item.id === @item_i_want_id.to_i)
+       puts "in found pref and item for wanted"
        calculate_total_value(@item_i_want_id, @quantity_i_want) * pref.multiplier
     else
         calculate_total_value(@item_i_want_id, @quantity_i_want)
