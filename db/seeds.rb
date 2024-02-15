@@ -118,6 +118,7 @@ shoppinglists.each do |shoppinglist|
 end
 
 preferences = [{ occupation: 'merchant', item:'map', multiplier: 2}]
+
 preferences.each do |preference|
   item = Item.find_by(name: preference[:item])
   preference[:item] = item
