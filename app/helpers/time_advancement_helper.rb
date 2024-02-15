@@ -24,7 +24,6 @@ module TimeAdvancementHelper
   end
 
   def self.increment_era(character)
-    character.increment!(:era)
     character.update(day: 1, hour: 1)
   end
 
@@ -32,6 +31,6 @@ module TimeAdvancementHelper
     return 'Character details incomplete or not found.' unless character.present?
 
     formatted_hour = HOUR_MAPPINGS[character.hour] || 'Invalid hour'
-    "#{formatted_hour} on Day #{character.day}, Era #{character.era}"
+    "#{formatted_hour} on Day #{character.day}, Era #{character.current_level}"
   end
 end

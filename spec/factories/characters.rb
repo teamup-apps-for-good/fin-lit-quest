@@ -18,7 +18,6 @@ FactoryBot.define do
     item_to_offer_id { nil }
     day { 1 }
     hour { 1 }
-    era { 1 }
 
     trait :player do
       type { 'Player' }

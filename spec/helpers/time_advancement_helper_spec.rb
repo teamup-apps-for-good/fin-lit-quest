@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe TimeAdvancementHelper do
-  let(:character) { instance_double('Character', hour: 10, day: 1, era: 1) }
+  let(:character) { instance_double('Character', hour: 10, day: 1) }
 
   describe '.increment_hour' do
     it 'increments the hour by one if it is less than 10' do
@@ -35,9 +35,7 @@ RSpec.describe TimeAdvancementHelper do
 
   describe '.increment_era' do
     it 'increments the era by one and resets the day and hour' do
-      expect(character).to receive(:increment!).with(:era)
       expect(character).to receive(:update).with(day: 1, hour: 1)
-
       described_class.increment_era(character)
     end
   end
@@ -47,7 +45,7 @@ RSpec.describe TimeAdvancementHelper do
       allow(character).to receive(:present?).and_return(true)
       allow(character).to receive(:hour).and_return(1)
       allow(character).to receive(:day).and_return(1)
-      allow(character).to receive(:era).and_return(1)
+      allow(character).to receive(:current_level).and_return(1)
 
       expected_string = '08:00 AM on Day 1, Era 1'
       expect(described_class.display_current_time_for_character(character)).to eq(expected_string)
