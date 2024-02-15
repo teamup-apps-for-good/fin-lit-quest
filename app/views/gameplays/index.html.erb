@@ -4,6 +4,7 @@
 <p style="color: green"><%= notice %></p>
 <p style="color: red"><%= alert %> </p>
 
+<%= TimeAdvancementHelper.display_current_time_for_character(Player.first) %>
 <h1 class="center-text nicefont">Hello player!</h1>
 
 <div>
@@ -12,6 +13,7 @@
   <%= button_to "Inventory", character_inventory_path(Player.first), class: "button-b", method: :get %>
   <%= button_to "Shopping list", player_shopping_list_path, class: "button-b", method: :get %>
   <%= button_to "Budget", underconstruction_path, class: "button-b", method: :get %>
+  <%= button_to "Move to the next day", advance_day_path, method: :post, class: "button-b" %>
 </div>
 
 

@@ -68,6 +68,7 @@ class ShoppingListsController < ApplicationController
     player = Player.find(params[:id])
     if ShoppingList.contains_all(player)
       player.update(current_level: player.current_level + 1)
+      TimeAdvancementHelper.increment_era(player)
       redirect_to town_path, notice: 'You leveled up!'
     else
       redirect_to root_path, alert: 'You have not completed the shopping list!'

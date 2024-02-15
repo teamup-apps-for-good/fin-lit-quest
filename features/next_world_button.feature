@@ -34,7 +34,7 @@ Feature: Shopping list
 
     And I am on the shopping list page
 
-  Scenario: The player can proceed to the next level when they have do not have all the items on the list
+  Scenario: The player cannot proceed to the next level when they do not have all the items on the list
     When I click on "Launch"
     Then I should see "You have not completed the shopping list!"
 

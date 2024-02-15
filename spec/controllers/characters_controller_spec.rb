@@ -3,6 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe CharactersController, type: :controller do
+  before do
+    @player = create(:character, :player)
+    allow(Player).to receive(:first).and_return(@player)
+  end
+
   describe 'Admin access' do
     let(:valid_attributes) do
       # Define valid attributes for your character model
@@ -44,6 +49,24 @@ RSpec.describe CharactersController, type: :controller do
     it 'should show the inventory of the npc' do
       get :inventory, params: { id: @nonplayer.id }
       expect(assigns(:inventories)).to eq(@nonplayer.inventories)
+    end
+  end
+
+  describe 'POST #advance_day' do
+    it 'advances the day for the first player and redirects with a notice' do
+      expect(TimeAdvancementHelper).to receive(:increment_day).with(@player)
+      post :advance_day
+      expect(response).to redirect_to(root_path)
+      expect(flash[:notice]).to match(/Moved to the next day./)
+    end
+  end
+
+  describe 'POST #launch_to_new_era' do
+    it 'launches to a new era for the first player and redirects with a notice' do
+      expect(TimeAdvancementHelper).to receive(:increment_era).with(@player)
+      post :launch_to_new_era
+      expect(response).to redirect_to(root_path)
+      expect(flash[:notice]).to match(/Moved to the next Era./)
     end
   end
 end

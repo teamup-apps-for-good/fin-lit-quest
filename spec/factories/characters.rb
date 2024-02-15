@@ -16,6 +16,8 @@ FactoryBot.define do
     quantity_to_offer { 5 }
     item_to_accept_id { nil }
     item_to_offer_id { nil }
+    day { 1 }
+    hour { 1 }
 
     trait :player do
       type { 'Player' }
