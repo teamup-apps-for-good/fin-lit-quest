@@ -30,7 +30,7 @@ Feature: Profession price preference variance
     Given the following preference table exists:
       | item   | occupation | multiplier |
       | bread  | merchant   | 3          |
-      | fish   | fisherman  | 0.75       |
+      | fish   | fisherman  | 1.25       |
 
   Scenario: The fisherman will value fish lower
     Given I am on the counter offer page for "Alice"
