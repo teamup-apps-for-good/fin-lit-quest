@@ -30,18 +30,18 @@ Feature: Profession price preference variance
     Given the following preference table exists:
       | item   | occupation | multiplier |
       | bread  | merchant   | 3          |
-      | fish   | fisherman  | 1.25       |
+      | fish   | fisherman  | 2          |
 
-  Scenario: The fisherman will value fish lower
+  Scenario: The fisherman will value fish higher and trade goes through
     Given I am on the counter offer page for "Alice"
-    When I choose "orange" in "I give" dropdown
-    * I choose "fish" in "I want" dropdown
-    * I fill in the number of items that I give with "2"
-    * I fill in the number of items that I want with "2"
+    When I choose "fish" in "I give" dropdown
+    * I choose "orange" in "I want" dropdown
+    * I fill in the number of items that I give with "1"
+    * I fill in the number of items that I want with "3"
     And I press the "Offer" button
     Then I should see a notice of "Success!"
 
-  Scenario: The client values bread more
+  Scenario: The client values bread more and trade does not go through
     Given I am on the counter offer page for "Ritchey"
     When I choose "apple" in "I give" dropdown
     * I choose "bread" in "I want" dropdown
