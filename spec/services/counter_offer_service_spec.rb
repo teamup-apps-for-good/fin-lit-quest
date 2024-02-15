@@ -76,24 +76,24 @@ RSpec.describe CounterOfferService do
   describe 'when given the same items with higher price to trade to different occupations' do
     before do
       Item.create(name: 'apple',
-      description: 'crunchy, fresh from the tree',
-      value: 2)
+                  description: 'crunchy, fresh from the tree',
+                  value: 2)
 
       Item.create(name: 'bread',
-            description: 'yummy, fresh from the oven',
-            value: 2)
+                  description: 'yummy, fresh from the oven',
+                  value: 2)
 
       Character.create(name: 'Bobert',
-                occupation: :farmer,
-                inventory_slots: 20,
-                balance: 0,
-                current_level: 1)
+                       occupation: :farmer,
+                       inventory_slots: 20,
+                       balance: 0,
+                       current_level: 1)
 
       Character.create(name: 'Robert',
-                occupation: :merchant,
-                inventory_slots: 20,
-                balance: 0,
-                current_level: 1)
+                       occupation: :merchant,
+                       inventory_slots: 20,
+                       balance: 0,
+                       current_level: 1)
 
       @bobert = Character.find_by(name: 'Bobert')
       @robert = Character.find_by(name: 'Robert')
@@ -102,8 +102,8 @@ RSpec.describe CounterOfferService do
       @bread_item = Item.find_by(name: 'bread')
 
       Preference.create(occupation: 'merchant',
-                  item: @bread_item,
-                  multiplier: 3)
+                        item: @bread_item,
+                        multiplier: 3)
       Preference.create(occupation: 'farmer',
                         item: @apple_item,
                         multiplier: 2)
@@ -118,13 +118,17 @@ RSpec.describe CounterOfferService do
     end
 
     it 'should be accepted by an occupation that prefers it' do
-      trade = described_class.new(player_character, @bobert, {item_i_give_id: @apple_item.id, quantity_i_give: 1, item_i_want_id: @bread_item.id, quantity_i_want: 2})
-      expect(trade.valid_trade?). to eq(true)
+      trade = described_class.new(player_character, @bobert,
+                                  { item_i_give_id: @apple_item.id, quantity_i_give: 1,
+                                    item_i_want_id: @bread_item.id, quantity_i_want: 2 })
+      expect(trade.valid_trade?).to eq(true)
     end
 
     it 'should be rejecteded by an occupation that does not prefer it' do
-      trade = described_class.new(player_character, @robert, {item_i_give_id: @apple_item.id, quantity_i_give: 1, item_i_want_id: @bread_item.id, quantity_i_want: 2})
-      expect(trade.valid_trade?). to eq(false)
+      trade = described_class.new(player_character, @robert,
+                                  { item_i_give_id: @apple_item.id, quantity_i_give: 1,
+                                    item_i_want_id: @bread_item.id, quantity_i_want: 2 })
+      expect(trade.valid_trade?).to eq(false)
     end
   end
 end
