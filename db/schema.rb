@@ -51,6 +51,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_15_011029) do
     t.index ["name"], name: "index_items_on_name"
   end
 
+  create_table "preferences", force: :cascade do |t|
+    t.string "occupation"
+    t.integer "item_id", null: false
+    t.decimal "multiplier", precision: 3, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_preferences_on_item_id"
+    t.index ["occupation"], name: "index_preferences_on_occupation"
+  end
+
   create_table "shopping_lists", force: :cascade do |t|
     t.integer "item_id", null: false
     t.integer "level"
@@ -64,5 +74,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_15_011029) do
   add_foreign_key "characters", "items", column: "item_to_offer_id"
   add_foreign_key "inventories", "characters"
   add_foreign_key "inventories", "items"
+  add_foreign_key "preferences", "items"
   add_foreign_key "shopping_lists", "items"
 end

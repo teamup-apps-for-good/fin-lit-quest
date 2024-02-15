@@ -1,0 +1,33 @@
+<%= form_with(model: preference) do |form| %>
+  <% if preference.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(preference.errors.count, "error") %> prohibited this preference from being saved:</h2>
+
+      <ul>
+        <% preference.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :occupation, style: "display: block" %>
+    <%= form.collection_select :occupation, Character.pluck(:occupation).uniq.sort, :itself, :itself, prompt: true, 
+        selected: @preference.new_record? ? nil : @preference.occupation %>
+  </div>
+
+  <div>
+    <%= form.label :item_id, style: "display: block" %>
+    <%= form.collection_select :item_id, Item.all, :id, :name, prompt: true, selected: @preference.new_record? ? nil : @preference.item.id %>
+  </div>
+
+  <div>
+    <%= form.label :multiplier, style: "display: block" %>
+    <%= form.number_field :multiplier, step: 0.01 %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
