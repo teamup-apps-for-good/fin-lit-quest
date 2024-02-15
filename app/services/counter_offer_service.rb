@@ -4,8 +4,8 @@
 # This includes validating the trade and updating inventories.
 class CounterOfferService
   def initialize(player_character, npc_character, offer_params)
-    @player_character = player_character
-    @npc_character = npc_character
+    @player = player_character
+    @npc = npc_character
     @offer_params = offer_params
     assign_trade_params
   end
@@ -38,29 +38,30 @@ class CounterOfferService
   end
 
   def update_player_inventories
-    InventoryService.update_inventory(@player_character, @item_i_give_id, -@quantity_i_give)
-    InventoryService.update_inventory(@player_character, @item_i_want_id, @quantity_i_want)
+    InventoryService.update_inventory(@player, @item_i_give_id, -@quantity_i_give)
+    InventoryService.update_inventory(@player, @item_i_want_id, @quantity_i_want)
   end
 
   def update_npc_inventories
-    InventoryService.update_inventory(@npc_character, @item_i_want_id, -@quantity_i_want)
-    InventoryService.update_inventory(@npc_character, @item_i_give_id, @quantity_i_give)
+    InventoryService.update_inventory(@npc, @item_i_want_id, -@quantity_i_want)
+    InventoryService.update_inventory(@npc, @item_i_give_id, @quantity_i_give)
   end
 
   def generate_error_message
     if valid_trade?
-      "#{@npc_character.name} does not have the item you are trying to get"
+      "#{@npc.name} does not have the item you are trying to get"
     else
-      "#{@npc_character.name} did not accept your offer!"
+      "#{@npc.name} did not accept your offer!"
     end
   end
 
   def valid_trade?
-    value_of_given_items >= value_of_wanted_items
+    # value_of_given_items >= value_of_wanted_items
+    value_of(@npc, @item_i_give_id, @quantity_i_give) >= value_of(@npc, @item_i_want_id, @quantity_i_want)
   end
 
   def npc_has_item?
-    inventory_item = @npc_character.inventories.find_by(item_id: @item_i_want_id)
+    inventory_item = @npc.inventories.find_by(item_id: @item_i_want_id)
     inventory_item && inventory_item.quantity >= @quantity_i_want
   end
 
@@ -69,24 +70,13 @@ class CounterOfferService
     item&.value.to_i * quantity
   end
 
-  def value_of_given_items
-    pref = Preference.find_by(occupation: @npc_character.occupation)
-    # make sure preference exists, and the item matches up
-    if pref && (pref.item.id === @item_i_give_id.to_i)
-       puts "in found pref and item for wanted"
-       calculate_total_value(@item_i_give_id, @quantity_i_give) * pref.multiplier
+  def value_of(npc, item_id, quantity)
+    pref = Preference.find_by(occupation: npc.occupation)
+    total_value = calculate_total_value(item_id, quantity)
+    if pref && (pref.item.id == item_id.to_i)
+      total_value * pref.multiplier
     else
-        calculate_total_value(@item_i_give_id, @quantity_i_give)
-    end
-  end
-
-  def value_of_wanted_items
-    pref = Preference.find_by(occupation: @npc_character.occupation)
-    if pref && (pref.item.id === @item_i_want_id.to_i)
-       puts "in found pref and item for wanted"
-       calculate_total_value(@item_i_want_id, @quantity_i_want) * pref.multiplier
-    else
-        calculate_total_value(@item_i_want_id, @quantity_i_want)
+      total_value
     end
   end
 end
