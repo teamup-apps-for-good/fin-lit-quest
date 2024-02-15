@@ -34,11 +34,10 @@ RSpec.describe PreferencesController, type: :controller do
     @apple_item = Item.find_by(name: 'apple')
     @bread_item = Item.find_by(name: 'bread')
 
-    Preference.create(occupation: 'merchant',
+    @pref = Preference.create(occupation: 'merchant',
                       item: @bread_item,
                       multiplier: 3)
 
-    @pref = Preference.find_by(occupation: @lightfoot.occupation)
   end
 
   describe 'index' do
