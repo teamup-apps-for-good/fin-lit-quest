@@ -19,8 +19,6 @@ class CounterOfferService
     end
   end
 
-  private
-
   def assign_trade_params
     @item_i_give_id = @offer_params[:item_i_give_id]
     @quantity_i_give = @offer_params[:quantity_i_give].to_i
