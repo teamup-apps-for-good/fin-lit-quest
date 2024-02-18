@@ -20,14 +20,14 @@ Feature: Profession price preference variance
       | Ritchey   | merchant   | 10              | 0       | 1             | enthusiastic | Howdy                | 2                  | 3                 | apple          | orange        |
       | Alice     | fisherman  | 15              | 0       | 1             | tired        | zzz...               | 3                  | 2                 | apple          | fish          |
 
-    Given the following inventory table exists:
+    Given the following inventory entries exist:
       | item   | character | quantity |
       | apple  | Stella    | 5        |
       | orange | Alice     | 4        |
       | bread  | Ritchey   | 3        |
       | fish   | Stella    | 7        |
 
-    Given the following preference table exists:
+    Given the following preference entries exist:
       | item   | occupation | multiplier |
       | bread  | merchant   | 3          |
       | fish   | fisherman  | 2          |

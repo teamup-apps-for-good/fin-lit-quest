@@ -1,15 +1,5 @@
 # frozen_string_literal: true
 
-Given('the following inventory table exists:') do |inventories|
-  inventories.hashes.each do |inventory_entry|
-    item = Item.find_by(name: inventory_entry['item'])
-    inventory_entry['item'] = item
-    character = Character.find_by(name: inventory_entry['character'])
-    inventory_entry['character'] = character
-    Inventory.create!(inventory_entry)
-  end
-end
-
 Given('I am on the inventories page') do
   visit inventories_path
 end

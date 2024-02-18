@@ -19,7 +19,7 @@ Feature: View Item Information
       | name      | occupation | inventory_slots | balance | current_level | personality  | dialogue_content     | quantity_to_accept | quantity_to_offer | item_to_accept | item_to_offer |
       | Ritchey   | client     | 10              | 0       | 1             | enthusiastic | Howdy                | 2                  | 3                 | apple          | orange        |
 
-    And the following inventory table exists:
+    And the following inventory entries exist:
       | item  | character        | quantity |
       | apple | Stella           | 5        |
       | fish  | Ritchey          | 4        |

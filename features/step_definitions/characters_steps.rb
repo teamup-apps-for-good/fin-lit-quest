@@ -1,27 +1,10 @@
-# frozen_string_literal: true
 
-Given('the following players exist:') do |players|
-  players.hashes.each do |player|
-    Player.create!(player)
-  end
-end
 
-Given('the following non-players exist:') do |nonplayers|
-  nonplayers.hashes.each do |nonplayer|
-    # cannot use symbols to access the hash here for setting
-    item = Item.find_by(name: nonplayer['item_to_accept'])
-    nonplayer['item_to_accept'] = item
-    item = Item.find_by(name: nonplayer['item_to_offer'])
-    nonplayer['item_to_offer'] = item
-    Nonplayer.create!(nonplayer)
-  end
-end
 
-Given('the following items exist:') do |items|
-  items.hashes.each do |item|
-    Item.create!(item)
-  end
-end
+
+
+
+
 
 Given('I am on the character page') do
   visit characters_path

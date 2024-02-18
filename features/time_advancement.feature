@@ -24,7 +24,7 @@ Feature: Time advancement
       | Alice     | fisherman  | 15              | 0       | 1             | tired        | zzz...               | 3                  | 2                 | apple          | fish          |
       | Lightfoot | comedian   | 15              | 0       | 1             | dad          | insert dad joke here | 1                  | 5                 | orange         | apple         |
 
-    Given the following inventory table exists:
+    Given the following inventory entries exist:
       | item    | character | quantity |
       | orange  | Ritchey   | 4        |
       | wheat   | Ritchey   | 3        |
@@ -36,7 +36,7 @@ Feature: Time advancement
       | apple   | Stella    | 5        |
       | fish    | Stella    | 2        |
 
-    Given the following shopping list table exists:
+    Given the following shopping list entries exist:
       | item     | level   | quantity   |
       | apple    | 1       | 2          |
       | orange   | 1       | 2          |

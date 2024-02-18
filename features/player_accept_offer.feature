@@ -24,7 +24,7 @@ Feature: Player accept an offer from an non-player
       | Alice     | fisherman  | 15              | 0       | 1             | tired        | zzz...               | 3                  | 2                 | apple          | fish          |
       | Lightfoot | comedian   | 15              | 0       | 1             | dad          | insert dad joke here | 1                  | 5                 | orange         | apple         |
 
-    Given the following inventory table exists:
+    Given the following inventory entries exist:
       | item   | character | quantity |
       | apple  | Stella    | 5        |
       | orange | Ritchey   | 4        |

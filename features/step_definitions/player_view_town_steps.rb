@@ -4,15 +4,7 @@ Then('I should see the {string} is {string}') do |field, value|
   expect(page).to have_content("#{field}: #{value}")
 end
 
-Given('the following inventory exist:') do |inventories|
-  inventories.hashes.each do |inventory_entry|
-    item = Item.find_by(name: inventory_entry['item'])
-    inventory_entry['item'] = item
-    character = Character.find_by(name: inventory_entry['character'])
-    inventory_entry['character'] = character
-    Inventory.create!(inventory_entry)
-  end
-end
+
 
 Given('I am on the town page') do
   visit town_path
