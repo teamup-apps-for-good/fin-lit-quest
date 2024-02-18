@@ -18,7 +18,7 @@ Feature: Interact with NPCs
       | Ritchey   | client     | 10              | 0       | 1             | enthusiastic | Howdy                | 2                  | 3                 | apple          | orange        |
       | Lightfoot | comedian   | 15              | 0       | 1             | dad          | insert dad joke here | 1                  | 5                 | orange         | apple         |
 
-    Given the following inventory exist:
+    Given the following inventory entries exist:
       | item   | character     | quantity |
       | apple  | Stella        | 5        |
       | orange | Ritchey       | 3        |

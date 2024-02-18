@@ -1,15 +1,10 @@
 # frozen_string_literal: true
 
-Given('I am on the items page') do
-  visit items_path
-end
-
-Then('I should be on the items page') do
-  expect(current_path).to eq(items_path)
-end
-
-Given('I am on the item page for {string}') do |string|
-  visit item_path(Item.find_by(name: string))
+Then('for {string} I should see the {string} is {string}') do |item_name, field_name, value|
+  # looks for <p> with the item name, and then go up to the div
+  item_div = page.find('p', text: item_name).find(:xpath, '..')
+  # checks the div to contain the correct information
+  expect(item_div).to have_text("#{field_name}: #{value}")
 end
 
 Given('I fill in Name as {string}, Description as {string}, and Value as {string}') do |string, string2, string3|

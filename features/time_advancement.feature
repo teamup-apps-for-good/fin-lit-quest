@@ -24,7 +24,7 @@ Feature: Time advancement
       | Alice     | fisherman  | 15              | 0       | 1             | tired        | zzz...               | 3                  | 2                 | apple          | fish          |
       | Lightfoot | comedian   | 15              | 0       | 1             | dad          | insert dad joke here | 1                  | 5                 | orange         | apple         |
 
-    Given the following inventory table exists:
+    Given the following inventory entries exist:
       | item    | character | quantity |
       | orange  | Ritchey   | 4        |
       | wheat   | Ritchey   | 3        |
@@ -36,7 +36,7 @@ Feature: Time advancement
       | apple   | Stella    | 5        |
       | fish    | Stella    | 2        |
 
-    Given the following shopping list table exists:
+    Given the following shopping list entries exist:
       | item     | level   | quantity   |
       | apple    | 1       | 2          |
       | orange   | 1       | 2          |
@@ -52,8 +52,8 @@ Feature: Time advancement
   Scenario: Taking an action moves time forward
     Given I am on the counter offer page for "Ritchey"
     And "Stella" is on Day "1" and Hour "1"
-    When I choose "apple" in "I give" dropdown
-    * I choose "orange" in "I want" dropdown
+    When I select "apple" from the "I give" dropdown
+    * I select "orange" from the "I want" dropdown
     * I fill in the number of items that I give with "2"
     * I fill in the number of items that I want with "2"
     And I press the "Offer" button
@@ -62,8 +62,8 @@ Feature: Time advancement
   Scenario: Actions cannot be taken when it is too late in the day
     Given I am on the counter offer page for "Ritchey"
     And "Stella" is on Day "1" and Hour "10"
-    When I choose "apple" in "I give" dropdown
-    * I choose "orange" in "I want" dropdown
+    When I select "apple" from the "I give" dropdown
+    * I select "orange" from the "I want" dropdown
     * I fill in the number of items that I give with "2"
     * I fill in the number of items that I want with "2"
     And I press the "Offer" button

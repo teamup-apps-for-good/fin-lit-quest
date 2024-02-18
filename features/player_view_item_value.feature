@@ -19,7 +19,7 @@ Feature: In world 2 onwards, the item values field should be available in player
       | name    | occupation | inventory_slots | balance | current_level | personality  | dialogue_content | quantity_to_accept | quantity_to_offer | item_to_accept | item_to_offer |
       | Ritchey | client     | 10              | 0       | 2             | enthusiastic | Howdy            | 2                  | 3                 | apple          | wheat         |
 
-    Given the following inventory table exists:
+    Given the following inventory entries exist:
       | item  | character | quantity |
       | apple | Stella    | 5        |
       | boots | Stella    | 1        |

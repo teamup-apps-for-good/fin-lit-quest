@@ -14,7 +14,7 @@ Feature: Shopping list
       | fish   | still floppin' around, fresh from the ocean        | 3     |
       | bread  | yummy, fresh from the oven                         | 2     |
 
-    Given the following shopping list table exists:
+    Given the following shopping list entries exist:
       | item     | level   | quantity   |
       | apple    | 1       | 2          |
       | orange   | 1       | 2          |
@@ -31,7 +31,7 @@ Feature: Shopping list
       | name   | occupation | inventory_slots | balance | current_level |
       | Stella | programmer | 5               | 0       | 1             |
 
-    Given the following inventory table exists:
+    Given the following inventory entries exist:
       | item    | character | quantity |
       | orange  | Stella    | 5        |
       | apple   | Stella    | 5        |
