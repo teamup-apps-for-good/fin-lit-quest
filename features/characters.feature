@@ -37,21 +37,21 @@ Feature: View Character Information
     And I should see "Lightfoot"
 
   Scenario: Verify a character has an occupation
-    Given I am on the "Player" page for "Stella"
+    Given I am on the Player page for "Stella"
     Then I should see "programmer"
 
   Scenario: Verify a character has inventory_slots
-    Given I am on the "Non-player" page for "Ritchey"
+    Given I am on the Non-player page for "Ritchey"
     Then "Ritchey"'s inventory slots should be "10"
   
   Scenario: Verify a balance is displayed for a non-player character
-    Given I am on the "Non-player" page for "Lightfoot"
+    Given I am on the Non-player page for "Lightfoot"
     Then I should see a balance of "0"
   
   Scenario: Verify a non-player has personality
-    Given I am on the "Non-player" page for "Lightfoot"
+    Given I am on the Non-player page for "Lightfoot"
     Then I should see "comedian"
 
   Scenario: Verify a non-player character has dialogue available
-    Given I am on the "Non-player" page for "Ritchey"
+    Given I am on the Non-player page for "Ritchey"
     Then I should see "Howdy"

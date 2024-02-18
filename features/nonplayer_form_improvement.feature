@@ -30,7 +30,7 @@ Feature: In the new and edit form for nonplayers, select items to accept and off
     Then I should see "Carl was successfully created."
 
   Scenario: Item is available to select from dropdown in edit nonplayer form
-    Given I am on the "Non-player" page for "Ritchey"
+    Given I am on the Non-player page for "Ritchey"
     And I click on "Edit this nonplayer"
     When I select "orange" from the "Item to accept" dropdown
     And I select "apple" from the "Item to offer" dropdown
