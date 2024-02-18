@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-
-
 Given('{string} is on Day {string} and Hour {string}') do |name, day, hour|
   character = Character.find_by(name:)
   raise "Character '#{name}' not found." unless character.present?
@@ -9,12 +7,6 @@ Given('{string} is on Day {string} and Hour {string}') do |name, day, hour|
   character.update!(day: day.to_i, hour: hour.to_i)
   expect(character.day).to eq(day.to_i)
   expect(character.hour).to eq(hour.to_i)
-end
-
-Then('I should see "{string}"') do |expected_text|
-  actual_content = page.text
-  puts "Actual content on page: #{actual_content}"
-  expect(page).to have_content(expected_text)
 end
 
 Then('{string} should be on Day {string} and Hour {string}') do |name, expected_day, expected_hour|

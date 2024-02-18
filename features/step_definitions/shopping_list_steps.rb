@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-
-
-
-
 Then('I should see {string} {string} from world {string}:') do |quantity, item, world|
   shopping_list = ShoppingList.find_by(item: Item.find_by(name: item), level: world.to_i)
   within "##{dom_id(shopping_list)}" do

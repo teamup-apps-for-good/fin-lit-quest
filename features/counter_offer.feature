@@ -99,8 +99,8 @@ Feature: Make a counter offer to Non-players
 
   Scenario: Player can see item being wanted increasing in a successful trade
     Given I am on the counter offer page for "Ritchey"
-    When I choose "apple" in "I give" dropdown
-    * I choose "wheat" in "I want" dropdown
+    When I select "apple" from the "I give" dropdown
+    * I select "wheat" from the "I want" dropdown
     * I fill in the number of items that I give with "5"
     * I fill in the number of items that I want with "1"
     And I press the "Offer" button
@@ -108,8 +108,8 @@ Feature: Make a counter offer to Non-players
 
   Scenario: Non-player's inventory quantities change when trade goes through
     Given I am on the counter offer page for "Ritchey"
-    When I choose "apple" in "I give" dropdown
-    * I choose "wheat" in "I want" dropdown
+    When I select "apple" from the "I give" dropdown
+    * I select "wheat" from the "I want" dropdown
     * I fill in the number of items that I give with "5"
     * I fill in the number of items that I want with "1"
     And I press the "Offer" button
@@ -118,8 +118,8 @@ Feature: Make a counter offer to Non-players
 
   Scenario: Player can see inventory quantities does not change when trade does not go through
     Given I am on the counter offer page for "Ritchey"
-    When I choose "apple" in "I give" dropdown
-    * I choose "wheat" in "I want" dropdown
+    When I select "apple" from the "I give" dropdown
+    * I select "wheat" from the "I want" dropdown
     * I fill in the number of items that I give with "1"
     * I fill in the number of items that I want with "5"
     And I press the "Offer" button
@@ -127,8 +127,8 @@ Feature: Make a counter offer to Non-players
 
   Scenario: Non-player's inventory quantities does not change when the trade does not go through
     Given I am on the counter offer page for "Ritchey"
-    When I choose "apple" in "I give" dropdown
-    * I choose "wheat" in "I want" dropdown
+    When I select "apple" from the "I give" dropdown
+    * I select "wheat" from the "I want" dropdown
     * I fill in the number of items that I give with "1"
     * I fill in the number of items that I want with "5"
     And I press the "Offer" button
