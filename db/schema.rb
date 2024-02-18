@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_15_011029) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_18_181522) do
   create_table "characters", force: :cascade do |t|
     t.string "name"
     t.string "occupation"
@@ -28,8 +28,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_15_011029) do
     t.integer "item_to_offer_id"
     t.integer "day", default: 1
     t.integer "hour", default: 1
+    t.integer "era", default: 1
     t.index ["item_to_accept_id"], name: "index_characters_on_item_to_accept_id"
     t.index ["item_to_offer_id"], name: "index_characters_on_item_to_offer_id"
+  end
+
+  create_table "expenses", force: :cascade do |t|
+    t.string "frequency"
+    t.integer "number", limit: 7
+    t.integer "item_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_expenses_on_item_id"
   end
 
   create_table "inventories", force: :cascade do |t|
@@ -72,6 +83,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_15_011029) do
 
   add_foreign_key "characters", "items", column: "item_to_accept_id"
   add_foreign_key "characters", "items", column: "item_to_offer_id"
+  add_foreign_key "expenses", "items"
   add_foreign_key "inventories", "characters"
   add_foreign_key "inventories", "items"
   add_foreign_key "preferences", "items"
