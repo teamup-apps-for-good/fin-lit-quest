@@ -6,9 +6,7 @@
 
 
 
-Given('I am on the character page') do
-  visit characters_path
-end
+
 
 Then('I should see {string}') do |string|
   expect(page).to have_content(string)
@@ -25,14 +23,7 @@ Then('I should be on the {string} page') do |string|
   end
 end
 
-Given('I am on the {string} page for {string}') do |string, string2|
-  case string
-  when 'Player'
-    visit player_path(Player.find_by(name: string2))
-  when 'Non-player'
-    visit nonplayer_path(Nonplayer.find_by(name: string2))
-  end
-end
+
 
 Then('{string}\'s inventory slots should be {string}') do |_string, string2|
   expect(page).to have_content(string2)

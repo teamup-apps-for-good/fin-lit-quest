@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
-Given(/^I am on the counter offer page for "(.+)"$/) do |name|
-  character = Character.find_by(name:)
-  expect(character).not_to be_nil, "Character #{name} not found"
-  visit("/counter_offer/#{character.id}")
-  expect(page).to have_content(name)
-end
+
 
 When('I choose {string} in {string} dropdown') do |option, dropdown_label|
   dropdown_id = case dropdown_label

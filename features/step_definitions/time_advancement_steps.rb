@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-Given('I am on the home page') do
-  visit root_path
-end
+
 
 Given('{string} is on Day {string} and Hour {string}') do |name, day, hour|
   character = Character.find_by(name:)
