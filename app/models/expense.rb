@@ -4,7 +4,7 @@
 class Expense < ApplicationRecord
   belongs_to :item
   validates :number, numericality: { only_integer: true, greater_than: 0 }
-  validates :validate_max_number_based_on_day_or_week
+  validate :validate_max_number_based_on_day_or_week
 
   private
 
