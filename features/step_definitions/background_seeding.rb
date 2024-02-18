@@ -51,5 +51,3 @@ Given('the following preference entries exist:') do |preferences|
     Preference.create!(preference)
   end
 end
-
-
