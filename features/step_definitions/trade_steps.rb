@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-Then('I should see a notice of {string}') do |string|
-  expect(page).to have_content(string)
-end
-
 Then('{string} should own {string} of {string}') do |string, string2, string3|
   visit character_inventory_path(Character.find_by(name: string))
   inventory = Inventory.find_by(item: Item.find_by(name: string3), character: Character.find_by(name: string))
