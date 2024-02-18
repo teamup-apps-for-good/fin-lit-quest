@@ -2,9 +2,6 @@
 
 
 
-Then('I should be on the items page') do
-  expect(current_path).to eq(items_path)
-end
 
 
 

@@ -46,8 +46,8 @@ Feature: Make a counter offer to Non-players
 
   Scenario: Player can enter the trade details
     Given I am on the counter offer page for "Ritchey"
-    When I choose "apple" in "I give" dropdown
-    * I choose "orange" in "I want" dropdown
+    When I select "apple" from the "I give" dropdown
+    * I select "orange" from the "I want" dropdown
     * I fill in the number of items that I give with "2"
     * I fill in the number of items that I want with "2"
     And I press the "Offer" button
@@ -55,16 +55,16 @@ Feature: Make a counter offer to Non-players
 
   Scenario: Player cannot continue without entering all trade details
     Given I am on the counter offer page for "Ritchey"
-    When I choose "apple" in "I give" dropdown
-    * I choose "orange" in "I want" dropdown
+    When I select "apple" from the "I give" dropdown
+    * I select "orange" from the "I want" dropdown
     * I fill in the number of items that I give with "2"
     And I press the "Offer" button
     Then I should see a notice of "Please fill in all required fields"
 
   Scenario: Non-player will accept the trade if the values are worth it
     Given I am on the counter offer page for "Ritchey"
-    When I choose "apple" in "I give" dropdown
-    * I choose "orange" in "I want" dropdown
+    When I select "apple" from the "I give" dropdown
+    * I select "orange" from the "I want" dropdown
     * I fill in the number of items that I give with "3"
     * I fill in the number of items that I want with "2"
     And I press the "Offer" button
@@ -72,8 +72,8 @@ Feature: Make a counter offer to Non-players
 
   Scenario: Non-player will not accept trade if it is not worth it for them
     Given I am on the counter offer page for "Ritchey"
-    When I choose "apple" in "I give" dropdown
-    * I choose "map" in "I want" dropdown
+    When I select "apple" from the "I give" dropdown
+    * I select "map" from the "I want" dropdown
     * I fill in the number of items that I give with "1"
     * I fill in the number of items that I want with "1"
     And I press the "Offer" button
@@ -81,8 +81,8 @@ Feature: Make a counter offer to Non-players
 
   Scenario: Non-player will not accept trade if they do not have enough of the item
     Given I am on the counter offer page for "Lightfoot"
-    When I choose "apple" in "I give" dropdown
-    * I choose "bread" in "I want" dropdown
+    When I select "apple" from the "I give" dropdown
+    * I select "bread" from the "I want" dropdown
     * I fill in the number of items that I give with "5"
     * I fill in the number of items that I want with "1"
     And I press the "Offer" button
@@ -90,8 +90,8 @@ Feature: Make a counter offer to Non-players
 
   Scenario: Player can see item being given being reduced in a successful trade
     Given I am on the counter offer page for "Ritchey"
-    When I choose "apple" in "I give" dropdown
-    * I choose "wheat" in "I want" dropdown
+    When I select "apple" from the "I give" dropdown
+    * I select "wheat" from the "I want" dropdown
     * I fill in the number of items that I give with "5"
     * I fill in the number of items that I want with "1"
     And I press the "Offer" button
@@ -113,8 +113,8 @@ Feature: Make a counter offer to Non-players
     * I fill in the number of items that I give with "5"
     * I fill in the number of items that I want with "1"
     And I press the "Offer" button
-    Then I should see the NPC "Ritchey" owns "2" of "wheat"
-    And I should see the NPC "Ritchey" owns "5" of "apple"
+    Then I should see the NPC owns "2" of "wheat"
+    And I should see the NPC owns "5" of "apple"
 
   Scenario: Player can see inventory quantities does not change when trade does not go through
     Given I am on the counter offer page for "Ritchey"
@@ -132,4 +132,4 @@ Feature: Make a counter offer to Non-players
     * I fill in the number of items that I give with "1"
     * I fill in the number of items that I want with "5"
     And I press the "Offer" button
-    Then I should see the NPC "Ritchey" owns "3" of "wheat"
+    Then I should see the NPC owns "3" of "wheat"

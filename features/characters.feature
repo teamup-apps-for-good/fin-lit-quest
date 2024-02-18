@@ -26,13 +26,13 @@ Feature: View Character Information
   Scenario: Verify a player exists
     Given I am on the character page
     When I click on "Players"
-    Then I should be on the "Players" page
+    Then I should be on the Players page
     And I should see "Stella"
 
   Scenario: Verify a non-player exists
     Given I am on the character page
     When I click on "Non-players"
-    Then I should be on the "Non-players" page
+    Then I should be on the Non-players page
     And I should see "Ritchey"
     And I should see "Lightfoot"
 
@@ -42,11 +42,11 @@ Feature: View Character Information
 
   Scenario: Verify a character has inventory_slots
     Given I am on the Non-player page for "Ritchey"
-    Then "Ritchey"'s inventory slots should be "10"
+    Then I should see "Inventory slots: 10"
   
   Scenario: Verify a balance is displayed for a non-player character
     Given I am on the Non-player page for "Lightfoot"
-    Then I should see a balance of "0"
+    Then I should see "Balance: 0"
   
   Scenario: Verify a non-player has personality
     Given I am on the Non-player page for "Lightfoot"
