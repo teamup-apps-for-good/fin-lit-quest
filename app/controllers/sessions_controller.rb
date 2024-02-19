@@ -15,7 +15,7 @@ class SessionsController < ActionController::Base
 
     if @user.valid?
       session[:user_id] = @user.id
-      redirect_to town_path
+      redirect_to root_path
     else
       redirect_to welcome_path, alert: 'Login failed.'
     end

@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   post 'advance_day', to: 'characters#advance_day', as: 'advance_day'
   post 'launch_to_new_era', to: 'characters#launch_to_new_era', as: 'launch_to_new_era'
 
+  get '/test_login', to: 'application#logged_in?', as: 'test_login'
   get '/logout', to: 'sessions#logout', as: 'logout'
   get '/auth/google_oauth2/callback', to: 'sessions#omniauth'
 

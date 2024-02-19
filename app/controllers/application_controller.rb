@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
+# Main application controller that all other controllers should inherit from
 class ApplicationController < ActionController::Base
   before_action :require_login
-
-  private
 
   def current_user
     # if @current _user is undefined or falsy, evaluate the RHS
@@ -24,8 +23,8 @@ class ApplicationController < ActionController::Base
 
   def require_login
     # redirect to the welcome page unless user is logged in
-    unless logged_in? or request.path == welcome_path
-      redirect_to welcome_path, alert: 'You must be logged in to access this section.'
-    end
+    return if logged_in? || (request.path == welcome_path)
+
+    redirect_to welcome_path, alert: 'You must be logged in to access this section.'
   end
 end

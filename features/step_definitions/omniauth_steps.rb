@@ -12,16 +12,18 @@ Given('I am logged in as {string}') do |name|
   OmniAuth.config.test_mode = true
   Capybara.default_host = 'https://fin-lit-quest-65cfa09cddc8.herokuapp.com/'
 
-  OmniAuth.config.add_mock(:google, {
-    :uid => '`1234`',
-    :info => {
-      :name => 'Stella'
-    }
-  })
+  OmniAuth.config.add_mock(:google_oauth2, {
+                             uid: '`1234`',
+                             info: {
+                               name:,
+                               email: 'test@test.com'
+                             }
+                           })
 
   visit welcome_path
-  click_on "Sign in with Googl"
-  expect(page).to have_current_path root_path
+  click_on 'Sign in with Google'
+  visit test_login_path
+  expect(page).to have_content('true')
 end
 
 Given('I am on the login page') do
