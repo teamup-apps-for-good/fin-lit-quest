@@ -51,3 +51,11 @@ Given('the following preference entries exist:') do |preferences|
     Preference.create!(preference)
   end
 end
+
+Given('the following expenses exist:') do |expenses|
+  expenses.hashes.each do |expense|
+    item = Item.find_by(name: expense['item'])
+    expense['item'] = item
+    Expense.create!(expense)
+  end
+end

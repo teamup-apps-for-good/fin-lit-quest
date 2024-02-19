@@ -1,0 +1,15 @@
+<span id="hamburger">&#9776;</span>
+
+<div id="gameplay_sidebar">
+  <span id="closebtn">&times;</span>
+  <div>
+    <%= TimeAdvancementHelper.display_current_time_for_character(Player.first) %>
+    <%= ExpensesHelper.display_current_expense_for_character(Player.first) %>
+    <%= button_to "Home", root_path, class: "button-b", method: :get %>
+    <%= button_to "Town", town_path, class: "button-b", method: :get %>
+    <%= button_to "Inventory", character_inventory_path(Player.first), class: "button-b", method: :get %>
+    <%= button_to "Shopping list", player_shopping_list_path, class: "button-b", method: :get %>
+    <%= button_to "Budget", underconstruction_path, class: "button-b", method: :get %>
+    <%= button_to "Move to the next day", advance_day_path, method: :post, class: "button-b" %>
+  </div>
+</div>

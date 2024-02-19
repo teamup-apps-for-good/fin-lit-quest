@@ -36,13 +36,13 @@ end
 players = [{ name: "Stella", occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1 }]
 
 npcs = [{ name: "Ritchey", occupation: :merchant, inventory_slots: 5, balance: 0, personality: :enthusiastic,
-          dialogue_content: "try harder",
+          dialogue_content: "Gather your required materials for your weekly expenses! Failure to do so may put you in danger.",
           item_to_offer: "fish",  quantity_to_offer: 2, item_to_accept: "wheat", quantity_to_accept: 5, current_level: 1},
         { name: "Lightfoot", occupation: :comedian, inventory_slots: 5, balance: 0, personality: :dad,
-          dialogue_content: "goodbye",
+          dialogue_content: "I remember a time when I didn't gather enough materials for a day. It was a tough night, I tell you.",
           item_to_offer: "apple", quantity_to_offer: 2, item_to_accept: "orange", quantity_to_accept: 2, current_level: 1 },
         { name: "Harry", occupation: :wizard, inventory_slots: 5, balance: 50, personality: :skilled,
-          dialogue_content: "sssssss",
+          dialogue_content: "I'm Harry",
           item_to_offer: "bandages", quantity_to_offer: 1, item_to_accept: "apple", quantity_to_accept: 2, current_level: 2 },
         { name: "Hermione", occupation: :witch, inventory_slots: 5, balance: 30, personality: :knowledgeable,
           dialogue_content: "hello",
@@ -124,4 +124,23 @@ preferences.each do |preference|
   preference[:item] = item
 
   Preference.find_or_create_by!(preference)
+end
+
+expenses = [{ frequency: 'day', number: 1, item: 'apple', quantity: 1 },
+            { frequency: 'day', number: 2, item: 'wheat', quantity: 1 },
+            { frequency: 'day', number: 3, item: 'fish', quantity: 1 },
+            { frequency: 'day', number: 4, item: 'orange', quantity: 1 },
+            { frequency: 'day', number: 5, item: 'potato', quantity: 1 },
+            { frequency: 'day', number: 6, item: 'grapes', quantity: 1 },
+            { frequency: 'day', number: 7, item: 'bread', quantity: 1 },
+            { frequency: 'week', number: 1, item: 'bread', quantity: 1 },
+            { frequency: 'week', number: 2, item: 'orange', quantity: 1 },
+            { frequency: 'week', number: 3, item: 'grapes', quantity: 1 },
+            { frequency: 'week', number: 4, item: 'potato', quantity: 1 }]
+
+expenses.each do |expense|
+  item = Item.find_by(name: expense[:item])
+  expense[:item] = item
+
+  Expense.find_or_create_by!(expense)
 end
