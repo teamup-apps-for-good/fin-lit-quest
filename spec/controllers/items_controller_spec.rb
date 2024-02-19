@@ -21,6 +21,10 @@ RSpec.describe ItemsController, type: :controller do
     Item.create(name: 'bread',
                 description: 'yummy, fresh from the oven',
                 value: 2)
+
+    @user = Player.create!(name: 'Test User', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
+                           email: 'test@test.com', provider: 'google-oauth2', uid: '1234')
+    session[:user_id] = @user.id
   end
 
   describe 'index' do

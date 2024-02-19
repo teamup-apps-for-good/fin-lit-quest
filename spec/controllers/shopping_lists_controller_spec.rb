@@ -73,6 +73,7 @@ RSpec.describe ShoppingListsController, type: :controller do
 
     @stella = Player.find_by(name: 'Stella')
     @victor = Player.find_by(name: 'Victor')
+    session[:user_id] = @stella.id
 
     Inventory.create(item: Item.find_by(name: 'apple'),
                      character: @stella,

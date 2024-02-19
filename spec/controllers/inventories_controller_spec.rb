@@ -30,6 +30,7 @@ RSpec.describe InventoriesController, type: :controller do
 
     stella = Character.find_by(name: 'Stella')
     @inventory_item = Item.find_by(name: 'apple')
+    session[:user_id] = stella.id
 
     Inventory.create(item: @inventory_item,
                      character: stella,

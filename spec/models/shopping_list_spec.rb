@@ -38,7 +38,10 @@ RSpec.describe ShoppingList, type: :model do
                     occupation: :farmer,
                     inventory_slots: 5,
                     balance: 0,
-                    current_level: 1)
+                    current_level: 1,
+                    email: 'test@test.com',
+                    provider: 'google-oauth2',
+                    uid: '1234')
 
       Inventory.create(item: Item.find_by(name: 'apple'),
                        character: Character.find_by(name: 'Stella'),
