@@ -13,7 +13,22 @@ Then('I should not see {string}') do |string|
 end
 
 When('I click on {string}') do |string|
-  click_on(string)
+  if string == 'Sign in with Google'
+    OmniAuth.config.test_mode = true
+    Capybara.default_host = 'https://fin-lit-quest-65cfa09cddc8.herokuapp.com/'
+
+    OmniAuth.config.add_mock(:google_oauth2, {
+                               uid: '1234',
+                               info: {
+                                 name: 'Stella',
+                                 email: 'test@test.com'
+                               }
+                             })
+    click_on(string)
+    OmniAuth.config.test_mode = false
+  else
+    click_on(string)
+  end
 end
 
 When('I press the {string} button') do |button_name|

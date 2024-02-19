@@ -13,6 +13,12 @@ Feature: In the new and edit form for nonplayers, select items to accept and off
     | name      | occupation | inventory_slots | balance | current_level | personality  | dialogue_content     | quantity_to_accept | quantity_to_offer | item_to_accept | item_to_offer |
     | Ritchey   | client     | 10              | 0       | 1             | enthusiastic | Howdy                | 2                  | 3                 | apple          | orange        |
 
+    Given the following players exist:
+      | name      | occupation  | inventory_slots | balance |  current_level  | uid  | provider      | email         |
+      | Stella    | programmer  |        5        | 0       |       1         | 1234 | google_oauth2 | test@test.com |
+
+    And I am logged in as "Stella"
+
   Scenario: Item is available to select from dropdown in new nonplayer form
     Given I am on the new nonplayer character page
     When I fill in "Name" with "Carl"

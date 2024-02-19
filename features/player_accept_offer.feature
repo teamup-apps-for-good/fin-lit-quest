@@ -15,8 +15,8 @@ Feature: Player accept an offer from an non-player
       | bread  | yummy, fresh from the oven                         | 2     |
 
     Given the following players exist:
-      | name   | occupation | inventory_slots | balance | current_level |
-      | Stella | programmer | 5               | 0       | 1             |
+      | name      | occupation  | inventory_slots | balance |  current_level  | uid  | provider      | email         |
+      | Stella    | programmer  |        5        | 0       |       1         | 1234 | google_oauth2 | test@test.com |
 
     Given the following non-players exist:
       | name      | occupation | inventory_slots | balance | current_level | personality  | dialogue_content     | quantity_to_accept | quantity_to_offer | item_to_accept | item_to_offer |
@@ -32,6 +32,8 @@ Feature: Player accept an offer from an non-player
       | boots  | Lightfoot | 2        |
       | map    | Lightfoot | 1        |
       | fish   | Stella    | 0        |
+
+    Given I am logged in as "Stella"
 
   Scenario: Accepting a valid offer redirects the player to profile
     Given I am on the trade page for "Ritchey"

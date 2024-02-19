@@ -5,8 +5,8 @@ Feature: In new inventory entry creation, select item and character from list
 
   Background:
     Given the following players exist:
-    | name      | occupation  | inventory_slots | balance |  current_level  |
-    | Stella    | programmer  |        5        | 0       |       1         |
+      | name      | occupation  | inventory_slots | balance |  current_level  | uid  | provider      | email         |
+      | Stella    | programmer  |        5        | 0       |       1         | 1234 | google_oauth2 | test@test.com |
 
     And the following items exist:
     |  name   |                 description                  |  value  |
@@ -22,6 +22,8 @@ Feature: In new inventory entry creation, select item and character from list
       | item  | character        | quantity |
       | apple | Stella           | 5        |
       | fish  | Ritchey          | 4        |
+
+    Given I am logged in as "Stella"
 
   Scenario: Player is available to select from drop down
     Given I am on the new inventory entry page

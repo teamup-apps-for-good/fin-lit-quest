@@ -5,8 +5,8 @@ Feature: Login to the game
 
   Background:
     Given the following players exist:
-      | name      | occupation  | inventory_slots | balance |  current_level  | uid  | provider      |
-      | Stella    | programmer  |        5        | 0       |       1         | 1234 | google_oauth2 |
+      | name      | occupation  | inventory_slots | balance |  current_level  | uid  | provider      | email         |
+      | Stella    | programmer  |        5        | 0       |       1         | 1234 | google_oauth2 | test@test.com |
 
   Scenario: The home page redirects to the login page
     Given I am not logged in

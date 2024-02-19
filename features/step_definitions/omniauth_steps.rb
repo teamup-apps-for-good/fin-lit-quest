@@ -15,7 +15,7 @@ Given('I am logged in as {string}') do |name|
   Capybara.default_host = 'https://fin-lit-quest-65cfa09cddc8.herokuapp.com/'
 
   OmniAuth.config.add_mock(:google_oauth2, {
-                             uid: '`1234`',
+                             uid: '1234',
                              info: {
                                name:,
                                email: 'test@test.com'
@@ -26,6 +26,7 @@ Given('I am logged in as {string}') do |name|
   click_on 'Sign in with Google'
   visit test_login_path
   expect(page).to have_content('true')
+  OmniAuth.config.test_mode = false
 end
 
 Given('I am on the login page') do
