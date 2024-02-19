@@ -2,6 +2,9 @@
 
 Rails.application.routes.draw do
   resources :expenses
+  get 'sessions/logout'
+  get 'sessions/omniauth'
+  get 'welcome/index'
   resources :preferences
   resources :shopping_lists
   resources :items
@@ -20,6 +23,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   root 'gameplays#index'
+  get 'welcome/index', to: 'welcome#index', as: 'welcome'
   get '/town' => 'gameplays#town', as: 'town'
   get '/underconstruction' => 'gameplays#underconstruction', as: 'underconstruction'
 
@@ -38,5 +42,7 @@ Rails.application.routes.draw do
   post 'advance_day', to: 'characters#advance_day', as: 'advance_day'
   post 'launch_to_new_era', to: 'characters#launch_to_new_era', as: 'launch_to_new_era'
 
+  get '/logout', to: 'sessions#logout', as: 'logout'
+  get '/auth/google_oauth2/callback', to: 'sessions#omniauth'
 
 end

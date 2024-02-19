@@ -3,7 +3,6 @@
 # GameplaysController
 class GameplaysController < ApplicationController
   def town
-    @player_level = Player.first.current_level
-    @nonplayers = Nonplayer.where(current_level: @player_level)
+    @nonplayers = Nonplayer.where(current_level: @current_user.current_level)
   end
 end
