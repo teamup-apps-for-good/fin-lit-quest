@@ -3,8 +3,8 @@
 # Controller for managing logging into the app
 class WelcomeController < ApplicationController
   def index
-    if logged_in?
-      redirect_to root_path
-    end
+    return unless logged_in?
+
+    redirect_to root_path
   end
 end

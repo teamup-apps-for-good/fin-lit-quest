@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe WelcomeController, type: :controller do
   describe 'GET #index' do
     before do
-      Player.create(name: 'Stella', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
-                    email: 'test@test.com', provider: 'google-oauth2', uid: '1234')
+      Player.create!(name: 'Stella', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
+                     email: 'test@test.com', provider: 'google-oauth2', uid: '1234')
     end
 
     context 'when user is logged in' do

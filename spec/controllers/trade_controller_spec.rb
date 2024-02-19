@@ -38,8 +38,10 @@ RSpec.describe TradeController, type: :controller do
                         dialogue_content: '431', current_level: 1,
                         item_to_accept: Item.find_by(name: 'wheat'), item_to_offer: Item.find_by(name: 'orange'),
                         quantity_to_accept: 3, quantity_to_offer: 5)
-      Player.create!(name: 'Stella', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1)
-      Player.create!(name: 'Justin', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1)
+      Player.create!(name: 'Stella', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
+                     email: 'test@test.com', provider: 'google-oauth2', uid: '1234')
+      Player.create!(name: 'Justin', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
+                     email: 'test@test.com', provider: 'google-oauth2', uid: '5678')
       @player = Player.find_by(name: 'Stella')
       @player2 = Player.find_by(name: 'Justin')
       @nonplayer = Nonplayer.find_by(name: 'Lightfoot')

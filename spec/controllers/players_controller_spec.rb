@@ -6,7 +6,8 @@ RSpec.describe PlayersController, type: :controller do
   before do
     Player.destroy_all
 
-    Player.create(name: 'Stella', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1)
+    Player.create!(name: 'Stella', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
+                   email: 'test@test.com', provider: 'google-oauth2', uid: '1234')
     @stella = Player.find_by(name: 'Stella')
   end
 
