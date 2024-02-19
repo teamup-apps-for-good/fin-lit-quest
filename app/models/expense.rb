@@ -6,6 +6,11 @@ class Expense < ApplicationRecord
   validates :number, numericality: { only_integer: true, greater_than: 0 }
   validate :validate_max_number_based_on_day_or_week
 
+  def self.day(number)
+    number = ((number - 1) % 7) + 1
+    Expense.find_by(frequency: 'day', number:)
+  end
+  
   private
 
   def validate_max_number_based_on_day_or_week
@@ -15,5 +20,4 @@ class Expense < ApplicationRecord
       errors.add(:number, 'cannot be greater than 4 for weekly frequency')
     end
   end
-
 end
