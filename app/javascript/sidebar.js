@@ -1,7 +1,8 @@
-document.getElementById('hamburger').addEventListener('click', function() {
-    document.getElementById('gameplay_sidebar').style.width = '250px';
-});
+function toggleSidebar(elementId, width) {
+    document.getElementById(elementId).addEventListener('click', function() {
+        document.getElementById('gameplay_sidebar').style.width = width;
+    });
+}
 
-document.getElementById('closebtn').addEventListener('click', function() {
-    document.getElementById('gameplay_sidebar').style.width = '0';
-});
+toggleSidebar('hamburger', '250px');
+toggleSidebar('closebtn', '0');
