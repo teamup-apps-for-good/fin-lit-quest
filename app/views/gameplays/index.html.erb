@@ -4,10 +4,8 @@
 <p style="color: green"><%= notice %></p>
 <p style="color: red"><%= alert %> </p>
 
-<%= render 'nav_sidebar' %>.display_current_time_for_character(Player.first) %>
-
-
 <h1 class="center-text nicefont">Hello <%=@current_user.name%>!</h1>
 
+<%= render 'nav_sidebar' %>
 
 <%= button_to "Start", town_path, class: "button-b", method: :get %>
