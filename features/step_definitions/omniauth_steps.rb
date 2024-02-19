@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Given('I am not logged in') do
   visit logout_path
   visit root_path

@@ -56,12 +56,12 @@ Before('@omniauth_test') do
   OmniAuth.config.test_mode = true
   Capybara.default_host = 'https://fin-lit-quest-65cfa09cddc8.herokuapp.com/'
 
-  OmniAuth.config.add_mock(:google, {
-    :uid => '`1234`',
-    :info => {
-      :name => 'Stella'
-    }
-  })
+  OmniAuth.config.add_mock(:google_oauth2, {
+                             uid: '`1234`',
+                             info: {
+                               name: 'Stella'
+                             }
+                           })
 end
 
 After('@omniauth_test') do
