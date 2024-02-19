@@ -6,11 +6,20 @@ class Expense < ApplicationRecord
   validates :number, numericality: { only_integer: true, greater_than: 0 }
   validate :validate_max_number_based_on_day_or_week
 
-  def self.day(number)
+  def self.today_expense(number)
     number = ((number - 1) % 7) + 1
     Expense.find_by(frequency: 'day', number:)
   end
-  
+
+  def satisfy?(player)
+    return false if player.nil?
+
+    inventory_entry = Inventory.find_by(item:, character: player)
+    return false if inventory_entry.nil?
+
+    Inventory.find_by(item:, character: player).quantity >= quantity
+  end
+
   private
 
   def validate_max_number_based_on_day_or_week

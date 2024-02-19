@@ -5,7 +5,7 @@ module ExpensesHelper
   def self.display_current_expense_for_character(character)
     return 'Character details incomplete or not found.' unless character.present?
 
-    expense = Expense.day(character.day)
+    expense = Expense.today_expense(character.day)
     if expense
       "Expenses for today: #{expense.quantity} #{expense.item.name}"
     else
