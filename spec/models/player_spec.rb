@@ -14,7 +14,7 @@ RSpec.describe Player, type: :model do
         current_level: 1
       }
     end
-    %i[name occupation inventory_slots balance current_level].each do |tag|
+    %i[name occupation inventory_slots balance current_level email uid provider].each do |tag|
       it "makes sure #{tag} exists" do
         data = @player_data
         data[tag] = nil
