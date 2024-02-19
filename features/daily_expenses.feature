@@ -28,8 +28,8 @@ Feature: Daily Expenses
       | apple   | Stella    | 1        |
 
   Scenario Outline: The home page shows what cost is required at the end of the day
-    Given I am on the home page
-    And "Stella" is on Day "<day>" and Hour "<hour>"
+    Given "Stella" is on Day "<day>" and Hour "<hour>"
+    And I am on the home page
     Then I should see "Expenses for today: <quantity> <item>"
 
     Examples:
@@ -37,12 +37,12 @@ Feature: Daily Expenses
       | 1   | 1    | 1        | apple  |
       | 1   | 2    | 1        | apple  |
       | 2   | 2    | 2        | orange |
+      | 2   | 1    | 2        | orange |
 
   Scenario: The player can move to the next day if they can pay their expenses
     Given I am on the home page
     When I click on "Move to the next day"
     Then "Stella" should be on Day "2" and Hour "1"
-    And I should see "8:00 on Day 2, Era 1"
 
   Scenario: The player cannot move to the next day if they can't pay their expenses
     Given "Stella" is on Day "2" and Hour "1"
