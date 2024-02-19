@@ -20,6 +20,7 @@ class ExpensesController < ApplicationController
   # GET /expenses/1/edit
   def edit; end
 
+  # crud operation that is always constant, it should not be changed and will look the same for all models
   # POST /expenses or /expenses.json
   def create
     @expense = Expense.new(expense_params)
@@ -35,6 +36,7 @@ class ExpensesController < ApplicationController
     end
   end
 
+  # crud operation that is always constant, it should not be changed and will look the same for all models
   # PATCH/PUT /expenses/1 or /expenses/1.json
   def update
     respond_to do |format|
