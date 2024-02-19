@@ -25,8 +25,14 @@ class CharactersController < ApplicationController
 
   def advance_day
     character = Player.first
-    TimeAdvancementHelper.increment_day(character)
-    redirect_to root_path, notice: 'Moved to the next day.'
+    expense = Expense.today_expense(character.day)
+
+    if expense.nil? || expense.satisfy?(character)
+      TimeAdvancementHelper.increment_day(character)
+      redirect_to root_path, notice: 'Moved to the next day.'
+    else
+      redirect_to root_path, notice: "You can't afford to pay your expenses yet!"
+    end
   end
 
   def launch_to_new_era
