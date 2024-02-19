@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Controller for the Preferences Table
-class PreferencesController < ApplicationController
+class PreferencesController < SessionsController
   before_action :set_preference, only: %i[show edit update destroy]
 
   # GET /preferences or /preferences.json

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # PlayersController
-class PlayersController < ApplicationController
+class PlayersController < SessionsController
   before_action :set_player, only: %i[show edit update destroy]
 
   # GET /players or /players.json

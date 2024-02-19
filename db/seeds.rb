@@ -33,7 +33,7 @@ items.each do |item|
   Item.find_or_create_by!(item)
 end
 
-players = [{ name: "Stella", occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1 }]
+players = [{ name: "Stella", occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1, uid: '1234', email: 'test@test.com', provider: 'example-provider' }]
 
 npcs = [{ name: "Ritchey", occupation: :merchant, inventory_slots: 5, balance: 0, personality: :enthusiastic,
           dialogue_content: "Gather your required materials for your weekly expenses! Failure to do so may put you in danger.",
