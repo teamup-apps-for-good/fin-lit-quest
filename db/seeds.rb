@@ -125,3 +125,22 @@ preferences.each do |preference|
 
   Preference.find_or_create_by!(preference)
 end
+
+expenses = [{ frequency: 'day', number: 1, item: 'apple', quantity: 1 },
+            { frequency: 'day', number: 2, item: 'wheat', quantity: 1 },
+            { frequency: 'day', number: 3, item: 'fish', quantity: 1 },
+            { frequency: 'day', number: 4, item: 'orange', quantity: 1 },
+            { frequency: 'day', number: 5, item: 'potato', quantity: 1 },
+            { frequency: 'day', number: 6, item: 'grapes', quantity: 1 },
+            { frequency: 'day', number: 7, item: 'bread', quantity: 1 },
+            { frequency: 'week', number: 1, item: 'bread', quantity: 1 },
+            { frequency: 'week', number: 2, item: 'orange', quantity: 1 },
+            { frequency: 'week', number: 3, item: 'grapes', quantity: 1 },
+            { frequency: 'week', number: 4, item: 'potato', quantity: 1 }]
+
+expenses.each do |expense|
+  item = Item.find_by(name: expense[:item])
+  expense[:item] = item
+
+  Expense.find_or_create_by!(expense)
+end
