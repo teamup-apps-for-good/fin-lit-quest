@@ -4,6 +4,14 @@
 class ApplicationController < ActionController::Base
   before_action :require_login
 
+  def logged_in?
+    # current_user returns @current_user,
+    #   which is not nil (truthy) only if session[:user_id] is a valid user id
+    current_user
+  end
+
+  private
+
   def current_user
     # if @current _user is undefined or falsy, evaluate the RHS
     #   RHS := look up user by id only if user id is in the session hash
@@ -13,12 +21,6 @@ class ApplicationController < ActionController::Base
     # Likely to happen if cookies aren't cleared after a db reset
     reset_session
     redirect_to welcome_path
-  end
-
-  def logged_in?
-    # current_user returns @current_user,
-    #   which is not nil (truthy) only if session[:user_id] is a valid user id
-    current_user
   end
 
   def require_login
