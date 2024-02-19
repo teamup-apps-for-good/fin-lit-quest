@@ -29,6 +29,7 @@ class CharactersController < ApplicationController
 
     if expense.nil? || expense.satisfy?(character)
       TimeAdvancementHelper.increment_day(character)
+      Inventory.deduct_expense(character, expense) if expense.present?
       redirect_to root_path, notice: 'Moved to the next day.'
     else
       redirect_to root_path, notice: "You can't afford to pay your expenses yet!"
