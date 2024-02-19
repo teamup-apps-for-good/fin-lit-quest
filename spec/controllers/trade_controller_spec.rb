@@ -6,7 +6,7 @@ require 'rails_helper'
 RSpec.describe TradeController, type: :controller do
   before do
     user = Player.create!(name: 'Test User', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
-                           email: 'test@test.com', provider: 'google-oauth2', uid: '1234')
+                          email: 'test@test.com', provider: 'google-oauth2', uid: '1234')
     session[:user_id] = user.id
   end
 
@@ -19,7 +19,6 @@ RSpec.describe TradeController, type: :controller do
                         item_to_accept: Item.find_by(name: 'apple'), item_to_offer: Item.find_by(name: 'orange'),
                         quantity_to_accept: 2, quantity_to_offer: 5)
       @nonplayer = Nonplayer.find_by(name: 'Lightfoot')
-
     end
 
     it 'should show the correct items to accept for trade' do

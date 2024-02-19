@@ -30,16 +30,17 @@ class SessionsController < ApplicationController
   def find_or_create_user_from_omniauth
     auth = request.env['omniauth.auth']
     Player.find_or_create_by(uid: auth['uid'], provider: auth['provider']) do |u|
-      u.occupation = :farmer
-      u.inventory_slots = 5
-      u.balance = 0
-      u.email = auth['info']['email']
-      u.name = auth['info']['name']
-      u.current_level = 1
-      u.day = 1
-      u.hour = 1
-      u.era = 1
+      set_user_attributes(u, auth)
     end
+  end
+
+  def set_user_attributes(user, auth_info)
+    user.occupation = :farmer
+    user.inventory_slots = 5
+    user.balance = 0
+    user.email = auth_info['info']['email']
+    user.name = auth_info['info']['name']
+    user.current_level = 1
   end
 
   def redirect_if_logged_in

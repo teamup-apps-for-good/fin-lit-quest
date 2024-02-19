@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe SessionsController, type: :controller do
   before do
     @player = Player.create!(name: 'Stella', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
-                   email: 'test@test.com', provider: 'google_oauth2', uid: '1234')
+                             email: 'test@test.com', provider: 'google_oauth2', uid: '1234')
   end
 
   describe 'GET #logged_in' do
@@ -62,8 +62,8 @@ RSpec.describe SessionsController, type: :controller do
     end
   end
 
-  describe "GET #logout" do
-    context "when the user is logged in" do
+  describe 'GET #logout' do
+    context 'when the user is logged in' do
       it 'logs out the user' do
         get :logout
         expect(session[:user_id]).to be_nil
@@ -76,23 +76,23 @@ RSpec.describe SessionsController, type: :controller do
     end
   end
 
-  describe "GET #omniauth" do
+  describe 'GET #omniauth' do
     before do
       OmniAuth.config.test_mode = true
       OmniAuth.config.add_mock(:google_oauth2, {
-        uid: '1234',
-        info: {
-          name: 'Stella',
-          email: 'test@test.com'
-        }
-      })
+                                 uid: '1234',
+                                 info: {
+                                   name: 'Stella',
+                                   email: 'test@test.com'
+                                 }
+                               })
       OmniAuth.config.add_mock(:github, {
-        uid: '1234',
-        info: {
-          name: 'Stella',
-          email: 'test@test.com'
-        }
-      })
+                                 uid: '1234',
+                                 info: {
+                                   name: 'Stella',
+                                   email: 'test@test.com'
+                                 }
+                               })
     end
     context 'when the user is logged out' do
       before do
@@ -101,7 +101,7 @@ RSpec.describe SessionsController, type: :controller do
 
       context 'if they have logged in before' do
         before do
-          request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:google_oauth2]
         end
 
         it 'assigns the user id to the session' do
@@ -117,7 +117,7 @@ RSpec.describe SessionsController, type: :controller do
 
       context 'if they have not logged in before' do
         before do
-          request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:github]
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
         end
         it 'creates the new user' do
           get :omniauth
