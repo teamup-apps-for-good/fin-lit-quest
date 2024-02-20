@@ -14,6 +14,12 @@ Then('I should see the NPC {string} owns {string} of {string}') do |npc, value, 
   end
 end
 
+Then('I should see the NPC {string} owns {string} of {string}') do |npc, value, field|
+  within("##{npc}_inventory") do
+    expect(page).to have_content(/#{Regexp.escape("#{field}: #{value}")}/i)
+  end
+end
+
 Then('I should not see {string}') do |string|
   expect(page).to have_no_content(string)
 end
