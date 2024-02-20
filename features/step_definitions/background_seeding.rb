@@ -52,6 +52,16 @@ Given('the following preference entries exist:') do |preferences|
   end
 end
 
+Given('the following inventory table exists:') do |inventories|
+  inventories.hashes.each do |inventory_entry|
+    item = Item.find_by(name: inventory_entry['item'])
+    inventory_entry['item'] = item
+    character = Character.find_by(name: inventory_entry['character'])
+    inventory_entry['character'] = character
+    Inventory.create!(inventory_entry)
+  end
+end
+
 Given('the following expenses exist:') do |expenses|
   expenses.hashes.each do |expense|
     item = Item.find_by(name: expense['item'])
