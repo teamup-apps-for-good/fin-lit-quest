@@ -20,7 +20,8 @@ Feature: Profession price preference variance
       | Ritchey   | merchant   | 10              | 0       | 1             | enthusiastic | Howdy                | 2                  | 3                 | apple          | orange        |
       | Alice     | fisherman  | 15              | 0       | 1             | tired        | zzz...               | 3                  | 2                 | apple          | fish          |
       | Lightfoot | baker      | 15              | 0       | 1             | dad          | insert dad joke here | 1                  | 5                 | orange         | apple         |
-   
+      | Paimon    | food       | 15              | 0       | 1             | annoyin      | can't go there yet   | 1                  | 5                 | bread          | orange        |
+
     Given the following inventory entries exist:
       | item   | character | quantity |
       | apple  | Stella    | 5        |
@@ -64,9 +65,6 @@ Feature: Profession price preference variance
     Given I am on the trade page for "Alice"
     Then I should see "Catches fish from the sea daily."
 
-  Scenario Outline: The player's occupation should not be shown
-    Given I am on the trade page for "<player>"
-    Then I should not see "Writes code most of the time, when they are not in meetings."
-    Examples:
-        | player | 
-        | Stella |
+  Scenario Outline: The non-player's occupation should not be shown if it is not a preference
+    Given I am on the trade page for "Paimon"
+    Then I should see "This occupation does not have a preference."
