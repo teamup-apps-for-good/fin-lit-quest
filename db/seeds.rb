@@ -117,7 +117,7 @@ shoppinglists.each do |shoppinglist|
   ShoppingList.find_or_create_by!(shoppinglist)
 end
 
-preferences = [{ occupation: 'merchant', item:'map', multiplier: 2}]
+preferences = [{ occupation: 'merchant', item:'map', multiplier: 2, description: 'Grinds wheat into flour and bakes handbaked bread.'}]
 
 preferences.each do |preference|
   item = Item.find_by(name: preference[:item])

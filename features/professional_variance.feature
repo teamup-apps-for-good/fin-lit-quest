@@ -19,7 +19,7 @@ Feature: Profession price preference variance
       | name      | occupation | inventory_slots | balance | current_level | personality  | dialogue_content     | quantity_to_accept | quantity_to_offer | item_to_accept | item_to_offer |
       | Ritchey   | merchant   | 10              | 0       | 1             | enthusiastic | Howdy                | 2                  | 3                 | apple          | orange        |
       | Alice     | fisherman  | 15              | 0       | 1             | tired        | zzz...               | 3                  | 2                 | apple          | fish          |
-      | Lightfoot | baker      | 15              | 0       | 1             | dad          | insert dad joke here | 1                  | 5                 | orange         | apple         |
+      | Lightfoot | merchant   | 15              | 0       | 1             | dad          | insert dad joke here | 1                  | 5                 | orange         | apple         |
       | Paimon    | food       | 15              | 0       | 1             | annoyin      | can't go there yet   | 1                  | 5                 | bread          | orange        |
 
     Given the following inventory entries exist:
