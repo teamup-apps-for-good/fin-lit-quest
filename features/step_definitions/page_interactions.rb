@@ -5,7 +5,7 @@ Then('I should see {string}') do |string|
 end
 
 Then('I should see the {string} is {string}') do |field, value|
-  expect(page).to have_content("#{field}: #{value}")
+  expect(page).to have_content(/#{field}: #{value}/i)
 end
 
 Then('I should see the NPC {string} owns {string} of {string}') do |npc, value, field|

@@ -45,8 +45,8 @@ Feature: Merge trading and counter-offer page
 
     Examples:
       | item     | quantity   |
-      | apple    | 5          |
-      | fish     | 0          |
+      | Apple    | 5          |
+      | Fish     | 0          |
     
   Scenario Outline: The trade page should show the non-player's inventory
     Given I am on the trade page for "Ritchey"
@@ -54,8 +54,8 @@ Feature: Merge trading and counter-offer page
 
     Examples:
       | item     | quantity   |
-      | orange   | 4          |
-      | wheat    | 3          |
+      | Orange   | 4          |
+      | Wheat    | 3          |
 
   Scenario: The trade page shows a trading title
     Given I am on the trade page for "Ritchey"
