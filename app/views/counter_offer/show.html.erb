@@ -1,8 +1,30 @@
-<h1>Counter Offer for <%= @context.character.name %></h1>
+<!-- app/views/counter_offer/show.html.erb -->
+
+<div class = "nicefont">
+<h1> Trade with <%= @context.character.name %> </h1>
+
+<h2><%= @context.character.dialogue_content %></h2>
+<div>
+  <p>
+    <strong>Item they are offering you:</strong>
+    <%= @context.character.quantity_to_offer %> of <%= @context.character.item_to_offer.name %>(s)
+  </p>
+
+  <p>
+    <strong>Item they are looking for from you:</strong>
+    <%= @context.character.quantity_to_accept %> of <%= @context.character.item_to_accept.name %>(s)
+  </p>
+
+  <p>
+    <strong>Balance:</strong>
+    <%= @context.character.balance %>
+  </p>
+</div>
+
 
 <% if @context.character %>
   <!-- Container for Player's Inventory -->
-  <div class="inventory-container-co">
+  <div id="<%= @context.player_character.name %>_inventory" class="inventory-container-co">
     <h2 style="font-weight: bold;"><%= @context.player_character.name %>'s Inventory</h2>
     <% @context.player_inventory.each do |item_name, quantity| %>
       <div id="player_inventory_<%= item_name %>"><%= item_name.capitalize %>: <%= quantity %></div>
@@ -10,7 +32,7 @@
   </div>
 
   <!-- Container for NPC's Inventory -->
-  <div class="inventory-container-co">
+  <div id="<%= @context.character.name %>_inventory" class="inventory-container-co">
     <h2 style="font-weight: bold;"><%= @context.character.name %>'s Inventory</h2>
     <% @context.npc_inventory.each do |item_name, quantity| %>
       <div id="npc_inventory_<%= item_name %>"><%= item_name.capitalize %>: <%= quantity %></div>
@@ -18,7 +40,7 @@
   </div>
 
   <div style="margin-top: 20px;">
-  <%= form_with(url: create_counter_offer_path(id: @context.character.id), method: :post, local: true) do %>
+  <%= form_with(url: trade_accept_path(id: @context.character.id), method: :post, local: true) do %>
       <!-- Form fields -->
       <div style="margin-bottom: 10px;">
           <%= label_tag :item_i_give_id, 'I give' %>

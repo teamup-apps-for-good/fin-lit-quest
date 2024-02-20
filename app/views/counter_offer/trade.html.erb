@@ -1,0 +1,39 @@
+<div class = "nicefont">
+<h1> Trade with <%= @character.name %> </h1>
+
+<h2><%= @character.dialogue_content %></h2>
+<div>
+  <p>
+    <strong>Item they are offering you:</strong>
+    <%= @quantity_to_offer %> of <%= @item_to_offer %>(s)
+  </p>
+
+  <p>
+    <strong>Item they are looking for from you:</strong>
+    <%= @quantity_to_accept %> of <%= @item_to_accept %>(s)
+  </p>
+
+  <p>
+    <strong>Balance:</strong>
+    <%= @character.balance %>
+  </p>
+</div>
+
+<%= form_with url: trade_accept_path(@character), method: :post do |form| %>
+  <%= form.hidden_field :character_id, value: Player.first.id %>
+  <%= form.hidden_field :npc_id, value: @character.id %>
+  
+  <% if @player_has_item_to_trade && @npc_has_offer_item%> 
+      <%= form.submit 'Yes', class: 'button-g' %>
+    <% else %>
+    <% if !@player_has_item_to_trade %>
+      You do not have sufficient items to trade
+    <% end %>
+    <% if !@npc_has_offer_item %>
+      This character has ran out of <%= @character.item_to_offer.name %>.
+    <% end %>
+  <% end %>
+<% end %>
+<%= button_to "No", character_profile_path(@character), class: "button-r", method: :get %>
+<%= button_to "Counter Offer", counter_offer_path(name: @character.name), class: "button-b", method: :get %>
+</div>

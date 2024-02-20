@@ -8,6 +8,12 @@ Then('I should see the {string} is {string}') do |field, value|
   expect(page).to have_content("#{field}: #{value}")
 end
 
+Then('I should see the NPC {string} owns {string} of {string}') do |npc, value, field|
+  within("##{npc}_inventory") do
+    expect(page).to have_content(/#{Regexp.escape("#{field}: #{value}")}/i)
+  end
+end
+
 Then('I should not see {string}') do |string|
   expect(page).to have_no_content(string)
 end
@@ -36,6 +42,10 @@ When('I press the {string} button') do |button_name|
 end
 
 When('I select {string} from the {string} dropdown') do |option_name, element_name|
+  select option_name, from: element_name
+end
+
+When('I select {string} in {string} dropdown') do |option_name, element_name|
   select option_name, from: element_name
 end
 

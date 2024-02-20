@@ -23,6 +23,13 @@ Then('I should be on the counter offer page for {string}') do |name|
   expect(page).to have_content(name)
 end
 
+Then('I should be on the trade page for {string}') do |name|
+  character = Character.find_by(name:)
+  expect(character).not_to be_nil, "Character #{name} not found"
+  expect(current_path).to eq("/trade/#{character.id}")
+  expect(page).to have_content(name)
+end
+
 Then('I should be on the profile page for {string}') do |nonplayer|
   expect(page).to have_current_path(character_profile_path(Nonplayer.find_by(name: nonplayer)))
 end

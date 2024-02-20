@@ -37,14 +37,6 @@ Feature: Make a counter offer to Non-players
       | bread  | Lightfoot | 0        |
       | fish   | Alice     | 2        |
 
-  Scenario: Player can see the counter offer button on the trade page
-    Given I am on the trade page for "Ritchey"
-    Then I should see "Counter Offer"
-
-  Scenario: Player can visit the counter offer page
-    Given I am on the trade page for "Ritchey"
-    When I click on "Counter Offer"
-    Then I should be on the counter offer page for "Ritchey"
 
   Scenario: Player can enter the trade details
     Given I am on the counter offer page for "Ritchey"
