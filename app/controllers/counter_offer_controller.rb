@@ -23,7 +23,7 @@ class CounterOfferController < SessionsController
 
   def set_context
     id_param = params[:id]
-    @context = CharacterInventoryService.build_context_by_id(id_param)
+    @context = CharacterInventoryService.build_context_by_id(id_param, @current_user)
     @pref = Preference.find_by(occupation: @context.character.occupation)
   end
 

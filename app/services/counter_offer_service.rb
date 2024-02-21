@@ -24,11 +24,10 @@ class CounterOfferService
     @quantity_i_give = @offer_params[:quantity_i_give].to_i
     @item_i_want_id = @offer_params[:item_i_want_id]
     @quantity_i_want = @offer_params[:quantity_i_want].to_i
-
   end
 
   def trade_valid_and_items_available?
-    valid_trade? && npc_has_item?
+    valid_trade? && npc_has_item? && user_has_item?
   end
 
   def perform_trade_transactions
@@ -49,6 +48,8 @@ class CounterOfferService
   end
 
   def generate_error_message
+    "#{@npc.name} does not have the item" if npc_has_item?
+    "You don't have this item." if user_has_item?
     if valid_trade?
       "#{@npc.name} does not have the item you are trying to get"
     else
@@ -64,6 +65,11 @@ class CounterOfferService
   def npc_has_item?
     inventory_item = @npc.inventories.find_by(item_id: @item_i_want_id)
     inventory_item && inventory_item.quantity >= @quantity_i_want
+  end
+
+  def user_has_item?
+    inventory_item = @player.inventories.find_by(item_id: @item_i_give_id)
+    inventory_item && inventory_item.quantity >= @quantity_i_give
   end
 
   def calculate_total_value(item_id, quantity)

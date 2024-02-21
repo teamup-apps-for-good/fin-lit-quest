@@ -41,6 +41,8 @@ class SessionsController < ApplicationController
     user.email = auth_info['info']['email']
     user.name = auth_info['info']['name']
     user.current_level = 1
+    user.hour = 1
+    user.day = 1
   end
 
   def redirect_if_logged_in

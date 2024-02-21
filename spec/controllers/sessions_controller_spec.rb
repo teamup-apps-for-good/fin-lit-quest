@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe SessionsController, type: :controller do
   before do
     @player = Player.create!(name: 'Stella', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
-                             email: 'test@test.com', provider: 'google_oauth2', uid: '1234')
+                             email: 'test@test.com', provider: 'google_oauth2', uid: '1234', day: 1, hour: 1)
   end
 
   describe 'GET #logged_in' do
