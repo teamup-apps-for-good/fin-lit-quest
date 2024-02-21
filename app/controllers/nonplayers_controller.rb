@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # NonplayersController
-class NonplayersController < ApplicationController
+class NonplayersController < SessionsController
   before_action :set_nonplayer, only: %i[show edit update destroy]
 
   # GET /nonplayers or /nonplayers.json

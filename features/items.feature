@@ -12,8 +12,8 @@ Feature: View Item Information
       |  wheat  |   grainy, fresh from the field               |    1    |
 
     And the following players exist:
-      | name      | occupation  | inventory_slots | balance |  current_level  |
-      | Stella    | programmer  |        5        | 0       |       1         |
+      | name      | occupation  | inventory_slots | balance |  current_level  | uid  | provider      | email         |
+      | Stella    | programmer  |        5        | 0       |       1         | 1234 | google_oauth2 | test@test.com |
 
     And the following non-players exist:
       | name      | occupation | inventory_slots | balance | current_level | personality  | dialogue_content     | quantity_to_accept | quantity_to_offer | item_to_accept | item_to_offer |
@@ -23,6 +23,8 @@ Feature: View Item Information
       | item  | character        | quantity |
       | apple | Stella           | 5        |
       | fish  | Ritchey          | 4        |
+
+    Given I am logged in as "Stella"
 
   Scenario: Verify a item can be created
     Given I am on the items page

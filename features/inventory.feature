@@ -5,8 +5,8 @@ Feature: View inventory Information
 
   Background:
     Given the following players exist:
-      | name      | occupation  | inventory_slots | balance |  current_level  |
-      | Stella    | programmer  |        5        | 0       |       1         |
+      | name      | occupation  | inventory_slots | balance |  current_level  | uid  | provider      | email         |
+      | Stella    | programmer  |        5        | 0       |       1         | 1234 | google_oauth2 | test@test.com |
     
     And the following items exist:
       |  name   |                 description                  |  value  |
@@ -22,7 +22,9 @@ Feature: View inventory Information
       | item  | character        | quantity |
       | apple | Stella           | 5        |
       | fish  | Ritchey          | 4        |
-    
+
+    Given I am logged in as "Stella"
+
   Scenario: Verify inventories are viewable
     Given I am on the inventories page
     Then I should see "apple"

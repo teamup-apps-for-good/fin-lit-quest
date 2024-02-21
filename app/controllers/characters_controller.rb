@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # CharactersController
-class CharactersController < ApplicationController
+class CharactersController < SessionsController
   before_action :set_character, only: %i[show]
 
   # GET /characters or /characters.json

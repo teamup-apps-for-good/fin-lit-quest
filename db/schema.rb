@@ -29,6 +29,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_20_164744) do
     t.integer "day", default: 1
     t.integer "hour", default: 1
     t.integer "era", default: 1
+    t.string "uid"
+    t.string "provider"
+    t.string "email"
     t.index ["item_to_accept_id"], name: "index_characters_on_item_to_accept_id"
     t.index ["item_to_offer_id"], name: "index_characters_on_item_to_offer_id"
   end

@@ -10,10 +10,12 @@ Feature: View Character Information
     | orange | tangy, fresh from a tree as well | 3     |
 
   Given the following players exist:
-    | name      | occupation  | inventory_slots | balance |  current_level  |
-    | Stella    | programmer  |        5        | 0       |       1         |
+    | name      | occupation  | inventory_slots | balance |  current_level  | uid  | provider      | email         |
+    | Stella    | programmer  |        5        | 0       |       1         | 1234 | google_oauth2 | test@test.com |
 
-  Given the following non-players exist:
+    Given I am logged in as "Stella"
+
+    Given the following non-players exist:
     | name      | occupation | inventory_slots | balance | current_level | personality  | dialogue_content     | quantity_to_accept | quantity_to_offer | item_to_accept | item_to_offer |
     | Ritchey   | client     | 10              | 0       | 1             | enthusiastic | Howdy                | 2                  | 3                 | apple          | orange        |
     | Lightfoot | comedian   | 15              | 0       | 1             | dad          | insert dad joke here | 1                  | 5                 | orange         | apple         |

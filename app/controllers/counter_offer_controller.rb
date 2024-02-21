@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Controller for handling counter offers in the game.
-class CounterOfferController < ApplicationController
+class CounterOfferController < SessionsController
   before_action :set_context
   attr_reader :context
 

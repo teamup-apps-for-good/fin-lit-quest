@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   resources :expenses
+  resources :sessions
   resources :preferences
   resources :shopping_lists
   resources :items
@@ -9,7 +10,7 @@ Rails.application.routes.draw do
   resources :nonplayers
   resources :players
   resources :characters
-  
+
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -18,7 +19,6 @@ Rails.application.routes.draw do
   get 'up' => 'rails/health#show', as: :rails_health_check
 
   # Defines the root path route ("/")
-  # root "posts#index"
   root 'gameplays#index'
   get '/town' => 'gameplays#town', as: 'town'
   get '/underconstruction' => 'gameplays#underconstruction', as: 'underconstruction'
@@ -38,5 +38,9 @@ Rails.application.routes.draw do
   post 'advance_day', to: 'characters#advance_day', as: 'advance_day'
   post 'launch_to_new_era', to: 'characters#launch_to_new_era', as: 'launch_to_new_era'
 
+  get '/welcome', to: 'sessions#login', as: 'welcome'
+  get '/test_login', to: 'sessions#logged_in', as: 'test_login'
+  get '/logout', to: 'sessions#logout', as: 'logout'
+  get '/auth/google_oauth2/callback', to: 'sessions#omniauth'
 
 end

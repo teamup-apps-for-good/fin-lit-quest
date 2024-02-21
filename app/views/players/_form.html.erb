@@ -37,6 +37,21 @@
   </div>
 
   <div>
+    <%= form.label :provider, style: "display: block" %>
+    <%= form.text_field :provider %>
+  </div>
+
+  <div>
+    <%= form.label :uid, style: "display: block" %>
+    <%= form.text_field :uid %>
+  </div>
+
+  <div>
+    <%= form.label :email, style: "display: block" %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

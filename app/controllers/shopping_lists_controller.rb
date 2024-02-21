@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # ShoppingListsController
-class ShoppingListsController < ApplicationController
+class ShoppingListsController < SessionsController
   before_action :set_shopping_list, only: %i[show edit update destroy]
 
   # GET /shopping_lists or /shopping_lists.json

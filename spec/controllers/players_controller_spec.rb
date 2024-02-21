@@ -6,15 +6,17 @@ RSpec.describe PlayersController, type: :controller do
   before do
     Player.destroy_all
 
-    Player.create(name: 'Stella', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1)
+    Player.create!(name: 'Stella', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
+                   email: 'test@test.com', provider: 'google-oauth2', uid: '1234')
     @stella = Player.find_by(name: 'Stella')
+    session[:user_id] = @stella.id
   end
 
   describe 'create' do
     before(:each) do
       get :create,
           params: { player: { name: 'Jeremy', occupation: :merchant, inventory_slots: 5, balance: 10,
-                              current_level: 1 } }
+                              current_level: 1, email: 'test2@test.com', provider: 'google-oauth2', uid: '5678' } }
     end
 
     it 'should create a new character' do

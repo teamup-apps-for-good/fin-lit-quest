@@ -37,6 +37,10 @@ RSpec.describe PreferencesController, type: :controller do
     @pref = Preference.create(occupation: 'merchant',
                               item: @bread_item,
                               multiplier: 3)
+
+    @user = Player.create!(name: 'Test User', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
+                           email: 'test@test.com', provider: 'google-oauth2', uid: '1234')
+    session[:user_id] = @user.id
   end
 
   describe 'index' do

@@ -6,6 +6,10 @@ RSpec.describe CharactersController, type: :controller do
   before do
     @player = create(:character, :player)
     allow(Player).to receive(:first).and_return(@player)
+
+    @user = Player.create!(name: 'Test User', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
+                           email: 'test@test.com', provider: 'google-oauth2', uid: '1234')
+    session[:user_id] = @user.id
   end
 
   describe 'Admin access' do

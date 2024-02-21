@@ -7,7 +7,8 @@ RSpec.describe Character, type: :model do
     before do
       apple = Item.create!(name: 'apple', description: 'crunchy, fresh from the tree', value: 2)
       orange = Item.create!(name: 'orange', description: 'test description', value: 5)
-      @character = Player.create!(name: 'Stella', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1)
+      @character = Player.create!(name: 'Stella', occupation: :farmer, inventory_slots: 5, balance: 0,
+                                  current_level: 1, provider: 'google-oauth2', uid: '1234', email: 'test@test.com')
       Inventory.create!(item: apple, character: @character, quantity: 1)
       Inventory.create!(item: orange, character: @character, quantity: 1)
     end

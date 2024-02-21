@@ -23,8 +23,10 @@ Feature: Shopping list
       | map      | 2       | 1          |
 
     Given the following players exist:
-      | name   | occupation | inventory_slots | balance | current_level |
-      | Stella | programmer | 5               | 0       | 1             |
+      | name      | occupation  | inventory_slots | balance |  current_level  | uid  | provider      | email         |
+      | Stella    | programmer  |        5        | 0       |       1         | 1234 | google_oauth2 | test@test.com |
+
+    And I am logged in as "Stella"
 
     Given the following inventory entries exist:
       | item    | character | quantity |
