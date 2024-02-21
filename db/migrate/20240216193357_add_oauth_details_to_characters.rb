@@ -1,4 +1,4 @@
-class AddOauthDetailsToUsers < ActiveRecord::Migration[7.1]
+class AddOauthDetailsToCharacters < ActiveRecord::Migration[7.1]
   def change
     add_column :characters, :uid, :string
     add_column :characters, :provider, :string

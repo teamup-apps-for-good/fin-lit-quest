@@ -9,6 +9,12 @@
     <strong>Balance:</strong>
     <%= @context.character.balance %>
   </p>
+  <% if not @pref.nil? %>
+      <p>
+          <strong>Occupation Description:</strong>
+          <%= @pref.description %>
+      <p>
+  <% end %>
 </div>
 
 <% if @context.character %>
@@ -60,5 +66,5 @@
   <p>Character not found.</p>
 <% end %>
 
-
+<%= button_to "Back", character_profile_path(@context.character), class: "button-b", method: :get %>
 

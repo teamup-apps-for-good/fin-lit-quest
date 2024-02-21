@@ -8,7 +8,7 @@ class CounterOfferController < SessionsController
   def show; end
 
   def create
-    character = Player.first # Assuming single-player for simplicity
+    character = @current_user
     if character.hour == 10
       redirect_to root_path, notice: 'It is too late! Move to the next day'
     elsif validate_counter_offer_params
@@ -24,6 +24,7 @@ class CounterOfferController < SessionsController
   def set_context
     id_param = params[:id]
     @context = CharacterInventoryService.build_context_by_id(id_param)
+    @pref = Preference.find_by(occupation: @context.character.occupation)
   end
 
   def validate_counter_offer_params
