@@ -62,3 +62,12 @@ end
 Then('I should see a notice of {string}') do |string|
   expect(page).to have_content(string)
 end
+
+Then('I should see {string} in {string} dropdown') do |item_name, element_name|
+  expect(page).to have_select(element_name, selected: item_name)
+end
+
+Then('I should see {string} in {string} field') do |value, element_name|
+  actual_value = find_field(element_name).value
+  expect(actual_value).to eq(value)
+end

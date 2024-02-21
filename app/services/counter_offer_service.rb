@@ -24,6 +24,7 @@ class CounterOfferService
     @quantity_i_give = @offer_params[:quantity_i_give].to_i
     @item_i_want_id = @offer_params[:item_i_want_id]
     @quantity_i_want = @offer_params[:quantity_i_want].to_i
+
   end
 
   def trade_valid_and_items_available?

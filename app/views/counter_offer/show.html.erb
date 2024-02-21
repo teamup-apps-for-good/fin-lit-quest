@@ -6,60 +6,35 @@
 <h2><%= @context.character.dialogue_content %></h2>
 <div>
   <p>
-    <strong>Item they are offering you:</strong>
-    <%= @context.character.quantity_to_offer %> of <%= @context.character.item_to_offer.name %>(s)
-  </p>
-
-  <p>
-    <strong>Item they are looking for from you:</strong>
-    <%= @context.character.quantity_to_accept %> of <%= @context.character.item_to_accept.name %>(s)
-  </p>
-
-  <p>
     <strong>Balance:</strong>
     <%= @context.character.balance %>
   </p>
 </div>
 
-
 <% if @context.character %>
-  <!-- Container for Player's Inventory -->
-  <div id="<%= @context.player_character.name %>_inventory" class="inventory-container-co">
-    <h2 style="font-weight: bold;"><%= @context.player_character.name %>'s Inventory</h2>
-    <% @context.player_inventory.each do |item_name, quantity| %>
-      <div id="player_inventory_<%= item_name %>"><%= item_name.capitalize %>: <%= quantity %></div>
-    <% end %>
-  </div>
-
-  <!-- Container for NPC's Inventory -->
-  <div id="<%= @context.character.name %>_inventory" class="inventory-container-co">
-    <h2 style="font-weight: bold;"><%= @context.character.name %>'s Inventory</h2>
-    <% @context.npc_inventory.each do |item_name, quantity| %>
-      <div id="npc_inventory_<%= item_name %>"><%= item_name.capitalize %>: <%= quantity %></div>
-    <% end %>
-  </div>
+  <%= render partial: 'sinventory' %>
 
   <div style="margin-top: 20px;">
-  <%= form_with(url: trade_accept_path(id: @context.character.id), method: :post, local: true) do %>
+  <%= form_with(url: create_counter_offer_path(id: @context.character.id), method: :post, local: true) do %>
       <!-- Form fields -->
       <div style="margin-bottom: 10px;">
           <%= label_tag :item_i_give_id, 'I give' %>
-          <%= select_tag :item_i_give_id, options_from_collection_for_select(Item.all, :id, :name), include_blank: true %>
+          <%= select_tag :item_i_give_id, options_from_collection_for_select(Item.all, :id, :name, selected: @context.character.item_to_accept_id), include_blank: true %>
         </div>
   
         <div style="margin-bottom: 10px;">
           <%= label_tag :quantity_i_give, 'Quantity I give' %>
-          <%= number_field_tag :quantity_i_give %>
+          <%= number_field_tag :quantity_i_give, @context.character.quantity_to_accept  %>
         </div>
   
         <div style="margin-bottom: 10px;">
           <%= label_tag :item_i_want_id, 'I want' %>
-          <%= select_tag :item_i_want_id, options_from_collection_for_select(Item.all, :id, :name), include_blank: true %>
+          <%= select_tag :item_i_want_id, options_from_collection_for_select(Item.all, :id, :name, selected: @context.character.item_to_offer_id), include_blank: true  %>
         </div>
   
         <div style="margin-bottom: 10px;">
           <%= label_tag :quantity_i_want, 'Quantity I want' %>
-          <%= number_field_tag :quantity_i_want %>
+          <%= number_field_tag :quantity_i_want, @context.character.quantity_to_offer %>
         </div>
   
         <div style="margin-bottom: 10px;">
