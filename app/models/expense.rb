@@ -12,13 +12,23 @@ class Expense < ApplicationRecord
     Expense.find_by(frequency: 'day', number:)
   end
 
-  def satisfy?(player)
-    return false if player.nil?
+  def self.this_week_expense(number)
+    number = ((number - 1) / 7) + 1
+    Expense.find_by(frequency: 'week', number:)
+  end
 
-    inventory_entry = Inventory.find_by(item:, character: player)
-    return false if inventory_entry.nil?
+  def self.advance_and_deduct?(character)
+    return false if character.nil?
 
-    Inventory.find_by(item:, character: player).quantity >= quantity
+    today_expense = Expense.today_expense(character.day)
+    this_week_expense = Expense.this_week_expense(character.day)
+    if Inventory.satisfy_expense?(character, today_expense, this_week_expense)
+      Inventory.deduct_expense(character, today_expense) if today_expense.present?
+      Inventory.deduct_expense(character, this_week_expense) if this_week_expense.present?
+      true
+    else
+      false
+    end
   end
 
   private
