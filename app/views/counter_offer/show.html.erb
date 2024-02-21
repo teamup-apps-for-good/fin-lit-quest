@@ -1,21 +1,7 @@
 <h1>Counter Offer for <%= @context.character.name %></h1>
 
 <% if @context.character %>
-  <!-- Container for Player's Inventory -->
-  <div class="inventory-container-co">
-    <h2 style="font-weight: bold;"><%= @context.player_character.name %>'s Inventory</h2>
-    <% @context.player_inventory.each do |item_name, quantity| %>
-      <div id="player_inventory_<%= item_name %>"><%= item_name.capitalize %>: <%= quantity %></div>
-    <% end %>
-  </div>
-
-  <!-- Container for NPC's Inventory -->
-  <div class="inventory-container-co">
-    <h2 style="font-weight: bold;"><%= @context.character.name %>'s Inventory</h2>
-    <% @context.npc_inventory.each do |item_name, quantity| %>
-      <div id="npc_inventory_<%= item_name %>"><%= item_name.capitalize %>: <%= quantity %></div>
-    <% end %>
-  </div>
+  <%= render partial: 'sinventory' %>
 
   <div style="margin-top: 20px;">
   <%= form_with(url: create_counter_offer_path(id: @context.character.id), method: :post, local: true) do %>

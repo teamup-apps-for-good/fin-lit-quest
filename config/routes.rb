@@ -25,7 +25,6 @@ Rails.application.routes.draw do
 
   get '/characters/:id/profile' => 'characters#profile', as: 'character_profile'
   get '/characters/:id/inventory' => 'characters#inventory', as: 'character_inventory'
-  get '/characters/:id/smallinventory' => 'counter_offer#smallinventory', as: 'character_smallinventory'
 
   get '/shopping+list' => 'shopping_lists#player_shopping_list', as: 'player_shopping_list'
   post '/launch/:id', to: 'shopping_lists#launch', as: 'launch'

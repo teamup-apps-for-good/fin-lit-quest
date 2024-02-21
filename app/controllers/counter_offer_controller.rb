@@ -7,8 +7,6 @@ class CounterOfferController < ApplicationController
 
   def show; end
 
-  def smallinventory; end
-
   def create
     character = Player.first # Assuming single-player for simplicity
     if character.hour == 10
