@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_19_042558) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_20_164744) do
   create_table "characters", force: :cascade do |t|
     t.string "name"
     t.string "occupation"
@@ -71,6 +71,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_19_042558) do
     t.decimal "multiplier", precision: 3, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "description"
     t.index ["item_id"], name: "index_preferences_on_item_id"
     t.index ["occupation"], name: "index_preferences_on_occupation"
   end

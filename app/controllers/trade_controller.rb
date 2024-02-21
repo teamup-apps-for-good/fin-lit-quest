@@ -10,6 +10,7 @@ class TradeController < SessionsController
     @quantity_to_accept = @character.quantity_to_accept
     @player_has_item_to_trade = player_has_item_to_trade?
     @npc_has_offer_item = npc_has_offer_item?
+    @pref = Preference.find_by(occupation: @character.occupation)
   end
 
   def trade_accept

@@ -3,6 +3,13 @@
 
 <h2><%= @character.dialogue_content %></h2>
 <div>
+  <% if not @pref.nil? %>
+      <p>
+          <strong>Occupation Description:</strong>
+          <%= @pref.description %>
+      <p>
+  <% end %>
+
   <p>
     <strong>Item they are offering you:</strong>
     <%= @quantity_to_offer %> of <%= @item_to_offer %>(s)
