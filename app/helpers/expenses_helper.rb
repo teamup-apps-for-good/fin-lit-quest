@@ -3,19 +3,20 @@
 # Rendering the items in the expenses
 module ExpensesHelper
   def self.display_today_expense_for_character(character)
-    display_expense_for_character(character, method(:Expense.today_expense))
+    display_expense_for_character(character, :today_expense)
   end
 
   def self.display_this_week_expense_for_character(character)
-    display_expense_for_character(character, method(:Expense.this_week_expense))
+    display_expense_for_character(character, :this_week_expense)
   end
 
   def self.display_expense_for_character(character, expense_method)
     return 'Character details incomplete or not found.' unless character.present?
 
-    expense = expense_method.call(character.day)
+    expense = Expense.send(expense_method, character.day)
     if expense
-      "Expenses for #{expense_method.name.split('_').first}: #{expense.quantity} #{expense.item.name}"
+      expense_name = expense_method.to_s.split('_expense').first.gsub('_', ' ')
+      "Expenses for #{expense_name}: #{expense.quantity} #{expense.item.name}"
     else
       ''
     end
