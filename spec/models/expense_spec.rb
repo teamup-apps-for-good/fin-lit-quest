@@ -34,6 +34,17 @@ RSpec.describe 'Expense', type: :model do
     end
   end
 
+  describe 'expense must be for item quantities bigger than 0' do
+    it 'succeeds for a quantity bigger than 0' do
+      expense = Expense.create(item: @item, number: 1, frequency: 'day', quantity: 1)
+      expect(expense).to be_valid
+    end
+    it 'fails for a quantity less than 1' do
+      expense = Expense.create(item: @item, number: 1, frequency: 'day', quantity: 0)
+      expect(expense).not_to be_valid
+    end
+  end
+
   describe 'validate_max_number_based_on_day_or_week' do
     context 'when it is a daily expense' do
       it 'succeeds within 7 days a week' do
