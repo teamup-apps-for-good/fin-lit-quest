@@ -118,11 +118,13 @@ shoppinglists.each do |shoppinglist|
 end
 
 preferences = [{ occupation: 'merchant', item:'map', multiplier: 2, 
-                 description: 'Grinds wheat into flour and bakes handbaked bread.'},
+                 description: 'Travels around a lot using a map'},
                { occupation: 'fisherman', item:'fish', multiplier: 2, 
                  description: 'Catches fish from the sea daily.'},
                { occupation: 'witch', item:'book', multiplier: 3, 
-                 description: 'Reads lots of books everyday.'}]
+                 description: 'Reads lots of books everyday.'},
+               { occupation: 'baker', item:'bread', multiplier: 1.5, 
+                 description: 'Grinds wheat into flour and bakes handbaked bread.'}]
 
 preferences.each do |preference|
   item = Item.find_by(name: preference[:item])
