@@ -11,8 +11,6 @@ module ExpensesHelper
   end
 
   def self.display_expense_for_character(character, expense_method)
-    return 'Character details incomplete or not found.' unless character.present?
-
     expense = Expense.send(expense_method, character.day)
     if expense
       expense_name = expense_method.to_s.split('_expense').first.gsub('_', ' ')

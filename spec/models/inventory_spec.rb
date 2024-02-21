@@ -91,6 +91,15 @@ RSpec.describe Inventory, type: :model do
         expense2 = Expense.create(item: @inventory.item, number: 1, frequency: 'day', quantity: 6)
         expect(Inventory.satisfy_expense?(@inventory.character, expense1, expense2)).to be false
       end
+
+      it 'returns true when two different expenses are satisfied' do
+        inventory2 = Inventory.create(item: Item.create(name: 'test item 2', description: 'test', value: 1),
+                                      character: @inventory.character,
+                                      quantity: 5)
+        expense1 = Expense.create(item: @inventory.item, number: 1, frequency: 'day', quantity: 1)
+        expense2 = Expense.create(item: inventory2.item, number: 1, frequency: 'day', quantity: 1)
+        expect(Inventory.satisfy_expense?(@inventory.character, expense1, expense2)).to be true
+      end
     end
   end
 end
