@@ -87,7 +87,7 @@ RSpec.describe ExpensesController, type: :controller do
     end
 
     it 'renders the new page if the expense item is invalid' do
-      post :create, params: { expense: {  quantity: -1 } }
+      post :create, params: { expense: { quantity: -1 } }
       expect(response.status).to eq(422)
     end
   end

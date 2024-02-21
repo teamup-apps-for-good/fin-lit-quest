@@ -36,7 +36,8 @@ RSpec.describe ExpensesHelper, type: :helper do
 
     describe 'display_this_week_expense_for_character' do
       it 'displays this weeks expense' do
-        expect(ExpensesHelper.display_this_week_expense_for_character(@character)).to eq('Expenses for this week: 2 test item')
+        expect(ExpensesHelper.display_this_week_expense_for_character(@character))
+          .to eq('Expenses for this week: 2 test item')
       end
     end
   end
