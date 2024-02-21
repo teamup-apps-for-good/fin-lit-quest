@@ -64,7 +64,14 @@ RSpec.describe 'Expense', type: :model do
     end
   end
 
-  describe 'satisfy?' do
+  describe 'this_week_expense' do
+    it 'returns the expense for this week' do
+      expense = Expense.create(item: @item, frequency: 'week', number: 1, quantity: 1)
+      expect(Expense.this_week_expense(1)).to eq(expense)
+    end
+  end
+
+  describe 'advance_and_deduct?' do
     before do
       @player = Character.create(name: 'John Doe')
       @inventory = Inventory.create(item: @item, character: @player, quantity: 1)
@@ -76,13 +83,13 @@ RSpec.describe 'Expense', type: :model do
     end
 
     it 'returns false when player is nil' do
-      expense = Expense.create(item: @item, number: 1, frequency: 'day', quantity: 1)
-      expect(expense.satisfy?(nil)).to be false
+      Expense.create(item: @item, number: 1, frequency: 'day', quantity: 1)
+      expect(Expense.advance_and_deduct?(nil)).to be false
     end
 
     it 'returns true when player has the item' do
-      expense = Expense.create(item: @item, number: 1, frequency: 'day', quantity: 1)
-      expect(expense.satisfy?(@player)).to be true
+      Expense.create(item: @item, number: 1, frequency: 'day', quantity: 1)
+      expect(Expense.advance_and_deduct?(@player)).to be true
     end
   end
 end
