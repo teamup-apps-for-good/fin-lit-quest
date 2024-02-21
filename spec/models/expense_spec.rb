@@ -102,5 +102,10 @@ RSpec.describe 'Expense', type: :model do
       Expense.create(item: @item, number: 1, frequency: 'day', quantity: 1)
       expect(Expense.advance_and_deduct?(@player)).to be true
     end
+
+    it 'returns false when player does not have the item' do
+      Expense.create(item: @item, number: 1, frequency: 'day', quantity: 2)
+      expect(Expense.advance_and_deduct?(@player)).to be false
+    end
   end
 end
