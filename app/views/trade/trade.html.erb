@@ -3,14 +3,12 @@
 
 <h2><%= @character.dialogue_content %></h2>
 <div>
-  <p>
-    <strong>Occupation Description:</strong>
-    <% if not @pref.nil? %>
-        <%= @pref.description %>
-    <% else %>
-        This occupation does not have a preference.
-    <% end %>
-  <p>
+  <% if not @pref.nil? %>
+      <p>
+          <strong>Occupation Description:</strong>
+          <%= @pref.description %>
+      <p>
+  <% end %>
 
   <p>
     <strong>Item they are offering you:</strong>

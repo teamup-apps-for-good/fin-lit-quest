@@ -67,4 +67,4 @@ Feature: Profession price preference variance
 
   Scenario Outline: The non-player's occupation should not be shown if it is not a preference
     Given I am on the trade page for "Paimon"
-    Then I should see "This occupation does not have a preference."
+    Then I should not see "Occupation Description:"
