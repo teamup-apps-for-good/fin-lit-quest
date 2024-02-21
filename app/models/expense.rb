@@ -13,6 +13,12 @@ class Expense < ApplicationRecord
     Expense.find_by(frequency: 'day', number:)
   end
 
+  def self.this_week_expense_due(number)
+    return nil unless (number % 7).zero?
+
+    this_week_expense(number)
+  end
+
   def self.this_week_expense(number)
     number = ((number - 1) / 7) + 1
     Expense.find_by(frequency: 'week', number:)
@@ -22,7 +28,7 @@ class Expense < ApplicationRecord
     return false if character.nil?
 
     today_expense = Expense.today_expense(character.day)
-    this_week_expense = Expense.this_week_expense(character.day)
+    this_week_expense = Expense.this_week_expense_due(character.day)
     if Inventory.satisfy_expense?(character, today_expense, this_week_expense)
       Inventory.deduct_expense(character, today_expense) if today_expense.present?
       Inventory.deduct_expense(character, this_week_expense) if this_week_expense.present?
