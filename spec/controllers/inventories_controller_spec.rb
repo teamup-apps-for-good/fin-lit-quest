@@ -16,11 +16,14 @@ RSpec.describe InventoriesController, type: :controller do
                 description: 'still floppin\' around, fresh from the ocean',
                 value: 3)
 
-    Character.create(name: 'Stella',
-                     occupation: :farmer,
-                     inventory_slots: 20,
-                     balance: 0,
-                     current_level: 1)
+    Player.create(name: 'Stella',
+                  occupation: :farmer,
+                  inventory_slots: 20,
+                  balance: 0,
+                  current_level: 1,
+                  email: 'test@test.com',
+                  provider: 'example-provider',
+                  uid: '1234')
 
     Character.create(name: 'Lightfoot',
                      occupation: :merchant,
@@ -30,6 +33,7 @@ RSpec.describe InventoriesController, type: :controller do
 
     stella = Character.find_by(name: 'Stella')
     @inventory_item = Item.find_by(name: 'apple')
+    session[:user_id] = stella.id
 
     Inventory.create(item: @inventory_item,
                      character: stella,

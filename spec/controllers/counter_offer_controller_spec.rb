@@ -3,6 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe CounterOfferController, type: :controller do
+  before do
+    @user = Player.create!(name: 'Test User', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
+                           email: 'test@test.com', provider: 'google-oauth2', uid: '1234')
+    session[:user_id] = @user.id
+  end
   describe 'POST #create' do
     let(:item_to_offer) { create(:item, name: 'Offered Item') }
     let(:item_to_accept) { create(:item, name: 'Requested Item') }

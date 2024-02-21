@@ -57,16 +57,23 @@ RSpec.describe ShoppingListsController, type: :controller do
                   occupation: :farmer,
                   inventory_slots: 5,
                   balance: 0,
-                  current_level: 1)
+                  current_level: 1,
+                  email: 'test@test.com',
+                  provider: 'google-oauth2',
+                  uid: '1234')
 
     Player.create(name: 'Victor',
                   occupation: :fisherman,
                   inventory_slots: 5,
                   balance: 0,
-                  current_level: 2)
+                  current_level: 2,
+                  email: 'test2@test.com',
+                  provider: 'google-oauth2',
+                  uid: '5678')
 
     @stella = Player.find_by(name: 'Stella')
     @victor = Player.find_by(name: 'Victor')
+    session[:user_id] = @stella.id
 
     Inventory.create(item: Item.find_by(name: 'apple'),
                      character: @stella,

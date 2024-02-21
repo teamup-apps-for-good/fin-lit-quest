@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # PlayersController
-class PlayersController < ApplicationController
+class PlayersController < SessionsController
   before_action :set_player, only: %i[show edit update destroy]
 
   # GET /players or /players.json
@@ -66,6 +66,7 @@ class PlayersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def player_params
-    params.require(:player).permit(:current_level, :name, :occupation, :inventory_slots, :balance)
+    params.require(:player).permit(:current_level, :name, :occupation, :inventory_slots, :balance, :email, :provider,
+                                   :uid)
   end
 end

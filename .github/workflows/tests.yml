@@ -11,6 +11,8 @@ on:
 jobs:
   all_tests:
     runs-on: ubuntu-latest
+    env:
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
     strategy:
       fail-fast: false
 

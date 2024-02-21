@@ -12,8 +12,8 @@ Feature: In world 2 onwards, the item values field should be available in player
       | map   | detailed and reliable, fresh from the cartographer | 15    |
 
     Given the following players exist:
-      | name   | occupation | inventory_slots | balance | current_level |
-      | Stella | programmer | 5               | 0       | 2             |
+      | name      | occupation  | inventory_slots | balance |  current_level  | uid  | provider      | email         |
+      | Stella    | programmer  |        5        | 0       |       2         | 1234 | google_oauth2 | test@test.com |
 
     Given the following non-players exist:
       | name    | occupation | inventory_slots | balance | current_level | personality  | dialogue_content | quantity_to_accept | quantity_to_offer | item_to_accept | item_to_offer |
@@ -26,6 +26,8 @@ Feature: In world 2 onwards, the item values field should be available in player
       | wheat | Ritchey   | 3        |
       | boots | Ritchey   | 2        |
       | map   | Ritchey   | 1        |
+
+    Given I am logged in as "Stella"
 
   Scenario Outline: Player can see the value of items in their own inventory
     Given I am on the inventory page for "Stella"

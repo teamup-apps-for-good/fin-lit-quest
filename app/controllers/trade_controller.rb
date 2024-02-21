@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # TradeController
-class TradeController < ApplicationController
+class TradeController < SessionsController
   def trade
     @character = Nonplayer.find(params[:id])
     @item_to_offer = @character.item_to_offer.name

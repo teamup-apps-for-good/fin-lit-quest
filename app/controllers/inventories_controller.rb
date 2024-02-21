@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Actions for the Inventory table.
-class InventoriesController < ApplicationController
+class InventoriesController < SessionsController
   before_action :set_inventory, only: %i[show edit update destroy]
 
   # GET /inventories or /inventories.json

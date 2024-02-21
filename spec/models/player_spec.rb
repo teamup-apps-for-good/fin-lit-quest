@@ -11,10 +11,13 @@ RSpec.describe Player, type: :model do
         inventory_slots: 1,
         balance: 1,
         type: Player,
-        current_level: 1
+        current_level: 1,
+        email: 'test@test.com',
+        provider: 'google-oauth2',
+        uid: '1234'
       }
     end
-    %i[name occupation inventory_slots balance current_level].each do |tag|
+    %i[name occupation inventory_slots balance current_level email uid provider].each do |tag|
       it "makes sure #{tag} exists" do
         data = @player_data
         data[tag] = nil

@@ -4,10 +4,8 @@
 <p style="color: green"><%= notice %></p>
 <p style="color: red"><%= alert %> </p>
 
+<h1 class="center-text nicefont">Hello <%=@current_user.name%>!</h1>
+
 <%= render 'nav_sidebar' %>
-
-
-<h1 class="center-text nicefont">Hello player!</h1>
-
 
 <%= button_to "Start", town_path, class: "button-b", method: :get %>
