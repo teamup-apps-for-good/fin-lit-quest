@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # the controller for the expenses model
-class ExpensesController < ApplicationController
+class ExpensesController < SessionsController
   before_action :set_expense, only: %i[show edit update destroy]
 
   # GET /expenses or /expenses.json
@@ -69,6 +69,6 @@ class ExpensesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def expense_params
-    params.require(:expense).permit(:type, :number, :item_id, :quantity)
+    params.require(:expense).permit(:frequency, :number, :item_id, :quantity)
   end
 end

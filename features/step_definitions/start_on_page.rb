@@ -72,3 +72,7 @@ end
 Given('I am on the shopping list page') do
   visit player_shopping_list_path
 end
+
+When('I visit the home page') do
+  visit root_path
+end

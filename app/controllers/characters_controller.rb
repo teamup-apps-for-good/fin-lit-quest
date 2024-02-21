@@ -25,11 +25,9 @@ class CharactersController < SessionsController
 
   def advance_day
     character = Player.first
-    expense = Expense.today_expense(character.day)
-
-    if expense.nil? || expense.satisfy?(character)
+    advance = Expense.advance_and_deduct?(character)
+    if advance
       TimeAdvancementHelper.increment_day(character)
-      Inventory.deduct_expense(character, expense) if expense.present?
       redirect_to root_path, notice: 'Moved to the next day.'
     else
       redirect_to root_path, notice: "You can't afford to pay your expenses yet!"

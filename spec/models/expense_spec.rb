@@ -34,6 +34,17 @@ RSpec.describe 'Expense', type: :model do
     end
   end
 
+  describe 'expense must be for item quantities bigger than 0' do
+    it 'succeeds for a quantity bigger than 0' do
+      expense = Expense.create(item: @item, number: 1, frequency: 'day', quantity: 1)
+      expect(expense).to be_valid
+    end
+    it 'fails for a quantity less than 1' do
+      expense = Expense.create(item: @item, number: 1, frequency: 'day', quantity: 0)
+      expect(expense).not_to be_valid
+    end
+  end
+
   describe 'validate_max_number_based_on_day_or_week' do
     context 'when it is a daily expense' do
       it 'succeeds within 7 days a week' do
@@ -64,7 +75,25 @@ RSpec.describe 'Expense', type: :model do
     end
   end
 
-  describe 'satisfy?' do
+  describe 'this_week_expense' do
+    it 'returns the expense for this week' do
+      expense = Expense.create(item: @item, frequency: 'week', number: 1, quantity: 1)
+      expect(Expense.this_week_expense(1)).to eq(expense)
+    end
+  end
+
+  describe 'this_week_expense_due' do
+    it 'returns the expense for this week if it is the end of the week' do
+      expense = Expense.create(item: @item, frequency: 'week', number: 1, quantity: 1)
+      expect(Expense.this_week_expense_due(7)).to eq(expense)
+    end
+    it 'returns nil if it is not the end of the week' do
+      Expense.create(item: @item, frequency: 'week', number: 1, quantity: 1)
+      expect(Expense.this_week_expense_due(6)).to be_nil
+    end
+  end
+
+  describe 'advance_and_deduct?' do
     before do
       @player = Character.create(name: 'John Doe')
       @inventory = Inventory.create(item: @item, character: @player, quantity: 1)
@@ -76,13 +105,18 @@ RSpec.describe 'Expense', type: :model do
     end
 
     it 'returns false when player is nil' do
-      expense = Expense.create(item: @item, number: 1, frequency: 'day', quantity: 1)
-      expect(expense.satisfy?(nil)).to be false
+      Expense.create(item: @item, number: 1, frequency: 'day', quantity: 1)
+      expect(Expense.advance_and_deduct?(nil)).to be false
     end
 
     it 'returns true when player has the item' do
-      expense = Expense.create(item: @item, number: 1, frequency: 'day', quantity: 1)
-      expect(expense.satisfy?(@player)).to be true
+      Expense.create(item: @item, number: 1, frequency: 'day', quantity: 1)
+      expect(Expense.advance_and_deduct?(@player)).to be true
+    end
+
+    it 'returns false when player does not have the item' do
+      Expense.create(item: @item, number: 1, frequency: 'day', quantity: 2)
+      expect(Expense.advance_and_deduct?(@player)).to be false
     end
   end
 end
