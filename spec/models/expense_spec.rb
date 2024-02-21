@@ -82,6 +82,17 @@ RSpec.describe 'Expense', type: :model do
     end
   end
 
+  describe 'this_week_expense_due' do
+    it 'returns the expense for this week if it is the end of the week' do
+      expense = Expense.create(item: @item, frequency: 'week', number: 1, quantity: 1)
+      expect(Expense.this_week_expense_due(7)).to eq(expense)
+    end
+    it 'returns nil if it is not the end of the week' do
+      Expense.create(item: @item, frequency: 'week', number: 1, quantity: 1)
+      expect(Expense.this_week_expense_due(6)).to be_nil
+    end
+  end
+
   describe 'advance_and_deduct?' do
     before do
       @player = Character.create(name: 'John Doe')
