@@ -10,7 +10,7 @@ class ShoppingListsController < SessionsController
   end
 
   def player_shopping_list
-    @player_level = Player.first.current_level
+    @player_level = @current_user.current_level
     @level_shopping_lists = ShoppingList.where(level: @player_level)
   end
 

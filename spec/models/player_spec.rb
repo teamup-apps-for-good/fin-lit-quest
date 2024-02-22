@@ -38,5 +38,11 @@ RSpec.describe Player, type: :model do
       player = Player.new(data)
       expect(player.valid?).to be false
     end
+
+    it 'ensures that (uid, provider) is unique' do
+      Player.create(@player_data)
+      player2 = Player.create(@player_data)
+      expect(player2.valid?).to be false
+    end
   end
 end
