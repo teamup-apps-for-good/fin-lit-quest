@@ -27,7 +27,7 @@
 </div>
 
 <%= form_with url: trade_accept_path(@character), method: :post do |form| %>
-  <%= form.hidden_field :character_id, value: Player.first.id %>
+  <%= form.hidden_field :character_id, value: @current_user.id %>
   <%= form.hidden_field :npc_id, value: @character.id %>
   
   <% if @player_has_item_to_trade && @npc_has_offer_item%> 

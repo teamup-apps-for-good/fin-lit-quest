@@ -38,6 +38,9 @@ Rails.application.routes.draw do
   post 'advance_day', to: 'characters#advance_day', as: 'advance_day'
   post 'launch_to_new_era', to: 'characters#launch_to_new_era', as: 'launch_to_new_era'
 
+  get '/game_over', to: 'gameplays#game_over', as: 'game_over'
+  post '/restart_game', to: 'gameplays#restart', as: 'restart_game'
+
   get '/welcome', to: 'sessions#login', as: 'welcome'
   get '/test_login', to: 'sessions#logged_in', as: 'test_login'
   get '/logout', to: 'sessions#logout', as: 'logout'

@@ -23,5 +23,5 @@
     Launch to next world if you satisfied all conditions!
   </h2>
 
-  <%= button_to "Launch", launch_path(id: Player.first.id), method: :post, class: "button-g" %>
+  <%= button_to "Launch", launch_path(id: @current_user.id), method: :post, class: "button-g" %>
 </div>

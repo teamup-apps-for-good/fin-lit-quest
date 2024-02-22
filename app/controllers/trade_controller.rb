@@ -77,7 +77,7 @@ class TradeController < SessionsController
   end
 
   def player_has_item_to_trade?
-    player = Player.first
+    player = @current_user
     player_inventory = Inventory.find_by(item: @character.item_to_accept, character: player)
     player_inventory.present?
   end

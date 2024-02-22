@@ -114,7 +114,7 @@ RSpec.describe ShoppingListsController, type: :controller do
 
   describe 'player_shopping_list' do
     it 'shows shopping list for the player\'s current level' do
-      player_level = Player.first.current_level
+      player_level = @current_user.current_level
       shopping_lists = ShoppingList.where(level: player_level)
       get :player_shopping_list
       expect(assigns(:level_shopping_lists)).to eq(shopping_lists)
