@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe CounterOfferController, type: :controller do
   before do
     @user = Player.create!(name: 'Test User', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
-                           email: 'test@test.com', provider: 'google-oauth2', uid: '1234')
+                           email: 'test@test.com', provider: 'google-oauth2', uid: '1234', day: 1, hour: 1)
     session[:user_id] = @user.id
   end
   describe 'POST #create' do
@@ -66,8 +66,13 @@ RSpec.describe CounterOfferController, type: :controller do
     end
 
     context 'when character.hour is 10' do
+      before do
+        @user = Player.create!(name: 'Test User', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
+                               email: 'test@test.com', provider: 'google-oauth2', uid: '1234', day: 1, hour: 10)
+        session[:user_id] = @user.id
+      end
+
       it 'redirects to root path with a notice' do
-        allow(Player).to receive(:first).and_return(double(hour: 10))
         post :create, params: valid_params
         expect(response).to redirect_to(root_path)
         expect(flash[:notice]).to eq('It is too late! Move to the next day')
