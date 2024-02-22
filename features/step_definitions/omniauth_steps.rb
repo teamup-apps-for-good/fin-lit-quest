@@ -12,13 +12,14 @@ end
 
 Given('I am logged in as {string}') do |name|
   OmniAuth.config.test_mode = true
+  player = Player.find_by(name:)
   Capybara.default_host = 'https://fin-lit-quest-65cfa09cddc8.herokuapp.com/'
 
   OmniAuth.config.add_mock(:google_oauth2, {
-                             uid: '1234',
+                             uid: player.uid,
                              info: {
-                               name:,
-                               email: 'test@test.com'
+                               name: player.name,
+                               email: player.email
                              }
                            })
 

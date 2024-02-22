@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_20_164744) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_22_180919) do
   create_table "characters", force: :cascade do |t|
     t.string "name"
     t.string "occupation"
@@ -28,11 +28,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_20_164744) do
     t.integer "item_to_offer_id"
     t.integer "day", default: 1
     t.integer "hour", default: 1
+    t.integer "era", default: 1
     t.string "uid"
     t.string "provider"
     t.string "email"
     t.index ["item_to_accept_id"], name: "index_characters_on_item_to_accept_id"
     t.index ["item_to_offer_id"], name: "index_characters_on_item_to_offer_id"
+    t.index ["uid", "provider"], name: "index_characters_on_uid_and_provider", unique: true, where: "uid IS NOT NULL AND provider IS NOT NULL"
   end
 
   create_table "expenses", force: :cascade do |t|
