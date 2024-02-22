@@ -36,7 +36,7 @@ class CounterOfferController < SessionsController
     service = CounterOfferService.new(@context.player_character, @context.character, counter_offer_params)
     success, message = service.execute_trade
     if success
-      TimeAdvancementHelper.increment_hour(Character.first)
+      TimeAdvancementHelper.increment_hour(@current_user)
       flash[:notice] = 'Success!'
     else
       flash[:alert] = message

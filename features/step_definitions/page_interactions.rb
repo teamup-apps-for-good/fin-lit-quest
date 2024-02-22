@@ -14,7 +14,6 @@ Then('I should see the NPC {string} owns {string} of {string}') do |npc, value, 
   end
 end
 
-
 Then('I should not see {string}') do |string|
   expect(page).to have_no_content(string)
 end

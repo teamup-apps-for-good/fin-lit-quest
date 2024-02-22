@@ -68,7 +68,7 @@ RSpec.describe CounterOfferController, type: :controller do
     context 'when character.hour is 10' do
       before do
         @user = Player.create!(name: 'Test User', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
-                               email: 'test@test.com', provider: 'google-oauth2', uid: '1234', day: 1, hour: 10) # Set hour to 10 here
+                               email: 'test@test.com', provider: 'google-oauth2', uid: '1234', day: 1, hour: 10)
         session[:user_id] = @user.id
       end
 
