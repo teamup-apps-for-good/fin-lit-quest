@@ -12,7 +12,7 @@ Feature: Track the logged in player across the game
     Given the following players exist:
       | name      | occupation  | inventory_slots | balance |  current_level  | email           | uid  | provider      |
       | Stella    | programmer  |        5        | 0       |       1         | stella@test.com | 1234 | google_oauth2 |
-      | Kiran     | farmer      |       10        | 7       |       2         | kiran@test.com  | 1234 | google_oauth2 |
+      | Kiran     | farmer      |       10        | 7       |       2         | kiran@test.com  | 5678 | google_oauth2 |
 
     Given the following non-players exist:
       | name      | occupation | inventory_slots | balance | current_level | personality  | dialogue_content     | quantity_to_accept | quantity_to_offer | item_to_accept | item_to_offer |
@@ -63,7 +63,7 @@ Feature: Track the logged in player across the game
 
   Scenario Outline: The trading page shows the current player
     Given I am logged in as "<player>"
-    And I am on the counter offer page for "Ritchey"
+    And I am on the trade page for "Ritchey"
     Then I should see "<player>'s Inventory"
 
     Examples:

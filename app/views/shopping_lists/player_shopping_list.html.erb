@@ -8,7 +8,7 @@
         <p>
             <%= check_box_tag "checked_shopping_list_#{shopping_list.id}", 
             '1',
-            shopping_list.item_obtained(Player.first), 
+            shopping_list.item_obtained(@current_user),
             disabled: true %> 
             <%= shopping_list.quantity %> x <%= shopping_list.item.name %>
         </p>
