@@ -12,7 +12,7 @@ class ItemPriceService
       puts "Item: #{item.name}, Original Price: #{original_price}, Adjusted Price: #{adjusted_price}"
 
       # Remember this adjustment for comparison next day
-      @@previous_adjustments[item.id] = adjusted_price
+      @previous_adjustments[item.id] = adjusted_price
     end
   end
 
@@ -25,7 +25,7 @@ class ItemPriceService
     adjustments.shuffle.each do |adjustment|
       potential_price = original_price + adjustment
       next if potential_price < 1 # Skip if below minimum
-      next if @@previous_adjustments[item.id] == potential_price # Skip if same as last day
+      next if @previous_adjustments[item.id] == potential_price # Skip if same as last day
 
       adjusted_price = potential_price
       break
