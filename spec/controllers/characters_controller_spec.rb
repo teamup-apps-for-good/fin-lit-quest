@@ -14,7 +14,6 @@ RSpec.describe CharactersController, type: :controller do
 
   describe 'Admin access' do
     let(:valid_attributes) do
-      # Define valid attributes for your character model
       { name: 'Test Character', occupation: 'Test Occupation', inventory_slots: 10, balance: 100, type: 'Character' }
     end
 
@@ -58,7 +57,7 @@ RSpec.describe CharactersController, type: :controller do
 
   describe 'POST #advance_day' do
     it 'advances the day for the first player and redirects with a notice' do
-      expect(TimeAdvancementHelper).to receive(:increment_day).with(@player)
+      expect(TimeAdvancementHelper).to receive(:increment_day).with(@user)
       post :advance_day
       expect(response).to redirect_to(root_path)
       expect(flash[:notice]).to match(/Moved to the next day./)
@@ -67,10 +66,42 @@ RSpec.describe CharactersController, type: :controller do
 
   describe 'POST #launch_to_new_era' do
     it 'launches to a new era for the first player and redirects with a notice' do
-      expect(TimeAdvancementHelper).to receive(:increment_era).with(@player)
+      expect(TimeAdvancementHelper).to receive(:increment_era).with(@user)
       post :launch_to_new_era
       expect(response).to redirect_to(root_path)
       expect(flash[:notice]).to match(/Moved to the next Era./)
+    end
+  end
+
+  context 'when the user cannot afford expenses' do
+    before do
+      allow(Expense).to receive(:advance_and_deduct?).and_return(false)
+    end
+
+    context 'and it is past hour 10' do
+      before do
+        @user.update(hour: 11) # Ensure hour is greater than 10
+      end
+
+      it 'resets the user level to 0 and redirects to the game over page' do
+        post :advance_day
+
+        expect(@user.reload.current_level).to eq(0)
+        expect(response).to redirect_to(game_over_path)
+        expect(flash[:alert]).to eq("Game Over: You can't afford to pay your expenses and have run out of time.")
+      end
+    end
+
+    context 'and it is before hour 10' do
+      it 'does not change the user level and redirects with a notice' do
+        allow(@user).to receive(:hour).and_return(9)
+        expect(@user).not_to receive(:update)
+
+        post :advance_day
+
+        expect(response).to redirect_to(root_path)
+        expect(flash[:notice]).to match(/You can't afford to pay your expenses yet!/)
+      end
     end
   end
 end
