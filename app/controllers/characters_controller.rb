@@ -58,8 +58,7 @@ class CharactersController < SessionsController
   end
 
   def update_character_level_to_zero
-    updated = @current_user.update(current_level: 0)
-    Rails.logger.debug "Update operation successful: #{updated}"
+    @current_user.update(current_level: 0)
   end
 
   def set_character
