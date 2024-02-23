@@ -58,7 +58,7 @@ RSpec.describe CharactersController, type: :controller do
 
   describe 'POST #advance_day' do
     it 'advances the day for the first player and redirects with a notice' do
-      expect(TimeAdvancementHelper).to receive(:increment_day).with(@player)
+      expect(TimeAdvancementHelper).to receive(:increment_day).with(@user)
       post :advance_day
       expect(response).to redirect_to(root_path)
       expect(flash[:notice]).to match(/Moved to the next day./)
@@ -67,7 +67,7 @@ RSpec.describe CharactersController, type: :controller do
 
   describe 'POST #launch_to_new_era' do
     it 'launches to a new era for the first player and redirects with a notice' do
-      expect(TimeAdvancementHelper).to receive(:increment_era).with(@player)
+      expect(TimeAdvancementHelper).to receive(:increment_era).with(@user)
       post :launch_to_new_era
       expect(response).to redirect_to(root_path)
       expect(flash[:notice]).to match(/Moved to the next Era./)

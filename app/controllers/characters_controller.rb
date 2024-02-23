@@ -24,20 +24,10 @@ class CharactersController < SessionsController
   end
 
   def advance_day
-    character = @current_user
-    current_hour = character.hour
-    advance = Expense.advance_and_deduct?(character)
-    if advance
-      TimeAdvancementHelper.increment_day(character)
-      redirect_to root_path, notice: 'Moved to the next day.'
+    if attempt_advance
+      handle_advance_success
     else
-      if current_hour >= 10
-        updated = character.update(current_level: 0)
-        Rails.logger.debug "Update operation successful: #{updated}"
-        redirect_to game_over_path, alert: "Game Over: You can't afford to pay your expenses and have run out of time."
-      else
-        redirect_to root_path, notice: "You can't afford to pay your expenses yet!"
-      end
+      handle_advance_failure
     end
   end
 
@@ -49,7 +39,29 @@ class CharactersController < SessionsController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
+  def attempt_advance
+    Expense.advance_and_deduct?(@current_user)
+  end
+
+  def handle_advance_success
+    TimeAdvancementHelper.increment_day(@current_user)
+    redirect_to root_path, notice: 'Moved to the next day.'
+  end
+
+  def handle_advance_failure
+    if @current_user.hour >= 10
+      update_character_level_to_zero
+      redirect_to game_over_path, alert: "Game Over: You can't afford to pay your expenses and have run out of time."
+    else
+      redirect_to root_path, notice: "You can't afford to pay your expenses yet!"
+    end
+  end
+
+  def update_character_level_to_zero
+    updated = @current_user.update(current_level: 0)
+    Rails.logger.debug "Update operation successful: #{updated}"
+  end
+
   def set_character
     @character = Character.find(params[:id])
   end
