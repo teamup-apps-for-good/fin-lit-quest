@@ -97,6 +97,8 @@ class CounterOfferService
   end
 
   def calc_time_variance(item, player)
+    return 1.0 if player.day == 1
+    
     seed = (player.day << 100) + item.id
     rng = Random.new(seed)
     min = 0.5
