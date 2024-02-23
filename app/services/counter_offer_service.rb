@@ -78,12 +78,31 @@ class CounterOfferService
   end
 
   def value_of(npc, item_id, quantity)
+    item = Item.find_by(id: item_id)
     pref = Preference.find_by(occupation: npc.occupation)
     total_value = calculate_total_value(item_id, quantity)
+
+    time_variance = calc_time_variance(item, @player)
+  
     if pref && (pref.item.id == item_id.to_i)
-      total_value * pref.multiplier
+      adjusted_value = total_value * pref.multiplier * time_variance
+      puts "Value Of - Item: #{item.name}, Original Value: #{total_value}, Time Variance: #{time_variance}, Adjusted Value: #{adjusted_value}"
+      Rails.logger.debug "Value Of - Item: #{item.name}, Original Value: #{total_value}, Preference: #{pref.multiplier}, Time Variance: #{time_variance}, Adjusted Value: #{adjusted_value}"
     else
-      total_value
+      adjusted_value = total_value * time_variance
+      Rails.logger.debug "Value Of - Item: #{item.name}, Original Value: #{total_value}, Time Variance: #{time_variance}, Adjusted Value: #{adjusted_value}"
     end
+
+    adjusted_value
+  end
+
+  def calc_time_variance(item, player)
+    seed = (player.day << 100) + item.id
+    rng = Random.new(seed)
+    min = 0.5
+    max = 1.5
+    random_value = rng.rand(min..max)
+    puts "Calculated Time Variance: #{random_value}"
+    random_value
   end
 end

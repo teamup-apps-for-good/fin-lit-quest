@@ -2,35 +2,21 @@
 
 # ItemPriceService
 class ItemPriceService
-  @previous_adjustments = {}
-
-  def self.adjust_prices_for_character(character)
-    character.items.each do |item|
-      original_price = item.value
-      adjusted_price = adjusted_price_for(item, character.day, original_price)
-
-      puts "Item: #{item.name}, Original Price: #{original_price}, Adjusted Price: #{adjusted_price}"
-
-      # Remember this adjustment for comparison next day
-      @previous_adjustments[item.id] = adjusted_price
-    end
+  # Calculates the item value using the preference multiplier and time variance
+  def self.calc_item_value(item, pref, player)
+    value = item.value
+    profession_bias = pref.multiplier # Assuming pref is already the correct preference object
+    time_bias = calc_time_variance(item, player)
+    (value * profession_bias * time_bias).round
   end
 
-  def self.adjusted_price_for(item, _day, original_price)
-    # Start with a range of possible adjustments
-    adjustments = [-5, 5]
-
-    # Calculate a new price with each possible adjustment until it meets the criteria
-    adjusted_price = original_price
-    adjustments.shuffle.each do |adjustment|
-      potential_price = original_price + adjustment
-      next if potential_price < 1 # Skip if below minimum
-      next if @previous_adjustments[item.id] == potential_price # Skip if same as last day
-
-      adjusted_price = potential_price
-      break
-    end
-
-    [adjusted_price, 1].max # Ensure the price does not go below 1
+  # Calculates time variance based on player's day and item ID
+  def self.calc_time_variance(item, player)
+    seed = (player.day << 100) + item.id
+    rng = Random.new(seed)
+    min, max = 0.5, 1.5
+    rng.rand(min..max) # Corrected to use Ruby's rand method correctly
   end
 end
+
+
