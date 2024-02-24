@@ -28,5 +28,4 @@ class ApplicationController < ActionController::Base
   def item_price(item_id)
     session[:item_prices][item_id.to_s][:value]
   end
-
 end

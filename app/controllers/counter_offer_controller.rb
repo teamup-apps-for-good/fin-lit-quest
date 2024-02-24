@@ -37,11 +37,11 @@ class CounterOfferController < SessionsController
     success, message = service.execute_trade
     if success
       TimeAdvancementHelper.increment_hour(@current_user)
-      flash[:notice] = 'Success!'
+      flash[:notice] = message
     else
       flash[:alert] = message
     end
-    redirect_to counter_offer_path(id: @context.character.id)
+    redirect_to trade_path(id: @context.character.id)
   end
 
   def counter_offer_params

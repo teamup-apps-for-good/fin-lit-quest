@@ -30,7 +30,7 @@ RSpec.describe CounterOfferService do
         result, message = service.execute_trade
 
         expect(result).to be true
-        expect(message).to be_empty
+        expect(message).not_to be_empty
 
         # Optionally verify inventory updates
         updated_player_give_inventory = Inventory.find_by(character: player_character, item: item_to_give)

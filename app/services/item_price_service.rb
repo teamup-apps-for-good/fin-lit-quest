@@ -14,9 +14,8 @@ class ItemPriceService
   def self.calc_time_variance(item, player)
     seed = (player.day << 100) + item.id
     rng = Random.new(seed)
-    min, max = 0.5, 1.5
+    min = 0.5
+    max = 1.5
     rng.rand(min..max) # Corrected to use Ruby's rand method correctly
   end
 end
-
-

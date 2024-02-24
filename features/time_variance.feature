@@ -52,4 +52,5 @@ Feature: Time Variance
     * I fill in the number of items that I give with "2"
     * I fill in the number of items that I want with "2"
     And I press the "Offer" button
-    Then I should see a notice of "Alice did not accept your offer!"
+    Then I should see a notice of "Success, but that wasn't the best deal."
+

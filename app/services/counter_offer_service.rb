@@ -7,13 +7,14 @@ class CounterOfferService
     @player = player_character
     @npc = npc_character
     @offer_params = offer_params
+    @trade_good_deal = true
     assign_trade_params
   end
 
   def execute_trade
     if trade_valid_and_items_available?
       perform_trade_transactions
-      [true, '']
+      [true, generate_success_message]
     else
       [false, generate_error_message]
     end
@@ -57,7 +58,18 @@ class CounterOfferService
     end
   end
 
+  def generate_success_message
+    if @trade_good_deal
+      'Success!'
+    else
+      "Success, but that wasn't the best deal."
+    end
+  end
+
   def valid_trade?
+    if value_of(@npc, @item_i_give_id, @quantity_i_give) > value_of(@npc, @item_i_want_id, @quantity_i_want)
+      @trade_good_deal = false
+    end
     # value_of_given_items >= value_of_wanted_items
     value_of(@npc, @item_i_give_id, @quantity_i_give) >= value_of(@npc, @item_i_want_id, @quantity_i_want)
   end
@@ -83,22 +95,18 @@ class CounterOfferService
     total_value = calculate_total_value(item_id, quantity)
 
     time_variance = calc_time_variance(item, @player)
-  
-    if pref && (pref.item.id == item_id.to_i)
-      adjusted_value = total_value * pref.multiplier * time_variance
-      puts "Value Of - Item: #{item.name}, Original Value: #{total_value}, Time Variance: #{time_variance}, Adjusted Value: #{adjusted_value}"
-      Rails.logger.debug "Value Of - Item: #{item.name}, Original Value: #{total_value}, Preference: #{pref.multiplier}, Time Variance: #{time_variance}, Adjusted Value: #{adjusted_value}"
-    else
-      adjusted_value = total_value * time_variance
-      Rails.logger.debug "Value Of - Item: #{item.name}, Original Value: #{total_value}, Time Variance: #{time_variance}, Adjusted Value: #{adjusted_value}"
-    end
 
-    adjusted_value
+    adjusted_value = if pref && (pref.item.id == item_id.to_i)
+                       total_value * pref.multiplier * time_variance
+                     else
+                       total_value * time_variance
+                     end
+    adjusted_value.floor
   end
 
   def calc_time_variance(item, player)
     return 1.0 if player.day == 1
-    
+
     seed = (player.day << 100) + item.id
     rng = Random.new(seed)
     min = 0.5
