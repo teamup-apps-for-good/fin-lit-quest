@@ -48,10 +48,10 @@ RSpec.describe CounterOfferController, type: :controller do
 
     context 'when trade is successful' do
       it 'sets flash notice and redirects' do
-        allow_any_instance_of(CounterOfferService).to receive(:execute_trade).and_return([true, ''])
+        allow_any_instance_of(CounterOfferService).to receive(:execute_trade).and_return([true, 'Success!'])
         post :create, params: valid_params
         expect(flash[:notice]).to eq('Success!')
-        expect(response).to redirect_to(counter_offer_path(id: npc_character.id))
+        expect(response).to redirect_to(trade_path(id: npc_character.id))
       end
     end
 
@@ -61,7 +61,7 @@ RSpec.describe CounterOfferController, type: :controller do
           .and_return([false, 'Trade failed due to insufficient items'])
         post :create, params: valid_params
         expect(flash[:alert]).to eq('Trade failed due to insufficient items')
-        expect(response).to redirect_to(counter_offer_path(id: npc_character.id))
+        expect(response).to redirect_to(trade_path(id: npc_character.id))
       end
     end
 

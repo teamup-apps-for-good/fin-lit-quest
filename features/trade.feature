@@ -83,7 +83,7 @@ Feature: Merge trading and counter-offer page
     * I fill in the number of items that I give with "3"
     * I fill in the number of items that I want with "2"
     And I press the "Offer" button
-    Then I should see a notice of "Success!"
+    Then I should see a notice of "Success, but that wasn't the best deal."
 
   Scenario: Non-player will not accept trade if it is not worth it for them
     Given I am on the trade page for "Ritchey"

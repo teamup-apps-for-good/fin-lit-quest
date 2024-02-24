@@ -7,13 +7,14 @@ class CounterOfferService
     @player = player_character
     @npc = npc_character
     @offer_params = offer_params
+    @trade_good_deal = true
     assign_trade_params
   end
 
   def execute_trade
     if trade_valid_and_items_available?
       perform_trade_transactions
-      [true, '']
+      [true, generate_success_message]
     else
       [false, generate_error_message]
     end
@@ -57,7 +58,18 @@ class CounterOfferService
     end
   end
 
+  def generate_success_message
+    if @trade_good_deal
+      'Success!'
+    else
+      "Success, but that wasn't the best deal."
+    end
+  end
+
   def valid_trade?
+    if value_of(@npc, @item_i_give_id, @quantity_i_give) > value_of(@npc, @item_i_want_id, @quantity_i_want)
+      @trade_good_deal = false
+    end
     # value_of_given_items >= value_of_wanted_items
     value_of(@npc, @item_i_give_id, @quantity_i_give) >= value_of(@npc, @item_i_want_id, @quantity_i_want)
   end
@@ -78,12 +90,29 @@ class CounterOfferService
   end
 
   def value_of(npc, item_id, quantity)
+    item = Item.find_by(id: item_id)
     pref = Preference.find_by(occupation: npc.occupation)
     total_value = calculate_total_value(item_id, quantity)
-    if pref && (pref.item.id == item_id.to_i)
-      total_value * pref.multiplier
-    else
-      total_value
-    end
+
+    time_variance = calc_time_variance(item, @player)
+
+    adjusted_value = if pref && (pref.item.id == item_id.to_i)
+                       total_value * pref.multiplier * time_variance
+                     else
+                       total_value * time_variance
+                     end
+    adjusted_value.floor
+  end
+
+  def calc_time_variance(item, player)
+    return 1.0 if player.day == 1
+
+    seed = (player.day << 100) + item.id
+    rng = Random.new(seed)
+    min = 0.5
+    max = 1.5
+    random_value = rng.rand(min..max)
+    puts "Calculated Time Variance: #{random_value}"
+    random_value
   end
 end
