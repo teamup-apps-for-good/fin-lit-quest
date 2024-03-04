@@ -38,13 +38,9 @@ class NonplayersController < SessionsController
   # PATCH/PUT /nonplayers/1 or /nonplayers/1.json
   def update
     respond_to do |format|
-      if @nonplayer.update(nonplayer_params)
-        format.html { redirect_to nonplayer_url(@nonplayer), notice: "#{@nonplayer.name} was successfully updated." }
-        format.json { render :show, status: :ok, location: @nonplayer }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @nonplayer.errors, status: :unprocessable_entity }
-      end
+      @nonplayer.update(nonplayer_params)
+      format.html { redirect_to nonplayer_url(@nonplayer), notice: "#{@nonplayer.name} was successfully updated." }
+      format.json { render :show, status: :ok, location: @nonplayer }
     end
   end
 
