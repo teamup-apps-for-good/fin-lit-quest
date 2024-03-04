@@ -91,4 +91,11 @@ RSpec.describe PlayersController, type: :controller do
       expect(assigns(:players)).to eq(Player.all)
     end
   end
+
+  describe 'new' do
+    it 'creates a new player' do
+      get :new
+      expect(assigns(:player)).to be_a_new(Player)
+    end
+  end
 end
