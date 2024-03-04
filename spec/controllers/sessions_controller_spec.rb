@@ -116,13 +116,16 @@ RSpec.describe SessionsController, type: :controller do
       end
 
       context 'if they have not logged in before' do
-        before do
-          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
-        end
         it 'creates the new user' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
           get :omniauth
           new_player = Player.find_by(provider: :github, uid: '1234')
           expect(new_player).to eq(Player.find(session[:user_id]))
+        end
+
+        it 'redirects when fails to create with credentials' do
+          get :omniauth
+          expect(response).to redirect_to(welcome_path)
         end
       end
     end
