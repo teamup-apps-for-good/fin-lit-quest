@@ -43,13 +43,9 @@ class ShoppingListsController < SessionsController
   # PATCH/PUT /shopping_lists/1 or /shopping_lists/1.json
   def update
     respond_to do |format|
-      if @shopping_list.update(shopping_list_params)
-        format.html { redirect_to shopping_list_url(@shopping_list), notice: 'Shopping list was successfully updated.' }
-        format.json { render :show, status: :ok, location: @shopping_list }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @shopping_list.errors, status: :unprocessable_entity }
-      end
+      @shopping_list.update(shopping_list_params)
+      format.html { redirect_to shopping_list_url(@shopping_list), notice: 'Shopping list was successfully updated.' }
+      format.json { render :show, status: :ok, location: @shopping_list }
     end
   end
 
