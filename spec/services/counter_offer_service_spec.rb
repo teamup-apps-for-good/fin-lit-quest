@@ -39,6 +39,21 @@ RSpec.describe CounterOfferService do
         updated_player_give_inventory.reload
         updated_npc_want_inventory.reload
       end
+
+      it 'tells the user the trade was not the best deal when over offered' do
+        offer_params[:quantity_i_want] = 4
+        result, message = service.execute_trade
+
+        expect(result).to be true
+        expect(message).to be("Success, but that wasn't the best deal.")
+
+        # Optionally verify inventory updates
+        updated_player_give_inventory = Inventory.find_by(character: player_character, item: item_to_give)
+        updated_npc_want_inventory = Inventory.find_by(character: npc_character, item: item_to_want)
+
+        updated_player_give_inventory.reload
+        updated_npc_want_inventory.reload
+      end
     end
 
     context 'when the NPC does not have the item' do
@@ -129,6 +144,43 @@ RSpec.describe CounterOfferService do
                                   { item_i_give_id: @apple_item.id, quantity_i_give: 1,
                                     item_i_want_id: @bread_item.id, quantity_i_want: 2 })
       expect(trade.valid_trade?).to eq(false)
+    end
+  end
+
+  describe 'time variance' do
+    before do
+      Item.create(name: 'apple',
+                  description: 'crunchy, fresh from the tree',
+                  value: 2)
+
+      Character.create(name: 'Bobert',
+                       occupation: :farmer,
+                       inventory_slots: 20,
+                       balance: 0,
+                       current_level: 1)
+
+      @bobert = Character.find_by(name: 'Bobert')
+      @apple_item = Item.find_by(name: 'apple')
+    end
+
+    after do
+      Character.destroy_all
+      Item.destroy_all
+    end
+
+    it 'should be 1.0 on the first day' do
+      trade = described_class.new(player_character, @bobert,
+                                  { item_i_give_id: @apple_item.id, quantity_i_give: 1,
+                                    item_i_want_id: @apple_item.id, quantity_i_want: 1 })
+      expect(trade.calc_time_variance(@apple_item, player_character)).to eq(1.0)
+    end
+
+    it 'should not be 1.0 on the second day' do
+      player_character.update(day: 2)
+      trade = described_class.new(player_character, @bobert,
+                                  { item_i_give_id: @apple_item.id, quantity_i_give: 1,
+                                    item_i_want_id: @apple_item.id, quantity_i_want: 1 })
+      expect(trade.calc_time_variance(@apple_item, player_character)).not_to eq(1.0)
     end
   end
 end

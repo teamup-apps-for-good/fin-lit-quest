@@ -70,7 +70,6 @@ class CounterOfferService
     if value_of(@npc, @item_i_give_id, @quantity_i_give) > value_of(@npc, @item_i_want_id, @quantity_i_want)
       @trade_good_deal = false
     end
-    # value_of_given_items >= value_of_wanted_items
     value_of(@npc, @item_i_give_id, @quantity_i_give) >= value_of(@npc, @item_i_want_id, @quantity_i_want)
   end
 
