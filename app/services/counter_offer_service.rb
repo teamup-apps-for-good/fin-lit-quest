@@ -110,7 +110,6 @@ class CounterOfferService
     rng = Random.new(seed)
     min = 0.5
     max = 1.5
-    random_value = rng.rand(min..max)
-    random_value
+    rng.rand(min..max)
   end
 end
