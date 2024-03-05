@@ -3,7 +3,6 @@
 # Main application controller that all other controllers should inherit from
 class ApplicationController < ActionController::Base
   before_action :require_login
-  helper_method :item_price
 
   protected
 
@@ -23,9 +22,5 @@ class ApplicationController < ActionController::Base
     # A character session exists, but they do not exist in the database
     # Likely to happen if cookies aren't cleared after a db reset
     reset_session
-  end
-
-  def item_price(item_id)
-    session[:item_prices][item_id.to_s][:value]
   end
 end

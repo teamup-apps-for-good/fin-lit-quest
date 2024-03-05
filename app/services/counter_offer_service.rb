@@ -111,7 +111,6 @@ class CounterOfferService
     min = 0.5
     max = 1.5
     random_value = rng.rand(min..max)
-    puts "Calculated Time Variance: #{random_value}"
     random_value
   end
 end
