@@ -110,11 +110,6 @@ class CounterOfferService
     rng = Random.new(seed)
     min = 0.5
     max = 1.5
-<<<<<<< HEAD
     rng.rand(min..max)
-=======
-    random_value = rng.rand(min..max)
-    random_value
->>>>>>> Deleted item_price method in application_controller because it was outdated code
   end
 end
