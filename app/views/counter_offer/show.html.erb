@@ -20,6 +20,12 @@
 <% if @context.character %>
   <%= render partial: 'sinventory' %>
 
+  <div class="button-group">
+    <%= button_to "Barter", character_profile_path(@context.character), class: "button-b", method: :get %>
+    <%= button_to "Buy", character_profile_path(@context.character), class: "button-b", method: :get %>
+    <%= button_to "Sell", character_profile_path(@context.character), class: "button-b", method: :get %>
+  </div>
+
   <div style="margin-top: 20px;">
   <%= form_with(url: create_counter_offer_path(id: @context.character.id), method: :post, local: true) do %>
       <!-- Form fields -->
