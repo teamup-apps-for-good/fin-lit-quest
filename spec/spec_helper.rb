@@ -2,7 +2,9 @@
 
 require 'simplecov'
 
-SimpleCov.start
+SimpleCov.start do
+  add_filter '/spec/'
+end
 
 # Previous content of test helper now starts here
 

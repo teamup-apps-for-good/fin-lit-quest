@@ -167,6 +167,14 @@ RSpec.describe ShoppingListsController, type: :controller do
       expect(flash[:notice]).to match(/Shopping list was successfully created./)
       ShoppingList.last.destroy
     end
+
+    it 'should not create a new shopping list if item does not exist' do
+      @shopping_list = { item: Item.last.id + 1,
+                         level: 5,
+                         quantity: 3 }
+      post :create, params: { shopping_list: @shopping_list }
+      expect(ShoppingList.find_by(level: 5, quantity: 3)).to be_nil
+    end
   end
 
   describe 'update' do
@@ -194,6 +202,11 @@ RSpec.describe ShoppingListsController, type: :controller do
 
     it 'flashes a notice' do
       expect(flash[:notice]).to match(/Shopping list was successfully updated./)
+    end
+
+    it 'should not create a new shopping list if item does not exist' do
+      post :update, params: { id: @shopping_list.id, shopping_list: { item: Item.last.id + 1, level: 3 } }
+      expect(ShoppingList.find(@shopping_list.id).level).to eq(2)
     end
   end
 

@@ -16,13 +16,12 @@ class SessionsController < ApplicationController
 
   def omniauth
     user = find_or_create_user_from_omniauth
-
     if user.valid?
       session[:user_id] = user.id
       redirect_to root_path
-    else
-      redirect_to welcome_path, alert: 'Login failed.'
     end
+  rescue NoMethodError
+    redirect_to welcome_path, alert: 'Login failed.'
   end
 
   protected
