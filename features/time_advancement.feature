@@ -59,6 +59,16 @@ Feature: Time advancement
     * I fill in the number of items that I give with "2"
     * I fill in the number of items that I want with "2"
     And I press the "Offer" button
+    Then "Stella" should be on Day "1" and Hour "3"
+  
+  Scenario: Failing a trade moves time forward by 1 hour
+    Given I am on the counter offer page for "Ritchey"
+    And "Stella" is on Day "1" and Hour "1"
+    When I select "apple" from the "I give" dropdown
+    * I select "orange" from the "I want" dropdown
+    * I fill in the number of items that I give with "1"
+    * I fill in the number of items that I want with "100"
+    And I press the "Offer" button
     Then "Stella" should be on Day "1" and Hour "2"
 
   Scenario: Actions cannot be taken when it is too late in the day
