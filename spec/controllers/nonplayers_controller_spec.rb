@@ -129,4 +129,30 @@ RSpec.describe NonplayersController, type: :controller do
       expect(flash[:notice]).to match(/Jeremy was successfully created./)
     end
   end
+
+  describe 'create without item' do
+    it 'should not create a new nonplayer' do
+      post :create,
+           params: { nonplayer: { name: 'Jeremy',
+                                  occupation: 'merchant',
+                                  inventory_slots: 5,
+                                  balance: 10,
+                                  personality: 'enthusiastic',
+                                  item_to_accept: Item.last.id + 1,
+                                  item_to_offer: Item.last.id + 1,
+                                  quantity_to_accept: 2,
+                                  quantity_to_offer: 5,
+                                  dialogue_content: 'Jeremy',
+                                  current_level: 1 } }
+      @jeremy = Nonplayer.find_by(name: 'Jeremy')
+      expect(@jeremy).to be_nil
+    end
+  end
+
+  describe 'new' do
+    it 'should create a new nonplayer' do
+      get :new
+      expect(assigns(:nonplayer)).to be_a(Nonplayer)
+    end
+  end
 end
