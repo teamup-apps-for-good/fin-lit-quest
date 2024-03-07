@@ -41,6 +41,7 @@ Feature: Exchange with currency
     And I should see "Buy"
     And I should see "Sell"
 
+  @setup_inventory
   Scenario Outline: The player can see the monetary values and stocks of the NPC's items
     Given I am logged in as "World2User"
     And I am on the trade page for "Lightfoot"
@@ -48,19 +49,19 @@ Feature: Exchange with currency
 
     Examples:
       | item  | price | qty |
-      | boots | 25    | 2   |
+      | boots | 50    | 2   |
       | map   | 15    | 1   |
       | bread | 199   | 1   |
 
   Scenario Outline: The player can see the monetary values of their own items
     Given I am logged in as "World2User"
     And I am on the trade page for "Lightfoot"
-    Then I should see "<item> $<price> - <qty> on me"
+    Then I should see "<item> $<price> - <qty> in stock"
 
     Examples:
       | item   | price | qty |
-      | apple  | 2     | 5   |
-      | orange | 2     | 4   |
+      | apple  | 10     | 5   |
+      | orange | 8      | 4   |
 
   Scenario: I see the correct prompts for purchasing items with money
     Given I am logged in as "World2User"

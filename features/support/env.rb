@@ -68,3 +68,4 @@ end
 After('@omniauth_test') do
   OmniAuth.config.test_mode = false
 end
+

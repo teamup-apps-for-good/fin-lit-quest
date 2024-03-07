@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   resources :nonplayers
   resources :players
   resources :characters
-
-
+  
+  
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
   get '/counter_offer/:id', to: 'counter_offer#show', as: 'counter_offer'
   post '/counter_offer/create', to: 'counter_offer#create', as: 'create_counter_offer'
-
+  
   post 'advance_day', to: 'characters#advance_day', as: 'advance_day'
   post 'launch_to_new_era', to: 'characters#launch_to_new_era', as: 'launch_to_new_era'
 
@@ -45,5 +45,10 @@ Rails.application.routes.draw do
   get '/test_login', to: 'sessions#logged_in', as: 'test_login'
   get '/logout', to: 'sessions#logout', as: 'logout'
   get '/auth/google_oauth2/callback', to: 'sessions#omniauth'
+
+  get '/counter_offer/:id/buy', to: 'counter_offer#buy', as: 'buy_counter_offer'
+  get '/counter_offer/:id/sell', to: 'counter_offer#sell', as: 'sell_counter_offer'
+
+  post '/counter_offer/:id/calculate_price', to: 'counter_offer#calculate_price', as: 'calculate_price_counter_offer'
 
 end

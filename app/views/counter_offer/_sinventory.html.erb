@@ -1,15 +1,19 @@
 <!-- Container for Player's Inventory -->
 <div id="<%= @context.player_character.name %>_inventory" class="inventory-container-co">
-  <h2   style="font-weight: bold;"><%= @context.player_character.name %>'s Inventory</h2>
-  <% @context.player_inventory.each do |item_name, quantity| %>
-    <div id="player_inventory_<%= item_name %>"><%= item_name.capitalize %>: <%= quantity %></div>
+  <h2 style="font-weight: bold;"><%= @context.player_character.name %>'s Inventory</h2>
+  <% @inventory_hash_player.each do |item_name, quantity| %>
+    <div>
+      <%= item_name %> $<%= @counter_offer_service.value_of(@context.player_character, Item.find_by(name: item_name).id, quantity) %> - <%= quantity %> in stock
+    </div>
   <% end %>
 </div>
 
 <!-- Container for NPC's Inventory -->
 <div id="<%= @context.character.name %>_inventory" class="inventory-container-co">
   <h2 style="font-weight: bold;"><%= @context.character.name %>'s Inventory</h2>
-  <% @context.npc_inventory.each do |item_name, quantity| %>
-    <div id="npc_inventory_<%= item_name %>"><%= item_name.capitalize %>: <%= quantity %></div>
+  <% @inventory_hash_npc.each do |item_name, quantity| %>
+    <div>
+      <%= item_name %> $<%= @counter_offer_service.value_of(@context.character, Item.find_by(name: item_name).id, quantity) %> - <%= quantity %> in stock
+    </div>
   <% end %>
 </div>
