@@ -27,6 +27,7 @@
 }
 
 h1 {
+  font-family: dpcomic;
   font-size: xx-large;
 }
 
@@ -36,6 +37,10 @@ h2 {
 
 h3 {
   font-size: large;
+}
+
+p{
+  font-family: hermit;
 }
 
 .nicefont{
@@ -175,4 +180,8 @@ h3 {
   display: inline-block;
   vertical-align: top; 
   margin-right: 20px;
+}
+
+#sidebar {
+  transition: transform 0.3s ease;
 }
