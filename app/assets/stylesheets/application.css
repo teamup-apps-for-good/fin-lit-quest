@@ -21,6 +21,11 @@
   src: url('dpcomic.ttf');
 }
 
+@font-face {
+  font-family: 'hermit';
+  src: url('hermit.otf');
+}
+
 h1 {
   font-size: xx-large;
 }
@@ -35,6 +40,14 @@ h3 {
 
 .nicefont{
   font-family: dpcomic;
+}
+
+.dpfont{
+  font-family: dpcomic;
+}
+
+.hermitfont{
+  font-family: hermit;
 }
 
 .button-b {
