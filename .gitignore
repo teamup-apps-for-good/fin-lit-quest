@@ -52,4 +52,3 @@ rubocop.sarif
 
 # node modules
 /node_modules
-app/assets/builds/tailwind.css
