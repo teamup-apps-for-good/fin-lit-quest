@@ -10,4 +10,35 @@
         </div>
         <p class="mx-auto"><%= TimeAdvancementHelper.display_current_time_for_character(@current_user) %></p>
     </nav>
+
+    <!-- Sidebar Content -->
+    <div id="sidebar" class="bg-gray-200 h-screen w-64 fixed top-0 left-0 transform -translate-x-full transition-transform duration-300 z-50">
+        <button id="sidebarClose" type="button" class="absolute top-0 right-0 m-4 text-gray-600">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <ul class="p-4">
+            <li><a href="#" class="block py-2 px-4 text-gray-800 hover:bg-gray-300">Link 1</a></li>
+            <li><a href="#" class="block py-2 px-4 text-gray-800 hover:bg-gray-300">Link 2</a></li>
+            <li><a href="#" class="block py-2 px-4 text-gray-800 hover:bg-gray-300">Link 3</a></li>
+            <!-- Add more links as needed -->
+        </ul>
+    </div>
 </header>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var sidebar = document.getElementById('sidebar');
+        sidebar.classList.add('-translate-x-full');
+    });
+
+    document.getElementById('sidebarToggle').addEventListener('click', function() {
+        document.getElementById('sidebar').classList.toggle('-translate-x-full');
+    });
+
+    document.getElementById('sidebarClose').addEventListener('click', function() {
+        document.getElementById('sidebar').classList.toggle('-translate-x-full');
+    });
+</script>
