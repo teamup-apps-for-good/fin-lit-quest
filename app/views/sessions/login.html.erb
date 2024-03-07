@@ -1,3 +1,9 @@
-<h1 class="center-text nicefont">Welcome to FinLit Quest!</h1>
-<h2 class="center-text nicefont">To begin exploring, please first sign in with Google</h2>
-<div class="flex flex-row justify-center"><%= button_to "Sign in with Google", "/auth/google_oauth2", data: {turbo: "false"}, id: "google-sign-in", class: "nicefont py-2 px-4 rounded bg-blue-500 text-white hover:bg-blue-700" %></div>
+<div class="min-h-screen flex items-center justify-center">
+    <div>
+        <h1 class="center-text dpfont text-5xl">Welcome to FinLit Quest!</h1>
+        <h3 class="center-text hermitfont py-5">To begin exploring, please first sign in with Google</h2>
+        <div class="flex flex-row justify-center py-4">
+            <%= button_to "Sign in with Google", "/auth/google_oauth2", data: {turbo: "false"}, id: "google-sign-in", class: "hermitfont blue-button" %>
+        </div>
+    </div>
+</div>

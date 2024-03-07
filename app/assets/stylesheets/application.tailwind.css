@@ -11,3 +11,7 @@
 }
 
 */
+
+.blue-button{
+  @apply rounded border-b-4 border-blue-700 bg-blue-500 px-4 py-2 font-bold text-white hover:border-blue-500 hover:bg-blue-400 items-center;
+}
