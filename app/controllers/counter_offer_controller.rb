@@ -24,11 +24,6 @@ class CounterOfferController < SessionsController
     end
   end
   
-  def barter
-    session[:action] = 'barter'
-    redirect_to counter_offer_path(id: params[:id])
-  end
-
   def buy
     session[:action] = 'buy'
     redirect_to counter_offer_path(id: params[:id])
@@ -38,7 +33,6 @@ class CounterOfferController < SessionsController
     session[:action] = 'sell'
     redirect_to counter_offer_path(id: params[:id])
   end
-  
 
   private
 

@@ -21,7 +21,7 @@
   <%= render partial: 'sinventory' %>
 
   <div class="button-group">
-    <%= button_to "Barter", barter_counter_offer_path(id: @context.character.id), class: "button-b", method: :get %>
+    <%= button_to "Barter", character_profile_path(@context.character), class: "button-b", method: :get %>
     <%= button_to "Buy", buy_counter_offer_path(id: @context.character.id), method: :get, class: "button-b" %>
     <%= button_to "Sell", sell_counter_offer_path(id: @context.character.id), method: :get, class: "button-b" %>
   </div>
@@ -63,26 +63,7 @@
         <div style="margin-bottom: 10px;">
           <strong>Total price: </strong>
         </div>
-        <% elsif @action == 'barter' %>
-        <div style="margin-bottom: 10px;">
-          <%= label_tag :item_i_give_id, 'I give' %>
-          <%= select_tag :item_i_give_id, options_from_collection_for_select(Item.all, :id, :name, selected: @context.character.item_to_accept_id), include_blank: true %>
-        </div>
 
-        <div style="margin-bottom: 10px;">
-          <%= label_tag :quantity_i_give, 'Quantity I give' %>
-          <%= number_field_tag :quantity_i_give, @context.character.quantity_to_accept %>
-        </div>
-
-        <div style="margin-bottom: 10px;">
-          <%= label_tag :item_i_want_id, 'I want' %>
-          <%= select_tag :item_i_want_id, options_from_collection_for_select(Item.all, :id, :name, selected: @context.character.item_to_offer_id), include_blank: true %>
-        </div>
-
-        <div style="margin-bottom: 10px;">
-          <%= label_tag :quantity_i_want, 'Quantity I want' %>
-          <%= number_field_tag :quantity_i_want, @context.character.quantity_to_offer %>
-        </div>
       <% end %>
     </div>
 
