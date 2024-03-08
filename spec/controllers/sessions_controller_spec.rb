@@ -127,6 +127,12 @@ RSpec.describe SessionsController, type: :controller do
           get :omniauth
           expect(response).to redirect_to(welcome_path)
         end
+
+        it 'adds new items to their inventory' do
+          get :omniauth
+          new_player = Player.find_by(provider: :github, uid: '1234')
+          expect(new_player).to eq(Player.find(session[:user_id]))
+        end
       end
     end
 

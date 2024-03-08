@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_22_180919) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_08_185352) do
   create_table "characters", force: :cascade do |t|
     t.string "name"
     t.string "occupation"
@@ -86,6 +86,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_180919) do
     t.index ["item_id"], name: "index_shopping_lists_on_item_id"
   end
 
+  create_table "starter_items", force: :cascade do |t|
+    t.integer "item_id", null: false
+    t.integer "quantity", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_starter_items_on_item_id"
+  end
+
   add_foreign_key "characters", "items", column: "item_to_accept_id"
   add_foreign_key "characters", "items", column: "item_to_offer_id"
   add_foreign_key "expenses", "items"
@@ -93,4 +101,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_180919) do
   add_foreign_key "inventories", "items"
   add_foreign_key "preferences", "items"
   add_foreign_key "shopping_lists", "items"
+  add_foreign_key "starter_items", "items"
 end

@@ -17,7 +17,7 @@ class PlayersController < SessionsController
 
   # POST /players or /players.json
   def create
-    @player = Player.new(player_params)
+    make_player
 
     respond_to do |format|
       @player.save
@@ -60,5 +60,11 @@ class PlayersController < SessionsController
   def player_params
     params.require(:player).permit(:current_level, :name, :occupation, :inventory_slots, :balance, :email, :provider,
                                    :uid)
+  end
+
+  def make_player
+    @player = Player.new(player_params)
+
+    @player.add_starter_items
   end
 end
