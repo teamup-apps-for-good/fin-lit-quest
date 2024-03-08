@@ -43,11 +43,11 @@ Feature: Daily Expenses
 
   Scenario: The player can move to the next day if they can pay their expenses
     Given I am on the home page
-    When I click on "Move to the next day"
+    When I click on "Next day"
     Then "Stella" should be on Day "2" and Hour "1"
 
   Scenario: The player cannot move to the next day if they can't pay their expenses
     Given "Stella" is on Day "2" and Hour "1"
     And I am on the home page
-    When I click on "Move to the next day"
+    When I click on "Next day"
     Then I should see a notice of "You can't afford to pay your expenses yet!"
