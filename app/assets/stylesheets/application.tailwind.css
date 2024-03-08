@@ -23,3 +23,7 @@
 .red-button{
   @apply rounded border-b-4 border-red-700 bg-red-500 px-4 py-2 font-bold text-white hover:border-red-500 hover:bg-red-400 items-center;
 }
+
+.sidebar-list{
+  @apply py-4 px-4 text-gray-800 hover:bg-gray-300
+}
