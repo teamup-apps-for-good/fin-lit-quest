@@ -3,8 +3,16 @@
 
 <p style="color: green"><%= notice %></p>
 <p style="color: red"><%= alert %> </p>
-<%= render 'nav_sidebar' %>
 
-<h1 class="center-text nicefont">Hello <%=@current_user.name%>!</h1>
+<div class="min-h-screen flex flex-col">
+    
+    <%= render 'nav_header'%>
+    <%= render 'nav_sidebar' %>
 
-<%= button_to "Start", town_path, class: "button-b", method: :get %>
+    <div class = "flex-grow flex flex-col justify-center items-center">
+        <h1 class="center-text dpfont">Hello <%=@current_user.name%>!</h1>
+        <div class="flex flex-row justify-center py-4">
+            <%= button_to "Start", town_path, class: "hermitfont blue-button", method: :get %>
+        </div>
+    </div>
+</div>
