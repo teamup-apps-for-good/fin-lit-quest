@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#logout', as: 'logout'
   get '/auth/google_oauth2/callback', to: 'sessions#omniauth'
 
+  get '/counter_offer/:id/barter', to: 'counter_offer#barter', as: 'barter_counter_offer'
   get '/counter_offer/:id/buy', to: 'counter_offer#buy', as: 'buy_counter_offer'
   get '/counter_offer/:id/sell', to: 'counter_offer#sell', as: 'sell_counter_offer'
 
