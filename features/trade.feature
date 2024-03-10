@@ -43,24 +43,25 @@ Feature: Merge trading and counter-offer page
     
   Scenario Outline: The trade page should show the player's inventory
     Given I am on the trade page for "Ritchey"
-    Then I should see "<item>: <quantity>"
+    Then I should see "<item> $<price> - <qty> in stock"
 
     Examples:
-      | item     | quantity   |
-      | Apple    | 5          |
-      | Fish     | 0          |
+      | item  | price | qty |
+      | apple | 2     | 5   |
+      | orange| 2     | 4   |
     
   Scenario Outline: The trade page should show the non-player's inventory
     Given I am on the trade page for "Ritchey"
-    Then I should see "<item>: <quantity>"
+    Then I should see "<item> $<price> - <qty> in stock"
 
     Examples:
-      | item     | quantity   |
-      | Orange   | 4          |
-      | Wheat    | 3          |
+      | item  | price | qty |
+      | wheat | 1     | 3   |
+      | orange| 2     | 4   |
 
   Scenario: Player can enter the trade details
     Given I am on the trade page for "Ritchey"
+    When I click on "Barter"
     When I select "apple" in "I give" dropdown
     * I select "orange" in "I want" dropdown
     * I fill in the number of items that I give with "2"
@@ -70,6 +71,7 @@ Feature: Merge trading and counter-offer page
 
   Scenario: Player cannot continue without entering all trade details
     Given I am on the trade page for "Ritchey"
+    When I click on "Barter"
     When I select "" in "I give" dropdown
     * I select "orange" in "I want" dropdown
     * I fill in the number of items that I give with "2"
@@ -78,6 +80,7 @@ Feature: Merge trading and counter-offer page
 
   Scenario: Non-player will accept the trade if the values are worth it
     Given I am on the trade page for "Ritchey"
+    When I click on "Barter"
     When I select "apple" in "I give" dropdown
     * I select "orange" in "I want" dropdown
     * I fill in the number of items that I give with "3"
@@ -87,6 +90,7 @@ Feature: Merge trading and counter-offer page
 
   Scenario: Non-player will not accept trade if it is not worth it for them
     Given I am on the trade page for "Ritchey"
+    When I click on "Barter"
     When I select "apple" in "I give" dropdown
     * I select "map" in "I want" dropdown
     * I fill in the number of items that I give with "1"
@@ -96,6 +100,7 @@ Feature: Merge trading and counter-offer page
 
   Scenario: Non-player will not accept trade if they do not have enough of the item
     Given I am on the trade page for "Lightfoot"
+    When I click on "Barter"
     When I select "apple" in "I give" dropdown
     * I select "bread" in "I want" dropdown
     * I fill in the number of items that I give with "5"
@@ -105,15 +110,18 @@ Feature: Merge trading and counter-offer page
 
   Scenario: Player can see item being given being reduced in a successful trade
     Given I am on the trade page for "Ritchey"
+    When I click on "Barter"
     When I select "apple" in "I give" dropdown
     * I select "wheat" in "I want" dropdown
     * I fill in the number of items that I give with "5"
     * I fill in the number of items that I want with "1"
     And I press the "Offer" button
-    Then I should see the player owns "0" of "apple"
+    Then I should see "apple $2 - 7 in stock" in "Ritchey's Inventory"
+
 
   Scenario: Player can see item being wanted increasing in a successful trade
     Given I am on the trade page for "Ritchey"
+    When I click on "Barter"
     When I select "apple" in "I give" dropdown
     * I select "wheat" in "I want" dropdown
     * I fill in the number of items that I give with "5"
@@ -123,6 +131,7 @@ Feature: Merge trading and counter-offer page
 
   Scenario: Non-player's inventory quantities change when trade goes through
     Given I am on the trade page for "Ritchey"
+    When I click on "Barter"
     When I select "apple" in "I give" dropdown
     * I select "wheat" in "I want" dropdown
     * I fill in the number of items that I give with "5"
@@ -133,6 +142,7 @@ Feature: Merge trading and counter-offer page
 
   Scenario: Player can see inventory quantities does not change when trade does not go through
     Given I am on the trade page for "Ritchey"
+    When I click on "Barter"
     When I select "apple" in "I give" dropdown
     * I select "wheat" in "I want" dropdown
     * I fill in the number of items that I give with "1"
@@ -142,6 +152,7 @@ Feature: Merge trading and counter-offer page
 
   Scenario: Non-player's inventory quantities does not change when the trade does not go through
     Given I am on the trade page for "Ritchey"
+    When I click on "Barter"
     When I select "apple" in "I give" dropdown
     * I select "wheat" in "I want" dropdown
     * I fill in the number of items that I give with "1"

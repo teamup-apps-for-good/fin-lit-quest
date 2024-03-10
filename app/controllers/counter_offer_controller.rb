@@ -9,7 +9,7 @@ class CounterOfferController < SessionsController
   def show
     @inventory_hash_player = InventoryService.inventory_for(@current_user)
     @inventory_hash_npc = InventoryService.inventory_for(@context.character)
-    @action = session.delete(:action)
+    @action = session[:action]
   end
 
   def create
@@ -38,7 +38,6 @@ class CounterOfferController < SessionsController
     session[:action] = 'sell'
     redirect_to counter_offer_path(id: params[:id])
   end
-  
 
   private
 
@@ -69,7 +68,7 @@ class CounterOfferController < SessionsController
   end
 
   def counter_offer_params
-    params.permit(:item_i_give_id, :quantity_i_give, :item_i_want_id, :quantity_i_want)
+    params.permit(:id, :item_i_give_id, :quantity_i_give, :item_i_want_id, :quantity_i_want)
   end
 
   def set_counter_offer_service

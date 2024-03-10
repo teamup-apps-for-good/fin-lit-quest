@@ -39,6 +39,7 @@ Feature: Profession price preference variance
 
   Scenario: The fisherman will value fish higher and trade goes through
     Given I am on the counter offer page for "Alice"
+    When I click on "Barter"
     When I select "fish" from the "I give" dropdown
     * I select "orange" from the "I want" dropdown
     * I fill in the number of items that I give with "1"
@@ -48,6 +49,7 @@ Feature: Profession price preference variance
 
   Scenario: The client values bread more and trade does not go through
     Given I am on the counter offer page for "Ritchey"
+    When I click on "Barter"
     When I select "apple" from the "I give" dropdown
     * I select "bread" from the "I want" dropdown
     * I fill in the number of items that I give with "2"

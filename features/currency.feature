@@ -49,7 +49,7 @@ Feature: Exchange with currency
 
     Examples:
       | item  | price | qty |
-      | boots | 50    | 2   |
+      | boots | 25    | 2   |
       | map   | 15    | 1   |
       | bread | 199   | 1   |
 
@@ -60,8 +60,8 @@ Feature: Exchange with currency
 
     Examples:
       | item   | price | qty |
-      | apple  | 10     | 5   |
-      | orange | 8      | 4   |
+      | apple  | 2     | 5   |
+      | orange | 2     | 4   |
 
   Scenario: I see the correct prompts for purchasing items with money
     Given I am logged in as "World2User"
@@ -96,11 +96,11 @@ Feature: Exchange with currency
   Scenario: I see the value of items that I want to buy
     Given I am logged in as "World2User"
     And I am on the trade page for "Lightfoot"
-    And I have "100" units of currency
+    And I have "100" in "Balance"
     When I click on "Buy"
     And I select "boots" in "I want" dropdown
     And I fill in the number of items that I want with "2"
-    Then I should see "50" in "Total value" field
+    Then I should see "50" in "Total price" 
 
   Scenario: Purchasing items subtracts money from my inventory
     Given I am logged in as "World2User"

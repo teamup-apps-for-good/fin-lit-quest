@@ -1,114 +1,195 @@
 <!-- app/views/counter_offer/show.html.erb -->
 
 <div class = "nicefont">
-<h1> Trade with <%= @context.character.name %> </h1>
-
-<h2><%= @context.character.dialogue_content %></h2>
-<div>
-  <p>
-    <strong>Balance:</strong>
-    <%= @context.character.balance %>
-  </p>
-  <% if not @pref.nil? %>
-      <p>
-          <strong>Occupation Description:</strong>
-          <%= @pref.description %>
-      <p>
-  <% end %>
-</div>
-
-<% if @context.character %>
-  <%= render partial: 'sinventory' %>
-
-  <div class="button-group">
-    <%= button_to "Barter", barter_counter_offer_path(id: @context.character.id), class: "button-b", method: :get %>
-    <%= button_to "Buy", buy_counter_offer_path(id: @context.character.id), method: :get, class: "button-b" %>
-    <%= button_to "Sell", sell_counter_offer_path(id: @context.character.id), method: :get, class: "button-b" %>
-  </div>
-
-  <div style="margin-top: 20px;">
-  <%= form_with(url: create_counter_offer_path(id: @context.character.id), method: :post, local: true) do %>
-
-    <div style="margin-bottom: 10px;">
+    <h1> Trade with <%= @context.character.name %> </h1>
     
-      <% if @action == 'buy' %>
-
-        <div style="margin-bottom: 10px;">
-          <%= label_tag :item_i_want_id, 'I want' %>
-          <%= select_tag :item_i_want_id, options_from_collection_for_select(Item.all, :id, :name, selected: @context.character.item_to_offer_id), include_blank: true %>
-        </div>
-
-        <div style="margin-bottom: 10px;">
-          <%= label_tag :quantity_i_want, 'Quantity I want' %>
-          <%= number_field_tag :quantity_i_want, @context.character.quantity_to_offer %>
-        </div>
-
-        <% item_i_want = Item.find_by(id: params[:item_i_want_id]) %>
-      <% quantity_i_want = params[:quantity_i_want].to_i %>
-      <% total_price = item_i_want ? item_i_want.value * quantity_i_want : 0 %>
-      <strong>Total price: <%= total_price %></strong>
-
-      <% elsif @action == 'sell' %>
-
-        <div style="margin-bottom: 10px;">
-          <%= label_tag :item_i_give_id, 'I give' %>
-          <%= select_tag :item_i_give_id, options_from_collection_for_select(Item.all, :id, :name, selected: @context.character.item_to_accept_id), include_blank: true %>
-        </div>
-
-        <div style="margin-bottom: 10px;">
-          <%= label_tag :quantity_i_give, 'Quantity I give' %>
-          <%= number_field_tag :quantity_i_give, @context.character.quantity_to_accept %>
-        </div>
-        
-        <div style="margin-bottom: 10px;">
-          <strong>Total price: </strong>
-        </div>
-        <% elsif @action == 'barter' %>
-        <div style="margin-bottom: 10px;">
-          <%= label_tag :item_i_give_id, 'I give' %>
-          <%= select_tag :item_i_give_id, options_from_collection_for_select(Item.all, :id, :name, selected: @context.character.item_to_accept_id), include_blank: true %>
-        </div>
-
-        <div style="margin-bottom: 10px;">
-          <%= label_tag :quantity_i_give, 'Quantity I give' %>
-          <%= number_field_tag :quantity_i_give, @context.character.quantity_to_accept %>
-        </div>
-
-        <div style="margin-bottom: 10px;">
-          <%= label_tag :item_i_want_id, 'I want' %>
-          <%= select_tag :item_i_want_id, options_from_collection_for_select(Item.all, :id, :name, selected: @context.character.item_to_offer_id), include_blank: true %>
-        </div>
-
-        <div style="margin-bottom: 10px;">
-          <%= label_tag :quantity_i_want, 'Quantity I want' %>
-          <%= number_field_tag :quantity_i_want, @context.character.quantity_to_offer %>
-        </div>
+    <h2><%= @context.character.dialogue_content %></h2>
+    <div>
+      <p>
+        <strong>Balance:</strong>
+        <%= @current_user.balance %>
+      </p>
+      <% if not @pref.nil? %>
+          <p>
+              <strong>Occupation Description:</strong>
+              <%= @pref.description %>
+          <p>
       <% end %>
     </div>
+    
+    <% if @context.character %>
+      <%= render partial: 'sinventory' %>
+    
+      <div class="button-group">
+        <%= button_to "Barter", barter_counter_offer_path(id: @context.character.id), class: "button-b", method: :get %>
+        <%= button_to "Buy", buy_counter_offer_path(id: @context.character.id), method: :get, class: "button-b" %>
+        <%= button_to "Sell", sell_counter_offer_path(id: @context.character.id), method: :get, class: "button-b" %>
+      </div>
+    
+      <div style="margin-top: 20px;">
+      <%= form_with(url: create_counter_offer_path(id: @context.character.id), method: :post, local: true) do %>
+    
+        <div style="margin-bottom: 10px;">
+        
+          <% if @action == 'buy' %>
+    
+            <div style="margin-bottom: 10px;">
+              <%= label_tag :item_i_want_id, 'I want' %>
+              <%= select_tag :item_i_want_id, options_from_collection_for_select(Item.all, :id, :name, selected: @context.character.item_to_accept_id), include_blank: true, id: 'item_i_want_select', data: { values: Item.pluck(:id, :value).to_h } %>    
+            </div>
 
-    <div style="margin-bottom: 10px;">
-      <%= submit_tag 'Offer' %>
+            <div style="margin-bottom: 10px;">
+              <%= label_tag :quantity_i_want, 'Quantity I want' %>
+              <%= number_field_tag :quantity_i_want, @context.character.quantity_to_offer, id: 'quantity_i_want_input' %>
+            </div>
+
+            <% Item.all.each do |item| %>
+              <% quantity = @context.character.quantity_to_offer || 1 %>
+              <% value = (@counter_offer_service.value_of(@context.character, item.id, quantity).to_f / quantity).ceil %>
+              <span class="item-value" data-item-id="<%= item.id %>" data-value="<%= value %>"></span>
+            <% end %>
+
+            <div>
+              <strong>Total price: $<span id="total_price">0</span></strong>
+            </div>
+    
+          <% elsif @action == 'sell' %>
+    
+            <div style="margin-bottom: 10px;">
+              <%= label_tag :item_i_give_id, 'I give' %>
+              <%= select_tag :item_i_give_id, options_from_collection_for_select(Item.all, :id, :name, selected: @context.character.item_to_offer_id), include_blank: true, id: 'item_i_give_select' %>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+              <%= label_tag :quantity_i_give, 'Quantity I give' %>
+              <%= number_field_tag :quantity_i_give, @context.character.quantity_to_accept, id: 'quantity_i_give_input' %>
+            </div>
+
+            <% Item.all.each do |item| %>
+              <% quantity = @context.character.quantity_to_accept || 1 %>
+              <% value = (@counter_offer_service.value_of(@context.character, item.id, quantity).to_f / quantity).ceil %>
+              <span class="item-value-sell" data-item-id="<%= item.id %>" data-value="<%= value %>"></span>
+            <% end %>
+
+            <div>
+              <strong>Total price: $<span id="total_price_sell">0</span></strong>
+            </div>
+      
+            <% elsif @action == 'barter' %>
+            <div style="margin-bottom: 10px;">
+              <%= label_tag :item_i_give_id, 'I give' %>
+              <%= select_tag :item_i_give_id, options_from_collection_for_select(Item.all, :id, :name, selected: @context.character.item_to_offer_id), include_blank: true %>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+              <%= label_tag :quantity_i_give, 'Quantity I give' %>
+              <%= number_field_tag :quantity_i_give, @context.character.quantity_to_accept %>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+              <%= label_tag :item_i_want_id, 'I want' %>
+              <%= select_tag :item_i_want_id, options_from_collection_for_select(Item.all, :id, :name, selected: @context.character.item_to_accept_id), include_blank: true %>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+              <%= label_tag :quantity_i_want, 'Quantity I want' %>
+              <%= number_field_tag :quantity_i_want, @context.character.quantity_to_offer %>
+            </div>
+          <% end %>
+        </div>
+    
+        <div style="margin-bottom: 10px;">
+          <%= submit_tag 'Offer' %>
+        </div>
+        
+    <% end %>
     </div>
     
-<% end %>
-</div>
+      <%# Display flash messages %>
+      <% if flash[:notice] %>
+        <div class="success-notice">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+    
+      <% if flash[:alert] %>
+        <div class="error-notice">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+    
+    <% else %>
+      <p>Character not found.</p>
+    <% end %>
+    
+    <%= button_to "Back", character_profile_path(@context.character), class: "button-b", method: :get %>
 
-  <%# Display flash messages %>
-  <% if flash[:notice] %>
-    <div class="success-notice">
-      <%= flash[:notice] %>
-    </div>
-  <% end %>
+    <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var form = document.querySelector('form');
+    var itemBuySelect = document.getElementById('item_i_want_select');
+    var quantityBuyInput = document.getElementById('quantity_i_want_input');
+    var totalPriceBuyElement = document.getElementById('total_price');
+    var itemSellSelect = document.getElementById('item_i_give_select');
+    var quantitySellInput = document.getElementById('quantity_i_give_input');
+    var totalPriceSellElement = document.getElementById('total_price_sell');
 
-  <% if flash[:alert] %>
-    <div class="error-notice">
-      <%= flash[:alert] %>
-    </div>
-  <% end %>
+    function updateTotalPriceBuy() {
+      if (itemBuySelect && quantityBuyInput) {
+        var selectedOption = itemBuySelect.options[itemBuySelect.selectedIndex];
+        var itemName = selectedOption.textContent;
+        var itemId = selectedOption.value;
+        var quantity = parseInt(quantityBuyInput.value);
 
-<% else %>
-  <p>Character not found.</p>
-<% end %>
+        var itemValueElement = document.querySelector('.item-value[data-item-id="' + itemId + '"]');
+        var itemValue = parseFloat(itemValueElement.dataset.value);
 
-<%= button_to "Back", character_profile_path(@context.character), class: "button-b", method: :get %>
+        if (!isNaN(itemValue) && !isNaN(quantity)) {
+          var totalPrice = itemValue * quantity;
+          totalPriceBuyElement.textContent = totalPrice;
+        } else {
+          totalPriceBuyElement.textContent = '0';
+        }
+      }
+    }
 
+    function updateTotalPriceSell() {
+      if (itemSellSelect && quantitySellInput) {
+        var selectedOption = itemSellSelect.options[itemSellSelect.selectedIndex];
+        var itemName = selectedOption.textContent;
+        var itemId = selectedOption.value;
+        var quantity = parseInt(quantitySellInput.value);
+
+        var itemValueElement = document.querySelector('.item-value-sell[data-item-id="' + itemId + '"]');
+        var itemValue = parseFloat(itemValueElement.dataset.value);
+
+        if (!isNaN(itemValue) && !isNaN(quantity)) {
+          var totalPrice = itemValue * quantity;
+          totalPriceSellElement.textContent = totalPrice;
+        } else {
+          totalPriceSellElement.textContent = '0';
+        }
+      }
+    }
+
+    function attachEventListeners() {
+      if (itemBuySelect && quantityBuyInput) {
+        itemBuySelect.addEventListener('change', updateTotalPriceBuy);
+        quantityBuyInput.addEventListener('input', updateTotalPriceBuy);
+      }
+
+      if (itemSellSelect && quantitySellInput) {
+        itemSellSelect.addEventListener('change', updateTotalPriceSell);
+        quantitySellInput.addEventListener('input', updateTotalPriceSell);
+      }
+    }
+
+    attachEventListeners();
+
+    // Reattach event listeners when the form changes
+    form.addEventListener('change', function() {
+      attachEventListeners();
+    });
+  });
+</script>
+    

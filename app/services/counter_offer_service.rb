@@ -100,7 +100,7 @@ class CounterOfferService
                      else
                        total_value * time_variance
                      end
-    adjusted_value.floor
+    adjusted_value.ceil
   end
 
   def calc_time_variance(item, player)

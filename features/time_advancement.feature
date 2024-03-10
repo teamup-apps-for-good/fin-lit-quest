@@ -54,6 +54,7 @@ Feature: Time advancement
   Scenario: Taking an action moves time forward
     Given I am on the counter offer page for "Ritchey"
     And "Stella" is on Day "1" and Hour "1"
+    When I click on "Barter"
     When I select "apple" from the "I give" dropdown
     * I select "orange" from the "I want" dropdown
     * I fill in the number of items that I give with "2"
@@ -64,6 +65,7 @@ Feature: Time advancement
   Scenario: Failing a trade moves time forward by 1 hour
     Given I am on the counter offer page for "Ritchey"
     And "Stella" is on Day "1" and Hour "1"
+    When I click on "Barter"
     When I select "apple" from the "I give" dropdown
     * I select "orange" from the "I want" dropdown
     * I fill in the number of items that I give with "1"
@@ -74,6 +76,7 @@ Feature: Time advancement
   Scenario: Actions cannot be taken when it is too late in the day
     Given I am on the counter offer page for "Ritchey"
     And "Stella" is on Day "1" and Hour "10"
+    When I click on "Barter"
     When I select "apple" from the "I give" dropdown
     * I select "orange" from the "I want" dropdown
     * I fill in the number of items that I give with "2"

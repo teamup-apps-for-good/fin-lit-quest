@@ -7,3 +7,8 @@ Then('{string} should own {string} of {string}') do |string, string2, string3|
     expect(page).to have_content(/Quantity: #{Regexp.escape(string2)}/m)
   end
 end
+
+Then('I should see {string} in {string}') do |inventory_text, npc_name|
+  expect(page).to have_content("#{npc_name}")
+  expect(page).to have_content(inventory_text)
+end

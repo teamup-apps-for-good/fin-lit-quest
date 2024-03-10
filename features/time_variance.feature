@@ -27,6 +27,7 @@ Feature: Time Variance
   Scenario: On day 1, orange and apple should be the same price
     Given I am on the counter offer page for "Alice"
     And "Stella" is on Day "1" and Hour "1"
+    When I click on "Barter"
     When I select "apple" in "I give" dropdown
     * I select "orange" in "I want" dropdown
     * I fill in the number of items that I give with "2"
@@ -37,6 +38,7 @@ Feature: Time Variance
   Scenario: On day 1 different hour, orange and apple should be the same price
     Given I am on the counter offer page for "Alice"
     And "Stella" is on Day "1" and Hour "5"
+    When I click on "Barter"
     When I select "apple" in "I give" dropdown
     * I select "orange" in "I want" dropdown
     * I fill in the number of items that I give with "2"
@@ -47,6 +49,7 @@ Feature: Time Variance
   Scenario: On day 2, orange and apple should not be the same price
     Given I am on the counter offer page for "Alice"
     And "Stella" is on Day "2" and Hour "1"
+    When I click on "Barter"
     When I select "apple" in "I give" dropdown
     * I select "orange" in "I want" dropdown
     * I fill in the number of items that I give with "2"

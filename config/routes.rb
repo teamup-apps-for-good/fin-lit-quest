@@ -50,6 +50,5 @@ Rails.application.routes.draw do
   get '/counter_offer/:id/buy', to: 'counter_offer#buy', as: 'buy_counter_offer'
   get '/counter_offer/:id/sell', to: 'counter_offer#sell', as: 'sell_counter_offer'
 
-  post '/counter_offer/:id/calculate_price', to: 'counter_offer#calculate_price', as: 'calculate_price_counter_offer'
-
+  post '/counter_offer/:id/update_buy_params', to: 'counter_offer#update_buy_params', as: 'update_buy_params_counter_offer'
 end
