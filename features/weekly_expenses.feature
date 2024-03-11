@@ -44,7 +44,7 @@ Feature: Weekly Expenses
   Scenario: The player can move to the next day if they can pay their expenses
     Given "Stella" is on Day "7" and Hour "3"
     And I am on the home page
-    When I click on "Move to the next day"
+    When I click on "Next day"
     And I visit the home page
     Then "Stella" should be on Day "8" and Hour "1"
     And I should see "08:00 AM on Day 8, Era 1"
@@ -52,6 +52,6 @@ Feature: Weekly Expenses
   Scenario: The player cannot move to the next day if they can't pay their expenses
     Given I am on the home page
     And "Stella" is on Day "14" and Hour "3"
-    When I click on "Move to the next day"
+    When I click on "Next day"
     Then I should see a notice of "You can't afford to pay your expenses yet!"
     And "Stella" should be on Day "14" and Hour "3"

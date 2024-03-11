@@ -34,14 +34,14 @@ Feature: Failure consequences
   Scenario: The player can move to the next day if they can pay their expenses, even if there is no time left
     Given "Stella" is on Day "1" and Hour "10"
     And I am on the home page
-    When I click on "Move to the next day"
+    When I click on "Next day"
     Then "Stella" should be on Day "2" and Hour "1"
     And I should see "8:00 AM on Day 2, Era 1"
 
   Scenario: The player is told they have lost if they cannot fulfill the requirements
     Given "Stella" is on Day "7" and Hour "10"
     And I am on the home page
-    When I click on "Move to the next day"
+    When I click on "Next day"
     Then I should be on the game over page
     And "Stella" should be on level "0"
     And I should see "Game Over"
