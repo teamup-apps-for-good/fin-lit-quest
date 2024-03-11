@@ -35,6 +35,9 @@ class CounterOfferController < SessionsController
   def execute_counter_offer
     service = CounterOfferService.new(@context.player_character, @context.character, counter_offer_params)
     success, message = service.execute_trade
+
+    TimeAdvancementHelper.increment_hour(@current_user)
+
     if success
       TimeAdvancementHelper.increment_hour(@current_user)
       flash[:notice] = message
