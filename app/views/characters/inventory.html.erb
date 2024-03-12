@@ -2,11 +2,11 @@
 
 <%= render 'gameplays/nav_header'%>
 
-<h1>Inventories</h1>
+<h1 class = "center-text">Inventory</h1>
 
-<div id="inventories">
-  <% @inventories.each do |inventory_entry| %>
-    <div id="<%= dom_id inventory_entry %>">
+<div class="flex flex-wrap justify-center">
+    <% @inventories.each do |inventory_entry| %>
+    <div id="<%= dom_id inventory_entry %>" class="max-w-sm rounded shadow-lg p-6 m-2">
       <p>
         <strong>Name:</strong>
         <%= inventory_entry.item.name %>
@@ -28,11 +28,10 @@
           <%= inventory_entry.item.value %>
         </p>
       <% end %>
-
     </div>
-
-    <br>
   <% end %>
 </div>
+<div class = "flex justify-center items-center">
+<%= button_to "Back", :back, class: "blue-button hermitfont mt-4", method: :get %>
+</div>
 
-<%= button_to "Back", :back, class: "button-b", method: :get %>
