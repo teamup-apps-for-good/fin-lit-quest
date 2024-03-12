@@ -9,7 +9,7 @@
 
 <p style="color: green"><%= notice %></p>
 <div class="welcome-banner">
-  <h1 class = "center-text nicefont">Welcome to Town <%=@current_user.current_level%>!</h1>
+  <h1 class = "center-text">Welcome to Town <%=@current_user.current_level%>!</h1>
 </div>
 <div id="non_players">
   <% @nonplayers.each do |nonplayer| %>
@@ -17,11 +17,10 @@
       <div id="<%= container_id %>" class="nonplayer-container">
         <%= link_to character_profile_path(nonplayer), class: "nonplayer-link" do %>
           <img id="<%= nonplayer_img_tag(nonplayer) %>" src="<%= asset_path(nonplayer_gif_file(nonplayer)) %>" alt="<%= nonplayer.name %>">
-          <h3 class = "nicefont"><%= nonplayer.name %></h3>
+          <h3 class = "text-base"><%= nonplayer.name %></h3>
         <% end %>
       </div>
   <% end %>
 </div>
 
 </body>
-<%= button_to "Back", root_path, class: "button-b", method: :get %>
