@@ -1,33 +1,33 @@
-<div class="center-text nicefont">
-<p style="color: green"><%= notice %></p>
-<p style="color: red"><%= alert %></p>
+<div class="center-text flex flex-col items-center">
+    <p style="color: green"><%= notice %></p>
+    <p style="color: red"><%= alert %></p>
 
-<%= render 'gameplays/nav_header'%>
+    <%= render 'gameplays/nav_header'%>
 
-<h1> <%= @character.name %> </h1>
-<%= button_to "Inventory", character_inventory_path(@character), class: "button-b", method: :get%>
-<%= button_to "Trade", trade_path(@character), class: "button-b", method: :get%>
-<div>
-  <p>
-    <strong>Name:</strong>
-    <%= @character.name %>
-  </p>
+    <h1> <%= @character.name %> </h1>
+      <%= button_to "Inventory", character_inventory_path(@character), class: "hermitfont blue-button my-4", method: :get%>
+      <%= button_to "Trade", trade_path(@character), class: "hermitfont blue-button mb-4", method: :get%>
+    <div class = "flex flex-col max-w-sm rounded shadow-lg p-6">
+        <p>
+          <strong>Name:</strong>
+          <%= @character.name %>
+        </p>
 
-  <p>
-    <strong>Occupation:</strong>
-    <%= @character.occupation %>
-  </p>
+        <p>
+          <strong>Occupation:</strong>
+          <%= @character.occupation %>
+        </p>
 
-  <p>
-    <strong>Balance:</strong>
-    <%= @character.balance %>
-  </p>
+        <p>
+          <strong>Balance:</strong>
+          <%= @character.balance %>
+        </p>
 
-  <p>
-    <strong>Personality:</strong>
-    <%= @character.personality %>
-  </p>
+        <p>
+          <strong>Personality:</strong>
+          <%= @character.personality %>
+        </p>
+    </div>
+    <%= button_to "Back", town_path, class: "hermitfont blue-button mt-4", method: :get %>
 </div>
 
-</div>
-<%= button_to "Back", town_path, class: "button-b", method: :get %>
