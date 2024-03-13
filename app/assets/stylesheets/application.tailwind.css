@@ -27,3 +27,7 @@
 .sidebar-list{
   @apply py-4 px-4 text-gray-800 hover:bg-gray-300
 }
+
+.card-display{
+  @apply max-w-sm rounded shadow-lg p-6 m-2
+}
