@@ -10,7 +10,7 @@ end
 
 Then('I should see the NPC {string} owns {string} of {string}') do |npc, value, field|
   within("##{npc}_inventory") do
-    expect(page).to have_content(/#{Regexp.escape("#{field}: #{value}")}/i)
+    expect(page).to have_content(/#{Regexp.escape("#{field} : #{value}")}/i)
   end
 end
 

@@ -5,7 +5,7 @@
   <div class="card-overflow">
     <% @context.player_inventory.each do |item_name, quantity| %>
       <div id="player_inventory_<%= item_name %>" class="hermitfont">
-          <%= item_name.capitalize %>: <%= quantity %>
+          <%= item_name.capitalize %> : <%= quantity %>
       </div>
     <% end %>
   </div>

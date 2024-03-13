@@ -43,7 +43,7 @@ Feature: Merge trading and counter-offer page
     
   Scenario Outline: The trade page should show the player's inventory
     Given I am on the trade page for "Ritchey"
-    Then I should see "<item>: <quantity>"
+    Then I should see "<item> : <quantity>"
 
     Examples:
       | item     | quantity   |
@@ -52,7 +52,7 @@ Feature: Merge trading and counter-offer page
     
   Scenario Outline: The trade page should show the non-player's inventory
     Given I am on the trade page for "Ritchey"
-    Then I should see "<item>: <quantity>"
+    Then I should see "<item> : <quantity>"
 
     Examples:
       | item     | quantity   |
