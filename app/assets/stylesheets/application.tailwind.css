@@ -29,5 +29,10 @@
 }
 
 .card-display{
-  @apply max-w-sm rounded shadow-lg p-6 m-2
+  @apply max-w-sm rounded shadow-lg p-6 m-2;
+}
+
+.card-overflow {
+  @apply overflow-y-auto;
+  max-height: 125px
 }

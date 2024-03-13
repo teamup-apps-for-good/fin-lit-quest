@@ -2,20 +2,24 @@
 <div id="<%= @context.player_character.name %>_inventory" class="inventory-container-co card-display">
   <h3 style="font-weight: bold;"><%= @context.player_character.name %>'s Inventory</h3>
   <hr class="my-2">
-  <% @context.player_inventory.each do |item_name, quantity| %>
-    <div id="player_inventory_<%= item_name %>" class="hermitfont">
-        <%= item_name.capitalize %>: <%= quantity %>
-    </div>
-  <% end %>
+  <div class="card-overflow">
+    <% @context.player_inventory.each do |item_name, quantity| %>
+      <div id="player_inventory_<%= item_name %>" class="hermitfont">
+          <%= item_name.capitalize %>: <%= quantity %>
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <!-- NPC's Inventory -->
 <div id="<%= @context.character.name %>_inventory" class="inventory-container-co card-display">
   <h3 style="font-weight: bold;"><%= @context.character.name %>'s Inventory</h3>
   <hr class="my-2">
-  <% @context.npc_inventory.each do |item_name, quantity| %>
-    <div id="npc_inventory_ <%= item_name %>" class="hermitfont">
-        <%= item_name.capitalize %> : <%= quantity %>
-    </div>
-  <% end %>
+  <div class="card-overflow">
+    <% @context.npc_inventory.each do |item_name, quantity| %>
+      <div id="npc_inventory_ <%= item_name %>" class="hermitfont">
+          <%= item_name.capitalize %> : <%= quantity %>
+      </div>
+    <% end %>
+  </div>
 </div>
