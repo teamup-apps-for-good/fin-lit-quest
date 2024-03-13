@@ -6,7 +6,7 @@
 
 <div class="flex flex-wrap justify-center">
     <% @inventories.each do |inventory_entry| %>
-    <div id="<%= dom_id inventory_entry %>" class="max-w-sm rounded shadow-lg p-6 m-2">
+    <div id="<%= dom_id inventory_entry %>" class="card-display">
       <p>
         <strong>Name:</strong>
         <%= inventory_entry.item.name %>
