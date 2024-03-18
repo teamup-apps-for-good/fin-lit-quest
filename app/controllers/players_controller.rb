@@ -2,6 +2,7 @@
 
 # PlayersController
 class PlayersController < SessionsController
+  before_action :require_admin
   before_action :set_player, only: %i[show edit update destroy]
 
   # GET /players or /players.json

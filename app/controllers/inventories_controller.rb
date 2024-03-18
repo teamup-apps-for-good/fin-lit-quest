@@ -2,6 +2,7 @@
 
 # Actions for the Inventory table.
 class InventoriesController < SessionsController
+  before_action :require_admin, only: %i[index new edit update destroy]
   before_action :set_inventory, only: %i[show edit update destroy]
 
   # GET /inventories or /inventories.json
