@@ -7,7 +7,7 @@ RSpec.describe PlayersController, type: :controller do
     Player.destroy_all
 
     Player.create!(name: 'Stella', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
-                   email: 'test@test.com', provider: 'google-oauth2', uid: '1234')
+                   email: 'test@test.com', provider: 'google-oauth2', uid: '1234', admin: true)
     @stella = Player.find_by(name: 'Stella')
     session[:user_id] = @stella.id
   end
@@ -81,8 +81,6 @@ RSpec.describe PlayersController, type: :controller do
     end
   end
 
-  # admin actions
-
   describe 'index' do
     # rubycritic dislikes this, but we disagree because we need this test
     # it is human-readable and easy to maintain
@@ -127,6 +125,58 @@ RSpec.describe PlayersController, type: :controller do
         inv2 = Inventory.find_by(item: @si2.item, character: p)
         expect(inv2).not_to be_nil
         expect(inv2.quantity).to eq(2)
+      end
+    end
+  end
+
+  describe 'Admin actions' do
+    before do
+      @stella.admin = false
+      @stella.save!
+    end
+
+    %i[index edit new].each do |tag|
+      it "does not allow players to perform #{tag}" do
+        get tag, params: { id: @stella.id }
+        expect(response).to redirect_to root_path
+        expect(flash[:notice]).to match(/You do not have permission to access this path./)
+      end
+
+      it "allows admins to perform #{tag}" do
+        @stella.admin = true
+        @stella.save!
+        put tag, params: { id: @stella.id }
+        expect(response).not_to redirect_to root_path
+      end
+    end
+
+    %i[update].each do |tag|
+      it "does not allow players to perform #{tag}" do
+        put tag, params: { id: @stella.id }
+        expect(response).to redirect_to root_path
+        expect(flash[:notice]).to match(/You do not have permission to access this path./)
+      end
+
+      it "allows admins to perform #{tag}" do
+        @stella.admin = true
+        @stella.save!
+        post tag, params: { id: @stella.id, player: { quantity: 4 } }
+        expect(response).not_to redirect_to root_path
+      end
+    end
+
+    %i[destroy].each do |tag|
+      it "does not allow players to perform #{tag}" do
+        delete tag, params: { id: @stella.id }
+        expect(response).to redirect_to root_path
+        expect(flash[:notice]).to match(/You do not have permission to access this path./)
+      end
+
+      it "allows admins to perform #{tag}" do
+        @stella.admin = true
+        @stella.save!
+        delete tag, params: { id: @stella.id }
+        expect(response).not_to redirect_to root_path
       end
     end
   end

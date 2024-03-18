@@ -36,7 +36,7 @@ RSpec.describe NonplayersController, type: :controller do
     @ritchey = Nonplayer.find_by(name: 'Ritchey')
 
     @user = Player.create!(name: 'Test User', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
-                           email: 'test@test.com', provider: 'google-oauth2', uid: '1234')
+                           email: 'test@test.com', provider: 'google-oauth2', uid: '1234', admin: true)
     session[:user_id] = @user.id
   end
 
@@ -130,7 +130,7 @@ RSpec.describe NonplayersController, type: :controller do
     end
   end
 
-  describe 'create without item' do
+  describe 'create without nonplayer' do
     it 'should not create a new nonplayer' do
       post :create,
            params: { nonplayer: { name: 'Jeremy',
@@ -153,6 +153,58 @@ RSpec.describe NonplayersController, type: :controller do
     it 'should create a new nonplayer' do
       get :new
       expect(assigns(:nonplayer)).to be_a(Nonplayer)
+    end
+  end
+
+  describe 'Admin actions' do
+    before do
+      @user.admin = false
+      @user.save!
+    end
+
+    %i[index edit new].each do |tag|
+      it "does not allow players to perform #{tag}" do
+        get tag, params: { id: @ritchey.id }
+        expect(response).to redirect_to root_path
+        expect(flash[:notice]).to match(/You do not have permission to access this path./)
+      end
+
+      it "allows admins to perform #{tag}" do
+        @user.admin = true
+        @user.save!
+        put tag, params: { id: @ritchey.id }
+        expect(response).not_to redirect_to root_path
+      end
+    end
+
+    %i[update].each do |tag|
+      it "does not allow players to perform #{tag}" do
+        put tag, params: { id: @ritchey.id }
+        expect(response).to redirect_to root_path
+        expect(flash[:notice]).to match(/You do not have permission to access this path./)
+      end
+
+      it "allows admins to perform #{tag}" do
+        @user.admin = true
+        @user.save!
+        post tag, params: { id: @ritchey.id, nonplayer: { quantity: 4 } }
+        expect(response).not_to redirect_to root_path
+      end
+    end
+
+    %i[destroy].each do |tag|
+      it "does not allow players to perform #{tag}" do
+        delete tag, params: { id: @ritchey.id }
+        expect(response).to redirect_to root_path
+        expect(flash[:notice]).to match(/You do not have permission to access this path./)
+      end
+
+      it "allows admins to perform #{tag}" do
+        @user.admin = true
+        @user.save!
+        delete tag, params: { id: @ritchey.id }
+        expect(response).not_to redirect_to root_path
+      end
     end
   end
 end
