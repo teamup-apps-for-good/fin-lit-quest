@@ -10,8 +10,8 @@ Feature: View Character Information
     | orange | tangy, fresh from a tree as well | 3     |
 
   Given the following players exist:
-    | name      | occupation  | inventory_slots | balance |  current_level  | uid  | provider      | email         |
-    | Stella    | programmer  |        5        | 0       |       1         | 1234 | google_oauth2 | test@test.com |
+    | name      | occupation  | inventory_slots | balance |  current_level  | uid  | provider      | email         | admin |
+    | Stella    | programmer  |        5        | 0       |       1         | 1234 | google_oauth2 | test@test.com | true  |
 
     Given I am logged in as "Stella"
 

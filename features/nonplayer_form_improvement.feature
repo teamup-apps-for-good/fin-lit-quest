@@ -14,8 +14,8 @@ Feature: In the new and edit form for nonplayers, select items to accept and off
     | Ritchey   | client     | 10              | 0       | 1             | enthusiastic | Howdy                | 2                  | 3                 | apple          | orange        |
 
     Given the following players exist:
-      | name      | occupation  | inventory_slots | balance |  current_level  | uid  | provider      | email         |
-      | Stella    | programmer  |        5        | 0       |       1         | 1234 | google_oauth2 | test@test.com |
+      | name      | occupation  | inventory_slots | balance |  current_level  | uid  | provider      | email         | admin |
+      | Stella    | programmer  |        5        | 0       |       1         | 1234 | google_oauth2 | test@test.com | true  |
 
     And I am logged in as "Stella"
 
