@@ -129,6 +129,7 @@ RSpec.describe SessionsController, type: :controller do
         end
 
         it 'adds new items to their inventory' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
           get :omniauth
           new_player = Player.find_by(provider: :github, uid: '1234')
           expect(new_player).to eq(Player.find(session[:user_id]))
