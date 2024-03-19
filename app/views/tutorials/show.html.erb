@@ -15,10 +15,9 @@
   <% else %>
     <%= @page %>
   <% end %>
-<% else %>
-  Good luck :p
-<% end %>
-<br>
-<%= button_to 'Next', tutorial_path(page: @page + 1), class: "button-b", method: :get if @page < 4%>
-<%= button_to 'Back', tutorial_path(page: @page - 1), class: "button-b", method: :get if @page > 1 %>
-<%= button_to 'Exit', root_path, class: "button-b", method: :get %>
+  <% else %>
+    Good luck :p
+  <% end %>
+  <br>
+  <%= button_to 'Next', tutorial_path(page: @page + 1), class: "button-b", method: :get if @page < 4 %>
+  <%= button_to 'Back', (@page > 1 ? tutorial_path(page: @page - 1) : root_path), class: "button-b", method: :get %>
