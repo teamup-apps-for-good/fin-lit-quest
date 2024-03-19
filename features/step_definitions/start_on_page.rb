@@ -76,3 +76,7 @@ end
 When('I visit the home page') do
   visit root_path
 end
+
+Given('I am on the tutorial page') do
+  pending # Write code here that turns the phrase above into concrete actions
+end

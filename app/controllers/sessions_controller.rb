@@ -15,9 +15,12 @@ class SessionsController < ApplicationController
   end
 
   def omniauth
-    user = find_or_create_user_from_omniauth
+    user, is_new_user = find_or_create_user_from_omniauth
     if user.valid?
       session[:user_id] = user.id
+      if is_new_user
+        redirect_to tutorial_path
+      end
       redirect_to root_path
     end
   rescue NoMethodError
@@ -31,6 +34,8 @@ class SessionsController < ApplicationController
     Player.find_or_create_by(uid: auth['uid'], provider: auth['provider']) do |u|
       set_user_attributes(u, auth)
     end
+    is_new_user = Player.find_by(uid: auth['uid'], provider: auth['provider']).new_record?
+    return Player.find_by(uid: auth['uid'], provider: auth['provider']), is_new_user
   end
 
   def set_user_attributes(user, auth_info)

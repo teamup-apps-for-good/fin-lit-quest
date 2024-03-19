@@ -1,0 +1,11 @@
+<h1>Tutorial Page <%= @page %></h1>
+<% if @page == 1 %>
+  <!-- Tutorial content for page 1 goes here -->
+<% elsif @page == 2 %>
+  <!-- Tutorial content for page 2 goes here -->
+<% else %>
+  <!-- Default tutorial content goes here -->
+<% end %>
+<%= button_to 'Next', tutorial_path(page: @page + 1), class: "button-b" %>
+<%= button_to 'Back', tutorial_path(page: @page - 1), class: "button-b" %>
+<%= button_to 'Exit', root_path, class: "button-b", method: :get %>

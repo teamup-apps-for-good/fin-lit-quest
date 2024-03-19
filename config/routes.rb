@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'tutorials/show'
   resources :expenses
   resources :sessions
   resources :preferences
@@ -45,5 +46,7 @@ Rails.application.routes.draw do
   get '/test_login', to: 'sessions#logged_in', as: 'test_login'
   get '/logout', to: 'sessions#logout', as: 'logout'
   get '/auth/google_oauth2/callback', to: 'sessions#omniauth'
+
+  get '/tutorial/:page', to: 'tutorials#show', as: 'tutorial'
 
 end

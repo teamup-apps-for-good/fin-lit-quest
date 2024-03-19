@@ -48,6 +48,16 @@
           <p>Budget</p>
         </div>
       <% end %>
+
+      <%= link_to tutorial_path(1), class: "hermitfont", method: :get do%>
+        <div class="flex flex-row items-center sidebar-list">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
+            <path d="M12 7.5a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z" />
+          </svg>
+
+          <p>Tutorial</p>
+        </div>
+      <% end %>
   </div>
 
   <p class="py-2 px-4"><%= ExpensesHelper.display_today_expense_for_character(@current_user) %></p>
