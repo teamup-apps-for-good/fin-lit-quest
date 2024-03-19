@@ -78,5 +78,5 @@ When('I visit the home page') do
 end
 
 Given('I am on the tutorial page') do
-  pending # Write code here that turns the phrase above into concrete actions
+  visit tutorial_path(1)
 end

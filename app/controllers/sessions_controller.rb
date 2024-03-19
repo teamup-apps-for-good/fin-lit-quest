@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
     if user.valid?
       session[:user_id] = user.id
       if is_new_user
-        redirect_to tutorial_path
+        redirect_to tutorial_path(1)
       end
       redirect_to root_path
     end
@@ -31,11 +31,10 @@ class SessionsController < ApplicationController
 
   def find_or_create_user_from_omniauth
     auth = request.env['omniauth.auth']
-    Player.find_or_create_by(uid: auth['uid'], provider: auth['provider']) do |u|
+    user, is_new_user = Player.find_or_create_by(uid: auth['uid'], provider: auth['provider']) do |u|
       set_user_attributes(u, auth)
     end
-    is_new_user = Player.find_by(uid: auth['uid'], provider: auth['provider']).new_record?
-    return Player.find_by(uid: auth['uid'], provider: auth['provider']), is_new_user
+    return user, is_new_user
   end
 
   def set_user_attributes(user, auth_info)

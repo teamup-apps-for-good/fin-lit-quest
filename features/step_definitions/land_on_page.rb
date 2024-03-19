@@ -35,5 +35,5 @@ Then('I should be on the profile page for {string}') do |nonplayer|
 end
 
 Then('I should be on the tutorial page') do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page).to have_current_path(tutorial_path(1))
 end
