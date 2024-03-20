@@ -83,5 +83,15 @@ RSpec.describe Allowance, type: :model do
       expect(inventory).not_to be_nil
       expect(@player.balance).to be(10)
     end
+
+    it 'updates with an existing inventory' do
+      @player.day = 7
+      @player.save!
+      Inventory.create!(character: @player, item: @item, quantity: 20)
+      Allowance.advance_and_credit(@player)
+      inventory = Inventory.find_by(character: @player)
+      expect(inventory).not_to be_nil
+      expect(inventory.quantity).to be 22
+    end
   end
 end
