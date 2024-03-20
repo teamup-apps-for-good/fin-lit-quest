@@ -77,3 +77,13 @@ Given('the following starter item table exists:') do |starters|
     StarterItem.create!(starter_entry)
   end
 end
+
+Given('the following allowance entries exist:') do |allowances|
+  allowances.hashes.each do |allowance|
+    unless allowance['item'].nil?
+      item = Item.find_by(name: allowance['item'])
+      allowance['item'] = item
+    end
+    Allowance.create!(allowance)
+  end
+end
