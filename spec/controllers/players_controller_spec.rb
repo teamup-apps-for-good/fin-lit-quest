@@ -98,4 +98,36 @@ RSpec.describe PlayersController, type: :controller do
       expect(assigns(:player)).to be_a_new(Player)
     end
   end
+
+  context 'starter items' do
+    before do
+      item1 = Item.create!(name: 'test item', description: 'test', value: 1)
+      item2 = Item.create!(name: 'test item 2', description: 'test', value: 1)
+
+      @si1 = StarterItem.create!({ item: item1, quantity: 1 })
+      @si2 = StarterItem.create!({ item: item2, quantity: 2 })
+    end
+
+    after do
+      StarterItem.destroy_all
+      Inventory.destroy_all
+      Item.destroy_all
+    end
+
+    describe 'adding starter items' do
+      it 'adds all starting items to a new player' do
+        get :create,
+            params: { player: { name: 'Jeremy', occupation: :merchant, inventory_slots: 5, balance: 10,
+                                current_level: 1, email: 'test2@test.com', provider: 'google-oauth2', uid: '5678' } }
+        p = Player.find_by(name: 'Jeremy')
+
+        inv1 = Inventory.find_by(item: @si1.item, character: p)
+        expect(inv1).not_to be_nil
+        expect(inv1.quantity).to eq(1)
+        inv2 = Inventory.find_by(item: @si2.item, character: p)
+        expect(inv2).not_to be_nil
+        expect(inv2.quantity).to eq(2)
+      end
+    end
+  end
 end

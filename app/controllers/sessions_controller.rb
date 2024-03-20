@@ -30,6 +30,7 @@ class SessionsController < ApplicationController
     auth = request.env['omniauth.auth']
     Player.find_or_create_by(uid: auth['uid'], provider: auth['provider']) do |u|
       set_user_attributes(u, auth)
+      u.add_starter_items
     end
   end
 
