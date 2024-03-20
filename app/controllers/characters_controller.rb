@@ -40,6 +40,7 @@ class CharactersController < SessionsController
   private
 
   def attempt_advance
+    Allowance.advance_and_credit(@current_user)
     Expense.advance_and_deduct?(@current_user)
   end
 
