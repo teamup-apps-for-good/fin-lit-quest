@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_08_185352) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_20_182045) do
+  create_table "allowances", force: :cascade do |t|
+    t.integer "level", null: false
+    t.integer "item_id"
+    t.integer "quantity", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_allowances_on_item_id"
+  end
+
   create_table "characters", force: :cascade do |t|
     t.string "name"
     t.string "occupation"
@@ -32,6 +41,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_08_185352) do
     t.string "uid"
     t.string "provider"
     t.string "email"
+    t.boolean "admin"
     t.index ["item_to_accept_id"], name: "index_characters_on_item_to_accept_id"
     t.index ["item_to_offer_id"], name: "index_characters_on_item_to_offer_id"
     t.index ["uid", "provider"], name: "index_characters_on_uid_and_provider", unique: true, where: "uid IS NOT NULL AND provider IS NOT NULL"
@@ -94,6 +104,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_08_185352) do
     t.index ["item_id"], name: "index_starter_items_on_item_id"
   end
 
+  add_foreign_key "allowances", "items"
   add_foreign_key "characters", "items", column: "item_to_accept_id"
   add_foreign_key "characters", "items", column: "item_to_offer_id"
   add_foreign_key "expenses", "items"
