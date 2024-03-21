@@ -11,11 +11,11 @@ end
 Then('I should see the player owns {string} of {string}') do |quantity, item|
   item_id = "player_inventory_#{item.downcase}"
   inventory_item = find("##{item_id}")
-  expect(inventory_item).to have_content("#{item.capitalize}: #{quantity}")
+  expect(inventory_item).to have_content("#{item.capitalize} : #{quantity}")
 end
 
 Then('I should see the NPC owns {string} of {string}') do |quantity, item|
   item_id = "npc_inventory_#{item.downcase}"
   inventory_item = find("##{item_id}")
-  expect(inventory_item).to have_content("#{item.capitalize}: #{quantity}")
+  expect(inventory_item).to have_content("#{item.capitalize} : #{quantity}")
 end
