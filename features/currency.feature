@@ -44,6 +44,7 @@ Feature: Exchange with currency
 
   Scenario Outline: The player can see the monetary values and stocks of the NPC's items
     Given I am logged in as "World2User"
+    And "World2User" is on level "2"
     And I am on the trade page for "Lightfoot"
     Then I should see "<item> $<price> - <qty> in stock"
 
@@ -55,6 +56,7 @@ Feature: Exchange with currency
 
   Scenario Outline: The player can see the monetary values of their own items
     Given I am logged in as "World2User"
+    And "World2User" is on level "2"
     And I am on the trade page for "Lightfoot"
     Then I should see "<item> $<price> - <qty> on me"
 
@@ -65,7 +67,7 @@ Feature: Exchange with currency
 
   Scenario: I see the correct prompts for purchasing items with money
     Given I am logged in as "World2User"
-    And I am on Era "2"
+    And "World2User" is on level "2"
     And I am on the trade page for "Lightfoot"
     When I click on "Buy"
     Then I should see "I want"
@@ -74,6 +76,7 @@ Feature: Exchange with currency
 
   Scenario: I do not see the incorrect prompts for purchasing items with money
     Given I am logged in as "World2User"
+    And "World2User" is on level "2"
     And I am on the trade page for "Lightfoot"
     When I click on "Buy"
     Then I should not see "I give"
@@ -81,6 +84,7 @@ Feature: Exchange with currency
 
   Scenario: I see the correct prompts for selling items for money
     Given I am logged in as "World2User"
+    And "World2User" is on level "2"
     And I am on the trade page for "Lightfoot"
     When I click on "Sell"
     Then I should see "I give"
@@ -89,6 +93,7 @@ Feature: Exchange with currency
 
   Scenario: I do not see the incorrect prompts for purchasing items with money
     Given I am logged in as "World2User"
+    And "World2User" is on level "2"
     And I am on the trade page for "Lightfoot"
     When I click on "Sell"
     Then I should not see "I want"
@@ -96,8 +101,9 @@ Feature: Exchange with currency
 
   Scenario: I see the value of items that I want to buy
     Given I am logged in as "World2User"
+    And "World2User" is on level "2"
     And I am on the trade page for "Lightfoot"
-    And I have "100" units of currency
+    And "World2User" has a balance of "100"
     When I click on "Buy"
     And I select "boots" in "I want" dropdown
     And I fill in the number of items that I want with "2"
@@ -105,37 +111,41 @@ Feature: Exchange with currency
 
   Scenario: Purchasing items subtracts money from my inventory
     Given I am logged in as "World2User"
+    And "World2User" is on level "2"
     And I am on the trade page for "Lightfoot"
-    And I have "100" units of currency
+    And "World2User" has a balance of "100"
     When I click on "Buy"
     And I select "boots" in "I want" dropdown
     And I fill in the number of items that I want with "2"
     And I click on "Purchase"
-    Then I should have "50" units of currency
+    Then "World2User" should have a balance of "50"
 
   Scenario: I cannot purchase items if I do not have enough money
     Given I am logged in as "World2User"
+    And "World2User" is on level "2"
     And I am on the trade page for "Lightfoot"
-    And I have "100" units of currency
+    And "World2User" has a balance of "100"
     When I click on "Buy"
     And I select "boots" in "I want" dropdown
     And I fill in the number of items that I want with "2"
     And I click on "Purchase"
     Then I should see "You do not have enough money to purchase these item(s)"
-    And I should have "100" units of currency
+    Then "World2User" should have a balance of "100"
 
   Scenario: Selling items adds money to my inventory
     Given I am logged in as "World2User"
+    And "World2User" is on level "2"
     And I am on the trade page for "Lightfoot"
-    And I have "0" units of currency
+    And "World2User" has a balance of "0"
     When I click on "Sell"
     And I select "apple" in "I give" dropdown
     And I fill in the number of items that I give with "2"
     And I click on "Sell"
-    Then I should have "4" units of currency
+    Then "World2User" should have a balance of "4"
 
   Scenario: I cannot sell more items than I have
     Given I am logged in as "World2User"
+    And "World2User" is on level "2"
     And I am on the trade page for "Lightfoot"
     And I have "0" units of currency
     When I click on "Sell"
@@ -147,11 +157,13 @@ Feature: Exchange with currency
 
   Scenario: I do not see the option to buy or sell on world 1
     Given I am logged in as "World1User"
+    And "World2User" is on level "2"
     And I am on the trade page for "Ritchey"
     Then I should not see "Buy"
     And I should not see "Sell"
 
   Scenario: I do not see item values on world 1
     Given I am logged in as "World1User"
+    And "World1User" is on level "1"
     And I am on the trade page for "Ritchey"
     Then I should not see "\$199"

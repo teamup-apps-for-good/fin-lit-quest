@@ -187,3 +187,10 @@ p{
 #sidebar {
   transition: transform 0.3s ease;
 }
+
+.button-group {
+  display: flex;
+  justify-content: start;
+  margin-bottom: 20px;
+}
+

@@ -92,15 +92,15 @@ class CounterOfferService
     item = Item.find_by(id: item_id)
     pref = Preference.find_by(occupation: npc.occupation)
     total_value = calculate_total_value(item_id, quantity)
-
+  
     time_variance = calc_time_variance(item, @player)
-
+  
     adjusted_value = if pref && (pref.item.id == item_id.to_i)
                        total_value * pref.multiplier * time_variance
                      else
                        total_value * time_variance
                      end
-    adjusted_value.floor
+    adjusted_value.ceil
   end
 
   def calc_time_variance(item, player)

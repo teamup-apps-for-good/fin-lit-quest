@@ -45,5 +45,5 @@ Rails.application.routes.draw do
   get '/test_login', to: 'sessions#logged_in', as: 'test_login'
   get '/logout', to: 'sessions#logout', as: 'logout'
   get '/auth/google_oauth2/callback', to: 'sessions#omniauth'
-
+  
 end

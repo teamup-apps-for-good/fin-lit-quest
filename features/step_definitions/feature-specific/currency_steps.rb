@@ -1,4 +1,4 @@
-Then('I should see the current era') do
-    expected_text = "Era #{Player.current_level}"
-    expect(page).to have_content(expected_text)
-  end
+Given('{string} has a balance of {string}') do |character_name, balance|
+   character = Character.find_by(name: character_name)
+   character.update(balance: balance.to_i)
+end
