@@ -2,6 +2,7 @@
 
 # the controller for the expenses model
 class ExpensesController < SessionsController
+  before_action :require_admin, only: %i[index new edit update destroy]
   before_action :set_expense, only: %i[show edit update destroy]
 
   # GET /expenses or /expenses.json

@@ -60,7 +60,8 @@ RSpec.describe ShoppingListsController, type: :controller do
                   current_level: 1,
                   email: 'test@test.com',
                   provider: 'google-oauth2',
-                  uid: '1234')
+                  uid: '1234',
+                  admin: true)
 
     Player.create(name: 'Victor',
                   occupation: :fisherman,
@@ -252,6 +253,58 @@ RSpec.describe ShoppingListsController, type: :controller do
 
       post :launch, params: { id: @stella.id }
       expect(Player.find_by(name: 'Stella').current_level).to eq(2)
+    end
+  end
+
+  describe 'Admin actions' do
+    before do
+      @stella.admin = false
+      @stella.save!
+    end
+
+    %i[index edit new].each do |tag|
+      it "does not allow players to perform #{tag}" do
+        get tag, params: { id: @apple_shopping_list.id }
+        expect(response).to redirect_to root_path
+        expect(flash[:notice]).to match(/You do not have permission to access this path./)
+      end
+
+      it "allows admins to perform #{tag}" do
+        @stella.admin = true
+        @stella.save!
+        put tag, params: { id: @apple_shopping_list.id }
+        expect(response).not_to redirect_to root_path
+      end
+    end
+
+    %i[update].each do |tag|
+      it "does not allow players to perform #{tag}" do
+        put tag, params: { id: @apple_shopping_list.id }
+        expect(response).to redirect_to root_path
+        expect(flash[:notice]).to match(/You do not have permission to access this path./)
+      end
+
+      it "allows admins to perform #{tag}" do
+        @stella.admin = true
+        @stella.save!
+        post tag, params: { id: @apple_shopping_list.id, shopping_list: { quantity: 4 } }
+        expect(response).not_to redirect_to root_path
+      end
+    end
+
+    %i[destroy].each do |tag|
+      it "does not allow players to perform #{tag}" do
+        delete tag, params: { id: @apple_shopping_list.id }
+        expect(response).to redirect_to root_path
+        expect(flash[:notice]).to match(/You do not have permission to access this path./)
+      end
+
+      it "allows admins to perform #{tag}" do
+        @stella.admin = true
+        @stella.save!
+        delete tag, params: { id: @apple_shopping_list.id }
+        expect(response).not_to redirect_to root_path
+      end
     end
   end
 end
