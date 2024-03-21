@@ -22,6 +22,14 @@
 <% if @context.character %>
   <%= render partial: 'sinventory' %>
 
+  <% if @context.player_character.current_level != 1 %>
+    <div style="margin-top: 20px;">
+      <%= button_to "Barter", create_counter_offer_path(id: @context.character.id), method: :post, class: "button-b" %>
+      <%= button_to "Buy", create_counter_offer_path(id: @context.character.id), method: :post, class: "button-b" %>
+      <%= button_to "Sell", create_counter_offer_path(id: @context.character.id), method: :post, class: "button-b" %>
+    </div>
+  <% end %>
+
   <div style="margin-top: 20px;">
   <%= form_with(url: create_counter_offer_path(id: @context.character.id), method: :post, local: true) do %>
       <!-- Form fields -->
