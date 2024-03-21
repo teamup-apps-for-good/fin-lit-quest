@@ -30,6 +30,7 @@ class SessionsController < ApplicationController
     auth = request.env['omniauth.auth']
     Player.find_or_create_by(uid: auth['uid'], provider: auth['provider']) do |u|
       set_user_attributes(u, auth)
+      u.add_starter_items
     end
   end
 
@@ -46,5 +47,14 @@ class SessionsController < ApplicationController
 
   def redirect_if_logged_in
     redirect_to root_path if logged_in?
+  end
+
+  def require_admin
+    player = Player.find(session[:user_id])
+    return if player&.admin
+
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'You do not have permission to access this path.' }
+    end
   end
 end

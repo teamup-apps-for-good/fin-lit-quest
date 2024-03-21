@@ -69,3 +69,21 @@ Given('the following expenses exist:') do |expenses|
     Expense.create!(expense)
   end
 end
+
+Given('the following starter item table exists:') do |starters|
+  starters.hashes.each do |starter_entry|
+    item = Item.find_by(name: starter_entry['item'])
+    starter_entry['item'] = item
+    StarterItem.create!(starter_entry)
+  end
+end
+
+Given('the following allowance entries exist:') do |allowances|
+  allowances.hashes.each do |allowance|
+    unless allowance['item'].nil?
+      item = Item.find_by(name: allowance['item'])
+      allowance['item'] = item
+    end
+    Allowance.create!(allowance)
+  end
+end
