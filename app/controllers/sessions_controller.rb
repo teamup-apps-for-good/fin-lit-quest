@@ -29,17 +29,16 @@ class SessionsController < ApplicationController
   def find_or_create_user_from_omniauth
     auth = request.env['omniauth.auth']
     user = Player.find_by(uid: auth['uid'], provider: auth['provider'])
-    is_new_user = false
+    is_new_user = user.nil?
 
-    unless user
+    if is_new_user
       user = Player.create(uid: auth['uid'], provider: auth['provider']) do |u|
         set_user_attributes(u, auth)
         u.add_starter_items
       end
-      is_new_user = true
     end
 
-    return user, is_new_user
+    [user, is_new_user]
   end
 
   def set_user_attributes(user, auth_info)
