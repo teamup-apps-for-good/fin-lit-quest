@@ -2,6 +2,7 @@
 
 # NonplayersController
 class NonplayersController < SessionsController
+  before_action :require_admin
   before_action :set_nonplayer, only: %i[show edit update destroy]
 
   # GET /nonplayers or /nonplayers.json

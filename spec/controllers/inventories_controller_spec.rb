@@ -23,7 +23,8 @@ RSpec.describe InventoriesController, type: :controller do
                   current_level: 1,
                   email: 'test@test.com',
                   provider: 'example-provider',
-                  uid: '1234')
+                  uid: '1234',
+                  admin: true)
 
     Character.create(name: 'Lightfoot',
                      occupation: :merchant,
@@ -31,12 +32,12 @@ RSpec.describe InventoriesController, type: :controller do
                      balance: 0,
                      current_level: 1)
 
-    stella = Character.find_by(name: 'Stella')
+    @user = Character.find_by(name: 'Stella')
     @inventory_item = Item.find_by(name: 'apple')
-    session[:user_id] = stella.id
+    session[:user_id] = @user.id
 
     Inventory.create(item: @inventory_item,
-                     character: stella,
+                     character: @user,
                      quantity: 5)
   end
 
@@ -121,6 +122,58 @@ RSpec.describe InventoriesController, type: :controller do
 
     it 'flashes a notice' do
       expect(flash[:notice]).to match(/Inventory was successfully destroyed./)
+    end
+  end
+
+  describe 'Admin actions' do
+    before do
+      @user.admin = false
+      @user.save!
+    end
+
+    %i[index edit new].each do |tag|
+      it "does not allow players to perform #{tag}" do
+        get tag, params: { id: @inventory_item.id }
+        expect(response).to redirect_to root_path
+        expect(flash[:notice]).to match(/You do not have permission to access this path./)
+      end
+
+      it "allows admins to perform #{tag}" do
+        @user.admin = true
+        @user.save!
+        put tag, params: { id: @inventory_item.id }
+        expect(response).not_to redirect_to root_path
+      end
+    end
+
+    %i[update].each do |tag|
+      it "does not allow players to perform #{tag}" do
+        put tag, params: { id: @inventory_item.id }
+        expect(response).to redirect_to root_path
+        expect(flash[:notice]).to match(/You do not have permission to access this path./)
+      end
+
+      it "allows admins to perform #{tag}" do
+        @user.admin = true
+        @user.save!
+        post tag, params: { id: @inventory_item.id, inventory: { quantity: 4 } }
+        expect(response).not_to redirect_to root_path
+      end
+    end
+
+    %i[destroy].each do |tag|
+      it "does not allow players to perform #{tag}" do
+        delete tag, params: { id: @inventory_item.id }
+        expect(response).to redirect_to root_path
+        expect(flash[:notice]).to match(/You do not have permission to access this path./)
+      end
+
+      it "allows admins to perform #{tag}" do
+        @user.admin = true
+        @user.save!
+        delete tag, params: { id: @inventory_item.id }
+        expect(response).not_to redirect_to root_path
+      end
     end
   end
 end

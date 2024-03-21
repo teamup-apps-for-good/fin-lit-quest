@@ -2,6 +2,7 @@
 
 # ShoppingListsController
 class ShoppingListsController < SessionsController
+  before_action :require_admin, except: %i[player_shopping_list launch]
   before_action :set_shopping_list, only: %i[show edit update destroy]
 
   # GET /shopping_lists or /shopping_lists.json

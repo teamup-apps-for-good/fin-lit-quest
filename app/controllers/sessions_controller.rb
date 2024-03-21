@@ -63,4 +63,13 @@ class SessionsController < ApplicationController
   def redirect_if_logged_in
     redirect_to root_path if logged_in?
   end
+
+  def require_admin
+    player = Player.find(session[:user_id])
+    return if player&.admin
+
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'You do not have permission to access this path.' }
+    end
+  end
 end

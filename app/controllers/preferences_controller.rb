@@ -2,6 +2,7 @@
 
 # Controller for the Preferences Table
 class PreferencesController < SessionsController
+  before_action :require_admin
   before_action :set_preference, only: %i[show edit update destroy]
 
   # GET /preferences or /preferences.json
