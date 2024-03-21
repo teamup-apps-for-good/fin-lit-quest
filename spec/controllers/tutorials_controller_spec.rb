@@ -7,12 +7,12 @@ RSpec.describe TutorialsController, type: :controller do
     Player.destroy_all
 
     @stella = Player.create!(name: 'Stella', occupation: 'farmer', inventory_slots: 5, balance: 0, current_level: 1,
-                            email: 'test@test.com', provider: 'google_oauth2', uid: '1234', day: 1, hour: 1)
-    
+                             email: 'test@test.com', provider: 'google_oauth2', uid: '1234', day: 1, hour: 1)
+
     @bill = Player.create!(name: 'Bill', occupation: 'farmer', inventory_slots: 5, balance: 0, current_level: 2,
-                            email: 'test@test.com', provider: 'google_oauth2', uid: '4321', day: 1, hour: 1)
+                           email: 'test@test.com', provider: 'google_oauth2', uid: '4321', day: 1, hour: 1)
   end
-  
+
   describe 'GET #show' do
     context 'when user on level 1 is logged in' do
       before do
@@ -44,7 +44,7 @@ RSpec.describe TutorialsController, type: :controller do
       it 'returns the current tutorial level' do
         get :show
         expect(assigns(:tutorial_level)).to eq(@bill.current_level)
-        expect(assigns(:last_page)).to eq(7)  # Assuming level 2 has 7 pages
+        expect(assigns(:last_page)).to eq(7) # Assuming level 2 has 7 pages
       end
 
       it 'assigns the correct last page for tutorial level' do
