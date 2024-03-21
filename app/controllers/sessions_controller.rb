@@ -34,6 +34,7 @@ class SessionsController < ApplicationController
     unless user
       user = Player.create(uid: auth['uid'], provider: auth['provider']) do |u|
         set_user_attributes(u, auth)
+        u.add_starter_items
       end
       is_new_user = true
     end

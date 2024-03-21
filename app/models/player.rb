@@ -8,4 +8,10 @@ class Player < Character
   validates :hour, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 11, only_integer: true },
                    presence: true
   validates :uid, uniqueness: { scope: :provider, allow_blank: false, message: 'must be unique per provider' }
+
+  def add_starter_items
+    StarterItem.all.each do |starter_item|
+      Inventory.create!({ item: starter_item.item, quantity: starter_item.quantity, character: self })
+    end
+  end
 end
