@@ -6,7 +6,7 @@ Feature: Tutorial
   Background:
     Given the following players exist:
       | name      | occupation  | inventory_slots | balance |  current_level  | uid  | provider      | email         |
-      | Player    | programmer  |        5        | 0       |       1         | 1234 | google_oauth2 | test@test.com |
+      | Player    | programmer  |        5        | 0       |       1         | 4321 | google_oauth2 | test@test.com |
       | Player2   | programmer  |        5        | 0       |       2         | 5678 | google_oauth2 | test@test.com |
 
   Scenario: I see the tutorial when I first create an account
@@ -18,7 +18,7 @@ Feature: Tutorial
   Scenario: I do not see the tutorial page if I already have an account
     Given the following players exist:
       | name      | occupation  | inventory_slots | balance |  current_level  | uid  | provider      | email         |
-      | Stella    | programmer  |        5        | 0       |       1         | 9999 | google_oauth2 | test@test.com |
+      | Stella    | programmer  |        5        | 0       |       1         | 1234 | google_oauth2 | test@test.com |
     And I am not logged in
     And I am on the login page
     When I click on "Sign in with Google"
