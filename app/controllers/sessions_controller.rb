@@ -18,10 +18,18 @@ class SessionsController < ApplicationController
     user, is_new_user = find_or_create_user_from_omniauth
     if user.valid?
       session[:user_id] = user.id
-      redirect_to is_new_user ? tutorial_path(1) : root_path
+      new_user_handler(is_new_user)
     end
   rescue NoMethodError
     redirect_to welcome_path, alert: 'Login failed.'
+  end
+
+  def new_user_handler(is_new_user)
+    if is_new_user
+      redirect_to tutorial_path(1)
+    else
+      redirect_to root_path
+    end
   end
 
   protected
