@@ -41,6 +41,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_20_182045) do
     t.string "uid"
     t.string "provider"
     t.string "email"
+    t.boolean "admin"
     t.index ["item_to_accept_id"], name: "index_characters_on_item_to_accept_id"
     t.index ["item_to_offer_id"], name: "index_characters_on_item_to_offer_id"
     t.index ["uid", "provider"], name: "index_characters_on_uid_and_provider", unique: true, where: "uid IS NOT NULL AND provider IS NOT NULL"
