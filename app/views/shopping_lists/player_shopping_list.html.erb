@@ -2,28 +2,27 @@
 
 <%= render 'gameplays/nav_header'%>
 
-<h1>Shopping lists</h1>
+<h1 class = "center-text">Shopping lists</h1>
 
-<div id="shopping_lists">
-  <% @level_shopping_lists.each do |shopping_list| %>
-    <div id="<%= dom_id shopping_list %>">
-        <p>
-            <%= check_box_tag "checked_shopping_list_#{shopping_list.id}", 
-            '1',
-            shopping_list.item_obtained(@current_user),
-            disabled: true %> 
-            <%= shopping_list.quantity %> x <%= shopping_list.item.name %>
-        </p>
+<div class = "flex flex-col items-center justify-center">
+    <div id="shopping_lists" class = "card-display">
+      <% @level_shopping_lists.each do |shopping_list| %>
+        <div id="<%= dom_id shopping_list %>">
+            <p>
+                <%= check_box_tag "checked_shopping_list_#{shopping_list.id}", 
+                '1',
+                shopping_list.item_obtained(@current_user),
+                disabled: true %> 
+                <%= shopping_list.quantity %> x <%= shopping_list.item.name %>
+            </p>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-</div>
 
-<%= button_to "Back", :back, class: "button-b", method: :get %>
-
-<div>
-  <h2>
-    Launch to next world if you satisfied all conditions!
-  </h2>
-
-  <%= button_to "Launch", launch_path(id: @current_user.id), method: :post, class: "button-g" %>
+    <h3 class = "mt-6 mb-4"> Launch to next world if you satisfied all conditions! </h3>
+    <div class = "flex flex-row">
+        <%= button_to "Launch", launch_path(id: @current_user.id), method: :post, class: "hermitfont green-button mr-2" %>
+        <%= button_to "Back", :back, class: "hermitfont blue-button ml-2", method: :get %>
+    </div>
+    
 </div>
