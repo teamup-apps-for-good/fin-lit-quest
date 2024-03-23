@@ -49,13 +49,14 @@ class CounterOfferService
   end
 
   def generate_error_message
-    "#{@npc.name} does not have the item" if npc_has_item?
-    "You don't have this item." if user_has_item?
-    if valid_trade?
-      "#{@npc.name} does not have the item you are trying to get"
-    else
-      "#{@npc.name} did not accept your offer!"
-    end
+    return "You don't have the item you are trying to give." if player_item_quantity.zero?
+    return "You do not have enough items to trade!" unless user_has_item?
+  
+    return "#{@npc.name} does not have the item you are trying to get." if npc_item_quantity.zero?
+    return "#{@npc.name} does not have enough items for the trade!" unless npc_has_item?
+  
+    return "#{@npc.name} did not accept your offer!" unless valid_trade?
+  
   end
 
   def generate_success_message
@@ -81,6 +82,16 @@ class CounterOfferService
   def user_has_item?
     inventory_item = @player.inventories.find_by(item_id: @item_i_give_id)
     inventory_item && inventory_item.quantity >= @quantity_i_give
+  end
+
+  def player_item_quantity
+    inventory_item = @player.inventories.find_by(item_id: @item_i_give_id)
+    inventory_item ? inventory_item.quantity : 0
+  end
+  
+  def npc_item_quantity
+    inventory_item = @npc.inventories.find_by(item_id: @item_i_want_id)
+    inventory_item ? inventory_item.quantity : 0
   end
 
   def calculate_total_value(item_id, quantity)

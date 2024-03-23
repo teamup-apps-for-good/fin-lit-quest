@@ -3,13 +3,12 @@
 # Controller for handling counter offers in the game.
 class CounterOfferController < SessionsController
   before_action :set_context
-  before_action :set_counter_offer_service, only: [:show, :create]
+  before_action :set_counter_offer_service, only: [:show, :create, :barter, :buy, :sell]
   attr_reader :context, :counter_offer_service
 
   def show
     @inventory_hash_player = InventoryService.inventory_for(@current_user)
     @inventory_hash_npc = InventoryService.inventory_for(@context.character)
-    @action = session[:action]
   end
 
   def create
@@ -24,6 +23,23 @@ class CounterOfferController < SessionsController
     end
   end
 
+  def barter
+    @inventory_hash_player = InventoryService.inventory_for(@current_user)
+    @inventory_hash_npc = InventoryService.inventory_for(@context.character)
+    render 'barter'
+  end
+
+  def buy
+    @inventory_hash_player = InventoryService.inventory_for(@current_user)
+    @inventory_hash_npc = InventoryService.inventory_for(@context.character)
+    render 'buy'
+  end
+
+  def sell
+    @inventory_hash_player = InventoryService.inventory_for(@current_user)
+    @inventory_hash_npc = InventoryService.inventory_for(@context.character)
+    render 'sell'
+  end
 
   private
 

@@ -147,13 +147,13 @@ Feature: Exchange with currency
     Given I am logged in as "World2User"
     And "World2User" is on level "2"
     And I am on the trade page for "Lightfoot"
-    And I have "0" units of currency
+    And "World2User" has a balance of "0"
     When I click on "Sell"
     And I select "apple" in "I give" dropdown
     And I fill in the number of items that I give with "10"
     And I click on "Sell"
     Then I should see "You do not have enough items to sell"
-    And I should have "0" units of currency
+    Then "World2User" should have a balance of "0"
 
   Scenario: I do not see the option to buy or sell on world 1
     Given I am logged in as "World1User"

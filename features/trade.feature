@@ -87,6 +87,7 @@ Feature: Merge trading and counter-offer page
 
   Scenario: Non-player will not accept trade if it is not worth it for them
     Given I am on the trade page for "Ritchey"
+    And "Ritchey" has "1" of "map"
     When I select "apple" in "I give" dropdown
     * I select "map" in "I want" dropdown
     * I fill in the number of items that I give with "1"

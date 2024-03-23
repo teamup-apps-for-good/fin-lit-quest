@@ -189,8 +189,7 @@ p{
 }
 
 .button-group {
-  display: flex;
-  justify-content: start;
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
