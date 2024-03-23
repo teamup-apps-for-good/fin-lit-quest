@@ -76,3 +76,7 @@ end
 When('I visit the home page') do
   visit root_path
 end
+
+Given('I am on the tutorial page') do
+  visit tutorial_path(1)
+end

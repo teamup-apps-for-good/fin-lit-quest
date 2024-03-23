@@ -15,23 +15,38 @@ class SessionsController < ApplicationController
   end
 
   def omniauth
-    user = find_or_create_user_from_omniauth
+    user, is_new_user = find_or_create_user_from_omniauth
     if user.valid?
       session[:user_id] = user.id
-      redirect_to root_path
+      new_user_handler(is_new_user)
     end
   rescue NoMethodError
     redirect_to welcome_path, alert: 'Login failed.'
+  end
+
+  def new_user_handler(is_new_user)
+    if is_new_user
+      redirect_to tutorial_path(1)
+    else
+      redirect_to root_path
+    end
   end
 
   protected
 
   def find_or_create_user_from_omniauth
     auth = request.env['omniauth.auth']
-    Player.find_or_create_by(uid: auth['uid'], provider: auth['provider']) do |u|
-      set_user_attributes(u, auth)
-      u.add_starter_items
+    user = Player.find_by(uid: auth['uid'], provider: auth['provider'])
+    is_new_user = user.nil?
+
+    if is_new_user
+      user = Player.create(uid: auth['uid'], provider: auth['provider']) do |u|
+        set_user_attributes(u, auth)
+        u.add_starter_items
+      end
     end
+
+    [user, is_new_user]
   end
 
   def set_user_attributes(user, auth_info)

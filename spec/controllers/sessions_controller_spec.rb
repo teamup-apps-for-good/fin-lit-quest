@@ -128,6 +128,12 @@ RSpec.describe SessionsController, type: :controller do
           expect(response).to redirect_to(welcome_path)
         end
 
+        it 'redirects to the tutorial page' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
+          get :omniauth
+          expect(response).to redirect_to(tutorial_path(1))
+        end
+
         it 'adds new items to their inventory' do
           request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
           get :omniauth
