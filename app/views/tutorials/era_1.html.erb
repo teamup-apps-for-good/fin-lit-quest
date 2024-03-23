@@ -1,0 +1,29 @@
+<div class = "nicefont" style="display: flex; flex-direction: column; justify-content: space-between; text-align: center; height: 100vh; padding: 20px;">
+  <div>
+    <h1>Tutorial: Era <%= @tutorial_level %></h1>
+  </div>
+
+  <div>
+    <% if @page == 1 %>
+      <p>Welcome to FinLitQuest!</p>
+    <% elsif @page == 2 %>
+      <p>FinLitQuest is an adventure game designed to educate users on financial literacy, from core concepts such as bartering to debt, investing, and more.</p>
+    <% elsif @page == 3 %>
+      <p>Start playing by visiting the town. There, you should find some other townsfolk to trade with and start working towards your shopping list.</p>
+    <% elsif @page == 4 %>
+      <p>What's your shopping list you ask? Well, in order to advance to the next world, you first need to acquire some items to buy a rocket ticket with! You can check your shopping list and its progress on your sidebar.</p>
+    <% elsif @page == 5 %>
+      <p>Also, I want to remind you that you have expenses such as food as well, so don't forget to keep yourself fed!</p>
+    <% elsif @page == 6 %>
+      <p>Go ahead and start exploring, and I'll see you on world 2!</p>
+    <% else %>
+      <p>Well this is awkward, you can move along now</p>
+    <% end %>
+  </div>
+
+  <div style="display: flex; flex-direction: row; justify-content: space-between;">
+    <%= button_to 'Back', (@page > 1 ? tutorial_path(page: @page - 1) : root_path), class: "button-b", method: :get %>
+    <%= button_to (@page < @last_page ? 'Next' : 'Done') , (@page < @last_page ? tutorial_path(page: @page + 1) : root_path), class: "button-b", method: :get %>
+  </div>
+
+</div>
