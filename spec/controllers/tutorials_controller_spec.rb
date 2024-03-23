@@ -11,6 +11,9 @@ RSpec.describe TutorialsController, type: :controller do
 
     @bill = Player.create!(name: 'Bill', occupation: 'farmer', inventory_slots: 5, balance: 0, current_level: 2,
                            email: 'test@test.com', provider: 'google_oauth2', uid: '4321', day: 1, hour: 1)
+
+    @john = Player.create!(name: 'John', occupation: 'farmer', inventory_slots: 5, balance: 0, current_level: 0,
+                           email: 'test@test.com', provider: 'google_oauth2', uid: '5678', day: 1, hour: 1)
   end
 
   describe 'GET #show' do
@@ -50,6 +53,17 @@ RSpec.describe TutorialsController, type: :controller do
       it 'assigns the correct last page for tutorial level' do
         get :show
         expect(assigns(:last_page)).to eq(7)
+      end
+    end
+
+    context 'when user on level without tutorial is logged in' do
+      before do
+        session[:user_id] = @john.id
+      end
+
+      it 'shows the construction page for tutorial' do
+        get :show
+        expect(response).to render_template('tutorials/era_construction')
       end
     end
 
