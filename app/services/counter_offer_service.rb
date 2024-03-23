@@ -30,6 +30,16 @@ class CounterOfferService
     end
   end
 
+  def execute_sell
+    item = Item.find_by(id: @item_i_give_id)
+    if user_has_item?
+      perform_sell_transactions
+      [true, "Successfully sold #{@quantity_i_give} #{item.name}!"]
+    else
+      [false, generate_sell_error_message]
+    end
+  end
+
   def assign_trade_params
     @item_i_give_id = @offer_params[:item_i_give_id]
     @quantity_i_give = @offer_params[:quantity_i_give].to_i
@@ -55,6 +65,13 @@ class CounterOfferService
     end
   end
 
+  def perform_sell_transactions
+    ActiveRecord::Base.transaction do
+      update_player_inventory_and_balance_for_sell
+      update_npc_inventory_for_sell
+    end
+  end
+
   def update_player_inventories
     InventoryService.update_inventory(@player, @item_i_give_id, -@quantity_i_give)
     InventoryService.update_inventory(@player, @item_i_want_id, @quantity_i_want)
@@ -71,9 +88,18 @@ class CounterOfferService
     @player.update!(balance: new_balance)
   end
 
-  
   def update_npc_inventory_for_buy
     InventoryService.update_inventory(@npc, @item_i_want_id, -@quantity_i_want)
+  end
+
+  def update_player_inventory_and_balance_for_sell
+    InventoryService.update_inventory(@player, @item_i_give_id, -@quantity_i_give)
+    new_balance = @player.balance + total_sale_price_of_items_given
+    @player.update!(balance: new_balance)
+  end
+  
+  def update_npc_inventory_for_sell
+    InventoryService.update_inventory(@npc, @item_i_give_id, @quantity_i_give)
   end
 
   def generate_error_message
@@ -138,6 +164,14 @@ class CounterOfferService
   def generate_buy_error_message
     return "You do not have enough money to purchase these item(s)" unless player_can_afford?
     "#{@npc.name} does not have enough items for the sale!" unless npc_has_item?
+  end
+
+  def total_sale_price_of_items_given
+    value_of(@player, @item_i_give_id, @quantity_i_give)
+  end
+
+  def generate_sell_error_message
+    return "You do not have enough items to sell!" unless user_has_item?
   end
 
   def value_of(npc, item_id, quantity)

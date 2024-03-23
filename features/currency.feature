@@ -153,7 +153,7 @@ Feature: Exchange with currency
     And I select "apple" in "I give" dropdown
     And I fill in the number of items that I give with "10"
     And I click on "Sell"
-    Then I should see "You do not have enough items to trade!"
+    Then I should see "You do not have enough items to sell!"
     Then "World2User" should have a balance of "0"
 
   Scenario: I do not see the option to buy or sell on world 1

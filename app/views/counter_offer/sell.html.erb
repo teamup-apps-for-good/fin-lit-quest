@@ -29,7 +29,7 @@
       </div>
 
       <div style="margin-top: 20px;" class="hermitfont flex justify-center">
-      <%= form_with(url: create_counter_offer_path(id: @context.character.id), method: :post, local: true) do %>
+      <%= form_with(url: sell_create_trade_path(id: @context.character.id), method: :post, local: true) do %>
           <!-- Form fields -->
           <div class = "card-display">
             <div class = "mb-1">
