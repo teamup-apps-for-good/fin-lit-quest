@@ -20,6 +20,16 @@ class CounterOfferService
     end
   end
 
+  def execute_buy
+    item = Item.find_by(id: @item_i_want_id)
+    if npc_has_item? && player_can_afford?
+      perform_buy_transactions
+      [true, "Successfully bought #{@quantity_i_want} #{item.name}!"]
+    else
+      [false, generate_buy_error_message]
+    end
+  end
+
   def assign_trade_params
     @item_i_give_id = @offer_params[:item_i_give_id]
     @quantity_i_give = @offer_params[:quantity_i_give].to_i
@@ -38,6 +48,13 @@ class CounterOfferService
     end
   end
 
+  def perform_buy_transactions
+    ActiveRecord::Base.transaction do
+      update_npc_inventory_for_buy
+      update_player_inventory_and_balance_for_buy
+    end
+  end
+
   def update_player_inventories
     InventoryService.update_inventory(@player, @item_i_give_id, -@quantity_i_give)
     InventoryService.update_inventory(@player, @item_i_want_id, @quantity_i_want)
@@ -46,6 +63,17 @@ class CounterOfferService
   def update_npc_inventories
     InventoryService.update_inventory(@npc, @item_i_want_id, -@quantity_i_want)
     InventoryService.update_inventory(@npc, @item_i_give_id, @quantity_i_give)
+  end
+
+  def update_player_inventory_and_balance_for_buy
+    InventoryService.update_inventory(@player, @item_i_want_id, @quantity_i_want)
+    new_balance = @player.balance - total_price_of_items_wanted
+    @player.update!(balance: new_balance)
+  end
+
+  
+  def update_npc_inventory_for_buy
+    InventoryService.update_inventory(@npc, @item_i_want_id, -@quantity_i_want)
   end
 
   def generate_error_message
@@ -99,6 +127,19 @@ class CounterOfferService
     item&.value.to_i * quantity
   end
 
+  def total_price_of_items_wanted
+    value_of(@npc, @item_i_want_id, @quantity_i_want)
+  end
+
+  def player_can_afford?
+    @player.balance >= total_price_of_items_wanted
+  end
+  
+  def generate_buy_error_message
+    return "You do not have enough money to purchase these item(s)" unless player_can_afford?
+    "#{@npc.name} does not have enough items for the sale!" unless npc_has_item?
+  end
+
   def value_of(npc, item_id, quantity)
     item = Item.find_by(id: item_id)
     pref = Preference.find_by(occupation: npc.occupation)
@@ -111,7 +152,7 @@ class CounterOfferService
                      else
                        total_value * time_variance
                      end
-    adjusted_value.floor
+    adjusted_value.ceil
   end
 
   def calc_time_variance(item, player)

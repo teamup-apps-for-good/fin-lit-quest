@@ -52,5 +52,7 @@ Rails.application.routes.draw do
   get '/trade/:id/barter' => 'counter_offer#barter', as: 'barter_trade'
   get '/trade/:id/buy' => 'counter_offer#buy', as: 'buy_trade'
   get '/trade/:id/sell' => 'counter_offer#sell', as: 'sell_trade'
+  
+  post '/trade/:id/buy_create', to: 'counter_offer#buy_create', as: 'buy_create_trade'
 
 end

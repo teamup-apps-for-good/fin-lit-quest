@@ -124,13 +124,13 @@ Feature: Exchange with currency
     Given I am logged in as "World2User"
     And "World2User" is on level "2"
     And I am on the trade page for "Lightfoot"
-    And "World2User" has a balance of "100"
+    And "World2User" has a balance of "2"
     When I click on "Buy"
     And I select "boots" in "I want" dropdown
     And I fill in the number of items that I want with "2"
     And I click on "Purchase"
     Then I should see "You do not have enough money to purchase these item(s)"
-    Then "World2User" should have a balance of "100"
+    Then "World2User" should have a balance of "2"
 
   Scenario: Selling items adds money to my inventory
     Given I am logged in as "World2User"
