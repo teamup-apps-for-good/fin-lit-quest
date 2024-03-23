@@ -28,4 +28,13 @@ class InventoryService
       hash[inventory.item.name] = inventory.quantity
     end
   end
+
+  def self.set_inventory(character, item_id, quantity)
+    item = Item.find_by(id: item_id)
+    return unless item
+
+    inventory_item = character.inventories.find_or_initialize_by(item: item)
+    inventory_item.quantity = quantity
+    inventory_item.save!
+  end
 end

@@ -1,26 +1,33 @@
-<div id="<%= @context.player_character.name %>_inventory" class="inventory-container-co">
-  <h2 style="font-weight: bold;"><%= @context.player_character.name %>'s Inventory</h2>
-  <% @inventory_hash_player.each do |item_name, quantity| %>
-    <% item = Item.find_by(name: item_name) %>
-    <% if item && quantity > 0 %>
-      <% unit_price = @counter_offer_service.value_of(@context.player_character, item.id, 1) %>
-      <div>
-        <%= item_name %> $<%= unit_price %> - <%= quantity %> on me
-      </div>
+<!-- Player Character's Inventory -->
+<div id="<%= @context.player_character.name %>_inventory" class="inventory-container-co card-display">
+  <h3 style="font-weight: bold;"><%= @context.player_character.name %>'s Inventory</h3>
+  <hr class="my-2">
+  <div class="card-overflow">
+    <% @inventory_hash_player.each do |item_name, quantity| %>
+      <% item = Item.find_by(name: item_name) %>
+      <% if item && quantity.positive? %>
+        <% unit_price = @counter_offer_service.value_of(@context.player_character, item.id, 1) %>
+        <div>
+          <%= item_name %> $<%= unit_price %> - <%= quantity %> on me
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>
 
-<!-- Container for NPC's Inventory -->
-<div id="<%= @context.character.name %>_inventory" class="inventory-container-co">
-  <h2 style="font-weight: bold;"><%= @context.character.name %>'s Inventory</h2>
-  <% @inventory_hash_npc.each do |item_name, quantity| %>
-    <% item = Item.find_by(name: item_name) %>
-    <% if item && quantity > 0 %>
-      <% unit_price = @counter_offer_service.value_of(@context.character, item.id, 1) %>
-      <div>
-        <%= item_name %> $<%= unit_price %> - <%= quantity %> in stock
-      </div>
+<!-- NPC's Inventory -->
+<div id="<%= @context.character.name %>_inventory" class="inventory-container-co card-display">
+  <h3 style="font-weight: bold;"><%= @context.character.name %>'s Inventory</h3>
+  <hr class="my-2">
+  <div class="card-overflow">
+    <% @inventory_hash_npc.each do |item_name, quantity| %>
+        <% item = Item.find_by(name: item_name) %>
+        <% if item && quantity > 0 %>
+        <% unit_price = @counter_offer_service.value_of(@context.character, item.id, 1) %>
+        <div>
+            <%= item_name %> $<%= unit_price %> - <%= quantity %> in stock
+        </div>
+        <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>
