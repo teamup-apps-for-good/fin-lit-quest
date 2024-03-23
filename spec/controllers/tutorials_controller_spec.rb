@@ -11,7 +11,7 @@ RSpec.describe TutorialsController, type: :controller do
 
     @bill = Player.create!(name: 'Bill', occupation: 'farmer', inventory_slots: 5, balance: 0, current_level: 2,
                            email: 'test@test.com', provider: 'google_oauth2', uid: '4321', day: 1, hour: 1)
-                          
+
     @john = Player.create!(name: 'John', occupation: 'farmer', inventory_slots: 5, balance: 0, current_level: 0,
                            email: 'test@test.com', provider: 'google_oauth2', uid: '5678', day: 1, hour: 1)
   end
