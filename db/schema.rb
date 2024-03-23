@@ -37,7 +37,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_20_182045) do
     t.integer "item_to_offer_id"
     t.integer "day", default: 1
     t.integer "hour", default: 1
-    t.integer "era", default: 1
     t.string "uid"
     t.string "provider"
     t.string "email"
