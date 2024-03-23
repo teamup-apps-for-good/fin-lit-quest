@@ -25,7 +25,11 @@
 
     <% if @context.character %>
       <div class="flex flex-wrap justify-center">
+        <% if @context.player_character.current_level != 1 %>
+          <%= render partial: 'sinventory2' %>
+        <% else %>
           <%= render partial: 'sinventory' %>
+        <% end %>
       </div>
 
       <div style="margin-top: 20px;" class="hermitfont flex justify-center">
