@@ -3,9 +3,13 @@
 # Controller for handling counter offers in the game.
 class CounterOfferController < SessionsController
   before_action :set_context
-  attr_reader :context
+  before_action :set_counter_offer_service, only: [:show, :create, :barter, :buy, :sell]
+  attr_reader :context, :counter_offer_service
 
-  def show; end
+  def show
+    @inventory_hash_player = InventoryService.inventory_for(@current_user)
+    @inventory_hash_npc = InventoryService.inventory_for(@context.character)
+  end
 
   def create
     character = @current_user
@@ -17,6 +21,24 @@ class CounterOfferController < SessionsController
       flash[:alert] = 'Please fill in all required fields'
       redirect_to request.referer || root_path
     end
+  end
+
+  def barter
+    @inventory_hash_player = InventoryService.inventory_for(@current_user)
+    @inventory_hash_npc = InventoryService.inventory_for(@context.character)
+    render 'barter'
+  end
+
+  def buy
+    @inventory_hash_player = InventoryService.inventory_for(@current_user)
+    @inventory_hash_npc = InventoryService.inventory_for(@context.character)
+    render 'buy'
+  end
+
+  def sell
+    @inventory_hash_player = InventoryService.inventory_for(@current_user)
+    @inventory_hash_npc = InventoryService.inventory_for(@context.character)
+    render 'sell'
   end
 
   private
@@ -49,5 +71,9 @@ class CounterOfferController < SessionsController
 
   def counter_offer_params
     params.permit(:item_i_give_id, :quantity_i_give, :item_i_want_id, :quantity_i_want)
+  end
+
+  def set_counter_offer_service
+    @counter_offer_service = CounterOfferService.new(@context.player_character, @context.character, counter_offer_params)
   end
 end

@@ -1,9 +1,9 @@
-<!-- app/views/counter_offer/show.html.erb -->
+<!-- app/views/counter_offer/barter.html.erb -->
 
 <%= render 'gameplays/nav_header'%>
 
 <div class = "center-text">
-    <h1> Trade with <%= @context.character.name %> </h1>
+    <h1> Barter with <%= @context.character.name %> </h1>
     <% container_id = "#{@context.character.name.downcase}_image_container" %>
       <div id="<%= container_id %>" class="nonplayer-container mb-4">
           <img id="<%= nonplayer_img_tag(@context.character) %>" src="<%= asset_path(nonplayer_gif_file(@context.character)) %>" alt="<%= @context.character.name %>">
@@ -25,28 +25,11 @@
 
     <% if @context.character %>
       <div class="flex flex-wrap justify-center">
-        <% if @context.player_character.current_level != 1 %>
-          <%= render partial: 'sinventory2' %>
-        <% else %>
-          <%= render partial: 'sinventory' %>
-        <% end %>
+        <%= render partial: 'sinventory2' %>
       </div>
-      
-      <% if @context.player_character.current_level != 1 %>
-        <div style="margin-top: 20px;" class="hermitfont flex justify-center">
-          <div class="button-group">
-          
-            <%= link_to 'Barter', barter_trade_path(id: @context.character.id), class: "blue-button", style: 'margin-right: 10px;' %>
-            <%= link_to 'Buy', buy_trade_path(id: @context.character.id), class: "blue-button", style: 'margin-right: 10px;' %>
-            <%= link_to 'Sell', sell_trade_path(id: @context.character.id), class: "blue-button", style: 'margin-right: 10px;' %>
-            <%= link_to "Back", character_profile_path(@context.character), class: "blue-button" %>
 
-          </div>
-        </div>
-        
-      <% else %>
       <div style="margin-top: 20px;" class="hermitfont flex justify-center">
-        <%= form_with(url: create_counter_offer_path(id: @context.character.id), method: :post, local: true) do %>
+      <%= form_with(url: create_counter_offer_path(id: @context.character.id), method: :post, local: true) do %>
           <!-- Form fields -->
           <div class = "card-display">
               <div class = "mb-1">
@@ -72,14 +55,11 @@
       
           <div style="margin-bottom: 10px;" class="flex items-center justify-center py-4">
               <%= submit_tag 'Offer', class: "green-button mx-4" %>
-              <%= link_to "Back", character_profile_path(@context.character), class: "blue-button" %>
+              <%= link_to "Back", trade_path(@context.character.id), class: "blue-button" %>
           </div>
         <% end %>
-      </div>
-    <% end %>
+  </div>
 
 <% else %>
   <p>Character not found.</p>
 <% end %>
-
-
