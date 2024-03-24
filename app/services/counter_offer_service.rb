@@ -97,20 +97,19 @@ class CounterOfferService
     new_balance = @player.balance + total_sale_price_of_items_given
     @player.update!(balance: new_balance)
   end
-  
+
   def update_npc_inventory_for_sell
     InventoryService.update_inventory(@npc, @item_i_give_id, @quantity_i_give)
   end
 
   def generate_error_message
     return "You don't have the item you are trying to give." if player_item_quantity.zero?
-    return "You do not have enough items to trade!" unless user_has_item?
-  
+    return 'You do not have enough items to trade!' unless user_has_item?
+
     return "#{@npc.name} does not have the item you are trying to get." if npc_item_quantity.zero?
     return "#{@npc.name} does not have enough items for the trade!" unless npc_has_item?
-  
-    return "#{@npc.name} did not accept your offer!" unless valid_trade?
-  
+
+    "#{@npc.name} did not accept your offer!" unless valid_trade?
   end
 
   def generate_success_message
@@ -142,7 +141,7 @@ class CounterOfferService
     inventory_item = @player.inventories.find_by(item_id: @item_i_give_id)
     inventory_item ? inventory_item.quantity : 0
   end
-  
+
   def npc_item_quantity
     inventory_item = @npc.inventories.find_by(item_id: @item_i_want_id)
     inventory_item ? inventory_item.quantity : 0
@@ -160,9 +159,10 @@ class CounterOfferService
   def player_can_afford?
     @player.balance >= total_price_of_items_wanted
   end
-  
+
   def generate_buy_error_message
-    return "You do not have enough money to purchase these item(s)" unless player_can_afford?
+    return 'You do not have enough money to purchase these item(s)' unless player_can_afford?
+
     "#{@npc.name} does not have enough items for the sale!" unless npc_has_item?
   end
 
@@ -171,7 +171,7 @@ class CounterOfferService
   end
 
   def generate_sell_error_message
-    return "You do not have enough items to sell!" unless user_has_item?
+    'You do not have enough items to sell!' unless user_has_item?
   end
 
   def value_of(npc, item_id, quantity)

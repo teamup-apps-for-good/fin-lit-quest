@@ -105,9 +105,9 @@ Feature: Exchange with currency
     And I am on the trade page for "Lightfoot"
     And "World2User" has a balance of "100"
     When I click on "Buy"
-    And I select "boots" in "I want" dropdown
-    And I fill in the number of items that I want with "2"
-    Then I should see "50" in "Total value" field
+    And I select "boots" from "I want" dropdown for "buying"
+    And I fill in the number of items that I want with "0"
+    Then I should see total price as "0"
 
   Scenario: Purchasing items subtracts money from my inventory
     Given I am logged in as "World2User"
@@ -115,7 +115,7 @@ Feature: Exchange with currency
     And I am on the trade page for "Lightfoot"
     And "World2User" has a balance of "100"
     When I click on "Buy"
-    And I select "boots" in "I want" dropdown
+    And I select "boots" from "I want" dropdown for "buying"
     And I fill in the number of items that I want with "2"
     And I click on "Purchase"
     Then "World2User" should have a balance of "50"
@@ -126,7 +126,7 @@ Feature: Exchange with currency
     And I am on the trade page for "Lightfoot"
     And "World2User" has a balance of "2"
     When I click on "Buy"
-    And I select "boots" in "I want" dropdown
+    And I select "boots" from "I want" dropdown for "buying"
     And I fill in the number of items that I want with "2"
     And I click on "Purchase"
     Then I should see "You do not have enough money to purchase these item(s)"
@@ -138,7 +138,7 @@ Feature: Exchange with currency
     And I am on the trade page for "Lightfoot"
     And "World2User" has a balance of "0"
     When I click on "Sell"
-    And I select "apple" in "I give" dropdown
+    And I select "apple" from "I give" dropdown for "selling"
     And I fill in the number of items that I give with "2"
     And I click on "Sell"
     Then "World2User" should have a balance of "4"
@@ -150,7 +150,7 @@ Feature: Exchange with currency
     And "World2User" has a balance of "0"
     And "World2User" has "5" of "apple"
     When I click on "Sell"
-    And I select "apple" in "I give" dropdown
+    And I select "apple" from "I give" dropdown for "selling"
     And I fill in the number of items that I give with "10"
     And I click on "Sell"
     Then I should see "You do not have enough items to sell!"

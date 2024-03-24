@@ -34,17 +34,23 @@
           <div class = "card-display">
             <div class="mb-1">
                 <%= label_tag :item_i_want_id, 'I want' %>
-                <%= select_tag :item_i_want_id, options_from_collection_for_select(Item.all, :id, :name, selected: @context.character.item_to_offer_id), include_blank: true %>
-            </div>
+                <%= select_tag :item_i_want_id, options_from_collection_for_select(Item.all, :id, :name, selected: @context.character.item_to_offer_id), include_blank: true, id: 'item_i_want_select', data: { values: Item.pluck(:id, :value).to_h } %>
+                </div>
 
             <div>
                 <%= label_tag :quantity_i_want, 'Quantity I want' %>
-                <%= number_field_tag :quantity_i_want, @context.character.quantity_to_offer %>
+                <%= number_field_tag :quantity_i_want, @context.character.quantity_to_offer, id: 'quantity_i_want_field' %>
+
             </div>
 
             <div>
-                <strong>Total price: $<span id="total_price">0</span></strong>
+              <strong>Selected quantity: <span id="selected_quantity">0</span></strong>
             </div>
+
+            <div>
+                <strong>Total price: $ <span id="total_price">0</span></strong>
+            </div>
+
           </div>
       
           <div style="margin-bottom: 10px;" class="flex items-center justify-center py-4">
@@ -57,3 +63,29 @@
 <% else %>
   <p>Character not found.</p>
 <% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var itemSelect = document.getElementById('item_i_want_select');
+    var quantityInput = document.getElementById('quantity_i_want_field');
+    var totalPriceDisplay = document.getElementById('total_price');
+    var itemValues = JSON.parse(itemSelect.dataset.values);
+
+    function calculateTotalPrice() {
+      var itemId = itemSelect.value;
+      var quantity = quantityInput.value;
+      var unitPrice = itemValues[itemId] || 0;
+      var totalPrice = unitPrice * quantity;
+
+      totalPriceDisplay.textContent = totalPrice.toFixed(2); // Format to 2 decimal places
+    }
+
+    itemSelect.addEventListener('change', calculateTotalPrice);
+    quantityInput.addEventListener('input', calculateTotalPrice);
+
+    // Call the function to set the initial total price
+    calculateTotalPrice();
+  });
+</script>
+
+

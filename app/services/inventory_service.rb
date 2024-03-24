@@ -33,7 +33,7 @@ class InventoryService
     item = Item.find_by(id: item_id)
     return unless item
 
-    inventory_item = character.inventories.find_or_initialize_by(item: item)
+    inventory_item = character.inventories.find_or_initialize_by(item:)
     inventory_item.quantity = quantity
     inventory_item.save!
   end
