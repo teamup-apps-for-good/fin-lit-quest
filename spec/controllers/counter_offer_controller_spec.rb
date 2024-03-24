@@ -4,7 +4,8 @@ require 'rails_helper'
 
 RSpec.describe CounterOfferController, type: :controller do
   before do
-    @user = Player.create!(name: 'Test User', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1, email: 'test@test.com', provider: 'google-oauth2', uid: '1234', day: 1, hour: 1)
+    @user = Player.create!(name: 'Test User', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
+                           email: 'test@test.com', provider: 'google-oauth2', uid: '1234', day: 1, hour: 1)
     session[:user_id] = @user.id
   end
 
@@ -71,15 +72,153 @@ RSpec.describe CounterOfferController, type: :controller do
 
     context 'when character.hour is 10' do
       before do
-        @user = Player.create!(name: 'Test User', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1, email: 'test@test.com', provider: 'google-oauth2', uid: '5678', day: 1, hour: 10)
+        @user = Player.create!(name: 'Test User', occupation: :farmer, inventory_slots: 5, balance: 0,
+                               current_level: 1, email: 'test@test.com', provider: 'google-oauth2',
+                               uid: '5678', day: 1, hour: 10)
         session[:user_id] = @user.id
         npc_character.update(hour: 10) # Set the character's hour to 10
       end
-    
+
       it 'redirects to root path with a notice' do
         post :create, params: valid_params
         expect(response).to redirect_to(root_path)
         expect(flash[:notice]).to eq('It is too late! Move to the next day')
+      end
+    end
+  end
+  describe '#set_inventories' do
+    let(:item_to_offer) { create(:item, name: 'Offered Item') }
+    let(:item_to_accept) { create(:item, name: 'Requested Item') }
+    let(:npc_character) do
+      create(:character, name: 'NPCCharacter', item_to_offer_id: item_to_offer.id, item_to_accept_id: item_to_accept.id)
+    end
+
+    before do
+      allow(CharacterInventoryService).to receive(:build_context_by_id)
+        .and_return(double(player_character: nil, character: npc_character, name: npc_character.name))
+    end
+
+    it 'sets the player and NPC inventories' do
+      get :show, params: { id: npc_character.id }
+      expect(assigns(:inventory_hash_player)).to eq(InventoryService.inventory_for(@user))
+      expect(assigns(:inventory_hash_npc)).to eq(InventoryService.inventory_for(npc_character))
+    end
+  end
+
+  describe 'GET #barter' do
+    let(:item_to_offer) { create(:item, name: 'Offered Item') }
+    let(:item_to_accept) { create(:item, name: 'Requested Item') }
+    let(:npc_character) do
+      create(:character, name: 'NPCCharacter', item_to_offer_id: item_to_offer.id, item_to_accept_id: item_to_accept.id)
+    end
+
+    before do
+      allow(CharacterInventoryService).to receive(:build_context_by_id)
+        .and_return(double(player_character: nil, character: npc_character, name: npc_character.name))
+    end
+
+    it 'renders the barter template' do
+      get :barter, params: { id: npc_character.id }
+      expect(response).to render_template('barter')
+    end
+  end
+
+  describe 'GET #buy' do
+    let(:item_to_offer) { create(:item, name: 'Offered Item') }
+    let(:item_to_accept) { create(:item, name: 'Requested Item') }
+    let(:npc_character) do
+      create(:character, name: 'NPCCharacter', item_to_offer_id: item_to_offer.id, item_to_accept_id: item_to_accept.id)
+    end
+
+    before do
+      allow(CharacterInventoryService).to receive(:build_context_by_id)
+        .and_return(double(player_character: nil, character: npc_character, name: npc_character.name))
+    end
+
+    it 'renders the buy template' do
+      get :buy, params: { id: npc_character.id }
+      expect(response).to render_template('buy')
+    end
+  end
+
+  describe 'GET #sell' do
+    let(:item_to_offer) { create(:item, name: 'Offered Item') }
+    let(:item_to_accept) { create(:item, name: 'Requested Item') }
+    let(:npc_character) do
+      create(:character, name: 'NPCCharacter', item_to_offer_id: item_to_offer.id, item_to_accept_id: item_to_accept.id)
+    end
+
+    before do
+      allow(CharacterInventoryService).to receive(:build_context_by_id)
+        .and_return(double(player_character: nil, character: npc_character, name: npc_character.name))
+    end
+
+    it 'renders the sell template' do
+      get :sell, params: { id: npc_character.id }
+      expect(response).to render_template('sell')
+    end
+  end
+
+  describe 'POST #buy_create' do
+    let(:item_to_offer) { create(:item, name: 'Offered Item') }
+    let(:item_to_accept) { create(:item, name: 'Requested Item') }
+    let(:npc_character) do
+      create(:character, name: 'NPCCharacter', item_to_offer_id: item_to_offer.id, item_to_accept_id: item_to_accept.id)
+    end
+    let(:buy_params) { { item_i_want_id: item_to_offer.id, quantity_i_want: '5' } }
+
+    before do
+      allow(CharacterInventoryService).to receive(:build_context_by_id)
+        .and_return(double(player_character: nil, character: npc_character, name: npc_character.name))
+    end
+
+    context 'when buy is successful' do
+      it 'redirects to trade path with a notice' do
+        allow_any_instance_of(BuyCreateService).to receive(:execute).and_return([true, 'Buy success!'])
+        post :buy_create, params: { id: npc_character.id, **buy_params }
+        expect(response).to redirect_to(trade_path(id: npc_character.id))
+        expect(flash[:notice]).to eq('Buy success!')
+      end
+    end
+
+    context 'when buy is unsuccessful' do
+      it 'sets flash alert and redirects' do
+        allow_any_instance_of(BuyCreateService).to receive(:execute).and_return([false, 'Buy failed!'])
+        post :buy_create, params: { id: npc_character.id, **buy_params }
+        expect(flash[:alert]).to eq('Buy failed!')
+        expect(response).to redirect_to(request.referer || root_path)
+      end
+    end
+  end
+
+  describe 'POST #sell_create' do
+    let(:item_to_offer) { create(:item, name: 'Offered Item') }
+    let(:item_to_accept) { create(:item, name: 'Requested Item') }
+    let(:npc_character) do
+      create(:character, name: 'NPCCharacter', item_to_offer_id: item_to_offer.id, item_to_accept_id: item_to_accept.id)
+    end
+    let(:sell_params) { { item_i_give_id: item_to_accept.id, quantity_i_give: '5' } }
+
+    before do
+      allow(CharacterInventoryService).to receive(:build_context_by_id)
+        .and_return(double(player_character: nil, character: npc_character, name: npc_character.name))
+    end
+
+    context 'when sell is successful' do
+      it 'redirects to trade path with a notice' do
+        allow_any_instance_of(SellCreateService).to receive(:execute).and_return([true, 'Sell success!'])
+        post :sell_create, params: { id: npc_character.id, **sell_params }
+        expect(response).to redirect_to(trade_path(id: npc_character.id))
+        expect(flash[:notice]).to eq('Sell success!')
+      end
+    end
+
+    context 'when sell is unsuccessful' do
+      it 'sets flash alert and redirects' do
+        allow_any_instance_of(SellCreateService).to receive(:execute).and_return([false, 'Sell failed!'])
+        post :sell_create, params: { id: npc_character.id, **sell_params }
+        expect(flash[:alert]).to eq('Sell failed!')
+        expect(response).to redirect_to(request.referer || root_path)
       end
     end
   end

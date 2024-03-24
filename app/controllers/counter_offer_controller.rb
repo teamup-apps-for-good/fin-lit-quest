@@ -12,18 +12,12 @@ class CounterOfferController < SessionsController
   end
 
   def create
-    if @context.character.hour == 10
-      redirect_to root_path, notice: 'It is too late! Move to the next day'
-    elsif !validate_counter_offer_params
-      flash[:alert] = 'Please fill in all required fields'
-      redirect_to request.referer || root_path
-    else
-      service = CounterOfferCreateService.new(@current_user, @context, counter_offer_params)
-      success, message = service.execute
-      
-      flash[success ? :notice : :alert] = message
-      redirect_to trade_path(id: @context.character.id)
-    end
+    return redirect_to root_path, notice: 'It is too late! Move to the next day' if time_too_late?
+    return handle_invalid_params unless valid_counter_offer_params?
+
+    service = CounterOfferCreateService.new(@current_user, @context, counter_offer_params)
+    success, message = service.execute
+    handle_counter_offer_result(success, message)
   end
 
   def barter
@@ -54,6 +48,24 @@ class CounterOfferController < SessionsController
   end
 
   private
+
+  def time_too_late?
+    @context.character.hour == 10
+  end
+
+  def valid_counter_offer_params?
+    validate_counter_offer_params
+  end
+
+  def handle_invalid_params
+    flash[:alert] = 'Please fill in all required fields'
+    redirect_to request.referer || root_path
+  end
+
+  def handle_counter_offer_result(success, message)
+    flash[success ? :notice : :alert] = message
+    redirect_to trade_path(id: @context.character.id)
+  end
 
   def set_context
     id_param = params[:id]
@@ -97,6 +109,7 @@ class CounterOfferController < SessionsController
   end
 
   def set_counter_offer_service
-    @counter_offer_service = CounterOfferService.new(@context.player_character, @context.character, counter_offer_params)
+    @counter_offer_service = CounterOfferService.new(@context.player_character, @context.character,
+                                                     counter_offer_params)
   end
 end

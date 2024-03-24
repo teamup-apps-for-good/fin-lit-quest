@@ -60,15 +60,19 @@ class CounterOfferService
 
   def perform_buy_transactions
     ActiveRecord::Base.transaction do
-      update_npc_inventory_for_buy
-      update_player_inventory_and_balance_for_buy
+      InventoryService.update_inventory(@npc, @item_i_want_id, -@quantity_i_want)
+      InventoryService.update_inventory(@player, @item_i_want_id, @quantity_i_want)
+      new_balance = @player.balance - total_price_of_items_wanted
+      @player.update!(balance: new_balance)
     end
   end
 
   def perform_sell_transactions
     ActiveRecord::Base.transaction do
-      update_player_inventory_and_balance_for_sell
-      update_npc_inventory_for_sell
+      InventoryService.update_inventory(@player, @item_i_give_id, -@quantity_i_give)
+      new_balance = @player.balance + total_sale_price_of_items_given
+      @player.update!(balance: new_balance)
+      InventoryService.update_inventory(@npc, @item_i_give_id, @quantity_i_give)
     end
   end
 
@@ -82,26 +86,6 @@ class CounterOfferService
     InventoryService.update_inventory(@npc, @item_i_give_id, @quantity_i_give)
   end
 
-  def update_player_inventory_and_balance_for_buy
-    InventoryService.update_inventory(@player, @item_i_want_id, @quantity_i_want)
-    new_balance = @player.balance - total_price_of_items_wanted
-    @player.update!(balance: new_balance)
-  end
-
-  def update_npc_inventory_for_buy
-    InventoryService.update_inventory(@npc, @item_i_want_id, -@quantity_i_want)
-  end
-
-  def update_player_inventory_and_balance_for_sell
-    InventoryService.update_inventory(@player, @item_i_give_id, -@quantity_i_give)
-    new_balance = @player.balance + total_sale_price_of_items_given
-    @player.update!(balance: new_balance)
-  end
-
-  def update_npc_inventory_for_sell
-    InventoryService.update_inventory(@npc, @item_i_give_id, @quantity_i_give)
-  end
-  
   def trade_is_valid?
     @validation_service.trade_valid?
   end
