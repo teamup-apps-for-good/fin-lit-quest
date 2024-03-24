@@ -136,14 +136,14 @@ RSpec.describe CounterOfferService do
       trade = described_class.new(player_character, @bobert,
                                   { item_i_give_id: @apple_item.id, quantity_i_give: 1,
                                     item_i_want_id: @bread_item.id, quantity_i_want: 2 })
-      expect(trade.valid_trade?).to eq(true)
+      expect(trade.trade_is_valid?).to eq(true)
     end
 
-    it 'should be rejecteded by an occupation that does not prefer it' do
+    it 'should be rejected by an occupation that does not prefer it' do
       trade = described_class.new(player_character, @robert,
                                   { item_i_give_id: @apple_item.id, quantity_i_give: 1,
                                     item_i_want_id: @bread_item.id, quantity_i_want: 2 })
-      expect(trade.valid_trade?).to eq(false)
+      expect(trade.trade_is_valid?).to eq(false)
     end
   end
 
@@ -172,7 +172,7 @@ RSpec.describe CounterOfferService do
       trade = described_class.new(player_character, @bobert,
                                   { item_i_give_id: @apple_item.id, quantity_i_give: 1,
                                     item_i_want_id: @apple_item.id, quantity_i_want: 1 })
-      expect(trade.calc_time_variance(@apple_item, player_character)).to eq(1.0)
+      expect(trade.calculate_time_variance_for_trade(@apple_item, player_character)).to eq(1.0)
     end
 
     it 'should not be 1.0 on the second day' do
@@ -180,7 +180,7 @@ RSpec.describe CounterOfferService do
       trade = described_class.new(player_character, @bobert,
                                   { item_i_give_id: @apple_item.id, quantity_i_give: 1,
                                     item_i_want_id: @apple_item.id, quantity_i_want: 1 })
-      expect(trade.calc_time_variance(@apple_item, player_character)).not_to eq(1.0)
+      expect(trade.calculate_time_variance_for_trade(@apple_item, player_character)).not_to eq(1.0)
     end
   end
 end

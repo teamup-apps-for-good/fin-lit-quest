@@ -4,10 +4,10 @@ require 'rails_helper'
 
 RSpec.describe CounterOfferController, type: :controller do
   before do
-    @user = Player.create!(name: 'Test User', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
-                           email: 'test@test.com', provider: 'google-oauth2', uid: '1234', day: 1, hour: 1)
+    @user = Player.create!(name: 'Test User', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1, email: 'test@test.com', provider: 'google-oauth2', uid: '1234', day: 1, hour: 1)
     session[:user_id] = @user.id
   end
+
   describe 'POST #create' do
     let(:item_to_offer) { create(:item, name: 'Offered Item') }
     let(:item_to_accept) { create(:item, name: 'Requested Item') }
@@ -15,7 +15,6 @@ RSpec.describe CounterOfferController, type: :controller do
       create(:character, name: 'NPCCharacter', item_to_offer_id: item_to_offer.id, item_to_accept_id: item_to_accept.id)
     end
     let(:player_character) { create(:character, :player, name: 'PlayerCharacter') }
-
     let(:valid_params) do
       {
         name: npc_character.name,
@@ -25,9 +24,14 @@ RSpec.describe CounterOfferController, type: :controller do
         quantity_i_want: '5'
       }
     end
-
     let(:invalid_params) do
-      { name: npc_character.name, item_i_give_id: '', quantity_i_give: '2', item_i_want_id: '3', quantity_i_want: '4' }
+      {
+        name: npc_character.name,
+        item_i_give_id: '',
+        quantity_i_give: '2',
+        item_i_want_id: '3',
+        quantity_i_want: '4'
+      }
     end
 
     before do
@@ -67,11 +71,11 @@ RSpec.describe CounterOfferController, type: :controller do
 
     context 'when character.hour is 10' do
       before do
-        @user = Player.create!(name: 'Test User', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
-                               email: 'test@test.com', provider: 'google-oauth2', uid: '5678', day: 1, hour: 10)
+        @user = Player.create!(name: 'Test User', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1, email: 'test@test.com', provider: 'google-oauth2', uid: '5678', day: 1, hour: 10)
         session[:user_id] = @user.id
+        npc_character.update(hour: 10) # Set the character's hour to 10
       end
-
+    
       it 'redirects to root path with a notice' do
         post :create, params: valid_params
         expect(response).to redirect_to(root_path)

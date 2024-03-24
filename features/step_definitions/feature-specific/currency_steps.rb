@@ -7,9 +7,9 @@ end
 When(/^I select "([^"]*)" from "([^"]*)" dropdown for "([^"]*)"$/) do |option_text, _dropdown_name, action|
   dropdown_id = case action
                 when 'buying'
-                  'item_i_want_select' # Ensure this matches the ID in your HTML
+                  'item_i_want_select'
                 when 'selling'
-                  'i_give' # Adjust according to your setup
+                  'item_i_give_select'
                 else
                   raise "Action not recognized: #{action}"
                 end

@@ -34,13 +34,13 @@
           <div class = "card-display">
             <div class = "mb-1">
               <%= label_tag :item_i_give_id, 'I give' %>
-              <%= select_tag :item_i_give_id, options_from_collection_for_select(Item.all, :id, :name, selected: @context.character.item_to_accept_id), include_blank: true %>
+              <%= select_tag :item_i_give_id, options_from_collection_for_select(Item.all, :id, :name, selected: @context.character.item_to_accept_id), include_blank: true, id: 'item_i_give_select', data: { values: Item.pluck(:id, :value).to_h } %>
             </div>
         
             <div class = "mb-1">
               <%= label_tag :quantity_i_give, 'Quantity I give' %>
-              <%= number_field_tag :quantity_i_give, @context.character.quantity_to_accept  %>
-            </div>
+              <%= number_field_tag :quantity_i_give, @context.character.quantity_to_accept, id: 'quantity_i_give_field' %>
+              </div>
 
             <div>
               <strong>Total price: $<span id="total_price">0</span></strong>
@@ -57,3 +57,27 @@
 <% else %>
   <p>Character not found.</p>
 <% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var itemSelect = document.getElementById('item_i_give_select');
+    var quantityInput = document.getElementById('quantity_i_give_field');
+    var totalPriceDisplay = document.getElementById('total_price');
+    var itemValues = JSON.parse(itemSelect.dataset.values);
+
+    function calculateTotalPrice() {
+      var itemId = itemSelect.value;
+      var quantity = quantityInput.value;
+      var unitPrice = itemValues[itemId] || 0;
+      var totalPrice = unitPrice * quantity;
+
+      totalPriceDisplay.textContent = totalPrice.toFixed(2); // Format to 2 decimal places
+    }
+
+    itemSelect.addEventListener('change', calculateTotalPrice);
+    quantityInput.addEventListener('input', calculateTotalPrice);
+
+    // Call the function to set the initial total price
+    calculateTotalPrice();
+  });
+</script>

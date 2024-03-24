@@ -42,13 +42,9 @@
                 <%= number_field_tag :quantity_i_want, @context.character.quantity_to_offer, id: 'quantity_i_want_field' %>
 
             </div>
-
+            
             <div>
-              <strong>Selected quantity: <span id="selected_quantity">0</span></strong>
-            </div>
-
-            <div>
-                <strong>Total price: $ <span id="total_price">0</span></strong>
+                <strong>Total price: $<span id="total_price">0</span></strong>
             </div>
 
           </div>
@@ -65,7 +61,10 @@
 <% end %>
 
 <script>
+
   document.addEventListener('DOMContentLoaded', function() {
+
+  
     var itemSelect = document.getElementById('item_i_want_select');
     var quantityInput = document.getElementById('quantity_i_want_field');
     var totalPriceDisplay = document.getElementById('total_price');
