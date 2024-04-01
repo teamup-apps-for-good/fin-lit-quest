@@ -55,6 +55,7 @@ class SessionsController < ApplicationController
     user.balance = 0
     user.email = auth_info['info']['email']
     user.name = auth_info['info']['name']
+    user.firstname = auth_info['info']['first_name']
     user.current_level = 1
     user.hour = 1
     user.day = 1
