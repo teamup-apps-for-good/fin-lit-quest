@@ -20,10 +20,8 @@ module GameplaysHelper
   end
 
   def get_player_name(player)
-    if player.firstname.nil?
-        return player.name
-    else
-        return player.firstname
-    end
+    return player.name if player.firstname.nil?
+
+    player.firstname
   end
 end

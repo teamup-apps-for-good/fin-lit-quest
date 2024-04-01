@@ -65,9 +65,9 @@ RSpec.describe GameplaysHelper, type: :helper do
   describe '#get_player_name' do
     before do
       Player.create!(name: 'Stella Yang', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
-                   email: 'test@test.com', provider: 'google-oauth2', uid: '1001', admin: true)
-      Player.create!(name: 'Emmie Teng', firstname: 'Emmie', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
-                   email: 'test@test.com', provider: 'google-oauth2', uid: '1002', admin: true)
+                     email: 'test@test.com', provider: 'google-oauth2', uid: '1001', admin: true)
+      Player.create!(name: 'Emmie Teng', firstname: 'Emmie', occupation: :farmer, inventory_slots: 5, balance: 0,
+                     current_level: 1, email: 'test@test.com', provider: 'google-oauth2', uid: '1002', admin: true)
       @stella = Player.find_by(name: 'Stella Yang')
       @emmie = Player.find_by(name: 'Emmie Teng')
     end

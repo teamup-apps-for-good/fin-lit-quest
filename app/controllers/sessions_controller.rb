@@ -50,12 +50,16 @@ class SessionsController < ApplicationController
   end
 
   def set_user_attributes(user, auth_info)
+    set_char_info(user, auth_info)
+    user.email = auth_info['info']['email']
+    user.name = auth_info['info']['name']
+    user.firstname = auth_info['info']['name']
+  end
+
+  def set_char_info(user, _auth_info)
     user.occupation = :farmer
     user.inventory_slots = 5
     user.balance = 0
-    user.email = auth_info['info']['email']
-    user.name = auth_info['info']['name']
-    user.firstname = auth_info['info']['first_name']
     user.current_level = 1
     user.hour = 1
     user.day = 1
