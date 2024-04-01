@@ -61,4 +61,23 @@ RSpec.describe GameplaysHelper, type: :helper do
       expect(helper.nonplayer_img_tag(nonplayer)).to eq('testnonplayer.gif')
     end
   end
+
+  describe '#get_player_name' do
+    before do
+      Player.create!(name: 'Stella Yang', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
+                   email: 'test@test.com', provider: 'google-oauth2', uid: '1001', admin: true)
+      Player.create!(name: 'Emmie Teng', firstname: 'Emmie', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
+                   email: 'test@test.com', provider: 'google-oauth2', uid: '1002', admin: true)
+      @stella = Player.find_by(name: 'Stella Yang')
+      @emmie = Player.find_by(name: 'Emmie Teng')
+    end
+
+    it 'returns name when no first name exists' do
+      expect(helper.get_player_name(@stella)).to eq('Stella Yang')
+    end
+
+    it 'returns first name when first name exists' do
+      expect(helper.get_player_name(@emmie)).to eq('Emmie')
+    end
+  end
 end
