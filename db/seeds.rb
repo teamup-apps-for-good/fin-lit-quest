@@ -151,3 +151,16 @@ expenses.each do |expense|
 
   Expense.find_or_create_by!(expense)
 end
+
+starter_items = [{ item: 'apple', quantity: 5 },
+                 { item: 'wheat', quantity: 4 },
+                 { item: 'fish', quantity: 3 },
+                 { item: 'orange', quantity: 2 },
+                 { item: 'potato', quantity: 1 }]
+
+starter_items.each do |starter_item|
+  item = Item.find_by(name: starter_item[:item])
+  starter_item[:item] = item
+
+  StarterItem.find_or_create_by!(starter_item)
+end
