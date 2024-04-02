@@ -37,7 +37,7 @@ players = [{ name: "Stella", occupation: :farmer, inventory_slots: 5, balance: 0
 
 npcs = [{ name: "Ritchey", occupation: :merchant, inventory_slots: 5, balance: 0, personality: :enthusiastic,
           dialogue_content: "Gather your required materials for your weekly expenses! Failure to do so may put you in danger.",
-          item_to_offer: "fish",  quantity_to_offer: 2, item_to_accept: "wheat", quantity_to_accept: 5, current_level: 1},
+          item_to_offer: "fish", quantity_to_offer: 2, item_to_accept: "wheat", quantity_to_accept: 5, current_level: 1 },
         { name: "Lightfoot", occupation: :comedian, inventory_slots: 5, balance: 0, personality: :dad,
           dialogue_content: "I remember a time when I didn't gather enough materials for a day. It was a tough night, I tell you.",
           item_to_offer: "apple", quantity_to_offer: 2, item_to_accept: "orange", quantity_to_accept: 2, current_level: 1 },
@@ -117,14 +117,14 @@ shoppinglists.each do |shoppinglist|
   ShoppingList.find_or_create_by!(shoppinglist)
 end
 
-preferences = [{ occupation: 'merchant', item:'map', multiplier: 2, 
-                 description: 'Travels around a lot using a map'},
-               { occupation: 'fisherman', item:'fish', multiplier: 2, 
-                 description: 'Catches fish from the sea daily.'},
-               { occupation: 'witch', item:'book', multiplier: 3, 
-                 description: 'Reads lots of books everyday.'},
-               { occupation: 'baker', item:'bread', multiplier: 1.5, 
-                 description: 'Grinds wheat into flour and bakes handbaked bread.'}]
+preferences = [{ occupation: 'merchant', item: 'map', multiplier: 2,
+                 description: 'Travels around a lot using a map' },
+               { occupation: 'fisherman', item: 'fish', multiplier: 2,
+                 description: 'Catches fish from the sea daily.' },
+               { occupation: 'witch', item: 'book', multiplier: 3,
+                 description: 'Reads lots of books everyday.' },
+               { occupation: 'baker', item: 'bread', multiplier: 1.5,
+                 description: 'Grinds wheat into flour and bakes handbaked bread.' }]
 
 preferences.each do |preference|
   item = Item.find_by(name: preference[:item])
