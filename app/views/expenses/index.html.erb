@@ -1,14 +1,19 @@
-<p style="color: green"><%= notice %></p>
+<%= render 'gameplays/nav_header'%>
 
-<h1>Expenses</h1>
+<div class = "flex flex-col justify-center center-text">
+  <h1 class="text-4xl mt-2">Expenses</h1>
 
-<div id="expenses">
-  <% @expenses.each do |expense| %>
-    <%= render expense %>
-    <p>
-      <%= link_to "Show this expense", expense %>
-    </p>
-  <% end %>
+  <%= button_to "New expense", new_expense_path, method: :get, class:"hermitfont green-button mt-4 mb-4"%>
+
+  <div id="expenses" class="flex flex-wrap justify-center py-4">
+    <% @expenses.each do |expense| %>
+      <div class="card-display">
+        <%= render expense %>
+        <p>
+          <%= button_to "Show this expense", expense, method: :get, class:"hermitfont blue-button mt-2" %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+  <%= button_to "Back to Admin Panel", admin_panel_path, class: "admin-back-button blue-button", method: :get%>
 </div>
-
-<%= link_to "New expense", new_expense_path %>

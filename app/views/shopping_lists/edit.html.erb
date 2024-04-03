@@ -1,10 +1,17 @@
-<h1>Editing shopping list</h1>
+<%= render 'gameplays/nav_header'%>
 
-<%= render "form", shopping_list: @shopping_list %>
+<div class="flex flex-col py-4">
+  <h1 class="center-text">New Shopping List</h1>
+  <div class = "flex justify-center">
+    <div class="card-display hermitfont">
+      <%= render "form", shopping_list: @shopping_list %>
+    </div>
+  </div>
 
-<br>
+  <br>
 
-<div>
-  <%= link_to "Show this shopping list", @shopping_list %> |
-  <%= link_to "Back to shopping lists", shopping_lists_path %>
+  <div class="flex justify-center hermitfont mt-4">
+    <%= button_to "Show this shopping list", @shopping_list, method: :get, class:"blue-button mr-2" %> 
+    <%= button_to "Back to shopping lists", shopping_lists_path, method: :get, class:"blue-button ml-2" %>
+  </div>
 </div>

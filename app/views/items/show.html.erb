@@ -1,10 +1,14 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @item %>
-
-<div>
-  <%= link_to "Edit this item", edit_item_path(@item) %> |
-  <%= link_to "Back to items", items_path %>
-
-  <%= button_to "Destroy this item", @item, method: :delete %>
+<%= render 'gameplays/nav_header'%>
+<div class="flex flex-col justify-center center-text py-4">
+  <h1>Showing Item</h1>
+  <div class="flex justify-center">
+    <div class="card-display">
+      <%= render @item %>
+    </div>
+  </div>
+  <div class="flex flex-wrap justify-center hermitfont py-4">
+    <%= button_to "Edit this item", edit_item_path(@item), method: :get, class: "green-button mr-2" %> 
+    <%= button_to "Back to items", items_path, method: :get, class: "blue-button ml-2 mr-2" %>
+    <%= button_to "Destroy this item", @item, method: :delete, class: "red-button ml-2"%>
+  </div>
 </div>

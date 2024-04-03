@@ -1,14 +1,20 @@
-<p style="color: green"><%= notice %></p>
+<%= render 'gameplays/nav_header'%>
 
-<h1>Shopping lists</h1>
+<div class = "flex flex-col justify-center center-text">
+  <h1 class="text-4xl mt-2">Shopping Lists</h1>
 
-<div id="shopping_lists">
-  <% @shopping_lists.each do |shopping_list| %>
-    <%= render shopping_list %>
-    <p>
-      <%= link_to "Show this shopping list", shopping_list %>
-    </p>
-  <% end %>
+  <%= button_to "New shopping list", new_shopping_list_path, method: :get, class:"green-button hermitfont mt-4 mb-4" %>
+  
+  <div id="shopping_lists" class="flex flex-wrap justify-center py-4">
+    <% @shopping_lists.each do |shopping_list| %>
+      <div class="card-display">
+        <%= render shopping_list %>
+        <p>
+          <%= button_to "Show this shopping list", shopping_list, method: :get, class:"blue-button hermitfont mt-2" %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+  <%= button_to "Back to Admin Panel", admin_panel_path, class: "admin-back-button blue-button", method: :get%>
 </div>
 
-<%= link_to "New shopping list", new_shopping_list_path %>
