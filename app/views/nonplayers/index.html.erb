@@ -3,6 +3,9 @@
 <div class = "flex flex-col justify-center center-text">
   <h1 class="text-4xl mt-2">Nonplayers</h1>
 
+  <%= button_to "New nonplayer", new_nonplayer_path, method: :get, class:"hermitfont green-button mt-4 mb-4" %>
+
+
   <div id="nonplayers" class="flex flex-wrap justify-center py-4">
     <% @nonplayers.each do |nonplayer| %>
       <div class="card-display">
@@ -13,6 +16,4 @@
       </div>
     <% end %>
   </div>
-  <%= button_to "See all characters", characters_path, method: :get, class: "hermitfont blue-button mt-2" %>
-  <%= button_to "New nonplayer", new_nonplayer_path, method: :get, class:"hermitfont green-button mt-2" %>
 </div>

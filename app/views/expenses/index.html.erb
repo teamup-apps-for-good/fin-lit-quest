@@ -3,6 +3,8 @@
 <div class = "flex flex-col justify-center center-text">
   <h1 class="text-4xl mt-2">Expenses</h1>
 
+  <%= button_to "New expense", new_expense_path, method: :get, class:"hermitfont green-button mt-4 mb-4"%>
+
   <div id="expenses" class="flex flex-wrap justify-center py-4">
     <% @expenses.each do |expense| %>
       <div class="card-display">
@@ -14,5 +16,4 @@
     <% end %>
   </div>
 
-  <%= button_to "New expense", new_expense_path, method: :get, class:"hermitfont green-button mt-2"%>
 </div>
