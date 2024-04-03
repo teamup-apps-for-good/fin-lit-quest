@@ -23,7 +23,7 @@
 
   <div>
     <%= form.label :item_id, style: "display: block" %>
-    <%= form.text_field :item_id %>
+    <%= form.collection_select :item_id, Item.all, :id, :name, prompt: true, selected: @expense.new_record? ? nil : @expense.item.id %>
   </div>
 
   <div>
