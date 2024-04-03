@@ -18,4 +18,10 @@ module GameplaysHelper
   def nonplayer_img_tag(nonplayer)
     "#{nonplayer.name.downcase}.gif"
   end
+
+  def get_player_name(player)
+    return player.name if player.firstname.nil?
+
+    player.firstname
+  end
 end

@@ -7,15 +7,22 @@
 
 ### Setup
 
+First, install `rbenv` for managing ruby versions. Then, run the following commands to set up the development environment.
+
 ```bash
 # make sure you have ruby 3.2.2 installed
 rbenv install 3.2.2
 # clone the application
 git clone https://github.com/teamup-apps-for-good/fin-lit-quest.git
+cd fin-lit-quest
 # install dependencies
+bundle config set without 'production'
 bundle install
+# set up credentials store
+# This requires you to have the master key
+echo <CREDENTIAL_STORE_MASTER_KEY> > config/master.key
 # set up database
-rails db:create db:reset
+bundle exec rails db:create db:migrate db:reset
 ```
 
 ### Running Tests
@@ -55,6 +62,8 @@ git push heroku main
 # finally, seed the initial database
 heroku run rake db:seed
 ```
+
+You will also need to configure the proper environment variables, such as the key to the credential store.
 
 ## Resetting the Database
 

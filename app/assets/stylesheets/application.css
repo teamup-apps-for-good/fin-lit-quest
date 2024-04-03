@@ -187,3 +187,11 @@ p{
 #sidebar {
   transition: transform 0.3s ease;
 }
+
+.admin-back-button{
+  font-family: hermit;
+  position: fixed; 
+  bottom: 20px; 
+  right:20px; 
+  z-index: 1;
+}

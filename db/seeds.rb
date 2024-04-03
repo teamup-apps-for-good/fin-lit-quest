@@ -37,7 +37,7 @@ players = [{ name: "Stella", occupation: :farmer, inventory_slots: 5, balance: 0
 
 npcs = [{ name: "Ritchey", occupation: :merchant, inventory_slots: 5, balance: 0, personality: :enthusiastic,
           dialogue_content: "Gather your required materials for your weekly expenses! Failure to do so may put you in danger.",
-          item_to_offer: "fish",  quantity_to_offer: 2, item_to_accept: "wheat", quantity_to_accept: 5, current_level: 1},
+          item_to_offer: "fish", quantity_to_offer: 2, item_to_accept: "wheat", quantity_to_accept: 5, current_level: 1 },
         { name: "Lightfoot", occupation: :comedian, inventory_slots: 5, balance: 0, personality: :dad,
           dialogue_content: "I remember a time when I didn't gather enough materials for a day. It was a tough night, I tell you.",
           item_to_offer: "apple", quantity_to_offer: 2, item_to_accept: "orange", quantity_to_accept: 2, current_level: 1 },
@@ -117,13 +117,19 @@ shoppinglists.each do |shoppinglist|
   ShoppingList.find_or_create_by!(shoppinglist)
 end
 
-preferences = [{ occupation: 'merchant', item:'map', multiplier: 2, 
-                 description: 'Travels around a lot using a map'},
-               { occupation: 'fisherman', item:'fish', multiplier: 2, 
+preferences = [{ occupation: :merchant, item:'map', multiplier: 2, 
+                 description: 'Travels around a lot using a map.'},
+               { occupation: :wizard, item:'coat', multiplier: 1.5, 
+                 description: 'Requires the proper robed attire while casting.'},
+               { occupation: :comedian, item:'canteen', multiplier: 1.5, 
+                 description: 'Needs to clear a dry throat while talking.'},
+               { occupation: :farmer, item:'apple', multiplier: 2.5, 
+                 description: 'Harvests many apples each year.'},
+               { occupation: :fisherman, item:'fish', multiplier: 2, 
                  description: 'Catches fish from the sea daily.'},
-               { occupation: 'witch', item:'book', multiplier: 3, 
+               { occupation: :witch, item:'book', multiplier: 3, 
                  description: 'Reads lots of books everyday.'},
-               { occupation: 'baker', item:'bread', multiplier: 1.5, 
+               { occupation: :baker, item:'bread', multiplier: 1.5, 
                  description: 'Grinds wheat into flour and bakes handbaked bread.'}]
 
 preferences.each do |preference|
@@ -150,4 +156,17 @@ expenses.each do |expense|
   expense[:item] = item
 
   Expense.find_or_create_by!(expense)
+end
+
+starter_items = [{ item: 'apple', quantity: 5 },
+                 { item: 'wheat', quantity: 4 },
+                 { item: 'fish', quantity: 3 },
+                 { item: 'orange', quantity: 2 },
+                 { item: 'potato', quantity: 1 }]
+
+starter_items.each do |starter_item|
+  item = Item.find_by(name: starter_item[:item])
+  starter_item[:item] = item
+
+  StarterItem.find_or_create_by!(starter_item)
 end

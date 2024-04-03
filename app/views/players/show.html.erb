@@ -1,10 +1,16 @@
-<p style="color: green"><%= notice %></p>
+<%= render 'gameplays/nav_header'%>
 
-<%= render @player %>
+<div class="flex flex-col justify-center center-text py-4">
+  <h1>Showing Player</h1>
+  <div class="flex justify-center">
+    <div class="card-display">
+      <%= render @player %>
+    </div>
+  </div>
+</div>
 
-<div>
-  <%= link_to "Edit this player", edit_player_path(@player) %> |
-  <%= link_to "Back to players", players_path %>
-
-  <%= button_to "Destroy this player", @player, method: :delete %>
+<div class="flex flex-wrap justify-center py-4">
+  <%= button_to "Edit this player", edit_player_path(@player), method: :get, class:"hermitfont green-button mr-2"%> 
+  <%= button_to "Back to players", players_path, method: :get, class:"hermitfont blue-button ml-2 mr-2"%>
+  <%= button_to "Destroy this player", @player, method: :delete, class:"hermitfont red-button ml-2" %>
 </div>
