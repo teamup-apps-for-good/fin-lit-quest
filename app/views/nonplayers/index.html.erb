@@ -1,14 +1,18 @@
 <%= render 'gameplays/nav_header'%>
 
-<h1>Nonplayers</h1>
+<div class = "flex flex-col justify-center center-text">
+  <h1 class="text-4xl mt-2">Nonplayers</h1>
 
-<div id="nonplayers">
-  <% @nonplayers.each do |nonplayer| %>
-    <%= render nonplayer %>
-    <p>
-      <%= link_to "Show this nonplayer", nonplayer %>
-    </p>
-  <% end %>
+  <div id="nonplayers" class="flex flex-wrap justify-center py-4">
+    <% @nonplayers.each do |nonplayer| %>
+      <div class="card-display">
+        <%= render nonplayer %>
+        <p>
+          <%= button_to "Show this nonplayer", nonplayer, method: :get, class:"hermitfont blue-button mt-2" %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+  <%= button_to "See all characters", characters_path, method: :get, class: "hermitfont blue-button mt-2" %>
+  <%= button_to "New nonplayer", new_nonplayer_path, method: :get, class:"hermitfont green-button mt-2" %>
 </div>
-
-<%= link_to "New nonplayer", new_nonplayer_path %>

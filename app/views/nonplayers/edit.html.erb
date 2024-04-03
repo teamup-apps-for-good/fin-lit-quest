@@ -1,12 +1,18 @@
 <%= render 'gameplays/nav_header'%>
 
-<h1>Editing nonplayer</h1>
 
-<%= render "form", nonplayer: @nonplayer %>
+<div class="flex flex-col py-4">
+  <h1 class="center-text">Editing Non Player</h1>
+  <div class = "flex justify-center">
+    <div class="card-display hermitfont">
+      <%= render "form", nonplayer: @nonplayer %>
+    </div>
+  </div>
+  <br>
+  <br>
 
-<br>
-
-<div>
-  <%= link_to "Show this nonplayer", @nonplayer %> |
-  <%= link_to "Back to nonplayers", nonplayers_path %>
+  <div class="flex flex-row justify-center">
+    <%= button_to "Show this nonplayer", @nonplayer, method: :get, class:"hermitfont blue-button mr-2"%> 
+    <%= button_to "Back to nonplayers", nonplayers_path, method: :get, class: "hermitfont blue-button ml-2" %>
+  </div>
 </div>
