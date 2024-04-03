@@ -52,6 +52,11 @@
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.label :admin, style: "display: block" %>
+    <%= form.text_field :admin %>
+  </div>
+
+  <div class="flex justify-center mt-4">
+    <%= form.submit nil, class:"green-button"%>
   </div>
 <% end %>
