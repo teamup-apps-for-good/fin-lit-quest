@@ -1,14 +1,19 @@
-<p style="color: green"><%= notice %></p>
+<%= render 'gameplays/nav_header'%>
 
-<h1>Preferences</h1>
+<div class = "flex flex-col justify-center center-text">
+  <h1 class="text-4xl mt-2">Preferences</h1>
+  
+  <%= button_to "New preference", new_preference_path, method: :get, class:"green-button hermitfont mt-4 mb-4" %>
 
-<div id="preferences">
-  <% @preferences.each do |preference| %>
-    <%= render preference %>
-    <p>
-      <%= link_to "Show this preference", preference %>
-    </p>
-  <% end %>
+  <div id="preferences" class="flex flex-wrap justify-center py-4">
+    <% @preferences.each do |preference| %>
+      <div class="card-display">
+        <%= render preference %>
+        <p>
+          <%= button_to "Show this preference", preference, method: :get, class:"blue-button hermitfont mt-2" %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+  <%= button_to "Back to Admin Panel", admin_panel_path, class: "admin-back-button blue-button", method: :get%>
 </div>
-
-<%= link_to "New preference", new_preference_path %>

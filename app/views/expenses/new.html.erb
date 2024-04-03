@@ -1,9 +1,15 @@
-<h1>New expense</h1>
+<%= render 'gameplays/nav_header'%>
 
-<%= render "form", expense: @expense %>
-
+<div class="flex flex-col py-4">
+  <h1 class="center-text">New Expense</h1>
+  <div class = "flex justify-center">
+    <div class="card-display hermitfont">
+      <%= render "form", expense: @expense %>
+    </div>
+  </div>
 <br>
 
-<div>
-  <%= link_to "Back to expenses", expenses_path %>
+  <div class="flex justify-center mt-4">
+    <%= button_to "Back to expenses", expenses_path, method: :get, class:"hermitfont blue-button" %>
+  </div>
 </div>
