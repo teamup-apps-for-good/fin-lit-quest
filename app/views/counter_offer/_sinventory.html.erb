@@ -1,6 +1,6 @@
 <!-- Player Character's Inventory -->
 <div id="<%= @context.player_character.name %>_inventory" class="inventory-container-co card-display">
-  <h3 style="font-weight: bold;"><%= @context.player_character.name %>'s Inventory</h3>
+  <h3 style="font-weight: bold;"><%= get_player_name(@context.player_character) %>'s Inventory</h3>
   <hr class="my-2">
   <div class="card-overflow">
     <% @context.player_inventory.each do |item_name, quantity| %>
