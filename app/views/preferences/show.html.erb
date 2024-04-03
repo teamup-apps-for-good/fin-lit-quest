@@ -1,10 +1,17 @@
 <%= render 'gameplays/nav_header'%>
 
-<%= render @preference %>
+<div class="flex flex-col justify-center center-text py-4">
+  <h1>Showing Item</h1>
+  <div class="flex justify-center">
+    <div class="card-display">
+      <%= render @preference %>
+    </div>
+  </div>
 
-<div>
-  <%= link_to "Edit this preference", edit_preference_path(@preference) %> |
-  <%= link_to "Back to preferences", preferences_path %>
+  <div class="flex flex-wrap justify-center hermitfont mt-4">
+    <%= button_to "Edit this preference", edit_preference_path(@preference), method: :get, class:"green-button mr-2" %> 
+    <%= button_to "Back to preferences", preferences_path, method: :get, class:"blue-button ml-2 mr-2" %>
 
-  <%= button_to "Destroy this preference", @preference, method: :delete %>
+    <%= button_to "Destroy this preference", @preference, method: :delete, class:"red-button ml-2" %>
+  </div>
 </div>

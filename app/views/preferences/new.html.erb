@@ -1,11 +1,15 @@
 <%= render 'gameplays/nav_header'%>
 
-<h1>New preference</h1>
+<div class="flex flex-col py-4">
+  <h1 class="center-text">New Preference</h1>
+  <div class = "flex justify-center">
+    <div class="card-display hermitfont">
+      <%= render "form", preference: @preference %>
+    </div>
+  </div>
+  <br>
 
-<%= render "form", preference: @preference %>
-
-<br>
-
-<div>
-  <%= link_to "Back to preferences", preferences_path %>
+  <div class="flex justify-center hermitfont mt-4">
+    <%= button_to "Back to preferences", preferences_path, method: :get, class:"blue-button" %>
+  </div>
 </div>
