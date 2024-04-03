@@ -37,7 +37,7 @@ players = [{ name: "Stella", occupation: :farmer, inventory_slots: 5, balance: 0
 
 npcs = [{ name: "Ritchey", occupation: :merchant, inventory_slots: 5, balance: 0, personality: :enthusiastic,
           dialogue_content: "Gather your required materials for your weekly expenses! Failure to do so may put you in danger.",
-          item_to_offer: "fish",  quantity_to_offer: 2, item_to_accept: "wheat", quantity_to_accept: 5, current_level: 1},
+          item_to_offer: "fish", quantity_to_offer: 2, item_to_accept: "wheat", quantity_to_accept: 5, current_level: 1 },
         { name: "Lightfoot", occupation: :comedian, inventory_slots: 5, balance: 0, personality: :dad,
           dialogue_content: "I remember a time when I didn't gather enough materials for a day. It was a tough night, I tell you.",
           item_to_offer: "apple", quantity_to_offer: 2, item_to_accept: "orange", quantity_to_accept: 2, current_level: 1 },
@@ -156,4 +156,17 @@ expenses.each do |expense|
   expense[:item] = item
 
   Expense.find_or_create_by!(expense)
+end
+
+starter_items = [{ item: 'apple', quantity: 5 },
+                 { item: 'wheat', quantity: 4 },
+                 { item: 'fish', quantity: 3 },
+                 { item: 'orange', quantity: 2 },
+                 { item: 'potato', quantity: 1 }]
+
+starter_items.each do |starter_item|
+  item = Item.find_by(name: starter_item[:item])
+  starter_item[:item] = item
+
+  StarterItem.find_or_create_by!(starter_item)
 end
