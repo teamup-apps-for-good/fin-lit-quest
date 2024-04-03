@@ -1,11 +1,15 @@
 <%= render 'gameplays/nav_header'%>
 
-<h1>New item</h1>
+<div class="flex flex-col py-4">
+  <h1 class="center-text">New Item</h1>
+  <div class = "flex justify-center">
+    <div class="card-display hermitfont">
+      <%= render "form", item: @item %>
+    </div>
+  </div>
+  <br>
 
-<%= render "form", item: @item %>
-
-<br>
-
-<div>
-  <%= link_to "Back to items", items_path %>
+  <div class="flex justify-center mt-4 hermitfont">
+    <%= button_to "Back to items", items_path, method: :get, class:"blue-button" %>
+  </div>
 </div>
