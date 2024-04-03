@@ -1,10 +1,12 @@
 <%= render 'gameplays/nav_header'%>
 
-<%= render @character %>
+<div class="flex justify-center">
+  <%= render @character %>
 
+  <div>
+    <%= link_to "Edit this character", edit_character_path(@character), class:"hermitfont blue-button" %> |
+    <%= link_to "Back to characters", characters_path, class:"hermitfont blue-button" %>
+
+    <%= button_to "Destroy this character", @character, method: :delete, class:"hermitfont red-button" %>
+  </div>
 <div>
-  <%= link_to "Edit this character", edit_character_path(@character) %> |
-  <%= link_to "Back to characters", characters_path %>
-
-  <%= button_to "Destroy this character", @character, method: :delete %>
-</div>
