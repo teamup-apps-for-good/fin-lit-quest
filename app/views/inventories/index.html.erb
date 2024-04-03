@@ -1,17 +1,21 @@
 <%= render 'gameplays/nav_header'%>
 
-<h1>Inventories</h1>
-
-<div id="inventories">
-  <% @inventories.each do |inventory| %>
-    <%= render inventory %>
-    <p>
-      <%= link_to "Show #{inventory.item.name} in #{inventory.character.name}\'s inventory", inventory %>
-    </p>
-  <% end %>
+<div class = "flex flex-col justify-center center-text">
+  <h1 class="text-4xl mt-2">Inventories</h1>
+  
+  <%= button_to "New inventory", new_inventory_path, method: :get, class:"hermitfont green-button mt-4 mb-4" %>
+  
+  <div id="inventories" class="flex flex-wrap justify-center py-4">
+    <% @inventories.each do |inventory| %>
+      <div class="card-display">
+        <%= render inventory %>
+        <p>
+          <%= button_to "Show #{inventory.item.name} in #{inventory.character.name}\'s inventory", inventory, method: :get, class:"hermitfont blue-button mt-2" %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+  <div>
+  
+  </div>
 </div>
-<div>
-<%= link_to "New inventory", new_inventory_path %>
-</div>
-
-<%= link_to "Back", root_path %>

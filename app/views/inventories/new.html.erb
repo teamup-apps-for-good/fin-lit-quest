@@ -1,11 +1,16 @@
 <%= render 'gameplays/nav_header'%>
 
-<h1>New inventory</h1>
+<div class="flex flex-col py-4">
+  <h1 class="center-text">New Inventory</h1>
+  <div class = "flex justify-center">
+    <div class="card-display hermitfont">
+      <%= render "form", inventory: @inventory %>
+    </div>
+  </div>
 
-<%= render "form", inventory: @inventory %>
+  <br>
 
-<br>
-
-<div>
-  <%= link_to "Back to inventories", inventories_path %>
+  <div class="flex justify-center mt-4">
+    <%= button_to "Back to inventories", inventories_path, method: :get, class:"hermitfont blue-button" %>
+  </div>
 </div>

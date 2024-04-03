@@ -1,10 +1,15 @@
 <%= render 'gameplays/nav_header'%>
+<div class="flex flex-col justify-center center-text py-4">
+  <h1>Showing Inventory</h1>
+  <div class="flex justify-center">
+    <div class="card-display">
+      <%= render @inventory %>
+    </div>
+  </div>
 
-<%= render @inventory %>
-
-<div>
-  <%= link_to "Edit this inventory", edit_inventory_path(@inventory) %> |
-  <%= link_to "Back to inventories", inventories_path %>
-
-  <%= button_to "Destroy this inventory", @inventory, method: :delete %>
+  <div class="flex flex-wrap justify-center py-4 hermitfont">
+    <%= button_to "Edit this inventory", edit_inventory_path(@inventory), method: :get, class:"green-button mr-2" %> 
+    <%= button_to "Back to inventories", inventories_path, method: :get, class:"blue-button ml-2 mr-2"%>
+    <%= button_to "Destroy this inventory", @inventory, method: :delete, class:"red-button ml-2"%>
+  </div>
 </div>
