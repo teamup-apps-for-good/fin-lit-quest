@@ -1,10 +1,15 @@
 <%= render 'gameplays/nav_header'%>
+<div class="flex flex-col justify-center center-text py-4">
+   <h1>Showing Expense</h1>
+    <div class="flex justify-center">
+      <div class="card-display">
+        <%= render @expense %>
+      </div>
+    </div>
+</div>
 
-<%= render @expense %>
-
-<div>
-  <%= link_to "Edit this expense", edit_expense_path(@expense) %> |
-  <%= link_to "Back to expenses", expenses_path %>
-
-  <%= button_to "Destroy this expense", @expense, method: :delete %>
+<div class="flex flex-wrap justify-center py-4 hermitfont">
+  <%= link_to "Edit this expense", edit_expense_path(@expense), method: :get, class:"green-button mr-2" %> 
+  <%= link_to "Back to expenses", expenses_path, method: :get, class:"blue-button ml-2 mr-2" %>
+  <%= button_to "Destroy this expense", @expense, method: :delete, class:"red-button ml-2" %>
 </div>
