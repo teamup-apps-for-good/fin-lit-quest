@@ -30,21 +30,17 @@ Feature: Unlimited Items for NPC
     Given the following inventory table exists:
       | item   | character | quantity |
       | apple  | Stella    | 12       |
-      | orange | Ritchey   | 4        |
-      | wheat  | Ritchey   | 3        |
-      | boots  | Lightfoot | 2        |
-      | map    | Lightfoot | 1        |
-      | fish   | Stella    | 0        |
+      | orange | Ritchey   | 1        |
       | bread  | Lightfoot | 1        |
 
   Scenario Outline: The trade page should show the non-player's inventory
-    Given I am on the trade page for "Ritchey"
+    Given I am on the trade page for "<person>"
     Then I should see "<item>"
 
     Examples:
-      | item   |
-      | Orange |
-      | Wheat  |
+      | person    | item   |
+      | Ritchey   | orange |
+      | Lightfoot | bread  |
 
   Scenario: Non-player will always accept a trade for an item they have
     Given I am on the trade page for "Lightfoot"
