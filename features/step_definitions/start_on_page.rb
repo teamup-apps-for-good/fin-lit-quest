@@ -12,6 +12,10 @@ Given('I am on the character page') do
   visit characters_path
 end
 
+Given('I am on the admin panel page') do
+  visit admin_panel_path
+end
+
 Given('I am on the Player page for {string}') do |string|
   visit player_path(Player.find_by(name: string))
 end
