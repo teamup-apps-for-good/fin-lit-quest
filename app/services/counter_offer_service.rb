@@ -34,18 +34,12 @@ class CounterOfferService
   def perform_trade_transactions
     ActiveRecord::Base.transaction do
       update_player_inventories
-      update_npc_inventories
     end
   end
 
   def update_player_inventories
     InventoryService.update_inventory(@player, @item_i_give_id, -@quantity_i_give)
     InventoryService.update_inventory(@player, @item_i_want_id, @quantity_i_want)
-  end
-
-  def update_npc_inventories
-    InventoryService.update_inventory(@npc, @item_i_want_id, -@quantity_i_want)
-    InventoryService.update_inventory(@npc, @item_i_give_id, @quantity_i_give)
   end
 
   def generate_error_message
@@ -74,8 +68,7 @@ class CounterOfferService
   end
 
   def npc_has_item?
-    inventory_item = @npc.inventories.find_by(item_id: @item_i_want_id)
-    inventory_item && inventory_item.quantity >= @quantity_i_want
+    @npc.inventories.find_by(item_id: @item_i_want_id)
   end
 
   def user_has_item?
