@@ -15,8 +15,8 @@ Feature: Merge trading and counter-offer page
       | bread  | yummy, fresh from the oven                         | 2     |
 
     Given the following players exist:
-      | name      | occupation  | inventory_slots | balance |  current_level  | uid  | provider      | email         |
-      | Stella    | programmer  |        5        | 0       |       1         | 1234 | google_oauth2 | test@test.com |
+      | name   | occupation | inventory_slots | balance | current_level | uid  | provider      | email         |
+      | Stella | programmer | 5               | 0       | 1             | 1234 | google_oauth2 | test@test.com |
 
     Given I am logged in as "Stella"
 
@@ -40,7 +40,7 @@ Feature: Merge trading and counter-offer page
   Scenario: The trade page shows a trading title
     Given I am on the trade page for "Ritchey"
     Then I should see "Trade with Ritchey"
-    
+
   Scenario: The trade page should show the player's inventory
     Given I am on the trade page for "Ritchey"
     Then I should see "Apple : 5"
@@ -48,15 +48,15 @@ Feature: Merge trading and counter-offer page
   Scenario: The trade page should not show players items they have 0 quantity of
     Given I am on the trade page for "Ritchey"
     Then I should not see "Fish"
-    
+
   Scenario Outline: The trade page should show the non-player's inventory
     Given I am on the trade page for "Ritchey"
-    Then I should see "<item> : <quantity>"
+    Then I should see "<item>"
 
     Examples:
-      | item     | quantity   |
-      | Orange   | 4          |
-      | Wheat    | 3          |
+      | item   |
+      | Orange |
+      | Wheat  |
 
   Scenario: Player can enter the trade details
     Given I am on the trade page for "Ritchey"
@@ -93,10 +93,10 @@ Feature: Merge trading and counter-offer page
     And I press the "Offer" button
     Then I should see a notice of "Ritchey did not accept your offer!"
 
-  Scenario: Non-player will not accept trade if they do not have enough of the item
+  Scenario: Non-player will not accept trade if they do not have that item
     Given I am on the trade page for "Lightfoot"
     When I select "apple" in "I give" dropdown
-    * I select "bread" in "I want" dropdown
+    * I select "fish" in "I want" dropdown
     * I fill in the number of items that I give with "5"
     * I fill in the number of items that I want with "1"
     And I press the "Offer" button
@@ -109,7 +109,7 @@ Feature: Merge trading and counter-offer page
     * I fill in the number of items that I give with "5"
     * I fill in the number of items that I want with "1"
     And I press the "Offer" button
-    Then I should see the player owns "0" of "apple"
+    Then I should not see "Apple"
 
   Scenario: Player can see item being wanted increasing in a successful trade
     Given I am on the trade page for "Ritchey"
@@ -120,15 +120,14 @@ Feature: Merge trading and counter-offer page
     And I press the "Offer" button
     Then I should see the player owns "1" of "wheat"
 
-  Scenario: Non-player's inventory quantities change when trade goes through
+  Scenario: Non-player's inventory quantities do not change when trade goes through
     Given I am on the trade page for "Ritchey"
     When I select "apple" in "I give" dropdown
     * I select "wheat" in "I want" dropdown
     * I fill in the number of items that I give with "5"
     * I fill in the number of items that I want with "1"
     And I press the "Offer" button
-    Then I should see the NPC "Ritchey" owns "2" of "wheat"
-    And I should see the NPC "Ritchey" owns "5" of "apple"
+    Then I should see the NPC "Ritchey" owns "Wheat"
 
   Scenario: Player can see inventory quantities does not change when trade does not go through
     Given I am on the trade page for "Ritchey"
@@ -146,7 +145,7 @@ Feature: Merge trading and counter-offer page
     * I fill in the number of items that I give with "1"
     * I fill in the number of items that I want with "5"
     And I press the "Offer" button
-    Then I should see the NPC "Ritchey" owns "3" of "wheat"
+    Then I should see the NPC "Ritchey" owns "Wheat"
 
   Scenario: The trade page does not show the item to offer anymore
     Given I am on the trade page for "Ritchey"
