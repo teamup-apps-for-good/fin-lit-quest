@@ -1,67 +1,66 @@
 <!-- app/views/counter_offer/show.html.erb -->
 
-<%= render 'gameplays/nav_header'%>
+<%= render 'gameplays/nav_header' %>
 
-<div class = "center-text">
-    <h1> Trade with <%= @context.character.name %> </h1>
-    <% container_id = "#{@context.character.name.downcase}_image_container" %>
-      <div id="<%= container_id %>" class="nonplayer-container mb-4">
-          <img id="<%= nonplayer_img_tag(@context.character) %>" src="<%= asset_path(nonplayer_gif_file(@context.character)) %>" alt="<%= @context.character.name %>">
-      </div>
-
-    <p>"<%= @context.character.dialogue_content %>"</p>
-    <div>
-      <% if not @pref.nil? %>
-          <p>
-              <strong>Occupation Description:</strong>
-              <%= @pref.description %>
-          <p>
-      <% end %>
-      <p>
-        <strong>Balance:</strong>
-        <%= @context.character.balance %>
-      </p>
-    </div>
-
-    <% if @context.character %>
-      <div class="flex flex-wrap justify-center">
-          <%= render partial: 'sinventory' %>
-      </div>
-
-      <div style="margin-top: 20px;" class="hermitfont flex justify-center">
-      <%= form_with(url: create_counter_offer_path(id: @context.character.id), method: :post, local: true) do %>
-          <!-- Form fields -->
-          <div class = "card-display">
-              <div class = "mb-1">
-                  <%= label_tag :item_i_give_id, 'I give' %>
-                  <%= select_tag :item_i_give_id, options_from_collection_for_select(Item.all, :id, :name, selected: @context.character.item_to_accept_id), include_blank: true %>
-              </div>
-          
-              <div class = "mb-1">
-                  <%= label_tag :quantity_i_give, 'Quantity I give' %>
-                  <%= number_field_tag :quantity_i_give, @context.character.quantity_to_accept  %>
-              </div>
-        
-              <div class = "mb-1">
-                  <%= label_tag :item_i_want_id, 'I want' %>
-                  <%= select_tag :item_i_want_id, options_from_collection_for_select(Item.all, :id, :name, selected: @context.character.item_to_offer_id), include_blank: true  %>
-              </div>
-          
-              <div>
-                  <%= label_tag :quantity_i_want, 'Quantity I want' %>
-                  <%= number_field_tag :quantity_i_want, @context.character.quantity_to_offer %>
-              </div>
-          </div>
-      
-          <div style="margin-bottom: 10px;" class="flex items-center justify-center py-4">
-              <%= submit_tag 'Offer', class: "green-button mx-4" %>
-              <%= button_to "Back", character_profile_path(@context.character), class: "blue-button", method: :get %>
-          </div>
-        <% end %>
+<div class="center-text">
+  <h1> Trade with <%= @context.character.name %> </h1>
+  <% container_id = "#{@context.character.name.downcase}_image_container" %>
+  <div id="<%= container_id %>" class="nonplayer-container mb-4">
+    <img id="<%= nonplayer_img_tag(@context.character) %>" src="<%= asset_path(nonplayer_gif_file(@context.character)) %>" alt="<%= @context.character.name %>">
   </div>
 
-<% else %>
-  <p>Character not found.</p>
-<% end %>
+  <p>"<%= @context.character.dialogue_content %>"</p>
+  <div>
+    <% if not @pref.nil? %>
+      <p>
+        <strong>Occupation Description:</strong>
+        <%= @pref.description %>
+      <p>
+    <% end %>
+    <p>
+      <strong>Balance:</strong>
+      <%= @context.character.balance %>
+    </p>
+  </div>
 
+  <% if @context.character %>
+    <div class="flex flex-wrap justify-center">
+      <%= render partial: 'sinventory' %>
+    </div>
 
+    <div style="margin-top: 20px;" class="hermitfont flex justify-center">
+      <%= form_with(url: create_counter_offer_path(id: @context.character.id), method: :post, local: true) do %>
+        <!-- Form fields -->
+        <div class="card-display">
+          <div class="mb-1">
+            <%= label_tag :item_i_give_id, 'I give' %>
+            <%= select_tag :item_i_give_id, options_from_collection_for_select(Item.all, :id, :name, selected: @context.character.item_to_accept_id), include_blank: true %>
+          </div>
+
+          <div class="mb-1">
+            <%= label_tag :quantity_i_give, 'Quantity I give' %>
+            <%= number_field_tag :quantity_i_give, @context.character.quantity_to_accept %>
+          </div>
+
+          <div class="mb-1">
+            <%= label_tag :item_i_want_id, 'I want' %>
+            <%= select_tag :item_i_want_id, options_from_collection_for_select(Item.all, :id, :name, selected: @context.character.item_to_offer_id), include_blank: true %>
+          </div>
+
+          <div>
+            <%= label_tag :quantity_i_want, 'Quantity I want' %>
+            <%= number_field_tag :quantity_i_want, @context.character.quantity_to_offer %>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 10px;" class="flex items-center justify-center py-4">
+          <%= submit_tag 'Offer', class: "green-button mx-4" %>
+          <%= button_to "Back", character_profile_path(@context.character), class: "blue-button", method: :get %>
+        </div>
+      <% end %>
+    </div>
+
+  <% else %>
+    <p>Character not found.</p>
+  <% end %>
+</div>

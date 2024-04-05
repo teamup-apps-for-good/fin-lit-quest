@@ -61,45 +61,33 @@ npcs.each do |t|
   Nonplayer.create_or_find_by!(t)
 end
 
-inventories = [{ item: 'fish', character_id: 'Ritchey', quantity: 13 },
-               { item: 'wheat', character_id: 'Stella', quantity: 12 },
-               { item: 'apple', character_id: 'Stella', quantity: 5 },
-               { item: 'orange', character_id: 'Ritchey', quantity: 10 },
-               { item: 'potato', character_id: 'Ritchey', quantity: 9 },
-               { item: 'grapes', character_id: 'Lightfoot', quantity: 8 },
-               { item: 'bread', character_id: 'Lightfoot', quantity: 7 },
-               { item: 'honey', character_id: 'Lightfoot', quantity: 5 },
-               { item: 'bandages', character_id: 'Stella', quantity: 6 },
-               { item: 'book', character_id: 'Stella', quantity: 5 },
-               { item: 'coat', character_id: 'Lightfoot', quantity: 2 },
-               { item: 'boots', character_id: 'Ritchey', quantity: 2 },
-               { item: 'map', character_id: 'Ritchey', quantity: 3 },
-               { item: 'compass', character_id: 'Lightfoot', quantity: 2 },
-               { item: 'canteen', character_id: 'Stella', quantity: 4 },
-               { item: 'potato', character_id: 'Harry', quantity: 9 },
-               { item: 'grapes', character_id: 'Harry', quantity: 8 },
-               { item: 'bread', character_id: 'Harry', quantity: 7 },
-               { item: 'honey', character_id: 'Harry', quantity: 5 },
-               { item: 'bandages', character_id: 'Harry', quantity: 6 },
-               { item: 'book', character_id: 'Hermione', quantity: 5 },
-               { item: 'coat', character_id: 'Hermione', quantity: 2 },
-               { item: 'boots', character_id: 'Hermione', quantity: 2 },
-               { item: 'map', character_id: 'Hermione', quantity: 3 },
-               { item: 'compass', character_id: 'Hermione', quantity: 2 },
-               { item: 'bed roll', character_id: 'Ron', quantity: 4 },
-               { item: 'bread', character_id: 'Ron', quantity: 1 }]
+inventories = [{ item: "grapes", character: "Lightfoot" },
+               { item: "bread", character: "Lightfoot" },
+               { item: "compass", character: "Lightfoot" },
+               { item: "fish", character: "Ritchey" },
+               { item: "orange", character: "Ritchey" },
+               { item: "map", character: "Ritchey" },
+               { item: "potato", character: "Harry" },
+               { item: "grapes", character: "Harry" },
+               { item: "bread", character: "Harry" },
+               { item: "book", character: "Hermione" },
+               { item: "map", character: "Hermione" },
+               { item: "compass", character: "Hermione" },
+               { item: "bed roll", character: "Ron" },
+               { item: "bread", character: "Ron" }]
 
 inventories.each do |inventory|
-  character = Character.find_by(name: inventory[:character_id])
+  character = Character.find_by(name: inventory[:character])
   inventory[:character] = character
 
   item = Item.find_by(name: inventory[:item])
   inventory[:item] = item
+  inventory[:quantity] = 1
 
-  Inventory.find_or_create_by!(inventory) # Currently prevents duplicate items in inventory
+  Inventory.find_or_create_by!(inventory)
 end
 
-shoppinglists = [{ item: 'apple', level: 1, quantity: 2 },
+shopping_lists = [{ item: 'apple', level: 1, quantity: 2 },
                  { item: 'orange', level: 1, quantity: 2 },
                  { item: 'wheat', level: 1, quantity: 1 },
                  { item: 'fish', level: 1, quantity: 2 },
@@ -110,27 +98,27 @@ shoppinglists = [{ item: 'apple', level: 1, quantity: 2 },
                  { item: 'boots', level: 2, quantity: 1 },
                  { item: 'map', level: 2, quantity: 1 }]
 
-shoppinglists.each do |shoppinglist|
+shopping_lists.each do |shoppinglist|
   item = Item.find_by(name: shoppinglist[:item])
   shoppinglist[:item] = item
 
   ShoppingList.find_or_create_by!(shoppinglist)
 end
 
-preferences = [{ occupation: :merchant, item:'map', multiplier: 2, 
-                 description: 'Travels around a lot using a map.'},
-               { occupation: :wizard, item:'coat', multiplier: 1.5, 
-                 description: 'Requires the proper robed attire while casting.'},
-               { occupation: :comedian, item:'canteen', multiplier: 1.5, 
-                 description: 'Needs to clear a dry throat while talking.'},
-               { occupation: :farmer, item:'apple', multiplier: 2.5, 
-                 description: 'Harvests many apples each year.'},
-               { occupation: :fisherman, item:'fish', multiplier: 2, 
-                 description: 'Catches fish from the sea daily.'},
-               { occupation: :witch, item:'book', multiplier: 3, 
-                 description: 'Reads lots of books everyday.'},
-               { occupation: :baker, item:'bread', multiplier: 1.5, 
-                 description: 'Grinds wheat into flour and bakes handbaked bread.'}]
+preferences = [{ occupation: :merchant, item: 'map', multiplier: 2,
+                 description: 'Travels around a lot using a map.' },
+               { occupation: :wizard, item: 'coat', multiplier: 1.5,
+                 description: 'Requires the proper robed attire while casting.' },
+               { occupation: :comedian, item: 'canteen', multiplier: 1.5,
+                 description: 'Needs to clear a dry throat while talking.' },
+               { occupation: :farmer, item: 'apple', multiplier: 2.5,
+                 description: 'Harvests many apples each year.' },
+               { occupation: :fisherman, item: 'fish', multiplier: 2,
+                 description: 'Catches fish from the sea daily.' },
+               { occupation: :witch, item: 'book', multiplier: 3,
+                 description: 'Reads lots of books everyday.' },
+               { occupation: :baker, item: 'bread', multiplier: 1.5,
+                 description: 'Grinds wheat into flour and bakes hand-baked bread.' }]
 
 preferences.each do |preference|
   item = Item.find_by(name: preference[:item])
