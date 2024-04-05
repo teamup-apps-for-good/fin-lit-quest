@@ -41,14 +41,13 @@ Feature: Merge trading and counter-offer page
     Given I am on the trade page for "Ritchey"
     Then I should see "Trade with Ritchey"
     
-  Scenario Outline: The trade page should show the player's inventory
+  Scenario: The trade page should show the player's inventory
     Given I am on the trade page for "Ritchey"
-    Then I should see "<item> : <quantity>"
+    Then I should see "Apple : 5"
 
-    Examples:
-      | item     | quantity   |
-      | Apple    | 5          |
-      | Fish     | 0          |
+  Scenario: The trade page should not show players items they have 0 quantity of
+    Given I am on the trade page for "Ritchey"
+    Then I should not see "Fish"
     
   Scenario Outline: The trade page should show the non-player's inventory
     Given I am on the trade page for "Ritchey"
