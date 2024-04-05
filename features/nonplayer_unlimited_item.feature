@@ -49,4 +49,4 @@ Feature: Unlimited Items for NPC
     * I fill in the number of items that I give with "10"
     * I fill in the number of items that I want with "2"
     And I press the "Offer" button
-    Then I should see a notice of "Success!"
+    Then I should see a notice of "Success"
