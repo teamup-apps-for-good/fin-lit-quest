@@ -4,6 +4,11 @@ Given('I am on the home page') do
   visit root_path
 end
 
+Given('I am on the login page') do
+  visit welcome_path
+  expect(page).to have_current_path welcome_path
+end
+
 Given('I am on the town page') do
   visit town_path
 end
