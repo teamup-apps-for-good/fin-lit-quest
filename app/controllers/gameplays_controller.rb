@@ -16,6 +16,8 @@ class GameplaysController < SessionsController
 
   def restart
     @current_user.update(current_level: 1, balance: 0, day: 1, hour: 1)
+    Inventory.where(character: @current_user).each(&:delete)
+    @current_user.add_starter_items
     redirect_to root_path, notice: 'Game restarted successfully.'
   end
 end
