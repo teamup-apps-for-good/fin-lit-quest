@@ -8,7 +8,9 @@ class GameplaysController < SessionsController
     @nonplayers = Nonplayer.where(current_level: @current_user.current_level)
   end
 
-  def game_over; end
+  def game_over
+    redirect_to root_path, alert: "You're game isn't over yet!" unless @current_user.current_level.zero?
+  end
 
   def check_game_over
     redirect_to game_over_path, alert: "Game Over: You can't continue the game." if @current_user.current_level.zero?

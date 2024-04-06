@@ -48,6 +48,11 @@ RSpec.describe GameplaysController, type: :controller do
       get :town
       expect(response).to redirect_to(game_over_path)
     end
+    it 'should redirect to home if current_level is not zero' do
+      session[:user_id] = @current_user.id
+      get :game_over
+      expect(response).to redirect_to(root_path)
+    end
   end
 
   describe 'restart' do

@@ -7,7 +7,7 @@ I want to the game over page to have good styling and allow me to go back to the
   Background:
     Given the following players exist:
       | name       | occupation | inventory_slots | balance | current_level | uid  | provider      | email         |
-      | Player     | programmer | 5               | 0       | 2             | 5678 | google_oauth2 | test@test.com |
+      | Player     | programmer | 5               | 0       | 0             | 5678 | google_oauth2 | test@test.com |
     Given the following items exist:
       | name   | description                                        | value |
       | wheat  | grainy, fresh from the field                       | 1     |
