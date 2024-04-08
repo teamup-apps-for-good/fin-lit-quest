@@ -31,9 +31,7 @@ items = [{ name: 'fish', description: 'still floppin\' around, fresh from the oc
          { name: 'wood', description: 'sturdy and reliable, fresh from the lumber mill', value: 5 },
          { name: 'stone', description: 'heavy and durable, fresh from the quarry', value: 7 },
          { name: 'iron', description: 'strong and versatile, fresh from the mine', value: 12 },
-         { name: 'cookie', description: 'sweet and chewy, fresh from the oven', value: 2 },
-         { name: 'milk', description: 'creamy and fresh, fresh from the dairy farm', value: 3 },
-         { name: 'cheese', description: 'tangy and sharp, fresh from the dairy farm', value: 5 }]
+         { name: 'cookie', description: 'sweet and chewy, fresh from the oven', value: 2 }]
 
 items.each do |item|
   Item.find_or_create_by!(item)
@@ -41,22 +39,30 @@ end
 
 players = [{ name: "Stella", occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1, uid: '1234', email: 'test@test.com', provider: 'example-provider' }]
 
-npcs = [{ name: "Ritchey", occupation: :merchant, inventory_slots: 5, balance: 0, personality: :enthusiastic,
+npcs = [{ name: "Ritchey", occupation: :merchant, inventory_slots: 6, balance: 0, personality: :enthusiastic,
           dialogue_content: "Gather your required materials for your weekly expenses! Failure to do so may put you in danger.",
           item_to_offer: "fish", quantity_to_offer: 2, item_to_accept: "wheat", quantity_to_accept: 5, current_level: 1 },
-        { name: "Lightfoot", occupation: :comedian, inventory_slots: 5, balance: 0, personality: :dad,
+        { name: "Lightfoot", occupation: :comedian, inventory_slots: 6, balance: 0, personality: :dad,
           dialogue_content: "I remember a time when I didn't gather enough materials for a day. It was a tough night, I tell you.",
           item_to_offer: "apple", quantity_to_offer: 2, item_to_accept: "orange", quantity_to_accept: 2, current_level: 1 },
-        { name: "Harry", occupation: :wizard, inventory_slots: 5, balance: 50, personality: :skilled,
+        { name: "Harry", occupation: :wizard, inventory_slots: 6, balance: 50, personality: :skilled,
           dialogue_content: "I'm Harry",
           item_to_offer: "bandages", quantity_to_offer: 1, item_to_accept: "apple", quantity_to_accept: 2, current_level: 2 },
-        { name: "Hermione", occupation: :witch, inventory_slots: 5, balance: 30, personality: :knowledgeable,
+        { name: "Hermione", occupation: :witch, inventory_slots: 6, balance: 30, personality: :knowledgeable,
           dialogue_content: "hello",
           item_to_offer: "coat", quantity_to_offer: 2, item_to_accept: "book", quantity_to_accept: 3, current_level: 2 },
-        { name: "Ron", occupation: :wizard, inventory_slots: 2, balance: 10, personality: :goofy,
+        { name: "Ron", occupation: :wizard, inventory_slots: 6, balance: 10, personality: :goofy,
           dialogue_content: "I <3 Hermione",
-          item_to_offer: "bed roll", quantity_to_offer: 1, item_to_accept: "bread", quantity_to_accept: 3, current_level: 2 }
-]
+          item_to_offer: "bed roll", quantity_to_offer: 1, item_to_accept: "bread", quantity_to_accept: 3, current_level: 2 },
+        { name: "Steve", occupation: :miner, inventory_slots: 6, balance: 40, personality: :friendly,
+          dialogue_content: "Mining away",
+          item_to_offer: "stone", quantity_to_offer: 4, item_to_accept: "iron", quantity_to_accept: 1, current_level: 3 },
+        { name: "Alex", occupation: :explorer, inventory_slots: 6, balance: 50, personality: :resourceful,
+          dialogue_content: "Don't go out too late",
+          item_to_offer: "wood", quantity_to_offer: 8, item_to_accept: "compass", quantity_to_accept: 1, current_level: 3 },
+        { name: "Villager Bert", occupation: :lumberjack, inventory_slots: 6, balance: 30, personality: :quiet,
+          dialogue_content: "Hrmmm...",
+          item_to_offer: "cookie", quantity_to_offer: 10, item_to_accept: "wood", quantity_to_accept: 2, current_level: 3 }]
 
 players.each { |player| Player.find_or_create_by!(player) }
 npcs.each do |t|
@@ -84,7 +90,6 @@ inventories = [{ item: 'fish', character_id: 'Ritchey', quantity: 13 },
                { item: 'canteen', character_id: 'Stella', quantity: 4 },
                { item: 'potato', character_id: 'Harry', quantity: 9 },
                { item: 'grapes', character_id: 'Harry', quantity: 8 },
-               { item: 'bread', character_id: 'Harry', quantity: 7 },
                { item: 'honey', character_id: 'Harry', quantity: 5 },
                { item: 'bandages', character_id: 'Harry', quantity: 6 },
                { item: 'book', character_id: 'Hermione', quantity: 5 },
@@ -93,7 +98,28 @@ inventories = [{ item: 'fish', character_id: 'Ritchey', quantity: 13 },
                { item: 'map', character_id: 'Hermione', quantity: 3 },
                { item: 'compass', character_id: 'Hermione', quantity: 2 },
                { item: 'bed roll', character_id: 'Ron', quantity: 4 },
-               { item: 'bread', character_id: 'Ron', quantity: 1 }]
+               { item: 'bread', character_id: 'Ron', quantity: 6 },
+               { item: 'orange', character_id: 'Ron', quantity: 4 },
+               { item: 'apple', character_id: 'Ritchey', quantity: 2 },
+               { item: 'wheat', character_id: 'Lightfoot', quantity: 3 },
+               { item: 'fish', character_id: 'Harry', quantity: 4 },
+               { item: 'apple', character_id: 'Ron', quantity: 7 },
+               { item: 'wheat', character_id: 'Ron', quantity: 5 },
+               { item: 'apple', character_id: 'Villager Bert', quantity: 3 },
+               { item: 'wheat', character_id: 'Alex', quantity: 4 },
+               { item: 'fish', character_id: 'Alex', quantity: 5 },
+               { item: 'orange', character_id: 'Villager Bert', quantity: 6 },
+               { item: 'potato', character_id: 'Steve', quantity: 7 },
+               { item: 'grapes', character_id: 'Alex', quantity: 8 },
+               { item: 'bread', character_id: 'Steve', quantity: 9 },
+               { item: 'iron', character_id: 'Steve', quantity: 10 },
+               { item: 'wood', character_id: 'Villager Bert', quantity: 10 },
+               { item: 'wood', character_id: 'Alex', quantity: 4 },
+               { item: 'bed roll', character_id: 'Steve', quantity: 12 },
+               { item: 'compass', character_id: 'Alex', quantity: 5 },
+               { item: 'stone', character_id: 'Steve', quantity: 8 },
+               { item: 'cookie', character_id: 'Villager Bert', quantity: 6 },
+               { item: 'stone', character_id: 'Alex', quantity: 5 }]
 
 inventories.each do |inventory|
   character = Character.find_by(name: inventory[:character_id])
@@ -117,8 +143,8 @@ shoppinglists = [{ item: 'apple', level: 1, quantity: 2 },
                  { item: 'map', level: 2, quantity: 1 },
                  { item: 'compass', level: 3, quantity: 1 },
                  { item: 'wood', level: 3, quantity: 6 },
-                 { item: 'bedroll', level: 3, quantity: 1 },
-                 { item: 'potato', level: 3, quantity: 8 },
+                 { item: 'bed roll', level: 3, quantity: 1 },
+                 { item: 'cookie', level: 3, quantity: 4 },
                  { item: 'iron', level: 3, quantity: 5 }]
 
 shoppinglists.each do |shoppinglist|
@@ -149,7 +175,7 @@ preferences = [{ occupation: :merchant, item:'map', multiplier: 2,
                { occupation: :adventurer, item:'boots', multiplier: 2,
                  description: 'Travels through rough terrains.'},
                { occupation: :beekeeper, item:'honey', multiplier: 1.5,
-                 description: 'Harvests honey from bees.'}
+                 description: 'Harvests honey from bees.'},
                { occupation: :miner, item:'iron', multiplier: 2.5,
                  description: 'Mines iron ore from deep caves.'},
                { occupation: :lumberjack, item:'wood', multiplier: 2,
