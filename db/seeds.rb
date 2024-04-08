@@ -27,7 +27,13 @@ items = [{ name: 'fish', description: 'still floppin\' around, fresh from the oc
          { name: 'canteen', description: 'for carrying water or other beverages, fresh from the craftsman', value: 8 },
          { name: 'bed roll', description: 'comfy and portable, fresh from the craftsman', value: 20 },
          { name: 'rocket ticket', description: 'one way trip to a bigger and better planet, fresh from the printer',
-           value: 1000 }]
+           value: 1000 },
+         { name: 'wood', description: 'sturdy and reliable, fresh from the lumber mill', value: 5 },
+         { name: 'stone', description: 'heavy and durable, fresh from the quarry', value: 7 },
+         { name: 'iron', description: 'strong and versatile, fresh from the mine', value: 12 },
+         { name: 'cookie', description: 'sweet and chewy, fresh from the oven', value: 2 },
+         { name: 'milk', description: 'creamy and fresh, fresh from the dairy farm', value: 3 },
+         { name: 'cheese', description: 'tangy and sharp, fresh from the dairy farm', value: 5 }]
 
 items.each do |item|
   Item.find_or_create_by!(item)
@@ -108,7 +114,12 @@ shoppinglists = [{ item: 'apple', level: 1, quantity: 2 },
                  { item: 'orange', level: 2, quantity: 3 },
                  { item: 'bread', level: 2, quantity: 6 },
                  { item: 'boots', level: 2, quantity: 1 },
-                 { item: 'map', level: 2, quantity: 1 }]
+                 { item: 'map', level: 2, quantity: 1 },
+                 { item: 'compass', level: 3, quantity: 1 },
+                 { item: 'wood', level: 3, quantity: 6 },
+                 { item: 'bedroll', level: 3, quantity: 1 },
+                 { item: 'potato', level: 3, quantity: 8 },
+                 { item: 'iron', level: 3, quantity: 5 }]
 
 shoppinglists.each do |shoppinglist|
   item = Item.find_by(name: shoppinglist[:item])
@@ -137,8 +148,12 @@ preferences = [{ occupation: :merchant, item:'map', multiplier: 2,
                  description: 'Navigates through worlds.'},
                { occupation: :adventurer, item:'boots', multiplier: 2,
                  description: 'Travels through rough terrains.'},
-               { occupation: :beekeeper, item:'honey', multiplier: 2,
-                 description: 'Harvests honey from bees.'}]
+               { occupation: :beekeeper, item:'honey', multiplier: 1.5,
+                 description: 'Harvests honey from bees.'}
+               { occupation: :miner, item:'iron', multiplier: 2.5,
+                 description: 'Mines iron ore from deep caves.'},
+               { occupation: :lumberjack, item:'wood', multiplier: 2,
+                 description: 'Chops down trees for wood.'}]
 
 preferences.each do |preference|
   item = Item.find_by(name: preference[:item])
