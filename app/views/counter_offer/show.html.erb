@@ -55,7 +55,7 @@
 
         <div style="margin-bottom: 10px;" class="flex items-center justify-center py-4">
           <%= submit_tag 'Offer', class: "green-button mx-4" %>
-          <%= button_to "Back", character_profile_path(@context.character), class: "blue-button", method: :get %>
+          <%= link_to "Back", character_profile_path(@context.character), class: "blue-button" %>
         </div>
       <% end %>
     </div>
