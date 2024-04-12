@@ -47,6 +47,17 @@ class CounterOfferController < SessionsController
     handle_sell_result(success, message)
   end
 
+  def calculate_price
+    item_id = params[:item_id]
+    quantity = params[:quantity].to_i
+    item = Item.find(item_id)
+    price = ValueCalculationService.value_of(@context.player_character, item_id, 1)
+    total_price = price * quantity
+
+    render json: { total_price: total_price }
+  end
+
+
   private
 
   def time_too_late?
