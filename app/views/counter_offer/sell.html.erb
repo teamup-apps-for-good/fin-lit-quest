@@ -60,9 +60,9 @@ $(document).ready(function() {
       $.ajax({
         url: `/trade/${contextCharacterId}/calculate_price`,
         type: 'GET',
-        data: { item_id: itemId, quantity: quantity },
+        data: { item_id: itemId, quantity: quantity, transaction_type: 'sell' },
         success: function(response) {
-          totalPriceDisplay.text(response.total_price.toFixed(2)); // Assuming response has total_price
+          totalPriceDisplay.text(response.total_price.toFixed(2));
         },
         error: function() {
           alert('Error calculating price. Please try again.');

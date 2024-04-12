@@ -47,34 +47,38 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
+  var contextCharacterId = <%= @context.character.id %>;
   var itemSelect = $('#item_i_want_id');
   var quantityInput = $('#quantity_i_want_field');
   var totalPriceDisplay = $('#total_price');
 
-  // Generate the JSON data for the data-values attribute
-  var itemValues = {};
-  <% Item.all.each do |item| %>
-    itemValues[<%= item.id %>] = <%= item.value %>;
-  <% end %>
-
-  // Set the data-values attribute with the generated JSON data
-  itemSelect.data('values', JSON.stringify(itemValues));
-
-  // Parse the data-values attribute
-  var itemValues = JSON.parse(itemSelect.data('values'));
-
-  function calculateTotalPrice() {
+  function fetchAndDisplayPrice() {
     var itemId = itemSelect.val();
     var quantity = quantityInput.val();
-    var unitPrice = itemValues[itemId] || 0;
-    var totalPrice = unitPrice * quantity;
-    totalPriceDisplay.text(totalPrice.toFixed(2)); // Format to 2 decimal places
+
+    if (itemId && quantity) {
+      $.ajax({
+        url: `/trade/${contextCharacterId}/calculate_price`,
+        type: 'GET',
+        data: {
+          item_id: itemId,
+          quantity: quantity,
+          transaction_type: 'buy'
+        },
+        success: function(response) {
+          totalPriceDisplay.text(response.total_price.toFixed(2));
+        },
+        error: function() {
+          alert('Error calculating price. Please try again.');
+        }
+      });
+    }
   }
 
-  itemSelect.on('change', calculateTotalPrice);
-  quantityInput.on('input', calculateTotalPrice);
+  itemSelect.on('change', fetchAndDisplayPrice);
+  quantityInput.on('input', fetchAndDisplayPrice);
 
-  // Call the function to set the initial total price
-  calculateTotalPrice();
+  // Initialize total price display
+  fetchAndDisplayPrice();
 });
 </script>
