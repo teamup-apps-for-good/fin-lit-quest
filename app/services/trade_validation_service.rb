@@ -14,8 +14,7 @@ class TradeValidationService
   end
 
   def npc_has_item?
-    inventory_item = @npc.inventories.find_by(item_id: @trade_data.item_i_want_id)
-    inventory_item && inventory_item.quantity >= @trade_data.quantity_i_want
+    @npc.inventories.find_by(item_id: @trade_data.item_i_want_id)
   end
 
   def user_has_item?

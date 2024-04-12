@@ -247,9 +247,7 @@ RSpec.describe CounterOfferService do
   end
 
   describe '#perform_buy_transactions' do
-    it 'updates the NPC inventory and player inventory and balance' do
-      expect(InventoryService).to receive(:update_inventory).with(npc_character, offer_params[:item_i_want_id],
-                                                                  -offer_params[:quantity_i_want])
+    it 'updates the player inventory and balance' do
       expect(InventoryService).to receive(:update_inventory).with(player_character, offer_params[:item_i_want_id],
                                                                   offer_params[:quantity_i_want])
       expect(player_character).to receive(:update!).with(balance:
@@ -260,13 +258,11 @@ RSpec.describe CounterOfferService do
   end
 
   describe '#perform_sell_transactions' do
-    it 'updates the player inventory and balance and NPC inventory' do
+    it 'updates the player inventory and balance' do
       expect(InventoryService).to receive(:update_inventory).with(player_character, offer_params[:item_i_give_id],
                                                                   -offer_params[:quantity_i_give])
       expect(player_character).to receive(:update!).with(balance:
         (player_character.balance + service.send(:total_sale_price_of_items_given)))
-      expect(InventoryService).to receive(:update_inventory).with(npc_character, offer_params[:item_i_give_id],
-                                                                  offer_params[:quantity_i_give])
 
       service.send(:perform_sell_transactions)
     end
