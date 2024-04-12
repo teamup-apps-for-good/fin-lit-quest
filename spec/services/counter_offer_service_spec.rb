@@ -136,14 +136,14 @@ RSpec.describe CounterOfferService do
       trade = described_class.new(player_character, @bobert,
                                   { item_i_give_id: @apple_item.id, quantity_i_give: 1,
                                     item_i_want_id: @bread_item.id, quantity_i_want: 2 })
-      expect(trade.valid_trade?).to eq(true)
+      expect(trade.trade_is_valid?).to eq(true)
     end
 
-    it 'should be rejecteded by an occupation that does not prefer it' do
+    it 'should be rejected by an occupation that does not prefer it' do
       trade = described_class.new(player_character, @robert,
                                   { item_i_give_id: @apple_item.id, quantity_i_give: 1,
                                     item_i_want_id: @bread_item.id, quantity_i_want: 2 })
-      expect(trade.valid_trade?).to eq(false)
+      expect(trade.trade_is_valid?).to eq(false)
     end
   end
 
@@ -172,7 +172,7 @@ RSpec.describe CounterOfferService do
       trade = described_class.new(player_character, @bobert,
                                   { item_i_give_id: @apple_item.id, quantity_i_give: 1,
                                     item_i_want_id: @apple_item.id, quantity_i_want: 1 })
-      expect(trade.calc_time_variance(@apple_item, player_character)).to eq(1.0)
+      expect(trade.calculate_time_variance_for_trade(@apple_item, player_character)).to eq(1.0)
     end
 
     it 'should not be 1.0 on the second day' do
@@ -180,7 +180,91 @@ RSpec.describe CounterOfferService do
       trade = described_class.new(player_character, @bobert,
                                   { item_i_give_id: @apple_item.id, quantity_i_give: 1,
                                     item_i_want_id: @apple_item.id, quantity_i_want: 1 })
-      expect(trade.calc_time_variance(@apple_item, player_character)).not_to eq(1.0)
+      expect(trade.calculate_time_variance_for_trade(@apple_item, player_character)).not_to eq(1.0)
+    end
+  end
+
+  describe '#execute_buy' do
+    context 'when the buy is valid and the player can afford the items' do
+      before do
+        allow(service.instance_variable_get(:@validation_service)).to receive(:npc_has_item?).and_return(true)
+        allow(service.instance_variable_get(:@validation_service)).to receive(:player_can_afford?).and_return(true)
+        allow(Item).to receive(:find_by).with(id: offer_params[:item_i_want_id]).and_return(item_to_want)
+      end
+
+      it 'returns true and performs the buy transaction' do
+        result, message = service.execute_buy
+
+        expect(result).to be true
+        expect(message).to eq("Successfully bought #{offer_params[:quantity_i_want]} #{item_to_want.name}!")
+      end
+    end
+
+    context 'when the buy is invalid or the player cannot afford the items' do
+      before do
+        allow(service.instance_variable_get(:@validation_service)).to receive(:npc_has_item?).and_return(false)
+        allow(service.instance_variable_get(:@validation_service)).to receive(:player_can_afford?).and_return(false)
+        allow(MessageService).to receive(:generate_buy_error_message).and_return('Error message')
+      end
+
+      it 'returns false with an appropriate error message' do
+        result, message = service.execute_buy
+
+        expect(result).to be false
+        expect(message).to eq('Error message')
+      end
+    end
+  end
+
+  describe '#execute_sell' do
+    context 'when the sell is valid and the user has the item' do
+      before do
+        allow(service.instance_variable_get(:@validation_service)).to receive(:user_has_item?).and_return(true)
+        allow(Item).to receive(:find_by).with(id: offer_params[:item_i_give_id]).and_return(item_to_give)
+      end
+
+      it 'returns true and performs the sell transaction' do
+        result, message = service.execute_sell
+
+        expect(result).to be true
+        expect(message).to eq("Successfully sold #{offer_params[:quantity_i_give]} #{item_to_give.name}!")
+      end
+    end
+
+    context 'when the sell is invalid or the user does not have the item' do
+      before do
+        allow(service.instance_variable_get(:@validation_service)).to receive(:user_has_item?).and_return(false)
+        allow(MessageService).to receive(:generate_sell_error_message).and_return('Error message')
+      end
+
+      it 'returns false with an appropriate error message' do
+        result, message = service.execute_sell
+
+        expect(result).to be false
+        expect(message).to eq('Error message')
+      end
+    end
+  end
+
+  describe '#perform_buy_transactions' do
+    it 'updates the player inventory and balance' do
+      expect(InventoryService).to receive(:update_inventory).with(player_character, offer_params[:item_i_want_id],
+                                                                  offer_params[:quantity_i_want])
+      expect(player_character).to receive(:update!).with(balance:
+        (player_character.balance - service.send(:total_price_of_items_wanted)))
+
+      service.send(:perform_buy_transactions)
+    end
+  end
+
+  describe '#perform_sell_transactions' do
+    it 'updates the player inventory and balance' do
+      expect(InventoryService).to receive(:update_inventory).with(player_character, offer_params[:item_i_give_id],
+                                                                  -offer_params[:quantity_i_give])
+      expect(player_character).to receive(:update!).with(balance:
+        (player_character.balance + service.send(:total_sale_price_of_items_given)))
+
+      service.send(:perform_sell_transactions)
     end
   end
 end

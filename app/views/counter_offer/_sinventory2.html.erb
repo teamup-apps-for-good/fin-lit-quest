@@ -1,0 +1,33 @@
+<!-- Player Character's Inventory -->
+<div id="<%= @context.player_character.name.downcase %>_inventory" class="inventory-container-co card-display">
+  <h3 style="font-weight: bold;"><%= @context.player_character.name %>'s Inventory</h3>
+  <hr class="my-2">
+  <div class="card-overflow">
+    <% @inventory_hash_player.each do |item_name, quantity| %>
+      <% item = Item.find_by(name: item_name) %>
+      <% if item && quantity.positive? %>
+        <% unit_price = ValueCalculationService.value_of(@context.player_character, item.id, 1) %>
+        <div id="player_inventory_<%= item_name.downcase %>" class="hermitfont">
+          <%= item_name.capitalize %> $<%= unit_price %> - <%= quantity %> on me
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<!-- NPC's Inventory -->
+<div id="<%= @context.character.name.downcase %>_inventory" class="inventory-container-co card-display">
+  <h3 style="font-weight: bold;"><%= @context.character.name %>'s Inventory</h3>
+  <hr class="my-2">
+  <div class="card-overflow">
+    <% @inventory_hash_npc.each do |item_name, quantity| %>
+      <% item = Item.find_by(name: item_name) %>
+      <!-- Define the item variable here -->
+      <% if item && quantity > 0 %>
+        <div id="npc_inventory_<%= item_name.downcase %>" class="hermitfont">
+          <%= item_name.capitalize %> $<%= ValueCalculationService.value_of(@context.character, item.id, 1) %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -50,4 +50,13 @@ Rails.application.routes.draw do
 
   get '/tutorial/:page', to: 'tutorials#show', as: 'tutorial'
 
+  get '/trade/:id/barter' => 'counter_offer#barter', as: 'barter_trade'
+  get '/trade/:id/buy' => 'counter_offer#buy', as: 'buy_trade'
+  get '/trade/:id/sell' => 'counter_offer#sell', as: 'sell_trade'
+  
+  post '/trade/:id/buy_create', to: 'counter_offer#buy_create', as: 'buy_create_trade'
+  post '/trade/:id/sell_create', to: 'counter_offer#sell_create', as: 'sell_create_trade'
+
+  get '/trade/:id/calculate_price', to: 'counter_offer#calculate_price', as: 'calculate_price_trade'
+
 end
