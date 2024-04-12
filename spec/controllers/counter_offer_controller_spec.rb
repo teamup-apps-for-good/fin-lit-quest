@@ -222,4 +222,28 @@ RSpec.describe CounterOfferController, type: :controller do
       end
     end
   end
+  describe 'GET #calculate_price' do
+    let(:item) { create(:item) }
+    let(:quantity) { 5 }
+    let(:transaction_type) { 'buy' }
+    # Create a player directly
+    let(:player) do
+      Player.create(name: 'TestPlayer', email: 'test@example.com', provider: 'test', uid: '123')
+    end
+    let(:character) { create(:character, :player) } # Create a player character
+
+    before do
+      allow(controller).to receive(:current_user).and_return(player)
+      allow(CharacterInventoryService).to receive(:build_context_by_id).and_return(double(character:))
+      allow(PriceCalculationService).to receive_message_chain(:new, :calculate_total_price).and_return(100.0)
+    end
+
+    it 'calculates the total price and renders it as JSON' do
+      get :calculate_price,
+          params: { id: character.id, item_id: item.id, quantity:, transaction_type: }
+
+      expect(response).to have_http_status(:ok)
+      expect(JSON.parse(response.body)).to eq({ 'total_price' => 100.0 })
+    end
+  end
 end

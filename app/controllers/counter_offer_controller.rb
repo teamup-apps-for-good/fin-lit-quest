@@ -51,21 +51,12 @@ class CounterOfferController < SessionsController
     item_id = params[:item_id]
     quantity = params[:quantity].to_i
     transaction_type = params[:transaction_type]
-    Item.find(item_id)
-    price = calculate_unit_price(transaction_type, item_id)
-    total_price = price * quantity
+    total_price = PriceCalculationService.new(@current_user, @context).calculate_total_price(item_id, quantity,
+                                                                                             transaction_type)
     render json: { total_price: }
   end
 
   private
-
-  def calculate_unit_price(transaction_type, item_id)
-    if transaction_type == 'buy'
-      ValueCalculationService.value_of(@context.character, item_id, 1)
-    else
-      ValueCalculationService.value_of(@current_user, item_id, 1)
-    end
-  end
 
   def time_too_late?
     @context.character.hour == 10
