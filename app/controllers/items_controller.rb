@@ -2,6 +2,7 @@
 
 # The controller provides actions to be done on the item model
 class ItemsController < SessionsController
+  before_action :require_admin, only: %i[index new edit update destroy]
   before_action :set_item, only: %i[show edit update destroy]
 
   # GET /items or /items.json

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'tutorials/show'
   resources :expenses
   resources :sessions
   resources :preferences
@@ -22,6 +23,7 @@ Rails.application.routes.draw do
   root 'gameplays#index'
   get '/town' => 'gameplays#town', as: 'town'
   get '/underconstruction' => 'gameplays#underconstruction', as: 'underconstruction'
+  get '/admin_panel' => 'gameplays#admin_panel', as: 'admin_panel'
 
   get '/characters/:id/profile' => 'characters#profile', as: 'character_profile'
   get '/characters/:id/inventory' => 'characters#inventory', as: 'character_inventory'
@@ -46,9 +48,15 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#logout', as: 'logout'
   get '/auth/google_oauth2/callback', to: 'sessions#omniauth'
 
-  get '/counter_offer/:id/barter', to: 'counter_offer#barter', as: 'barter_counter_offer'
-  get '/counter_offer/:id/buy', to: 'counter_offer#buy', as: 'buy_counter_offer'
-  get '/counter_offer/:id/sell', to: 'counter_offer#sell', as: 'sell_counter_offer'
+  get '/tutorial/:page', to: 'tutorials#show', as: 'tutorial'
 
-  post '/counter_offer/:id/update_buy_params', to: 'counter_offer#update_buy_params', as: 'update_buy_params_counter_offer'
+  get '/trade/:id/barter' => 'counter_offer#barter', as: 'barter_trade'
+  get '/trade/:id/buy' => 'counter_offer#buy', as: 'buy_trade'
+  get '/trade/:id/sell' => 'counter_offer#sell', as: 'sell_trade'
+  
+  post '/trade/:id/buy_create', to: 'counter_offer#buy_create', as: 'buy_create_trade'
+  post '/trade/:id/sell_create', to: 'counter_offer#sell_create', as: 'sell_create_trade'
+
+  get '/trade/:id/calculate_price', to: 'counter_offer#calculate_price', as: 'calculate_price_trade'
+
 end

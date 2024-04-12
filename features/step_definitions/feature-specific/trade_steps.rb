@@ -8,7 +8,8 @@ Then('{string} should own {string} of {string}') do |string, string2, string3|
   end
 end
 
-Then('I should see {string} in {string}') do |inventory_text, npc_name|
-  expect(page).to have_content("#{npc_name}")
-  expect(page).to have_content(inventory_text)
+Given(/^"([^"]*)" has "([^"]*)" of "([^"]*)"$/) do |character_name, quantity, item_name|
+  character = Character.find_by(name: character_name)
+  item = Item.find_by(name: item_name)
+  InventoryService.set_inventory(character, item.id, quantity.to_i)
 end

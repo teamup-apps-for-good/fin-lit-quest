@@ -1,0 +1,53 @@
+<% if flash[:notice] %>
+    <div class="hermitfont bg-green-100 border bg-g border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+        <p><%= notice %></p>
+    </div>
+<% end %>
+
+<% if flash[:alert] %>
+    <div class="hermitfont bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <p><%= alert %> </p>
+    </div>
+<% end %>
+
+<header class="bg-white">
+  <nav class="mx-auto flex flex-row max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <div class="flex items-center">
+      <button id="sidebarToggle" type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 absolute left-5">
+        <span class="sr-only">Open main menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+        </svg>
+      </button>
+    </div>
+    <p class="mx-auto"><%= TimeAdvancementHelper.display_current_time_for_character(@current_user) %></p>
+    <div class="absolute right-5">
+      <%= button_to advance_day_path, method: :post, class: "hermitfont blue-button flex flex-row" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
+          <path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"/>
+          <path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clip-rule="evenodd"/>
+        </svg>
+        Next day
+      <% end %>
+    </div>
+  </nav>
+
+  <!-- Sidebar Content -->
+  <div id="sidebar" class="bg-gray-200 h-screen w-64 fixed top-20 left-0 transform -translate-x-full transition-transform duration-300 z-50">
+    <div class="">
+      <%= render 'gameplays/nav_sidebar' %>
+    </div>
+  </div>
+</header>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var sidebar = document.getElementById('sidebar');
+        sidebar.classList.add('-translate-x-full');
+    });
+
+    document.getElementById('sidebarToggle').addEventListener('click', function () {
+        document.getElementById('sidebar').classList.toggle('-translate-x-full');
+    });
+</script>

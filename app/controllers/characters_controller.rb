@@ -2,7 +2,8 @@
 
 # CharactersController
 class CharactersController < SessionsController
-  before_action :set_character, only: %i[show]
+  before_action :require_admin, only: %i[index]
+  before_action :set_character, only: %i[show profile inventory]
 
   # GET /characters or /characters.json
   def index
@@ -12,12 +13,9 @@ class CharactersController < SessionsController
   # GET /characters/1 or /characters/1.json
   def show; end
 
-  def profile
-    @character = Character.find(params[:id])
-  end
+  def profile; end
 
   def inventory
-    @character = Character.find(params[:id])
     @items = @character.items
     @inventories = @character.inventories
     @level = @character.current_level
@@ -40,6 +38,7 @@ class CharactersController < SessionsController
   private
 
   def attempt_advance
+    Allowance.advance_and_credit(@current_user)
     Expense.advance_and_deduct?(@current_user)
   end
 
@@ -63,5 +62,6 @@ class CharactersController < SessionsController
 
   def set_character
     @character = Character.find(params[:id])
+    require_admin if @character.type != 'Nonplayer' && @character.id != session[:user_id]
   end
 end

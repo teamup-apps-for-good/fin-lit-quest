@@ -5,8 +5,8 @@ Feature: View inventory Information
 
   Background:
     Given the following players exist:
-      | name      | occupation  | inventory_slots | balance |  current_level  | uid  | provider      | email         |
-      | Stella    | programmer  |        5        | 0       |       1         | 1234 | google_oauth2 | test@test.com |
+      | name      | occupation  | inventory_slots | balance |  current_level  | uid  | provider      | email         | admin |
+      | Stella    | programmer  |        5        | 0       |       1         | 1234 | google_oauth2 | test@test.com | true  |
     
     And the following items exist:
       |  name   |                 description                  |  value  |

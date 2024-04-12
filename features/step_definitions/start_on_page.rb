@@ -4,12 +4,21 @@ Given('I am on the home page') do
   visit root_path
 end
 
+Given('I am on the login page') do
+  visit welcome_path
+  expect(page).to have_current_path welcome_path
+end
+
 Given('I am on the town page') do
   visit town_path
 end
 
 Given('I am on the character page') do
   visit characters_path
+end
+
+Given('I am on the admin panel page') do
+  visit admin_panel_path
 end
 
 Given('I am on the Player page for {string}') do |string|
@@ -75,4 +84,8 @@ end
 
 When('I visit the home page') do
   visit root_path
+end
+
+Given('I am on the tutorial page') do
+  visit tutorial_path(1)
 end

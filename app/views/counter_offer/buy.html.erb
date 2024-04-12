@@ -1,0 +1,84 @@
+<!-- app/views/counter_offer/barter.html.erb -->
+<%= render 'gameplays/nav_header'%>
+<div class="center-text">
+  <h1>Buy from <%= @context.character.name %></h1>
+  <% container_id = "#{@context.character.name.downcase}_image_container" %>
+  <div id="<%= container_id %>" class="nonplayer-container mb-4">
+    <img id="<%= nonplayer_img_tag(@context.character) %>" src="<%= asset_path(nonplayer_gif_file(@context.character)) %>" alt="<%= @context.character.name %>">
+  </div>
+  <p>"<%= @context.character.dialogue_content %>"</p>
+  <div>
+    <% if not @pref.nil? %>
+      <p><strong>Occupation Description:</strong> <%= @pref.description %></p>
+    <% end %>
+    <p><strong>Balance:</strong> <%= @context.player_character.balance %></p>
+  </div>
+  <% if @context.character %>
+    <div class="flex flex-wrap justify-center">
+      <%= render partial: 'sinventory2' %>
+    </div>
+    <div style="margin-top: 20px;" class="hermitfont flex justify-center">
+      <%= form_with(url: buy_create_trade_path(id: @context.character.id), method: :post, local: true) do %>
+        <!-- Form fields -->
+        <div class="card-display">
+          <div class="mb-1">
+            <%= label_tag :item_i_want_id, 'I want' %>
+            <%= select_tag :item_i_want_id, options_from_collection_for_select(Item.all, :id, :name, selected: @context.character.item_to_offer_id), include_blank: true, id: 'item_i_want_id', data: { values: '' } %>
+          </div>
+          <div>
+            <%= label_tag :quantity_i_want, 'Quantity I want' %>
+            <%= number_field_tag :quantity_i_want, @context.character.quantity_to_offer, id: 'quantity_i_want_field' %>
+          </div>
+          <div>
+            <strong>Total price: $<span id="total_price">0</span></strong>
+          </div>
+        </div>
+        <div style="margin-bottom: 10px;" class="flex items-center justify-center py-4">
+          <%= submit_tag 'Purchase', class: "green-button mx-4" %>
+          <%= link_to "Back", trade_path(@context.character.id), class: "blue-button" %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>Character not found.</p>
+  <% end %>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  var contextCharacterId = <%= @context.character.id %>;
+  var itemSelect = $('#item_i_want_id');
+  var quantityInput = $('#quantity_i_want_field');
+  var totalPriceDisplay = $('#total_price');
+
+  function fetchAndDisplayPrice() {
+    var itemId = itemSelect.val();
+    var quantity = quantityInput.val();
+
+    if (itemId && quantity) {
+      $.ajax({
+        url: `/trade/${contextCharacterId}/calculate_price`,
+        type: 'GET',
+        data: {
+          item_id: itemId,
+          quantity: quantity,
+          transaction_type: 'buy'
+        },
+        success: function(response) {
+          totalPriceDisplay.text(response.total_price.toFixed(2));
+        },
+        error: function() {
+          alert('Error calculating price. Please try again.');
+        }
+      });
+    }
+  }
+
+  itemSelect.on('change', fetchAndDisplayPrice);
+  quantityInput.on('input', fetchAndDisplayPrice);
+
+  // Initialize total price display
+  fetchAndDisplayPrice();
+});
+</script>

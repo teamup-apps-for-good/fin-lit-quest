@@ -81,4 +81,28 @@ RSpec.describe InventoryService do
       end
     end
   end
+  let!(:character) { create(:character) }
+  let!(:item) { create(:item) }
+
+  describe '.set_inventory' do
+    context 'when the item exists' do
+      it 'creates or updates the inventory item for the character' do
+        expect do
+          described_class.set_inventory(character, item.id, 5)
+        end.to change { character.inventories.count }.by(1)
+
+        inventory_item = character.inventories.find_by(item:)
+        expect(inventory_item.quantity).to eq(5)
+      end
+    end
+
+    context 'when the item does not exist' do
+      it 'does not create or update any inventory items' do
+        non_existing_item_id = item.id + 1 # Assuming this ID does not exist
+        expect do
+          described_class.set_inventory(character, non_existing_item_id, 5)
+        end.not_to(change { character.inventories.count })
+      end
+    end
+  end
 end

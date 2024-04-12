@@ -11,3 +11,28 @@
 }
 
 */
+
+.blue-button{
+  @apply rounded border-b-4 border-blue-700 bg-blue-500 px-4 py-2 font-bold text-white hover:border-blue-500 hover:bg-blue-400 items-center;
+}
+
+.green-button{
+  @apply rounded border-b-4 border-green-700 bg-green-500 px-4 py-2 font-bold text-white hover:border-green-500 hover:bg-green-400 items-center;
+}
+
+.red-button{
+  @apply rounded border-b-4 border-red-700 bg-red-500 px-4 py-2 font-bold text-white hover:border-red-500 hover:bg-red-400 items-center;
+}
+
+.sidebar-list{
+  @apply py-4 px-4 text-gray-800 hover:bg-gray-300
+}
+
+.card-display{
+  @apply max-w-sm rounded shadow-lg p-6 m-2;
+}
+
+.card-overflow {
+  @apply overflow-y-auto;
+  max-height: 125px
+}

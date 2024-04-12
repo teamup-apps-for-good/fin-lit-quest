@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_22_180919) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_01_152438) do
+  create_table "allowances", force: :cascade do |t|
+    t.integer "level", null: false
+    t.integer "item_id"
+    t.integer "quantity", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_allowances_on_item_id"
+  end
+
   create_table "characters", force: :cascade do |t|
     t.string "name"
     t.string "occupation"
@@ -28,10 +37,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_180919) do
     t.integer "item_to_offer_id"
     t.integer "day", default: 1
     t.integer "hour", default: 1
-    t.integer "era", default: 1
     t.string "uid"
     t.string "provider"
     t.string "email"
+    t.boolean "admin"
+    t.string "firstname"
     t.index ["item_to_accept_id"], name: "index_characters_on_item_to_accept_id"
     t.index ["item_to_offer_id"], name: "index_characters_on_item_to_offer_id"
     t.index ["uid", "provider"], name: "index_characters_on_uid_and_provider", unique: true, where: "uid IS NOT NULL AND provider IS NOT NULL"
@@ -86,6 +96,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_180919) do
     t.index ["item_id"], name: "index_shopping_lists_on_item_id"
   end
 
+  create_table "starter_items", force: :cascade do |t|
+    t.integer "item_id", null: false
+    t.integer "quantity", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_starter_items_on_item_id"
+  end
+
+  add_foreign_key "allowances", "items"
   add_foreign_key "characters", "items", column: "item_to_accept_id"
   add_foreign_key "characters", "items", column: "item_to_offer_id"
   add_foreign_key "expenses", "items"
@@ -93,4 +112,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_180919) do
   add_foreign_key "inventories", "items"
   add_foreign_key "preferences", "items"
   add_foreign_key "shopping_lists", "items"
+  add_foreign_key "starter_items", "items"
 end

@@ -1,32 +1,40 @@
-<p style="color: green"><%= notice %></p>
+<%= render 'gameplays/nav_header'%>
 
-<h1>Characters</h1>
 
-<%= button_to 'Players', players_path, class: 'button', method: :get %>
-<%= button_to 'Non-players', nonplayers_path, class: 'button', method: :get %>
+<div class = "flex flex-col justify-center center-text">
+  <h1 class="text-4xl mt-2">Characters</h1>
 
-<h2>Players</h2>
-<div id="players">
-  <% @characters.each do |character| %>
-    <% if character.is_a?(Player) %>
-      <%= render character %>
-      <p>
-        <%= button_to "Show this player", character, method: :get %>
-      </p>
+  <p class="py-4">To create a new character, first go to player or non-player!</p>
+
+  <%= button_to 'Players', players_path, class: 'hermitfont blue-button mt-2 mb-2', method: :get %>
+  <%= button_to 'Non-players', nonplayers_path, class: 'hermitfont blue-button mb-2', method: :get %>
+
+  <h2 class="py-4">Players</h2>
+  <div id="players" class="flex flex-wrap justify-center">
+    <% @characters.each do |character| %>
+      <% if character.is_a?(Player) %>
+        <div class="card-display">
+          <%= render character %>
+          <p>
+            <%= button_to "Show this player", character, method: :get, class: "blue-button hermitfont mt-2" %>
+          </p>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
+
+  <h2 class="py-4">Non-players</h2>
+  <div id="non_players" class="flex flex-wrap justify-center">
+    <% @characters.each do |character| %>
+      <% if character.is_a?(Nonplayer) %>
+        <div class="card-display">
+          <%= render character %>
+          <p>
+            <%= button_to "Show this non-player", character, method: :get, class: "blue-button hermitfont mt-2" %>
+          </p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>
 
-<h2>Non-players</h2>
-<div id="non_players">
-  <% @characters.each do |character| %>
-    <% if character.is_a?(Nonplayer) %>
-      <%= render character %>
-      <p>
-        <%= button_to "Show this non-player", character, method: :get %>
-      </p>
-    <% end %>
-  <% end %>
-</div>
-
-<%= button_to "New character", new_character_path, method: :put %>

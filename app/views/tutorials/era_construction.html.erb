@@ -1,0 +1,15 @@
+<div class = "nicefont" style="display: flex; flex-direction: column; justify-content: space-between; text-align: center; height: 100vh; padding: 20px;">
+  <div>
+    <h1>Tutorial: Era <%= @tutorial_level %></h1>
+  </div>
+
+  <div>
+    <p>Welcome to Era <%= @tutorial_level %>! I'm still exploring this world and learning how things work.</p>
+    <p>Go ahead and explore on your own for now. I can tell you what I've learned once I'm done!</p>
+  </div>
+
+  <div style="display: flex; flex-direction: row; justify-content: space-between;">
+    <%= button_to 'Back', root_path, class: "hermitfont blue-button ml-2", method: :get %>
+  </div>
+
+</div>

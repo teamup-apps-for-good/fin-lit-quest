@@ -22,8 +22,10 @@ RSpec.describe ItemsController, type: :controller do
                 description: 'yummy, fresh from the oven',
                 value: 2)
 
+    @item = Item.find_by(name: 'bread')
+
     @user = Player.create!(name: 'Test User', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
-                           email: 'test@test.com', provider: 'google-oauth2', uid: '1234')
+                           email: 'test@test.com', provider: 'google-oauth2', uid: '1234', admin: true)
     session[:user_id] = @user.id
   end
 
@@ -111,6 +113,58 @@ RSpec.describe ItemsController, type: :controller do
       item = Item.find_by(name: 'wheat')
       get :destroy, params: { id: item.id }
       expect(flash[:notice]).to match(/Item was successfully destroyed./)
+    end
+  end
+
+  describe 'Admin actions' do
+    before do
+      @user.admin = false
+      @user.save!
+    end
+
+    %i[index edit new].each do |tag|
+      it "does not allow players to perform #{tag}" do
+        get tag, params: { id: @item.id }
+        expect(response).to redirect_to root_path
+        expect(flash[:notice]).to match(/You do not have permission to access this path./)
+      end
+
+      it "allows admins to perform #{tag}" do
+        @user.admin = true
+        @user.save!
+        put tag, params: { id: @item.id }
+        expect(response).not_to redirect_to root_path
+      end
+    end
+
+    %i[update].each do |tag|
+      it "does not allow players to perform #{tag}" do
+        put tag, params: { id: @item.id }
+        expect(response).to redirect_to root_path
+        expect(flash[:notice]).to match(/You do not have permission to access this path./)
+      end
+
+      it "allows admins to perform #{tag}" do
+        @user.admin = true
+        @user.save!
+        post tag, params: { id: @item.id, item: { quantity: 4 } }
+        expect(response).not_to redirect_to root_path
+      end
+    end
+
+    %i[destroy].each do |tag|
+      it "does not allow players to perform #{tag}" do
+        delete tag, params: { id: @item.id }
+        expect(response).to redirect_to root_path
+        expect(flash[:notice]).to match(/You do not have permission to access this path./)
+      end
+
+      it "allows admins to perform #{tag}" do
+        @user.admin = true
+        @user.save!
+        delete tag, params: { id: @item.id }
+        expect(response).not_to redirect_to root_path
+      end
     end
   end
 end

@@ -127,6 +127,24 @@ RSpec.describe SessionsController, type: :controller do
           get :omniauth
           expect(response).to redirect_to(welcome_path)
         end
+
+        it 'redirects to the tutorial page' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
+          get :omniauth
+          expect(response).to redirect_to(tutorial_path(1))
+        end
+
+        it 'adds new items to their inventory' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
+          get :omniauth
+          new_player = Player.find_by(provider: :github, uid: '1234')
+          expect(new_player).to eq(Player.find(session[:user_id]))
+        end
+
+        it 'redirects when fails to create with credentials' do
+          get :omniauth
+          expect(response).to redirect_to(welcome_path)
+        end
       end
     end
 

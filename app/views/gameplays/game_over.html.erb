@@ -1,5 +1,11 @@
 <!-- app/views/gameplays/game_over.html.erb -->
-<h1>Game Over</h1>
-<p>You can't afford to pay your expenses, and you have no time left!</p>
-<%= button_to 'Restart', restart_game_path, class: 'button-class' %>
 
+<div class="min-h-screen flex items-center justify-center">
+    <div>
+        <h1 class="center-text dpfont text-5xl">Game Over!</h1>
+        <h3 class="center-text hermitfont py-5">You can't afford to pay your expenses, and you have no time left!</h2>
+        <div class="flex flex-row justify-center py-4">
+            <%= button_to 'Restart', restart_game_path, class: 'hermitfont red-button' %>
+        </div>
+    </div>
+</div>

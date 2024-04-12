@@ -12,8 +12,8 @@ Feature: View Item Information
       |  wheat  |   grainy, fresh from the field               |    1    |
 
     And the following players exist:
-      | name      | occupation  | inventory_slots | balance |  current_level  | uid  | provider      | email         |
-      | Stella    | programmer  |        5        | 0       |       1         | 1234 | google_oauth2 | test@test.com |
+      | name      | occupation  | inventory_slots | balance |  current_level  | uid  | provider      | email         | admin |
+      | Stella    | programmer  |        5        | 0       |       1         | 1234 | google_oauth2 | test@test.com | true  |
 
     And the following non-players exist:
       | name      | occupation | inventory_slots | balance | current_level | personality  | dialogue_content     | quantity_to_accept | quantity_to_offer | item_to_accept | item_to_offer |

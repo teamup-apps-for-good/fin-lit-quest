@@ -65,7 +65,6 @@ Feature: Time advancement
   Scenario: Failing a trade moves time forward by 1 hour
     Given I am on the counter offer page for "Ritchey"
     And "Stella" is on Day "1" and Hour "1"
-    When I click on "Barter"
     When I select "apple" from the "I give" dropdown
     * I select "orange" from the "I want" dropdown
     * I fill in the number of items that I give with "1"
@@ -87,7 +86,7 @@ Feature: Time advancement
   Scenario: The player can move to the next day
     Given I am on the home page
     And "Stella" is on Day "1" and Hour "9"
-    When I click on "Move to the next day"
+    When I click on "Next day"
     Then "Stella" should be on Day "2" and Hour "1"
     And I should see "8:00 AM on Day 2, Era 1"
 

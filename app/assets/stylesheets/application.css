@@ -21,20 +21,40 @@
   src: url('dpcomic.ttf');
 }
 
+@font-face {
+  font-family: 'hermit';
+  src: url('hermit.otf');
+}
+
 h1 {
+  font-family: dpcomic;
   font-size: xx-large;
 }
 
 h2 {
   font-size: x-large;
+  font-family: hermit;
 }
 
 h3 {
   font-size: large;
+  font-family: hermit;
+}
+
+p{
+  font-family: hermit;
 }
 
 .nicefont{
   font-family: dpcomic;
+}
+
+.dpfont{
+  font-family: dpcomic;
+}
+
+.hermitfont{
+  font-family: hermit;
 }
 
 .button-b {
@@ -165,8 +185,22 @@ h3 {
   margin-right: 20px;
 }
 
+<<<<<<< HEAD
 .button-group {
   display: flex;
   justify-content: start;
   margin-bottom: 20px;
 }
+=======
+#sidebar {
+  transition: transform 0.3s ease;
+}
+
+.admin-back-button{
+  font-family: hermit;
+  position: fixed; 
+  bottom: 20px; 
+  right:20px; 
+  z-index: 1;
+}
+>>>>>>> currency-final-test

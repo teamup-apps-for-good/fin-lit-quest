@@ -1,5 +1,13 @@
 # frozen_string_literal: true
 
+Then('I should be on the home page') do
+  expect(page).to have_current_path root_path
+end
+
+Then('I should be on the login page') do
+  expect(page).to have_current_path welcome_path
+end
+
 Then('I should be on the Players page') do
   expect(current_path).to eq(players_path)
 end
@@ -32,4 +40,20 @@ end
 
 Then('I should be on the profile page for {string}') do |nonplayer|
   expect(page).to have_current_path(character_profile_path(Nonplayer.find_by(name: nonplayer)))
+end
+
+Then('I should be on the tutorial page') do
+  expect(page).to have_current_path(tutorial_path(1))
+end
+
+Then('I should be on the shopping list page') do
+  expect(page).to have_current_path(shopping_lists_path)
+end
+
+Then('I should be on the preferences page') do
+  expect(page).to have_current_path(preferences_path)
+end
+
+Then('I should be on the expenses page') do
+  expect(page).to have_current_path(expenses_path)
 end

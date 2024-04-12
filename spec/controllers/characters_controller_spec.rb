@@ -8,11 +8,26 @@ RSpec.describe CharactersController, type: :controller do
     allow(Player).to receive(:first).and_return(@player)
 
     @user = Player.create!(name: 'Test User', occupation: :farmer, inventory_slots: 5, balance: 0, current_level: 1,
-                           email: 'test@test.com', provider: 'google-oauth2', uid: '1234')
+                           email: 'test@test.com', provider: 'google-oauth2', uid: '1234', admin: true)
+    Item.create(name: 'wheat',
+                description: 'test description',
+                value: 3)
+
+    @nonplayer = Nonplayer.create!({ name: 'Ritchey',
+                                     occupation: 'merchant',
+                                     inventory_slots: 5,
+                                     balance: 0,
+                                     personality: :enthusiastic,
+                                     dialogue_content: 'howdy all',
+                                     current_level: 1,
+                                     item_to_accept: Item.find_by(name: 'wheat'),
+                                     item_to_offer: Item.find_by(name: 'wheat'),
+                                     quantity_to_accept: 2,
+                                     quantity_to_offer: 5 })
     session[:user_id] = @user.id
   end
 
-  describe 'Admin access' do
+  describe 'New Character' do
     let(:valid_attributes) do
       { name: 'Test Character', occupation: 'Test Occupation', inventory_slots: 10, balance: 100, type: 'Character' }
     end
@@ -29,6 +44,44 @@ RSpec.describe CharactersController, type: :controller do
       it 'returns a success response' do
         character = Character.create! valid_attributes
         get :show, params: { id: character.to_param }
+        expect(response).to be_successful
+      end
+    end
+  end
+
+  describe 'Admin actions' do
+    before do
+      @user.admin = false
+      @user.save!
+    end
+
+    %i[show profile inventory].each do |tag|
+      it 'allows the current player to view themselves' do
+        get tag, params: { id: session[:user_id] }
+        expect(response).to be_successful
+      end
+
+      it 'allows the player to view nonplayers' do
+        get tag, params: { id: @nonplayer.id }
+        expect(response).to be_successful
+      end
+
+      it 'does not allow players to view other players' do
+        character = Player.create!(name: 'Test User', occupation: :farmer,
+                                   inventory_slots: 5, balance: 0, current_level: 1,
+                                   email: 'test@test.com', provider: 'google-oauth2', uid: '1235', admin: true)
+        get tag, params: { id: character.id }
+        expect(response).to redirect_to root_path
+        expect(flash[:notice]).to match(/You do not have permission to access this path./)
+      end
+
+      it 'allows admins' do
+        @user.admin = true
+        @user.save!
+        character = Player.create!(name: 'Test User', occupation: :farmer,
+                                   inventory_slots: 5, balance: 0, current_level: 1,
+                                   email: 'test@test.com', provider: 'google-oauth2', uid: '1235', admin: true)
+        get tag, params: { id: character.id }
         expect(response).to be_successful
       end
     end

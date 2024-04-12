@@ -1,14 +1,19 @@
-<p style="color: green"><%= notice %></p>
+<%= render 'gameplays/nav_header'%>
 
-<h1>Players</h1>
+<div class = "flex flex-col justify-center center-text">
+  <h1 class="text-4xl mt-2">Players</h1>
 
-<div id="players">
-  <% @players.each do |player| %>
-    <%= render player %>
-    <p>
-      <%= link_to "Show this player", player %>
-    </p>
-  <% end %>
+  <%= button_to "New player", new_player_path, method: :get, class:"hermitfont green-button mt-4 mb-4" %>
+
+  <div id="players" class="flex flex-wrap justify-center py-4">
+    <% @players.each do |player| %>
+      <div class="card-display">
+        <%= render player %>
+        <p>
+          <%= button_to "Show this player", player, method: :get, class:"hermitfont blue-button mt-2" %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+  <%= button_to "Back to Admin Panel", admin_panel_path, class: "admin-back-button blue-button", method: :get%>
 </div>
-
-<%= link_to "New player", new_player_path %>

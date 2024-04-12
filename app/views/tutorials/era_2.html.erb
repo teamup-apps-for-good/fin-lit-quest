@@ -1,0 +1,34 @@
+<div class = "nicefont" style="display: flex; flex-direction: column; justify-content: space-between; text-align: center; height: 100vh; padding: 20px;">
+  <div>
+    <h1>Tutorial: Era <%= @tutorial_level %></h1>
+  </div>
+
+  <div>
+    <% if @page == 1 %>
+      <p>Welcome to world 2!</p>
+    <% elsif @page == 2 %>
+      <p>Congratulations on making it past the first world! I hear you are an excellent barterer.</p>
+    <% elsif @page == 3 %>
+      <p>On this world, you're going to discover a new tool for trading: currency.</p>
+      <p>I saw that you were able to get the hang of bartering rather easily so I'm sure learning to use currency won't be a problem.</p>
+    <% elsif @page == 4 %>
+      <p>This world will have new townsfolk that have become rather fond of currency, so you'll need to learn how to use it!</p>
+      <p>Instead of trading item for item, currency introduces a medium that has a value which all parties in a transaction agree on.</p>
+    <% elsif @page == 5 %>
+      <p>You'll notice some new options on your trading pages in with other townspeople: the options to buy and sell along with bartering. You'll also have a new indicator for the amount of money you have along with your inventory.</p>
+    <% elsif @page == 6 %>
+      <p>When you buy and sell, you'll exchange your money for items or your items for money, respectively. You'll also be able to see the value of your items and the price that your trading partner is selling their items for.</p>
+    <% elsif @page == 7 %>
+      <p>So go ahead and start working towards your new rocket ticket, but this time you're going to need to purchase it with currency!</p>
+      <p>Talk to the new townsfolk and use those great bartering skills! I'll see you again on world 3!</p>
+    <% else %>
+      <p>Well this is awkward, you can move along now. Good luck!</p>
+    <% end %>
+  </div>
+
+  <div style="display: flex; flex-direction: row; justify-content: space-between;">
+    <%= button_to 'Back', (@page > 1 ? tutorial_path(page: @page - 1) : root_path), class: "hermitfont blue-button ml-2", method: :get %>
+    <%= button_to (@page < @last_page ? 'Next' : 'Done') , (@page < @last_page ? tutorial_path(page: @page + 1) : root_path), class: "hermitfont blue-button ml-2", method: :get %>
+  </div>
+
+</div>
