@@ -8,9 +8,9 @@ Then('I should see the {string} is {string}') do |field, value|
   expect(page).to have_content(/#{field}: #{value}/i)
 end
 
-Then('I should see the NPC {string} owns {string} of {string}') do |npc, value, field|
+Then('I should see the NPC {string} owns {string}') do |npc, field|
   within("##{npc}_inventory") do
-    expect(page).to have_content(/#{Regexp.escape("#{field} : #{value}")}/i)
+    expect(page).to have_content(field)
   end
 end
 

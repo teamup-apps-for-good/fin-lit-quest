@@ -12,8 +12,8 @@
   <% end %>
 
   <div>
-    <%= form.label :type, style: "display: block" %>
-    <%= form.text_field :type %>
+    <%= form.label :frequency, style: "display: block" %>
+    <%= form.text_field :frequency %>
   </div>
 
   <div>
@@ -23,7 +23,7 @@
 
   <div>
     <%= form.label :item_id, style: "display: block" %>
-    <%= form.text_field :item_id %>
+    <%= form.collection_select :item_id, Item.all, :id, :name, prompt: true, selected: @expense.new_record? ? nil : @expense.item.id %>
   </div>
 
   <div>
@@ -31,7 +31,7 @@
     <%= form.number_field :quantity %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="flex justify-center">
+    <%= form.submit nil, class:"green-button mt-2"%>
   </div>
 <% end %>

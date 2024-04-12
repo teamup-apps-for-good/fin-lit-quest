@@ -5,7 +5,7 @@
     <%= render 'nav_header'%>
 
     <div class = "flex-grow flex flex-col justify-center items-center">
-        <h1 class="center-text text-4xl py-4">Hello <%=@current_user.name%>!</h1>
+        <h1 class="center-text text-4xl py-4">Hello <%=get_player_name(@current_user)%>!</h1>
         <div class="flex flex-row justify-center py-4">
             <%= button_to "Start", town_path, class: "hermitfont blue-button", method: :get %>
         </div>

@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   root 'gameplays#index'
   get '/town' => 'gameplays#town', as: 'town'
   get '/underconstruction' => 'gameplays#underconstruction', as: 'underconstruction'
+  get '/admin_panel' => 'gameplays#admin_panel', as: 'admin_panel'
 
   get '/characters/:id/profile' => 'characters#profile', as: 'character_profile'
   get '/characters/:id/inventory' => 'characters#inventory', as: 'character_inventory'

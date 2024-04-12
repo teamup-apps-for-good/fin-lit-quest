@@ -1,0 +1,16 @@
+<div class="min-h-screen flex flex-col">
+    <%= render 'nav_header'%>
+    <div class = "flex-grow flex flex-col justify-center items-center">
+        <h1 class="text-4xl py-4">Welcome to Admin Panel</h1>
+        <p>Click the categories below to view more</p>
+        <div class="flex flex-wrap justify-center">
+            <%= button_to "Players", players_path, class: "hermitfont text-2xl blue-button mt-4 ml-2 mr-2", method: :get %>
+            <%= button_to "Non Players", nonplayers_path, class: "hermitfont text-2xl blue-button mt-4 ml-2 mr-2", method: :get %>
+            <%= button_to "Inventories", inventories_path, class: "hermitfont text-2xl blue-button mt-4 ml-2 mr-2", method: :get %>
+            <%= button_to "Items", items_path, class: "hermitfont blue-button text-2xl mt-4 ml-2 mr-2", method: :get %>
+            <%= button_to "Shopping Lists", shopping_lists_path, class: "hermitfont text-2xl blue-button mt-4 ml-2 mr-2", method: :get %>
+            <%= button_to "Preferences", preferences_path, class: "hermitfont text-2xl blue-button mt-4 ml-2 mr-2", method: :get %>
+            <%= button_to "Expenses", expenses_path, class: "hermitfont text-2xl blue-button mt-4 ml-2 mr-2", method: :get %>
+        </div>
+    </div>
+</div>
