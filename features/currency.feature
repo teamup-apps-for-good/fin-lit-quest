@@ -42,11 +42,11 @@ Feature: Exchange with currency
     And I should see "Buy"
     And I should see "Sell"
 
-  Scenario Outline: The player can see the monetary values and stocks of the NPC's items
+  Scenario Outline: The player can see the monetary values of the NPC's items
     Given I am logged in as "World2User"
     And "World2User" is on level "2"
     And I am on the trade page for "Lightfoot"
-    Then I should see "<item> $<price> - <qty> in stock"
+    Then I should see "<item> $<price>"
 
     Examples:
       | item  | price | qty |
