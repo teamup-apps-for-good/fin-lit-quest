@@ -11,7 +11,21 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="px-2">
-    <%= yield %>
+  <body>
+    <% if defined? @current_user %>
+      <div class="flex flex-row min-h-screen">
+        <%= render 'gameplays/nav_sidebar' %>
+        <div class="w-full">
+          <div>
+            <%= render 'gameplays/nav_header'%>
+          </div>
+          <main class="mt-4 h-[calc(100vh-84px-1rem-2px)]">
+            <%= yield %>
+          </main>
+        </div>
+      </div>
+    <% else %>
+      <%= yield %>
+    <% end %>
   </body>
 </html>

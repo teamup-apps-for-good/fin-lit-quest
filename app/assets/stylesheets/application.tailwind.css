@@ -25,7 +25,7 @@
 }
 
 .sidebar-list{
-  @apply py-4 px-4 text-gray-800 hover:bg-gray-300
+  @apply py-4 px-4 text-gray-800 hover:bg-gray-300 rounded
 }
 
 .card-display{
@@ -35,4 +35,8 @@
 .card-overflow {
   @apply overflow-y-auto;
   max-height: 125px
+}
+
+.current_page_link {
+  @apply bg-gray-400 rounded border-b-4 border-gray-500 shadow
 }
