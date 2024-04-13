@@ -1,9 +1,6 @@
 <%= stylesheet_link_tag "application" %>
 
-<div class="min-h-screen flex flex-col">
-    
-    <%= render 'nav_header'%>
-
+<div class="min-h-full flex flex-col">
     <div class = "flex-grow flex flex-col justify-center items-center">
         <h1 class="center-text text-4xl py-4">Hello <%=get_player_name(@current_user)%>!</h1>
         <div class="flex flex-row justify-center py-4">

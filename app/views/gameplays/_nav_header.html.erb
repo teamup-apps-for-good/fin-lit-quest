@@ -10,17 +10,9 @@
     </div>
 <% end %>
 
-<header class="bg-white">
-  <nav class="mx-auto flex flex-row max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
-    <div class="flex items-center">
-      <button id="sidebarToggle" type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 absolute left-5">
-        <span class="sr-only">Open main menu</span>
-        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
-        </svg>
-      </button>
-    </div>
-    <p class="mx-auto"><%= TimeAdvancementHelper.display_current_time_for_character(@current_user) %></p>
+<header class="w-full">
+  <nav class="mx-auto flex flex-row max-w-7xl items-center justify-between p-6 lg:px-8 h-auto" aria-label="Global">
+    <p class="mx-auto text-center border px-2 pt-2 pb-1 rounded"><%= TimeAdvancementHelper.display_current_time_for_character(@current_user) %></p>
     <div class="absolute right-5">
       <%= button_to advance_day_path, method: :post, class: "hermitfont blue-button flex flex-row" do %>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
@@ -31,23 +23,4 @@
       <% end %>
     </div>
   </nav>
-
-  <!-- Sidebar Content -->
-  <div id="sidebar" class="bg-gray-200 h-screen w-64 fixed top-20 left-0 transform -translate-x-full transition-transform duration-300 z-50">
-    <div class="">
-      <%= render 'gameplays/nav_sidebar' %>
-    </div>
-  </div>
 </header>
-
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var sidebar = document.getElementById('sidebar');
-        sidebar.classList.add('-translate-x-full');
-    });
-
-    document.getElementById('sidebarToggle').addEventListener('click', function () {
-        document.getElementById('sidebar').classList.toggle('-translate-x-full');
-    });
-</script>

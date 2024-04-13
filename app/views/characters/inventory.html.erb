@@ -1,4 +1,4 @@
-<%= render 'gameplays/nav_header'%>
+
 
 <h1 class = "center-text">Inventory</h1>
 
@@ -27,6 +27,9 @@
         </p>
       <% end %>
     </div>
+  <% end %>
+  <% if @inventories.count == 0 %>
+    <p class="hermitfont">No items in your inventory, visit the town to start trading!</p>
   <% end %>
 </div>
 <div class = "flex justify-center items-center">
