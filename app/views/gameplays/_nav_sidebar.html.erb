@@ -1,5 +1,5 @@
-<div id="sidebar" class="bg-gray-200 border flex flex-col align-center items-center gap-2 w-[250px] border-r h-0 min-h-screen max-h-screen">
-  <div class="mx-auto flex flex-row max-w-7xl items-center justify-between p-6 lg:px-8 h-auto">
+<div id="sidebar" class="bg-gray-200 border flex flex-col align-center items-center gap-2 w-[250px] border-r min-h-screen h-full">
+  <div class="mx-auto flex flex-row max-w-7xl items-center justify-between p-6 lg:px-8">
     <h2 class="nicefont">FinLit Quest</h2>
   </div>
   <div class="flex flex-col justify-center align-center gap-2">
@@ -89,6 +89,6 @@
 
   <div class="flex flex-row sidebar-list items-center justify-center bg-gray-300 mx-2">
     <img src="https://api.dicebear.com/8.x/pixel-art/svg?seed=<%= url_encode(@current_user.email) %>" alt="Profile Picture" width="50" height="50"/>
-    <p class="text-center">Jackson Stone</p>
+    <p class="text-center"><%= @current_user.name %></p>
   </div>
 </div>
