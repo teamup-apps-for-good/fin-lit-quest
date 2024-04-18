@@ -25,6 +25,19 @@ echo <CREDENTIAL_STORE_MASTER_KEY> > config/master.key
 bundle exec rails db:create db:migrate db:reset
 ```
 
+### Auth
+1. Create an OAuth consent screen for this project in Google Cloud with the scopes userinfo.email and userinfo.name
+2. Create a client ID and secret for this consent screen on Google Cloud
+3. Delete the `config/credentials.yml.enc` file
+4. Create a new file and master key by running `EDITOR=nano rails credentials:edit`
+5. In this file, place the following content, replacing client_id and client_secret with your details generated in step 2. Also, take note of the secret_key_base in this file if deploying to heroku
+```
+google:
+    client_id: client_id
+    client_secret: client_secret
+```
+6. Take note of the contents of the `config/master.key` file if deploying to heroku
+
 ### Running Tests
 
 Make sure to run the following before creating a pull request; this ensures that it will pass the automated Actions tests.
@@ -56,11 +69,14 @@ The deployments are all handled automatially through Github Actions. If you need
 
 # create the app and postgres addon
 heroku create -a <new app name>
-heroku addons:create heroku-postgresql:mini
+heroku addons:create heroku-postgresql:mini -a <your app name>
 # deploy this code to the app
 git push heroku main
-# finally, seed the initial database
-heroku run rake db:seed
+# seed the initial database
+heroku run rake db:seed -a <your app name>
+# add the environment variables for oauth
+# see the auth step under getting started with development above to obtain these values
+heroku config:set RAILS_MASTER_KEY=<your master key> SECRET_KEY_BASE=<your secret key base>
 ```
 
 You will also need to configure the proper environment variables, such as the key to the credential store.
