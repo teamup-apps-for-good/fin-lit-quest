@@ -70,13 +70,14 @@ The deployments are all handled automatially through Github Actions. If you need
 # create the app and postgres addon
 heroku create -a <new app name>
 heroku addons:create heroku-postgresql:mini -a <your app name>
+heroku config:set RAILS_MASTER_KEY=<your master key>
 # deploy this code to the app
 git push heroku main
 # seed the initial database
 heroku run rake db:seed -a <your app name>
 # add the environment variables for oauth
 # see the auth step under getting started with development above to obtain these values
-heroku config:set RAILS_MASTER_KEY=<your master key> SECRET_KEY_BASE=<your secret key base>
+heroku config:set SECRET_KEY_BASE=<your secret key base>
 ```
 
 You will also need to configure the proper environment variables, such as the key to the credential store.
